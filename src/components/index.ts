@@ -12,3 +12,4 @@ export { default as Button11 } from './Button11.astro';
 export { default as Button12 } from './Button12.astro';
 export { default as Button13 } from './Button13.astro';
 export { default as Button14 } from './Button14.astro';
+export { default as Button15 } from './Button15.astro';

@@ -14,6 +14,7 @@ import {
   Button12,
   Button13,
   Button14,
+  Button15,
 } from '@/components';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -35,7 +36,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <Button12>Button12 <small>Hover Me</small> </Button12>
   </div>
   <Button13>Button13 <small>Hover Me</small> </Button13>
-  <Button14>Button14 <small>Hover Me</small> </Button14>
+  <div class="bg"><Button14>Button14 <small>Hover Me</small> </Button14></div>
+  <div class="bg"><Button15>Button15 <small>Hover Me</small> </Button15></div>
 </BaseLayout>
 
 <style>
@@ -47,5 +49,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     justify-content: center;
     align-items: center;
     background-color: #363636;
+    height: 5.7rem;
   }
 </style>
