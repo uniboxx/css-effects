@@ -1,7 +1,51 @@
 ---
+import {
+  Button01,
+  Button02,
+  Button03,
+  Button04,
+  Button05,
+  Button06,
+  Button07,
+  Button08,
+  Button09,
+  Button10,
+  Button11,
+  Button12,
+  Button13,
+  Button14,
+} from '@/components';
+
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Astro">
-  <h1>Astro</h1>
+  <Button01>Button01 <small>Hover Me</small></Button01>
+  <Button02>Button02 <small>Hover Me</small></Button02>
+  <Button03>Button03 <small>Hover Me</small></Button03>
+  <Button04>Button04 <small>Hover Me</small></Button04>
+  <Button05>Button05 <small>Hover Me</small></Button05>
+  <Button06>Button06 <small>Hover Me</small></Button06>
+  <Button07 />
+  <Button08>Button08 <small>Hover Me</small></Button08>
+  <Button09>Button09 <small>Hover Me</small></Button09>
+  <Button10>Button10 <small>Hover Me</small></Button10>
+  <Button11 />
+  <div class="bg">
+    <Button12>Button12 <small>Hover Me</small> </Button12>
+  </div>
+  <Button13>Button13 <small>Hover Me</small> </Button13>
+  <Button14>Button14 <small>Hover Me</small> </Button14>
 </BaseLayout>
+
+<style>
+  small {
+    font-size: 1rem;
+  }
+  .bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #363636;
+  }
+</style>

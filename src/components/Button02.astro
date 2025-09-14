@@ -1,0 +1,40 @@
+<button><slot /></button>
+
+<style>
+  button {
+    --primary-color: #351435;
+    --duration: 0.7s;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    transition: color var(--duration) ease-in-out;
+    border: 3px solid var(--primary-color);
+    background-color: transparent;
+    padding: 1rem 2rem;
+    overflow: hidden;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    line-height: 1;
+
+    cursor: pointer;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: width var(--duration) ease-in-out;
+      background-color: var(--primary-color);
+      width: 0;
+      height: 100%;
+      content: '';
+    }
+
+    &:hover {
+      color: white;
+      &::before {
+        /* se volessi farlo entrare da un altro lato dovrei usare transform: translate */
+        width: 100%;
+      }
+    }
+  }
+</style>

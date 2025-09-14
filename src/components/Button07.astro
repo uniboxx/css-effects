@@ -1,0 +1,59 @@
+<button>
+  <div id="before">Button07 <small>Hover Me</small></div>
+  <div id="after">Button07 <small>Hover Me</small></div>
+</button>
+
+<style>
+  button {
+    --primary-color: #262626;
+    --secondary-color: #fffa65;
+    --duration: 0.7s;
+    position: relative;
+    transition: color var(--duration) ease-in-out;
+    cursor: pointer;
+    border: 3px solid var(--primary-color);
+    background-color: transparent;
+    background-color: var(--primary-color);
+    padding: 1rem 2rem;
+    height: 6rem;
+    overflow: hidden;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+
+    #before,
+    #after {
+      display: flex;
+      position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform var(--duration) ease-in-out;
+      background-color: var(--secondary-color);
+      width: 100%;
+      height: 100%;
+      content: 'Button07 Hover me';
+      color: var(--primary-color);
+      line-height: 1;
+      small {
+        font-size: 1rem;
+      }
+    }
+    #before {
+      bottom: 0;
+      left: 0;
+      transform: translateX(-100%) translateY(100%);
+    }
+    #after {
+      top: 0;
+      right: 0;
+    }
+
+    &:hover {
+      #before {
+        transform: translateX(0) translateY(0);
+      }
+      #after {
+        transform: translateX(100%) translateY(-100%);
+      }
+    }
+  }
+</style>

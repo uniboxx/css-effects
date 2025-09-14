@@ -1,0 +1,89 @@
+<div>
+  <button>
+    <span>
+      <slot />
+    </span>
+  </button>
+</div>
+
+<style>
+  div {
+    --primary-color: #272727;
+    --secondary-color: #f6b93b;
+    --duration: 0.2s;
+    background-color: var(--primary-color);
+    height: 5.7rem;
+  }
+  button {
+    position: relative;
+    z-index: 0;
+    transition: var(--duration);
+    cursor: pointer;
+    border: 3px solid var(--secondary-color);
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    line-height: 1;
+    span {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 2rem;
+    }
+
+    &::before,
+    &::after,
+    span::before,
+    span::after {
+      position: absolute;
+      z-index: -1;
+      transition: var(--duration);
+      background-color: var(--secondary-color);
+      width: 25%;
+      height: 100%;
+      content: '';
+    }
+    &::before {
+      top: 100%;
+      left: 0%;
+      transition-delay: 0.1s;
+    }
+    &::after {
+      top: -100%;
+      left: 25%;
+    }
+
+    span::before {
+      top: 100%;
+      right: 25%;
+      transition-delay: 0.2s;
+    }
+    span::after {
+      top: -100%;
+      right: 0%;
+      transition-delay: 0.3s;
+    }
+
+    &:hover {
+      color: var(--primary-color);
+      &::before,
+      &::after {
+      }
+      &::before {
+        top: 0%;
+      }
+      &::after {
+        top: 0;
+      }
+
+      span::before {
+        top: 0;
+      }
+      span::after {
+        top: 0;
+      }
+    }
+  }
+</style>
