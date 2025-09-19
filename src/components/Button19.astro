@@ -1,0 +1,57 @@
+<button>
+  <slot />
+  <span></span>
+</button>
+
+<style>
+  button {
+    --primary-color: #262626;
+    --secondary-color: #fafafa; /* like body background */
+    --duration: 0.25s;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: var(--duration);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    line-height: 1;
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      border: 2px solid var(--primary-color);
+      width: 100%;
+      height: 100%;
+
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-60deg);
+        transition: var(--duration);
+        background-color: var(--secondary-color);
+        width: 8%;
+        height: 500%;
+        content: '';
+      }
+    }
+
+    &:hover {
+      color: var(--secondary-color);
+      span::before {
+        transform: translate(-50%, -50%) rotate(60deg);
+        background-color: var(--primary-color);
+        width: 100%;
+      }
+    }
+  }
+</style>
