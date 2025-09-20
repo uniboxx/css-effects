@@ -20,6 +20,10 @@ import {
   Button18,
   Button19,
   Button20,
+  Button21,
+  Button22,
+  Button23,
+  Button24,
 } from '@/components';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -48,6 +52,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   <div class="bg"><Button18>Button18 <small>Hover Me</small> </Button18></div>
   <Button19>Button19<small>Hover Me</small></Button19>
   <Button20>Button20<small>Hover Me</small></Button20>
+  <div class="bg green">
+    <Button21>Button21<small>Hover Me</small></Button21>
+  </div>
+  <Button22>Button22<small>Hover Me</small></Button22>
+  <div class="bg black">
+    <Button23>Button23<small>Hover Me</small></Button23>
+  </div>
+  <div class="bg blue">
+    <Button24>Button24<small>Hover Me</small></Button24>
+  </div>
 </BaseLayout>
 
 <style>
@@ -60,5 +74,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     align-items: center;
     background-color: #363636;
     height: 5.7rem;
+    &.green {
+      background-color: #2eceb1;
+    }
+    &.black {
+      background-color: #222;
+    }
+    &.blue {
+      background-color: #0c2461;
+    }
   }
 </style>

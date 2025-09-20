@@ -1,0 +1,62 @@
+<button>
+  <slot />
+</button>
+
+<style>
+  button {
+    --primary-color: #250e74;
+    --secondary-color: #fafafa;
+    --duration: 0.5s;
+    --button-height: 88px;
+    --button-border-size: 4px;
+    --before-border-size: calc(
+      (var(--button-height) - 2 * var(--button-border-size)) / 2
+    );
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    transition: var(--duration);
+    cursor: pointer;
+    border: var(--button-border-size) solid var(--primary-color);
+    background-color: transparent;
+    /* padding: 0.5rem 1rem; */
+    height: var(--button-height);
+    overflow: hidden;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    line-height: 1;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      transition: var(--duration);
+      border-top: var(--before-border-size) solid var(--primary-color);
+      border-bottom: var(--before-border-size) solid var(--primary-color);
+      content: '';
+    }
+    &::before {
+      transform: translateX(-100%);
+      border-right: var(--before-border-size) solid transparent;
+    }
+    &::after {
+      transform: translateX(100%);
+      border-left: var(--before-border-size) solid transparent;
+    }
+
+    &:hover {
+      color: var(--secondary-color);
+      &::before,
+      &::after {
+        transform: translateX(0);
+      }
+    }
+  }
+</style>
