@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import image01 from '../images/image01.jpg';
+
+const width = 300;
+const height = 300;
+---
+
+<figure>
+  <Image src={image01} alt="image01" priority width={width} />
+  <figcaption>
+    <h2>{Astro.self.name}</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.</p>
+    <a href="#">read more</a>
+  </figcaption>
+</figure>
+
+<style define:vars={{ width, height }}>
+  figure {
+    --duration: 0.3s;
+    --primary-color: #006266;
+    position: relative;
+    transition: var(--duration);
+    border: 10px solid #fff;
+    background-color: #444;
+    width: calc(var(--width) * 1px);
+    height: calc(var(--height) * 1px);
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    figcaption {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      transition: var(--duration);
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      text-align: center;
+      h2 {
+        background-color: black;
+      }
+      h2,
+      p {
+        transform: scale(10);
+        opacity: 0;
+        transition: var(--duration);
+      }
+      p,
+      a {
+        align-self: center;
+        transition: var(--duration);
+      }
+      p {
+        width: 80%;
+      }
+      a {
+        transform: translateY(300%);
+        background-color: black;
+        padding: 10px;
+        color: inherit;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: var(--duration);
+      background-color: var(--primary-color);
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
+
+    &:hover {
+      h2,
+      p {
+        transform: scale(1);
+        opacity: 1;
+      }
+      h2,
+      p,
+      a {
+        transition-delay: 0.2s;
+      }
+      a {
+        transform: translateY(0%);
+      }
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+</style>
