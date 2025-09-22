@@ -1,6 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
-import image01 from '../images/image01.jpg';
+import image01 from '@/images/image01.jpg';
 
 const optImg = await getImage({ src: image01, width: 300, height: 300 });
 console.log('🚀 ~ optImg:', optImg);

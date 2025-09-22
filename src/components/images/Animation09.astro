@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import image01 from '../images/image01.jpg';
+import image01 from '@/images/image01.jpg';
 
 const width = 300;
 const height = 300;
@@ -41,30 +41,23 @@ const height = 300;
       flex-direction: column;
       justify-content: center;
       gap: 1rem;
+      opacity: 0;
       transition: var(--duration);
       width: 100%;
       height: 100%;
       color: #fff;
       text-align: center;
       h2 {
-        background-color: black;
-      }
-      h2,
-      p {
-        transform: translateY(-250%);
-        transition: var(--duration);
+        background-color: var(--primary-color);
       }
       p,
       a {
         align-self: center;
-        transition: var(--duration);
       }
       p {
         width: 80%;
       }
       a {
-        transform: translateY(-600%);
-        transition: calc(var(--duration) * 0.4);
         background-color: black;
         padding: 10px;
         color: inherit;
@@ -76,8 +69,8 @@ const height = 300;
       position: absolute;
       top: 0;
       left: 0;
-      opacity: 0;
-      transition: calc(var(--duration) * 0.6);
+      transform: scale(0) rotate(-180deg);
+      transition: var(--duration);
       background-color: var(--primary-color);
       width: 100%;
       height: 100%;
@@ -86,26 +79,15 @@ const height = 300;
 
     &:hover {
       img {
-        transform: scale(0) rotate(720deg);
-        opacity: 0;
+        transform: scale(0);
         transition-delay: 0s;
       }
-      &::before {
+      figcaption {
         opacity: 1;
-        transition-delay: calc(var(--duration) * 0.6);
+        transition-delay: calc(var(--duration) * 2);
       }
-      h2,
-      p,
-      a {
-        transform: translateY(0%);
-      }
-      h2 {
-        transition-delay: calc(var(--duration) * 1.8);
-      }
-      p {
-        transition-delay: calc(var(--duration) * 1.4);
-      }
-      a {
+      &::before {
+        transform: scale(1) rotate(0deg);
         transition-delay: var(--duration);
       }
     }
