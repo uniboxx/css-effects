@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+// prettier-ignore
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06 } from '@/components';
+---
+
+<BaseLayout title="Astro Images">
+  <h2>Hover over the image</h2>
+  <div class="grid">
+    <Animation01 />
+    <Animation02 />
+    <Animation03 />
+    <Animation04 />
+    <Animation05 />
+    <Animation06 />
+  </div>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+</style>

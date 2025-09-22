@@ -1,70 +1,56 @@
 ---
-import {
-  Button01,
-  Button02,
-  Button03,
-  Button04,
-  Button05,
-  Button06,
-  Button07,
-  Button08,
-  Button09,
-  Button10,
-  Button11,
-  Button12,
-  Button13,
-  Button14,
-  Button15,
-  Button16,
-  Button17,
-  Button18,
-  Button19,
-  Button20,
-  Button21,
-  Button22,
-  Button23,
-  Button24,
-} from '@/components';
+// prettier-ignore
+import { Button01, Button02, Button03, Button04, Button05, Button06, Button07, Button08, Button09, Button10, Button11, Button12, Button13, Button14, Button15, Button16, Button17, Button18, Button19, Button20, Button21, Button22, Button23, Button24 } from '@/components';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Astro">
-  <Button01>Button01 <small>Hover Me</small></Button01>
-  <Button02>Button02 <small>Hover Me</small></Button02>
-  <Button03>Button03 <small>Hover Me</small></Button03>
-  <Button04>Button04 <small>Hover Me</small></Button04>
-  <Button05>Button05 <small>Hover Me</small></Button05>
-  <Button06>Button06 <small>Hover Me</small></Button06>
-  <Button07 />
-  <Button08>Button08 <small>Hover Me</small></Button08>
-  <Button09>Button09 <small>Hover Me</small></Button09>
-  <Button10>Button10 <small>Hover Me</small></Button10>
-  <Button11 />
-  <div class="bg">
-    <Button12>Button12 <small>Hover Me</small> </Button12>
-  </div>
-  <Button13>Button13 <small>Hover Me</small> </Button13>
-  <div class="bg"><Button14>Button14 <small>Hover Me</small> </Button14></div>
-  <div class="bg"><Button15>Button15 <small>Hover Me</small> </Button15></div>
-  <div class="bg"><Button16>Button16 <small>Hover Me</small> </Button16></div>
-  <Button17><small>Hover Me</small></Button17>
-  <div class="bg"><Button18>Button18 <small>Hover Me</small> </Button18></div>
-  <Button19>Button19<small>Hover Me</small></Button19>
-  <Button20>Button20<small>Hover Me</small></Button20>
-  <div class="bg green">
-    <Button21>Button21<small>Hover Me</small></Button21>
-  </div>
-  <Button22>Button22<small>Hover Me</small></Button22>
-  <div class="bg black">
-    <Button23>Button23<small>Hover Me</small></Button23>
-  </div>
-  <div class="bg blue">
-    <Button24>Button24<small>Hover Me</small></Button24>
+  <h2>Hover over the button</h2>
+  <div class="grid">
+    <Button01>Button01 <small>Hover Me</small></Button01>
+    <Button02>Button02 <small>Hover Me</small></Button02>
+    <Button03>Button03 <small>Hover Me</small></Button03>
+    <Button04>Button04 <small>Hover Me</small></Button04>
+    <Button05>Button05 <small>Hover Me</small></Button05>
+    <Button06>Button06 <small>Hover Me</small></Button06>
+    <Button07 />
+    <Button08>Button08 <small>Hover Me</small></Button08>
+    <Button09>Button09 <small>Hover Me</small></Button09>
+    <Button10>Button10 <small>Hover Me</small></Button10>
+    <Button11 />
+    <div class="bg">
+      <Button12>Button12 <small>Hover Me</small> </Button12>
+    </div>
+    <Button13>Button13 <small>Hover Me</small> </Button13>
+    <div class="bg"><Button14>Button14 <small>Hover Me</small> </Button14></div>
+    <div class="bg"><Button15>Button15 <small>Hover Me</small> </Button15></div>
+    <div class="bg"><Button16>Button16 <small>Hover Me</small> </Button16></div>
+    <Button17><small>Hover Me</small></Button17>
+    <div class="bg"><Button18>Button18 <small>Hover Me</small> </Button18></div>
+    <Button19>Button19<small>Hover Me</small></Button19>
+    <Button20>Button20<small>Hover Me</small></Button20>
+    <div class="bg green">
+      <Button21>Button21<small>Hover Me</small></Button21>
+    </div>
+    <Button22>Button22<small>Hover Me</small></Button22>
+    <div class="bg black">
+      <Button23>Button23<small>Hover Me</small></Button23>
+    </div>
+    <div class="bg blue">
+      <Button24>Button24<small>Hover Me</small></Button24>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 10px;
+    margin-bottom: 3rem;
+    padding: 10px;
+  }
   small {
     font-size: 1rem;
   }

@@ -16,6 +16,18 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <header>
+      <h1>CSS EFFECTS</h1>
+      <nav>
+        <a href="/" class:list={[{ active: Astro.url.pathname === '/' }]}
+          >Buttons</a
+        >
+        <a
+          href="/images"
+          class:list={[{ active: Astro.url.pathname === '/images' }]}>Images</a
+        >
+      </nav>
+    </header>
     <main>
       <slot />
     </main>
@@ -23,11 +35,37 @@ const { title } = Astro.props;
 </html>
 
 <style>
-  main {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 10px;
-    margin-bottom: 3rem;
-    padding: 10px;
+  body {
+    background-color: #999;
+  }
+  header {
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 0.5rem 10px;
+      font-size: 1.2rem;
+      a {
+        display: block;
+        padding: 0.5rem 0;
+        color: #ededed;
+        text-align: center;
+        text-decoration: none;
+        &.active {
+          color: #fff;
+          font-weight: bold;
+          text-decoration: underline 3px;
+          text-underline-offset: 0.5rem;
+        }
+      }
+    }
   }
 </style>

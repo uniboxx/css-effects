@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import image01 from '../images/image01.jpg';
+
+const width = 300;
+const height = 300;
+---
+
+<figure>
+  <Image src={image01} alt="image01" priority width={width} />
+  <figcaption>
+    <h2>{Astro.self.name}</h2>
+    <p>You can write anything here</p>
+  </figcaption>
+</figure>
+
+<style define:vars={{ width, height }}>
+  figure {
+    --duration: 0.25s;
+    --primary-color: #ae895d;
+    position: relative;
+    width: calc(var(--width) * 1px);
+    height: calc(var(--height) * 1px);
+    overflow: hidden;
+    img {
+      transition: var(--duration);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    figcaption {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-20px);
+      opacity: 0;
+      transition: var(--duration);
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      text-align: center;
+
+      p {
+        background-color: var(--primary-color);
+        padding: 3px 5px;
+        font-size: 1rem;
+        text-transform: capitalize;
+      }
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(100%);
+      transition: var(--duration);
+      /* this delay is when hover out */
+      transition-delay: var(--duration);
+      background-color: #b28a7088;
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
+    &:hover {
+      &::before {
+        transform: translateY(0);
+        /* this delay is when hover in */
+        transition-delay: 0s;
+      }
+
+      figcaption {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: var(--duration);
+      }
+    }
+  }
+</style>
