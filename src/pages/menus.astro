@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+// prettier-ignore
+import { Menu01 } from '@/components';
+---
+
+<BaseLayout title="Astro Menus">
+  <h2>Hover over the menu item</h2>
+  <div class="grid">
+    <Menu01 />
+  </div>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    margin-bottom: 20rem;
+    padding: 10px;
+  }
+</style>

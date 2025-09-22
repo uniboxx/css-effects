@@ -34,3 +34,4 @@ export { default as Animation09 } from './images/Animation09.astro';
 export { default as Animation10 } from './images/Animation10.astro';
 export { default as Animation11 } from './images/Animation11.astro';
 export { default as Animation12 } from './images/Animation12.astro';
+export { default as Menu01 } from './menus/Menu01.astro';
