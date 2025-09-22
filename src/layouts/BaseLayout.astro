@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 
 const { title } = Astro.props;
+console.log(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -24,7 +25,8 @@ const { title } = Astro.props;
         >
         <a
           href="/images"
-          class:list={[{ active: Astro.url.pathname === '/images' }]}>Images</a
+          class:list={[{ active: Astro.url.pathname.startsWith('/images') }]}
+          >Images</a
         >
       </nav>
     </header>
