@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astro-components-buttons.netlify.app/',
+  site: 'https://unibox-css-effects.netlify.app/',
 
   integrations: [sitemap()],
 });
