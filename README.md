@@ -5,6 +5,10 @@ You can find all components in the relative subfolders of [/src/components/](htt
 ## How to use buttons:
 
 ```astro
+---
+import Buttonxx from '/link_to_component';
+---
+
 <Buttonxx>some_text</Buttonxx>
 ```
 
@@ -13,7 +17,8 @@ You can find all components in the relative subfolders of [/src/components/](htt
 ```astro
 ---
 import { Image } from 'astro:assets';
-import image from '/link_to_image'
+import image from '/link_to_image';
+import Animationxx from '/link_to_component';
 ---
 <Animationxx width={xxx} height={xxx}>
   <Image src={image} alt='some text' loading={lazy/eager}>
@@ -34,5 +39,9 @@ import image from '/link_to_image'
 ## Hot to use links:
 
 ```astro
+---
+import Linkxx from '/link_to_component';
+---
+
 <Linkxx>some_text</Linkxx>
 ```
