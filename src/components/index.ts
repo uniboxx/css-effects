@@ -45,3 +45,4 @@ export { default as Link08 } from './links/Link08.astro';
 export { default as Link09 } from './links/Link09.astro';
 export { default as Link10 } from './links/Link10.astro';
 export { default as Link11 } from './links/Link11.astro';
+export { default as Link12 } from './links/Link12.astro';

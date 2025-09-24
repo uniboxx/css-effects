@@ -1,0 +1,66 @@
+---
+const slotText = await Astro.slots.render('default');
+const space = String.fromCharCode(160);
+---
+
+<a href="#" data-text={slotText}><slot /></a>
+
+<style>
+  a {
+    --primary-color: #ffffff1a;
+    --secondary-color: #262626;
+    --tertiary-color: #3bffa7;
+    --duration: 0.5s;
+
+    position: relative;
+    transition: var(--duration);
+    transition-delay: var(--duration);
+    width: max-content;
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-decoration: none;
+
+    &,
+    &::before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      height: 100%;
+    }
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: var(--duration);
+      transition-delay: 0s;
+      width: max-content;
+      height: 100%;
+      content: attr(data-text);
+      color: var(--tertiary-color);
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 1.5rem;
+      text-shadow:
+        0 0 10px var(--tertiary-color),
+        0 0 30px var(--tertiary-color),
+        0 0 80px var(--tertiary-color);
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      transition-delay: 0s;
+      color: var(--primary-color);
+      &::before {
+        opacity: 1;
+        transition-delay: var(--duration);
+        letter-spacing: 0.15rem;
+      }
+    }
+  }
+</style>
