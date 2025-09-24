@@ -1,0 +1,57 @@
+<a href="#"><span><slot /></span><span><slot /></span></a>
+<!-- in alternative to before/after you can use different spans   -->
+
+<style>
+  a {
+    --primary-color: #16a085;
+    --duration: 0.5s;
+    position: relative;
+    transition: var(--duration);
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    overflow: hidden;
+    color: inherit;
+    font-size: 1.2rem;
+    text-decoration: none;
+
+    span,
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: var(--duration);
+      width: 100%;
+      height: 100%;
+    }
+    &::before {
+      transform: scaleX(0);
+      transform-origin: left;
+      background-color: var(--primary-color);
+      content: '';
+    }
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      transition-delay: var(--duration);
+    }
+    span:nth-child(2) {
+      top: 100%;
+    }
+
+    &:hover {
+      &::before {
+        transform: scaleX(1);
+        /* in uscita dovrebbe uscire a destra ma non va */
+        /* transform-origin: right; */
+        transition-delay: var(--duration);
+      }
+      span {
+        transform: translateY(-100%);
+        transition-delay: 0s;
+      }
+    }
+  }
+</style>
