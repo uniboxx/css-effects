@@ -19,19 +19,21 @@
     &::before {
       position: absolute;
       top: 0;
-      left: 0;
       transition: var(--duration);
       width: 100%;
       height: 100%;
     }
     &::before {
-      transform: scaleX(0);
-      transform-origin: left;
+      display: inline-block;
+      right: 0;
+      transform-origin: right;
       background-color: var(--primary-color);
+      max-width: 0;
       content: '';
     }
     span {
       display: flex;
+      left: 0;
       justify-content: center;
       align-items: center;
       gap: 1rem;
@@ -43,10 +45,9 @@
 
     &:hover {
       &::before {
-        transform: scaleX(1);
-        /* in uscita dovrebbe uscire a destra ma non va */
-        /* transform-origin: right; */
-        transition-delay: var(--duration);
+        right: unset;
+        left: 0;
+        max-width: 100%;
       }
       span {
         transform: translateY(-100%);
