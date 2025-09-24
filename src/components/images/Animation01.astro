@@ -1,16 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import image01 from '@/images/image01.jpg';
-const width = 300;
-const height = 300;
+const { width, height } = Astro.props;
 ---
 
 <figure>
-  <Image src={image01} alt="image01" loading="eager" width={width} />
-  <figcaption>
-    <h2>{Astro.self.name}</h2>
-    <p>You can write anything here</p>
-  </figcaption>
+  <slot />
+  <slot name="caption" />
 </figure>
 
 <style define:vars={{ width, height }}>

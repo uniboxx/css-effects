@@ -2,23 +2,113 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
 import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12 } from '@/components';
+import { Image } from 'astro:assets';
+import image01 from '@/images/image01.jpg';
 ---
 
 <BaseLayout title="Astro Images">
   <h2>Hover over the image</h2>
   <div class="grid">
-    <Animation01 />
-    <Animation02 />
-    <Animation03 />
-    <Animation04 />
-    <Animation05 />
-    <Animation06 />
-    <Animation07 />
-    <Animation08 />
-    <Animation09 />
-    <Animation10 />
-    <Animation11 />
-    <Animation12 />
+    <Animation01 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation01</h2>
+        <p>You can write anything here</p>
+      </figcaption>
+    </Animation01>
+    <Animation02 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation02</h2>
+        <p>You can write anything here</p>
+      </figcaption></Animation02
+    >
+    <Animation03 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation03</h2>
+        <p>You can write anything here</p>
+      </figcaption></Animation03
+    >
+    <Animation04 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation04</h2>
+        <p>You can write anything here</p>
+      </figcaption></Animation04
+    >
+    <Animation05 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation05</h2>
+        <p>You can write anything here</p>
+      </figcaption></Animation05
+    >
+    <Animation06 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation06</h2>
+      </figcaption></Animation06
+    >
+    <Animation07 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation07</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. A, illum!
+        </p>
+        <a href="">read more</a>
+      </figcaption></Animation07
+    >
+    <Animation08 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation08</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
+        </p>
+        <a href="#">read more</a>
+      </figcaption></Animation08
+    >
+    <Animation09 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation09</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
+        </p>
+        <a href="#">read more</a>
+      </figcaption></Animation09
+    >
+    <Animation10 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation10</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
+        </p>
+        <a href="#">read more</a>
+      </figcaption></Animation10
+    >
+    <Animation11 width={300} height={300}>
+      <Image src={image01} alt="image01" loading="eager" />
+      <figcaption slot="caption">
+        <h2>Animation11</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
+        </p>
+        <a href="#">read more</a>
+      </figcaption></Animation11
+    >
+    <Animation12 image={image01} width={300} height={300}>
+      <figcaption slot="caption">
+        <h2>Animation12</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
+        </p>
+        <a href="#">read more</a>
+      </figcaption></Animation12
+    >
   </div>
 </BaseLayout>
 

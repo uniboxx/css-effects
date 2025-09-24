@@ -1,12 +1,11 @@
 ---
 import { getImage } from 'astro:assets';
-import image01 from '@/images/image01.jpg';
 
-const optImg = await getImage({ src: image01, width: 300, height: 300 });
-console.log('🚀 ~ optImg:', optImg);
+const { image, width, height } = Astro.props;
+
+const optImg = await getImage({ src: image, width, height });
 
 const { src } = optImg;
-const { width, height } = optImg.attributes;
 ---
 
 <figure>
