@@ -1,14 +1,14 @@
 # Css Effects
 
-You can find all buttons and images animations components in [/src/components/](https://github.com/uniboxx/astro-components-buttons/tree/main/src/components).
+You can find all components in the relative subfolders of [/src/components/](https://github.com/uniboxx/astro-components-buttons/tree/main/src/components).
 
-How to use buttons:
+## How to use buttons:
 
 ```astro
 <Buttonxx>some_text</Buttonxx>
 ```
 
-How to use image animations:
+## How to use image animations:
 
 ```astro
 ---
@@ -31,7 +31,7 @@ import image from '/link_to_image'
 <!-- no Image component and optionally the figcaption element like before -->
 ```
 
-Hot to use links:
+## Hot to use links:
 
 ```astro
 <Linkxx>some_text</Linkxx>
