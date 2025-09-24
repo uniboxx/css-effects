@@ -16,19 +16,19 @@ import { Image } from 'astro:assets';
 import image from '/link_to_image'
 ---
 <Animationxx width={xxx} height={xxx}>
-<Image src={image} alt='some text' loading={lazy/eager}>
-<!-- optional -->
-<figcaption slot='caption'>
-  <h2>some_text</h2>
-  <p>some_text</p>
-<!-- from animation07 add a link -->
-  <a href='#'>some_text</a>
-</figcaption>
+  <Image src={image} alt='some text' loading={lazy/eager}>
+  <!-- every element below is optional -->
+  <figcaption slot='caption'>
+    <h2>some_text</h2>
+    <p>some_text</p>
+  <!-- from animation07 you can add a link -->
+    <a href='#'>some_text</a>
+  </figcaption>
 </Animationxx>
 
 <!-- only for animation12 -->
 <Animationxx image={image} width={xxx} height={xxx}>
-<!-- no Image component and optionally the figcaption element like before>
+<!-- no Image component and optionally the figcaption element like before -->
 ```
 
 Hot to use links:
