@@ -1,0 +1,53 @@
+<article><slot /></article>
+
+<style>
+  article {
+    --box-shadow-color: #26262688;
+    --primary-color: #26262688;
+    --secondary-color: #fafafa;
+    --duration: 0.5s;
+    position: relative;
+    transition: var(--duration);
+    cursor: pointer;
+    box-shadow: 0 10px 30px var(--box-shadow-color);
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    padding: 1rem 2rem;
+    height: 260px;
+
+    figure {
+      position: relative;
+      transform: translateY(-60px);
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      img {
+        border-radius: 10px;
+        width: 100%;
+      }
+    }
+    .content {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      transform: translateY(-200%);
+      opacity: 0;
+      transition: 0.3s;
+      padding: 0.5rem 1rem;
+      color: #111;
+      text-align: center;
+      p {
+        align-self: center;
+        color: var(--primary-color);
+      }
+    }
+
+    &:hover {
+      height: 100%;
+      .content {
+        transform: translateY(-120%);
+        opacity: 1;
+      }
+    }
+  }
+</style>

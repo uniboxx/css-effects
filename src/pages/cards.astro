@@ -1,0 +1,102 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+// prettier-ignore
+import { Card01, Card02, Card03, Card04, Card05, Card06} from '@/components';
+import { Image } from 'astro:assets';
+
+import card02 from '@/images/card02.jpg';
+import card03 from '@/images/card03.png';
+import card05 from '@/images/card05.png';
+import card06 from '@/images/card06.jpg';
+---
+
+<BaseLayout title="Astro Cards">
+  <h2>Hover over the card item</h2>
+  <div class="grid">
+    <Card01>
+      <h3>Card01</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tempore
+        quaerat sed corrupti explicabo, beatae dignissimos eos perferendis culpa
+        doloremque quis saepe possimus obcaecati dolore.
+      </p>
+      <a href="#">Read More</a>
+    </Card01>
+    <Card02>
+      <figure>
+        <Image src={card02} alt="card02" priority width={250} height={250} />
+      </figure>
+      <div class="content">
+        <h3>Card02</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
+        </p>
+      </div>
+    </Card02>
+    <Card03>
+      <figure>
+        <Image src={card03} alt="card03" priority width={300} height={300} />
+      </figure>
+      <div class="content">
+        <h3>Captain Marvel</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          excepturi earum temporibus hic quidem, facere non delectus voluptates.
+        </p>
+        <a href="#">Read More</a>
+      </div>
+    </Card03>
+    <Card04>
+      <span>88</span>
+      <div class="content">
+        <h3>Card04</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          excepturi earum temporibus hic quidem, facere non delectus voluptates.
+        </p>
+        <a href="#">Read More</a>
+      </div>
+    </Card04>
+    <Card05>
+      <figure>
+        <Image src={card05} alt="card05" priority width={300} height={300} />
+        <figcaption>Design</figcaption>
+      </figure>
+      <div class="content">
+        <h3>Card05</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          excepturi earum temporibus hic quidem, facere non delectus voluptates.
+        </p>
+        <a href="#">Read More</a>
+      </div>
+    </Card05>
+    <Card06>
+      <figure>
+        <Image src={card06} alt="card06" priority width={300} height={300} />
+      </figure>
+      <div class="details">
+        <h3>John Doe <br /><span>Founder</span></h3>
+      </div>
+    </Card06>
+  </div>
+</BaseLayout>
+
+<style>
+  body {
+    background-color: white;
+    color: black;
+    h2 {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 320px));
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20rem;
+    padding: 10px;
+  }
+</style>

@@ -43,14 +43,13 @@ h6 {
   line-height: 1.5;
   overflow-wrap: break-word;
 }
-h2 {
-  padding: 0.5rem 10px;
-  color: #fafafa;
-  text-align: center;
+
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
 }
-figcaption h2 {
-  text-transform: uppercase;
-}
+
 img,
 picture,
 video,
