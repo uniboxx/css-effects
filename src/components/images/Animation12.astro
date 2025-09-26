@@ -9,11 +9,7 @@ const { src } = optImg;
 ---
 
 <figure>
-  <figcaption>
-    <h2>{Astro.self.name}</h2>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.</p>
-    <a href="#">read more</a>
-  </figcaption>
+  <slot name="caption" />
   <div class="image" style={`--url: url(${src})`}></div>
 </figure>
 
@@ -33,7 +29,7 @@ const { src } = optImg;
       height: 100%;
       color: #fff;
       text-align: center;
-      h2,
+      h3,
       a {
         background-color: white;
         color: black;
@@ -87,6 +83,9 @@ const { src } = optImg;
         &::after {
           transform: rotateX(90deg) translateY(-50%);
         }
+      }
+      a {
+        z-index: 1;
       }
     }
   }
