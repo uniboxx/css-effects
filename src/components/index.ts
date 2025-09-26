@@ -52,3 +52,6 @@ export { default as Card03 } from './cards/Card03.astro';
 export { default as Card04 } from './cards/Card04.astro';
 export { default as Card05 } from './cards/Card05.astro';
 export { default as Card06 } from './cards/Card06.astro';
+export { default as Card07 } from './cards/Card07.astro';
+export { default as Card08 } from './cards/Card08.astro';
+export { default as Card09 } from './cards/Card09.astro';

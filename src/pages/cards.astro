@@ -1,13 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Card01, Card02, Card03, Card04, Card05, Card06} from '@/components';
+import { Card01, Card02, Card03, Card04, Card05, Card06, Card07, Card08, Card09} from '@/components';
 import { Image } from 'astro:assets';
 
 import card02 from '@/images/card02.jpg';
 import card03 from '@/images/card03.png';
 import card05 from '@/images/card05.png';
 import card06 from '@/images/card06.jpg';
+import card07 from '@/images/card07.jpg';
+import card08 from '@/images/headphone1.png';
+import card09 from '@/images/shoes.png';
 ---
 
 <BaseLayout title="Astro Cards">
@@ -79,6 +82,46 @@ import card06 from '@/images/card06.jpg';
         <h3>John Doe <br /><span>Founder</span></h3>
       </div>
     </Card06>
+    <Card07>
+      <figure>
+        <Image src={card07} alt="card07" priority width={300} height={300} />
+      </figure>
+      <div class="content">
+        <h3>Card07</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          excepturi earum temporibus hic quidem, facere non delectus voluptates.
+        </p>
+        <a href="#">Read More</a>
+      </div>
+    </Card07>
+    <Card08>
+      <figure>
+        <Image src={card08} alt="card08" priority width={300} height={300} />
+      </figure>
+      <div class="details">
+        <h3>Card08</h3>
+        <p>$60.<small>99</small></p>
+        <a href="#">Buy Now</a>
+      </div>
+    </Card08>
+    <Card09>
+      <figure>
+        <Image src={card09} alt="card09" priority width={300} height={300} />
+      </figure>
+      <div class="content">
+        <h3>Card09</h3>
+        <div class="size">
+          <h4>Size:</h4>
+          <span>7</span><span>8</span><span>9</span><span>10</span>
+        </div>
+        <div class="color">
+          <h4>Color:</h4>
+          <span></span><span></span><span></span>
+        </div>
+        <a href="#">Buy Now</a>
+      </div>
+    </Card09>
   </div>
 </BaseLayout>
 
