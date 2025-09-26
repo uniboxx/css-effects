@@ -22,22 +22,22 @@ const space = String.fromCharCode(160);
     transition-delay: 0;
     margin: 0 auto;
     width: max-content;
+    height: 2.5rem;
     -webkit-text-stroke: 1px var(--secondary-color);
     color: transparent;
     text-decoration: none;
 
     &,
     &::before {
-      padding: 0.5rem 0;
-      height: 100%;
       font-weight: 900;
       font-size: 1.2rem;
     }
 
     &::before {
-      display: block;
+      display: flex;
       position: absolute;
       left: 0%;
+      align-items: center;
       transition: var(--duration);
       border-right: var(--border-size) solid var(--primary-color);
       width: 0%;
