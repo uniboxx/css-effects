@@ -45,14 +45,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <style>
   h2 {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     text-align: center;
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 10px;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0 auto 3rem;
     padding: 10px;
   }
   small {
@@ -63,7 +65,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     justify-content: center;
     align-items: center;
     background-color: #363636;
-    height: 5.7rem;
+    height: 5rem;
     &.green {
       background-color: #2eceb1;
     }

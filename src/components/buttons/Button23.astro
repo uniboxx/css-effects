@@ -8,6 +8,10 @@
     --primary-color: #1e9bff;
     --secondary-color: #fafafa;
     --duration: 0.5s;
+    --length: 30px;
+    --thin: 4px;
+    --offsetX: -25%;
+    --offsetY: -50%;
     display: flex;
     position: relative;
     flex-direction: column;
@@ -18,9 +22,9 @@
     cursor: pointer;
     border: 2px solid var(--primary-color);
     background-color: transparent;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.7rem;
+    font-size: 2rem;
     color: var(--primary-color);
-    font-size: 2.5rem;
     line-height: 1;
 
     span {
@@ -37,29 +41,29 @@
       &:nth-child(1),
       &:nth-child(3) {
         top: calc(50% - 2px);
-        width: 40px;
-        height: 4px;
+        width: var(--length);
+        height: var(--thin);
       }
       &:nth-child(1) {
-        left: -25%;
+        left: var(--offsetX);
         transform-origin: left;
       }
       &:nth-child(3) {
-        right: -25%;
+        right: var(--offsetX);
         transform-origin: right;
       }
       &:nth-child(2),
       &:nth-child(4) {
         left: calc(50% - 2px);
-        width: 4px;
-        height: 40px;
+        width: var(--thin);
+        height: var(--length);
       }
       &:nth-child(2) {
-        top: -70%;
+        top: var(--offsetY);
         transform-origin: top;
       }
       &:nth-child(4) {
-        bottom: -70%;
+        bottom: var(--offsetY);
         transform-origin: bottom;
       }
     }
