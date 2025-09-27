@@ -1,0 +1,55 @@
+---
+import FillTxt from '@/components/effects/FillTxt.astro';
+import SmokyTxt from '@/components/effects/SmokyTxt.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Effects">
+  <h2>Hover over the effect</h2>
+  <div class="grid">
+    <div class="effect">
+      <SmokyTxt text="SMOKY" fontSize="2rem" duration="1s" />
+    </div>
+    <div class="effect">
+      <FillTxt
+        text="TEXT"
+        fontSize="4rem"
+        duration="0.5s"
+        color="#fafafa"
+        hoverColor="#262626"
+      />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  body {
+    background-color: #fafafa;
+  }
+  .effect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3b3b3b;
+    height: 6rem;
+  }
+  h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0 auto 3rem;
+    padding: 10px;
+  }
+  a {
+    box-shadow: 0 0 20px #00000033;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+</style>

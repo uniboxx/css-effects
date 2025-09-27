@@ -1,0 +1,34 @@
+---
+interface Props {
+  text: string;
+  duration: string;
+  fontSize: string;
+  color: string;
+  hoverColor: string;
+}
+const { text, duration, fontSize, color, hoverColor } = Astro.props;
+---
+
+<h1 data-text={text}>{text}</h1>
+
+<style define:vars={{ fontSize, duration, color, hoverColor }}>
+  h1 {
+    position: relative;
+    color: var(--color);
+    font-size: var(--fontSize);
+    &::before {
+      position: absolute;
+      transition: var(--duration);
+      width: 0;
+      overflow: hidden;
+      content: attr(data-text);
+      color: var(--hoverColor);
+    }
+
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import SmokyTxt from '@/components/effects/SmokyTxt.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EffectLayout from '@/layouts/EffectLayout.astro';
+import { capitalize } from '@/lib/utils';
+
+const effectName = capitalize(Astro.self.name);
+const text = 'SMOKE'.split('');
+---
+
+<BaseLayout title={`${effectName} effect`}>
+  <EffectLayout effectName={effectName}>
+    <div class="effect">
+      <SmokyTxt text="SMOKY" />
+    </div>
+  </EffectLayout>
+</BaseLayout>
+
+<style>
+  body {
+    background-color: #fafafa;
+  }
+  .effect {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #3b3b3b;
+  }
+</style>

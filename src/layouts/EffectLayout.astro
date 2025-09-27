@@ -1,0 +1,14 @@
+---
+const { effectName } = Astro.props;
+---
+
+<h2>Hover over the {effectName} effect</h2>
+
+<slot />
+
+<style>
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+</style>
