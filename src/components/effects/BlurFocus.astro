@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  fontSize: string;
+  duration: string;
+}
+
+const { image, width, height, fontSize, duration } = Astro.props;
+---
+
+<div class="container">
+  <h3>FOCUS</h3>
+  <Image src={image} alt="" width={width} height={height} />
+</div>
+
+<style define:vars={{ fontSize, width, height, duration }}>
+  .container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(1.3);
+      filter: blur(2px);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right top;
+    }
+    img,
+    h3 {
+      transition: var(--duration);
+    }
+    h3 {
+      z-index: 1;
+      color: white;
+      font-weight: 800;
+      font-size: var(--fontSize);
+      text-shadow: 0 5px 25px #00000033;
+    }
+    h3:hover {
+      transform: scale(1.2);
+      filter: blur(2px);
+      & ~ img {
+        top: 0;
+        left: 0;
+        transform: scale(1);
+        filter: blur(0px);
+      }
+    }
+  }
+</style>

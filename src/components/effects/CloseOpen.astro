@@ -1,0 +1,60 @@
+---
+interface Props {
+  fontSize: string;
+  duration: string;
+  delay: string;
+}
+const { fontSize, duration, delay } = Astro.props;
+const text = ['clo', 'se'];
+---
+
+<ul data-style="none">
+  <li>{text[0]}</li>
+  <li>
+    {text[1].split('').map((el) => <span id={el}>{el}</span>)}
+  </li>
+</ul>
+
+<style define:vars={{ fontSize, duration, delay }}>
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    font-size: var(--fontSize);
+    font-family: 'Just Another Hand', cursive;
+    li,
+    span {
+      transition: var(--duration);
+    }
+    li {
+      letter-spacing: 0.2rem;
+      span {
+        display: inline-block;
+      }
+    }
+
+    &:hover {
+      li {
+        &:first-of-type {
+          transform: rotate(180deg);
+        }
+        &:last-of-type {
+          transform: translateX(0.2rem) rotate(180deg);
+          transition-delay: var(--delay);
+          span {
+            &:last-of-type {
+              transform: rotate(180deg);
+              transition-delay: calc(var(--delay) * 2);
+            }
+            &:first-of-type {
+              transform: translate(-0.2rem, -0.1rem) rotate(90deg);
+              transition-delay: calc(var(--delay) * 3);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

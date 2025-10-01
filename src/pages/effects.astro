@@ -1,8 +1,9 @@
 ---
-import { SmokyTxt, FillTxt, Diagonal } from '@/components';
-import RotatedTxtBorder from '@/components/effects/RotatedTxtBorder.astro';
+// prettier-ignore
+import { SmokyTxt, FillTxt, Diagonal, RotatedTxtBorder, CloseOpen, BlurFocus } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Icon } from 'astro-icon/components';
+import imageBlur from '@/images/effect-blur-bg.jpg';
 ---
 
 <BaseLayout title="Effects">
@@ -35,10 +36,26 @@ import { Icon } from 'astro-icon/components';
         ><h3>HTML</h3><h3>CSS</h3><h3>JS</h3></RotatedTxtBorder
       >
     </div>
+    <div class="effect violet">
+      <CloseOpen fontSize="3rem" duration=".5s" delay=".5s" />
+    </div>
+    <div class="effect noflex transparent">
+      <BlurFocus
+        image={imageBlur}
+        width={300}
+        height={200}
+        fontSize="2rem"
+        duration="2s"
+      />
+    </div>
   </div>
 </BaseLayout>
 
 <style>
+  @font-face {
+    src: url('/JustAnotherHand-Regular.ttf');
+    font-family: 'Just Another Hand';
+  }
   body {
     background-color: #fafafa;
   }
@@ -53,6 +70,15 @@ import { Icon } from 'astro-icon/components';
     }
     &.orangered {
       background-color: #a8380f;
+    }
+    &.violet {
+      background-color: #9b59b6;
+    }
+    &.noflex {
+      display: block;
+    }
+    &.transparent {
+      background-color: transparent;
     }
   }
   #main-subtitle {
