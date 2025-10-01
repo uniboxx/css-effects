@@ -14,7 +14,7 @@ const { image, width, height, fontSize, duration } = Astro.props;
 
 <div class="container">
   <h3>FOCUS</h3>
-  <Image src={image} alt="" width={width} height={height} />
+  <Image src={image} alt="" width={width} height={height} priority />
 </div>
 
 <style define:vars={{ fontSize, width, height, duration }}>

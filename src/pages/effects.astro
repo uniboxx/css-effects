@@ -1,9 +1,10 @@
 ---
 // prettier-ignore
-import { SmokyTxt, FillTxt, Diagonal, RotatedTxtBorder, CloseOpen, BlurFocus } from '@/components';
+import { SmokyTxt, FillTxt, Diagonal, RotatedTxtBorder, CloseOpen, BlurFocus, CardStack } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Icon } from 'astro-icon/components';
 import imageBlur from '@/images/effect-blur-bg.jpg';
+import cards from '@/data/cards.json';
 ---
 
 <BaseLayout title="Effects">
@@ -49,6 +50,16 @@ import imageBlur from '@/images/effect-blur-bg.jpg';
       />
     </div>
   </div>
+
+  <CardStack
+    duration="0.5s"
+    delay="0.5s"
+    width="25rem"
+    height="25rem"
+    cards={cards}
+    bgColor="#833471"
+    circleColor="#ffc312"
+  />
 </BaseLayout>
 
 <style>
@@ -58,6 +69,25 @@ import imageBlur from '@/images/effect-blur-bg.jpg';
   }
   body {
     background-color: #fafafa;
+  }
+
+  #main-subtitle {
+    text-align: center;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 10px;
+    padding: 10px;
+  }
+  a {
+    box-shadow: 0 0 20px #00000033;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    text-align: center;
   }
   .effect {
     display: flex;
@@ -74,30 +104,16 @@ import imageBlur from '@/images/effect-blur-bg.jpg';
     &.violet {
       background-color: #9b59b6;
     }
+    &.darkPurple {
+      transition: 0.5s;
+      background-color: #833471;
+      height: 20rem;
+    }
     &.noflex {
       display: block;
     }
     &.transparent {
       background-color: transparent;
     }
-  }
-  #main-subtitle {
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 15rem);
-    grid-gap: 20px;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0 auto 3rem;
-    padding: 10px;
-  }
-  a {
-    box-shadow: 0 0 20px #00000033;
-    padding: 5px 10px;
-    font-size: 1.2rem;
-    text-align: center;
   }
 </style>

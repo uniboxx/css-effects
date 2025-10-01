@@ -61,3 +61,4 @@ export { default as Diagonal } from './effects/Diagonal.astro';
 export { default as RotatedTxtBorder } from './effects/RotatedTxtBorder.astro';
 export { default as CloseOpen } from './effects/CloseOpen.astro';
 export { default as BlurFocus } from './effects/BlurFocus.astro';
+export { default as CardStack } from './effects/CardStack.astro';

@@ -1,0 +1,107 @@
+---
+interface Props {
+  duration: string;
+  delay: string;
+  width: string;
+  height: string;
+  cards: {
+    title: string;
+    description: string;
+  }[];
+  bgColor: string;
+  circleColor: string;
+}
+const { duration, delay, width, height, cards, bgColor, circleColor } =
+  Astro.props;
+---
+
+<div class="container">
+  <div class="cardStack">
+    {
+      cards.map((card, idx) => (
+        <div class="card" style={`--i: ${idx - 1}`}>
+          <div class="content" style={`--j: ${idx + 1}`}>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style define:vars={{ duration, delay, width, height, bgColor, circleColor }}>
+  .container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    /* z-index: -3; */
+    background-color: var(--bgColor);
+    width: 100%;
+    min-height: 30rem;
+    &,
+    &::before {
+      transition: var(--duration);
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      clip-path: circle(12.5rem at center);
+      background-color: var(--circleColor);
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
+    .cardStack {
+      position: relative;
+      z-index: 10;
+      border-radius: 50%;
+      width: var(--width);
+      height: var(--height);
+
+      .card {
+        display: flex;
+        position: absolute;
+        top: calc(50% - 200px);
+        left: 50%;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(-50%) translateY(calc(50px * var(--i)))
+          rotate(40deg) skew(-20deg, -10deg) scale(0.6);
+        z-index: calc(var(--i) * -1);
+        transition: var(--duration);
+        box-shadow: 25px 20px 100px #00000033;
+        border-radius: 10px;
+        background-color: white;
+        width: 300px;
+        height: 400px;
+        &:nth-of-type(2) {
+          opacity: 0.8;
+        }
+        &:nth-of-type(3) {
+          opacity: 0.6;
+        }
+        .content {
+          opacity: 0;
+          transition: var(--duration);
+          padding: 1.5rem;
+        }
+      }
+      &:hover {
+        border-radius: 0;
+        width: 50rem;
+        .card {
+          transform: translateX(calc(-50% + calc(320px * var(--i))));
+          opacity: 1;
+          z-index: 1;
+          .content {
+            opacity: 1;
+            transition-delay: calc(0.2s * var(--j));
+          }
+        }
+      }
+    }
+  }
+</style>
