@@ -1,23 +1,39 @@
 ---
-import FillTxt from '@/components/effects/FillTxt.astro';
-import SmokyTxt from '@/components/effects/SmokyTxt.astro';
+import { SmokyTxt, FillTxt, Diagonal } from '@/components';
+import RotatedTxtBorder from '@/components/effects/RotatedTxtBorder.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
 ---
 
 <BaseLayout title="Effects">
-  <h2>Hover over the effect</h2>
+  <h2 id="main-subtitle">Hover over the effect</h2>
   <div class="grid">
     <div class="effect">
       <SmokyTxt text="SMOKY" fontSize="2rem" duration="1s" />
     </div>
-    <div class="effect">
+    <div class="effect orangered">
       <FillTxt
         text="TEXT"
         fontSize="3rem"
         duration="0.5s"
         color="#fafafa"
-        hoverColor="#262626"
+        hoverColor="dodgerblue"
       />
+    </div>
+    <div class="effect light">
+      <Diagonal
+        boxSize="5remx5rem"
+        fontSize="2.5rem"
+        duration=".7s"
+        backgroundColor="#fff"
+        color="#10ac84"
+        hoverColor="#f1f1f1"><Icon name="line-md:facebook" /></Diagonal
+      >
+    </div>
+    <div class="effect light">
+      <RotatedTxtBorder duration=".3s" delay=".3s" width="7rem"
+        ><h3>HTML</h3><h3>CSS</h3><h3>JS</h3></RotatedTxtBorder
+      >
     </div>
   </div>
 </BaseLayout>
@@ -32,8 +48,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     align-items: center;
     background-color: #3b3b3b;
     height: 6rem;
+    &.light {
+      background-color: #dfe6e9;
+    }
+    &.orangered {
+      background-color: #a8380f;
+    }
   }
-  h2 {
+  #main-subtitle {
     margin-bottom: 1rem;
     text-align: center;
   }

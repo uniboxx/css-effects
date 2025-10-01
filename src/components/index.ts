@@ -55,3 +55,7 @@ export { default as Card06 } from './cards/Card06.astro';
 export { default as Card07 } from './cards/Card07.astro';
 export { default as Card08 } from './cards/Card08.astro';
 export { default as Card09 } from './cards/Card09.astro';
+export { default as SmokyTxt } from './effects/SmokyTxt.astro';
+export { default as FillTxt } from './effects/FillTxt.astro';
+export { default as Diagonal } from './effects/Diagonal.astro';
+export { default as RotatedTxtBorder } from './effects/RotatedTxtBorder.astro';

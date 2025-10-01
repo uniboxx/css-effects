@@ -8,12 +8,10 @@ interface Props {
 const { text, fontSize, duration, class: className, ...props } = Astro.props;
 const regex = /(?<time>\d+(?:\.\d+)?)(?<unit>[^\d\.]+)/;
 const result = duration.match(regex);
-console.log('🚀 ~ result:', result);
 
 const { time, unit } = result?.groups!;
 
 const delay = +(+time / text.length).toFixed(2);
-console.log('🚀 ~ delay:', delay);
 
 const textArray = text.split('');
 ---
