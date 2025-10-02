@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <div id="moving">moving</div>
+  <div id="moving2">moving2</div>
+  <div id="moving3">moving3</div>
+  <div id="moving4">moving4</div>
+  <div id="moving5">moving5</div>
+</BaseLayout>
+
+<style>
+  div {
+    --width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--width);
+    height: var(--width);
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    &:not(last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  #moving {
+    /* backwards con delay fa partire l'animazione dalla prima fase,
+    forwards la fa rimanere nell'ultima fase,
+    both le usa entrambe */
+    animation: moving 3s 3s;
+    animation-fill-mode: both;
+    background-color: red;
+  }
+  #moving2 {
+    animation: moving2 3s;
+    background-color: dodgerblue;
+  }
+  #moving3 {
+    animation: moving 3s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: reverse; /*default is normal */
+    background-color: cyan;
+  }
+  #moving4 {
+    animation: moving 3s;
+    animation-timing-function: ease;
+    animation-iteration-count: 2;
+    animation-direction: alternate; /*default is normal / reverse / alternate / alternate-reverse */
+    background-color: orangered;
+  }
+  #moving5 {
+    animation: moving1 3s 1s 2 alternate;
+    background-color: darkslategray;
+  }
+
+  @keyframes moving {
+    from {
+      transform: translateX(400px);
+    }
+    to {
+      transform: translateX(calc(100svw - var(--width)));
+    }
+  }
+  @keyframes moving1 {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(100svw - var(--width)));
+    }
+  }
+  @keyframes moving2 {
+    0% {
+      transform: translateX(0);
+    }
+    /* la percentuale regola la durata della fase */
+    30% {
+      transform: translateX(calc(100svw - var(--width)));
+    }
+    100% {
+      transform: translateX(calc(100svw - var(--width))) translateY(150px);
+    }
+  }
+</style>
