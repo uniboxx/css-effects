@@ -43,6 +43,11 @@ const { title } = Astro.props;
           class:list={[{ active: Astro.url.pathname.startsWith('/effects') }]}
           >Effects</a
         >
+        <a
+          href="/parallax"
+          class:list={[{ active: Astro.url.pathname.startsWith('/parallax') }]}
+          >Parallax</a
+        >
       </nav>
     </header>
     <main>
@@ -59,6 +64,7 @@ const { title } = Astro.props;
     height: 100svh;
   }
   header {
+    margin: 1rem 0;
     h1 {
       color: rgb(193, 8, 240);
       font-size: 2rem;
@@ -71,7 +77,7 @@ const { title } = Astro.props;
       justify-content: center;
       align-items: center;
       gap: 20px;
-      padding: 0.5rem 10px;
+      padding: 0 10px;
       font-size: 1.2rem;
       a {
         display: block;

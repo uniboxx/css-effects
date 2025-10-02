@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getImage } from 'astro:assets';
+import giza from '@/images/giza.jpg';
+import paris from '@/images/paris.jpg';
+import dubai from '@/images/dubai.jpg';
+import newYork from '@/images/new-york.jpg';
+
+const gizaOpt = await getImage({ src: giza, width: 1920, height: 1080 });
+const parisOpt = await getImage({ src: paris, width: 1920, height: 1080 });
+const dubaiOpt = await getImage({ src: dubai, width: 1920, height: 1080 });
+const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
+---
+
+<BaseLayout>
+  <section style={`--url: url(${gizaOpt.src})`}>
+    <div class="content">
+      <h2>Giza</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
+        ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
+        similique ex facere amet itaque dolor. Animi, ratione. Odio dignissimos
+        id culpa expedita, optio ab velit itaque? Deserunt modi voluptas beatae
+        vero laborum, nemo architecto eveniet blanditiis laudantium, ducimus
+        provident ipsum inventore, corporis quasi dolore accusamus cupiditate
+        odit assumenda sunt nam delectus iusto quis! Ab quae officia fuga
+        aliquid perspiciatis saepe qui, similique omnis, officiis fugit deleniti
+        accusantium quaerat a. Corporis, quos.
+      </p>
+      <a href="#">Read More</a>
+    </div>
+  </section>
+  <section style={`--url: url(${parisOpt.src})`}>
+    <div class="content">
+      <h2>Paris</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
+        ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
+        similique ex facere amet itaque dolor. Animi, ratione. Odio dignissimos
+        id culpa expedita, optio ab velit itaque? Deserunt modi voluptas beatae
+        vero laborum, nemo architecto eveniet blanditiis laudantium, ducimus
+        provident ipsum inventore, corporis quasi dolore accusamus cupiditate
+        odit assumenda sunt nam delectus iusto quis! Ab quae officia fuga
+        aliquid perspiciatis saepe qui, similique omnis, officiis fugit deleniti
+        accusantium quaerat a. Corporis, quos.
+      </p>
+      <a href="#">Read More</a>
+    </div>
+  </section>
+  <section style={`--url: url(${dubaiOpt.src})`}>
+    <div class="content">
+      <h2>Dubai</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
+        ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
+        similique ex facere amet itaque dolor. Animi, ratione. Odio dignissimos
+        id culpa expedita, optio ab velit itaque? Deserunt modi voluptas beatae
+        vero laborum, nemo architecto eveniet blanditiis laudantium, ducimus
+        provident ipsum inventore, corporis quasi dolore accusamus cupiditate
+        odit assumenda sunt nam delectus iusto quis! Ab quae officia fuga
+        aliquid perspiciatis saepe qui, similique omnis, officiis fugit deleniti
+        accusantium quaerat a. Corporis, quos.
+      </p>
+      <a href="#">Read More</a>
+    </div>
+  </section>
+  <section style={`--url: url(${newYorkOpt.src})`}>
+    <div class="content">
+      <h2>New York</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
+        ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
+        similique ex facere amet itaque dolor. Animi, ratione. Odio dignissimos
+        id culpa expedita, optio ab velit itaque? Deserunt modi voluptas beatae
+        vero laborum, nemo architecto eveniet blanditiis laudantium, ducimus
+        provident ipsum inventore, corporis quasi dolore accusamus cupiditate
+        odit assumenda sunt nam delectus iusto quis! Ab quae officia fuga
+        aliquid perspiciatis saepe qui, similique omnis, officiis fugit deleniti
+        accusantium quaerat a. Corporis, quos.
+      </p>
+      <a href="#">Read More</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  body {
+    background: unset;
+  }
+  section {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 10px;
+    min-height: 100svh;
+    text-align: center;
+
+    h2 {
+      background-image: var(--url);
+      background-position: top center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-clip: text;
+      background-attachment: fixed;
+      color: transparent;
+      font-weight: 900;
+      font-size: 24svw;
+      line-height: 1em;
+      text-transform: uppercase;
+    }
+    p {
+      margin: 0 auto;
+      padding: 0 20px;
+      max-width: 66ch;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      border: 2px solid black;
+      padding: 10px 20px;
+      color: black;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+  }
+</style>
