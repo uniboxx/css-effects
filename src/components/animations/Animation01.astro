@@ -1,0 +1,24 @@
+---
+interface Props {
+  text: string;
+  duration?: string;
+  class?: string;
+}
+const { text, class: className, ...rest } = Astro.props;
+---
+
+<h3 class={className} {...rest}>{text}</h3>
+
+<style define:vars={{ duration: '3s' }}>
+  h3 {
+    animation: float var(--duration) linear infinite alternate;
+  }
+  @keyframes float {
+    from {
+      transform: rotate(5deg);
+    }
+    to {
+      transform: rotate(-5deg);
+    }
+  }
+</style>

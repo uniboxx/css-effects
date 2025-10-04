@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12 } from '@/components';
+import { ImageAnimation01, ImageAnimation02, ImageAnimation03, ImageAnimation04, ImageAnimation05, ImageAnimation06, ImageAnimation07, ImageAnimation08, ImageAnimation09, ImageAnimation10, ImageAnimation11, ImageAnimation12 } from '@/components';
 import { Image } from 'astro:assets';
 import image01 from '@/images/image01.jpg';
 ---
@@ -9,106 +9,106 @@ import image01 from '@/images/image01.jpg';
 <BaseLayout title="Astro Images">
   <h2>Hover over the image</h2>
   <div class="grid">
-    <Animation01 width={300} height={300}>
+    <ImageAnimation01 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation01</h3>
+        <h3>ImageAnimation01</h3>
         <p>You can write anything here</p>
       </figcaption>
-    </Animation01>
-    <Animation02 width={300} height={300}>
+    </ImageAnimation01>
+    <ImageAnimation02 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation02</h3>
+        <h3>ImageAnimation02</h3>
         <p>You can write anything here</p>
-      </figcaption></Animation02
+      </figcaption></ImageAnimation02
     >
-    <Animation03 width={300} height={300}>
+    <ImageAnimation03 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation03</h3>
+        <h3>ImageAnimation03</h3>
         <p>You can write anything here</p>
-      </figcaption></Animation03
+      </figcaption></ImageAnimation03
     >
-    <Animation04 width={300} height={300}>
+    <ImageAnimation04 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation04</h3>
+        <h3>ImageAnimation04</h3>
         <p>You can write anything here</p>
-      </figcaption></Animation04
+      </figcaption></ImageAnimation04
     >
-    <Animation05 width={300} height={300}>
+    <ImageAnimation05 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation05</h3>
+        <h3>ImageAnimation05</h3>
         <p>You can write anything here</p>
-      </figcaption></Animation05
+      </figcaption></ImageAnimation05
     >
-    <Animation06 width={300} height={300}>
+    <ImageAnimation06 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation06</h3>
-      </figcaption></Animation06
+        <h3>ImageAnimation06</h3>
+      </figcaption></ImageAnimation06
     >
-    <Animation07 width={300} height={300}>
+    <ImageAnimation07 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation07</h3>
+        <h3>ImageAnimation07</h3>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. A, illum!
         </p>
         <a href="">read more</a>
-      </figcaption></Animation07
+      </figcaption></ImageAnimation07
     >
-    <Animation08 width={300} height={300}>
+    <ImageAnimation08 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation08</h3>
+        <h3>ImageAnimation08</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="#">read more</a>
-      </figcaption></Animation08
+      </figcaption></ImageAnimation08
     >
-    <Animation09 width={300} height={300}>
+    <ImageAnimation09 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation09</h3>
+        <h3>ImageAnimation09</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="#">read more</a>
-      </figcaption></Animation09
+      </figcaption></ImageAnimation09
     >
-    <Animation10 width={300} height={300}>
+    <ImageAnimation10 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation10</h3>
+        <h3>ImageAnimation10</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="#">read more</a>
-      </figcaption></Animation10
+      </figcaption></ImageAnimation10
     >
-    <Animation11 width={300} height={300}>
+    <ImageAnimation11 width={300} height={300}>
       <Image src={image01} alt="image01" loading="eager" />
       <figcaption slot="caption">
-        <h3>Animation11</h3>
+        <h3>ImageAnimation11</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="#">read more</a>
-      </figcaption></Animation11
+      </figcaption></ImageAnimation11
     >
-    <Animation12 image={image01} width={300} height={300}>
+    <ImageAnimation12 image={image01} width={300} height={300}>
       <figcaption slot="caption">
-        <h3>Animation12</h3>
+        <h3>ImageAnimation12</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="#">read more</a>
       </figcaption>
-    </Animation12>
+    </ImageAnimation12>
   </div>
 </BaseLayout>
 
@@ -118,7 +118,7 @@ import image01 from '@/images/image01.jpg';
     text-align: center;
   }
   h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   .grid {
     display: grid;

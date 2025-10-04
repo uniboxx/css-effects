@@ -53,6 +53,12 @@ const { title } = Astro.props;
           class:list={[{ active: Astro.url.pathname.startsWith('/keyframes') }]}
           >Keyframes</a
         >
+        <a
+          href="/animations"
+          class:list={[
+            { active: Astro.url.pathname.startsWith('/animations') },
+          ]}>Animations</a
+        >
       </nav>
     </header>
     <main>

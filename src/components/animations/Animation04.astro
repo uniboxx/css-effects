@@ -1,0 +1,25 @@
+---
+interface Props {
+  texts: string[];
+  duration?: number;
+  class?: string;
+  spanClass?: string;
+}
+const { texts, class: className, duration = 2000, ...rest } = Astro.props;
+---
+
+<h3 class={className} {...rest}>
+  I Love Css <span data-texts={texts} data-duration={duration}>{texts[0]}</span>
+</h3>
+
+<script>
+  const switchText = document.querySelector('span')!;
+  let index = 0;
+  const texts = switchText.dataset.texts?.split(',')!;
+  const duration = switchText.dataset.duration!;
+
+  setInterval(() => {
+    switchText.textContent = texts[index];
+    index = (index + 1) % texts?.length;
+  }, +duration);
+</script>
