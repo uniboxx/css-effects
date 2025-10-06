@@ -1,11 +1,12 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import bgImage from '@/images/animation03/bg.jpg';
 import car from '@/images/animation03/car.png';
 import motobike from '@/images/animation03/motobike.png';
+import bg12 from '@/images/animation12/bg.jpg';
 ---
 
 <BaseLayout>
@@ -18,10 +19,18 @@ import motobike from '@/images/animation03/motobike.png';
     </div>
     <div class="animation">
       <Animation03 class="animation03" bgImage={bgImage} width="180px">
-        <Image src={car} alt="car" width={50} height={25} class="car" />
+        <Image
+          src={car}
+          alt="car"
+          priority
+          width={50}
+          height={25}
+          class="car"
+        />
         <Image
           src={motobike}
           alt="motobike"
+          priority
           width={25}
           height={25}
           class="motobike"
@@ -33,6 +42,30 @@ import motobike from '@/images/animation03/motobike.png';
         texts={['transitions', 'animations', 'transforms']}
         class="animation04"
       />
+    </div>
+    <div class="animation no-flex">
+      <Animation05 class="animation05" />
+    </div>
+    <div class="animation black">
+      <Animation06 class="animation06" />
+    </div>
+    <div class="animation black">
+      <Animation07 class="animation07" bg="#f44336" />
+    </div>
+    <div class="animation black">
+      <Animation08 class="animation08" text="LIGHTING" color="#484848" />
+    </div>
+    <div class="animation black">
+      <Animation09 class="animation09" />
+    </div>
+    <div class="animation blue">
+      <Animation10 class="animation10" text="ANIMATION 10" />
+    </div>
+    <div class="animation black">
+      <Animation11 class="animation11" color="#fff" />
+    </div>
+    <div class="animation">
+      <Animation12 class="animation12" bg={bg12} />
     </div>
   </div>
 
@@ -55,6 +88,15 @@ import motobike from '@/images/animation03/motobike.png';
         }
         &.orange {
           background-color: #ea2027;
+        }
+        &.black {
+          background-color: #333;
+        }
+        &.blue {
+          background-color: #273c75;
+        }
+        &.gray {
+          background-color: #00000066;
         }
         &.no-flex {
           display: block;
@@ -103,6 +145,33 @@ import motobike from '@/images/animation03/motobike.png';
           font-family: arial;
           text-transform: uppercase;
         }
+      }
+      .animation06 {
+        transition: 0.3s;
+        border: 3px solid #fff;
+        padding: 10px;
+        color: #fff;
+        font-size: 2rem;
+        &:hover {
+          border: 3px solid #f44336;
+          color: #f44336;
+        }
+      }
+      .animation07 {
+        transition: 0.3s;
+        border: 2px solid #fff;
+        padding: 20px;
+        color: #fff;
+        font-size: 1.5rem;
+        &:hover {
+        }
+      }
+      .animation08 {
+        font-size: 1.5rem;
+      }
+      .animation10 {
+        font-size: 2rem;
+        fweight: 700;
       }
     }
   </style>

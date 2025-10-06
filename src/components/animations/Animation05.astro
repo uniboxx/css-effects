@@ -1,0 +1,25 @@
+---
+import bg from '@/images/animation05/bg.png';
+import { getImage } from 'astro:assets';
+const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
+---
+
+<div class="container" style=`--url: url(${optBg.src})`></div>
+
+<style>
+  .container {
+    animation: scroll 15s linear infinite;
+    background: var(--url);
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes scroll {
+    from {
+      background-position-y: bottom;
+    }
+    to {
+      background-position-y: 10px;
+    }
+  }
+</style>

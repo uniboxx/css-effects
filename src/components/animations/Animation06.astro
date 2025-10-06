@@ -1,0 +1,29 @@
+---
+interface Props {
+  duration?: string;
+  class?: string;
+}
+const { class: className, duration = '0.3s', ...rest } = Astro.props;
+---
+
+<h3 class={className} {...rest}>Hover Me</h3>
+
+<style define:vars={{ duration }}>
+  h3 {
+    cursor: pointer;
+    &:hover {
+      animation: shake var(--duration) linear;
+    }
+  }
+  @keyframes shake {
+    33% {
+      transform: rotate(10deg);
+    }
+    66% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(10deg);
+    }
+  }
+</style>

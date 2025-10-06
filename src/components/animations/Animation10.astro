@@ -1,0 +1,31 @@
+---
+import bg from '@/images/animation10/bg.jpg';
+import { getImage } from 'astro:assets';
+
+const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
+interface Props {
+  text: string;
+  class?: string;
+}
+const { text, class: className } = Astro.props;
+---
+
+<h3 class={className} style=`--url: url(${optBg.src})`>{text}</h3>
+
+<style>
+  h3 {
+    animation: moving10 15s linear infinite;
+    background: var(--url);
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+  }
+  @keyframes moving10 {
+    from {
+      background-position: 100% 100%;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+</style>

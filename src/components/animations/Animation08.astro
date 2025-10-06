@@ -1,0 +1,62 @@
+---
+interface Props {
+  text: string;
+  duration?: string;
+  class?: string;
+  color: string;
+  delay?: '.1s';
+}
+const {
+  text,
+  duration = '1.4s',
+  class: className,
+  color,
+  delay = '0.1s',
+  ...rest
+} = Astro.props;
+const arrayTxt = text.split('');
+const regex = /(?<delayTime>[\d\.]+)(?<delayUnit>(s|ms)$)/;
+const { groups } = delay.match(regex) ?? {};
+const { delayTime, delayUnit } = groups;
+---
+
+<ul data-style="none" class={className} {...rest}>
+  {
+    arrayTxt.map((letter, index) => (
+      <li style={`--letDelay: ${(+delayTime * index).toFixed(2) + delayUnit}`}>
+        {letter}
+      </li>
+    ))
+  }
+</ul>
+
+<style define:vars={{ duration, color }}>
+  ul {
+    display: flex;
+    gap: 5px;
+    li {
+      animation: lighting08 var(--duration) linear infinite;
+      animation-delay: var(--letDelay);
+      color: var(--color);
+      /* &:nth-of-type(2) {
+        animation-delay: 0.1s;
+      } */
+    }
+  }
+  @keyframes lighting08 {
+    0% {
+      color: var(--color);
+      text-shadow: none;
+    }
+    90% {
+      color: var(--color);
+      text-shadow: none;
+    }
+    100% {
+      color: #fff900;
+      text-shadow:
+        0 0 0.0875em #fff900,
+        0 0 0.625em #ff6c00;
+    }
+  }
+</style>

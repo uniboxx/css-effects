@@ -1,0 +1,57 @@
+---
+interface Props {
+  duration?: string;
+  class?: string;
+  bg: string;
+}
+const { class: className, duration = '0.5s', bg, ...rest } = Astro.props;
+---
+
+<div class="container">
+  <h3 class={className} {...rest}>Hover Me</h3>
+</div>
+
+<style define:vars={{ bg, duration }}>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  h3 {
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    overflow: hidden;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: skewX(-15deg);
+      z-index: -1;
+      animation: moving07 1.2s linear infinite;
+      transition: var(--duration);
+      background: var(--bg);
+      width: 33%;
+      height: 100%;
+      content: '';
+    }
+    &:hover {
+      &::before {
+        left: 0;
+        transform: skewX(0);
+        animation: none;
+        width: 100%;
+      }
+    }
+  }
+  @keyframes moving07 {
+    from {
+      left: -40%;
+    }
+    to {
+      left: 100%;
+    }
+  }
+</style>

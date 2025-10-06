@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string;
+  color?: string;
+}
+const { class: className, color = '#fff' } = Astro.props;
+---
+
+<ul data-style="none" class={className}>
+  {
+    Array.from({ length: 5 }, (_, index) => index + 1).map((_) => (
+      <li
+        style={`--delay: ${(Math.ceil(Math.random() * 50) / 100).toFixed(2)}s`}
+      />
+    ))
+  }
+</ul>
+
+<style define:vars={{ color }}>
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 5px solid var(--color);
+    width: 80%;
+    height: 100%;
+    color: var(--color);
+    li {
+      animation: jumping11 0.8s linear infinite;
+      animation-delay: var(--delay);
+      border-radius: 50%;
+      background-color: var(--color);
+      width: 20px;
+      height: 20px;
+    }
+  }
+  @keyframes jumping11 {
+    50% {
+      transform: translateY(-300%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+</style>

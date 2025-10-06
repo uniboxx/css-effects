@@ -1,4 +1,6 @@
 ---
+import { getImage } from 'astro:assets';
+
 interface Props {
   bgImage: ImageMetadata;
   duration?: string;
@@ -6,9 +8,10 @@ interface Props {
   width: string;
 }
 const { bgImage, class: className, width, ...rest } = Astro.props;
+const optBg = await getImage({ src: bgImage, alt: 'bg', format: 'webp' });
 ---
 
-<div class="container" style={`--url: url(${bgImage.src})`}>
+<div class="container" style={`--url: url(${optBg.src})`} {...rest}>
   <slot />
 </div>
 
