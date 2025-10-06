@@ -5,12 +5,22 @@ interface Props {
   class?: string;
   spanClass?: string;
 }
-const { texts, class: className, duration = 2000, ...rest } = Astro.props;
+const { texts, class: className, duration = 4000, ...rest } = Astro.props;
 ---
 
 <h3 class={className} {...rest}>
   I Love Css <span data-texts={texts} data-duration={duration}>{texts[0]}</span>
 </h3>
+
+<style>
+  span {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    &.visible {
+      opacity: 1;
+    }
+  }
+</style>
 
 <script>
   const switchText = document.querySelector('span')!;
@@ -19,7 +29,9 @@ const { texts, class: className, duration = 2000, ...rest } = Astro.props;
   const duration = switchText.dataset.duration!;
 
   setInterval(() => {
+    switchText.classList.add('visible');
     switchText.textContent = texts[index];
     index = (index + 1) % texts?.length;
-  }, +duration);
+    setTimeout(() => switchText.classList.remove('visible'), +duration);
+  }, +duration + 500);
 </script>
