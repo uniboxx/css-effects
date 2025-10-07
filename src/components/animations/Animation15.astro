@@ -1,0 +1,72 @@
+---
+import wave from '@/images/wave.png';
+import { getImage } from 'astro:assets';
+interface Props {
+  class?: string;
+  duration?: string;
+  color?: string;
+}
+const {
+  class: className,
+  duration = '1s',
+  color = '#00aeff',
+  ...rest
+} = Astro.props;
+const optWave = await getImage({ src: wave, alt: 'wave', format: 'webp' });
+let { width, height } = optWave.attributes;
+width += 'px';
+height += 'px';
+---
+
+<button class={className} {...rest}
+  >Animation 15
+  <div class="wave" style={`--url: url(${optWave.src})`}></div>
+</button>
+
+<style define:vars={{ color, duration, width, height }}>
+  button {
+    position: relative;
+    z-index: 0;
+    transition: var(--duration);
+    border: 2px solid var(--color);
+    background-color: transparent;
+    padding: 0.5em 1em;
+    overflow: hidden;
+    color: var(--color);
+    .wave {
+      top: calc(100% + var(--height));
+      z-index: -1;
+      transition: var(--duration);
+      background-color: var(--color);
+      height: 100%;
+
+      &,
+      &::before {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        content: '';
+      }
+      &::before {
+        top: calc(var(--height) * -1);
+        animation: wavy15 var(--duration) linear infinite;
+        background: var(--url);
+        height: var(--height);
+      }
+    }
+    &:hover {
+      color: white;
+      .wave {
+        top: 0;
+      }
+    }
+  }
+  @keyframes wavy15 {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: var(--width);
+    }
+  }
+</style>

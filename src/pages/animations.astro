@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import bgImage from '@/images/animation03/bg.jpg';
@@ -67,6 +67,28 @@ import bg12 from '@/images/animation12/bg.jpg';
     <div class="animation">
       <Animation12 class="animation12" bg={bg12} />
     </div>
+    <div class="animation white">
+      <Animation13
+        class="animation13"
+        iconName="heart"
+        color="#f44336"
+        hoverColor="#fff"
+      />
+    </div>
+    <div class="animation x2cells white">
+      <Animation14
+        class="animation14"
+        text="ANIMATION 14"
+        color1="#f44336"
+        color2="blue"
+      />
+    </div>
+    <div class="animation black">
+      <Animation15 class="animation15" />
+    </div>
+    <div class="animation black">
+      <Animation16 class="animation16" iconName="whatsapp" color="#58ea00" />
+    </div>
   </div>
 
   <style>
@@ -98,8 +120,14 @@ import bg12 from '@/images/animation12/bg.jpg';
         &.gray {
           background-color: #00000066;
         }
+        &.white {
+          background-color: #fff;
+        }
         &.no-flex {
           display: block;
+        }
+        &.x2cells {
+          grid-column: span 2;
         }
       }
       .animation01 {
@@ -170,8 +198,21 @@ import bg12 from '@/images/animation12/bg.jpg';
         font-size: 1.5rem;
       }
       .animation10 {
+        font-weight: 700;
         font-size: 2rem;
-        fweight: 700;
+      }
+      .animation13 {
+        font-size: 2rem;
+      }
+      .animation14 {
+        font-weight: 700;
+        font-size: 2rem;
+      }
+      .animation15 {
+        font-size: 1.3rem;
+      }
+      .animation16 {
+        font-size: 2.5rem;
       }
     }
   </style>

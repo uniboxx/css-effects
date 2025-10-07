@@ -1,0 +1,60 @@
+---
+interface Props {
+  text: string;
+  color1: string;
+  color2: string;
+  duration?: string;
+  class?: string;
+}
+const {
+  text,
+  color1,
+  color2,
+  duration = '3s',
+  class: className,
+  ...rest
+} = Astro.props;
+const arrayTxt = text.split('');
+---
+
+<ul data-style="none" class={className} {...rest}>
+  {
+    arrayTxt.map((letter, index) => (
+      <li style={`--delay: ${index * 0.2}s`}>{letter}</li>
+    ))
+  }
+</ul>
+
+<style define:vars={{ color1, color2, duration }}>
+  ul {
+    display: flex;
+  }
+  li {
+    opacity: 0;
+    animation: anim14 var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    letter-spacing: 0.5em;
+  }
+  @keyframes anim14 {
+    0% {
+      transform: translateX(-0.6em);
+      opacity: 0;
+      color: var(--color1);
+      letter-spacing: 0.5em;
+    }
+    10% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
+      letter-spacing: -0.5em;
+    }
+
+    100% {
+      transform: translateX(0.6em);
+      opacity: 0;
+      color: var(--color2);
+      letter-spacing: 0.5em;
+    }
+  }
+</style>
