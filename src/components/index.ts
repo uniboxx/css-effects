@@ -78,3 +78,4 @@ export { default as Animation13 } from './animations/Animation13.astro';
 export { default as Animation14 } from './animations/Animation14.astro';
 export { default as Animation15 } from './animations/Animation15.astro';
 export { default as Animation16 } from './animations/Animation16.astro';
+export { default as Animation17 } from './animations/Animation17.astro';

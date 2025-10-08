@@ -14,7 +14,7 @@ const optRain = await getImage({ src: rain, alt: 'rain', format: 'webp' });
 ---
 
 <div
-  class="container"
+  class:list={[className, 'container']}
   style={`--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src})`}
 >
   <div class="rain"></div>

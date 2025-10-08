@@ -1,12 +1,16 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import bgImage from '@/images/animation03/bg.jpg';
 import car from '@/images/animation03/car.png';
 import motobike from '@/images/animation03/motobike.png';
 import bg12 from '@/images/animation12/bg.jpg';
+import img1 from '@/images/animation17/img-1.jpg';
+import img2 from '@/images/animation17/img-2.jpg';
+import img3 from '@/images/animation17/img-3.jpg';
+import img4 from '@/images/animation17/img-4.jpg';
 ---
 
 <BaseLayout>
@@ -89,6 +93,16 @@ import bg12 from '@/images/animation12/bg.jpg';
     <div class="animation black">
       <Animation16 class="animation16" iconName="whatsapp" color="#58ea00" />
     </div>
+    <div class="animation x2x2cells black">
+      <Animation17
+        class="animation17"
+        images={[img1, img2, img3, img4]}
+        imageTime="4s"
+        duration=".5s"
+        width={400}
+        height={200}
+      />
+    </div>
   </div>
 
   <style>
@@ -128,6 +142,10 @@ import bg12 from '@/images/animation12/bg.jpg';
         }
         &.x2cells {
           grid-column: span 2;
+        }
+        &.x2x2cells {
+          grid-column: span 2;
+          height: 200px;
         }
       }
       .animation01 {
@@ -191,8 +209,6 @@ import bg12 from '@/images/animation12/bg.jpg';
         padding: 20px;
         color: #fff;
         font-size: 1.5rem;
-        &:hover {
-        }
       }
       .animation08 {
         font-size: 1.5rem;
@@ -213,6 +229,9 @@ import bg12 from '@/images/animation12/bg.jpg';
       }
       .animation16 {
         font-size: 2.5rem;
+      }
+      .animation17 {
+        height: 200px;
       }
     }
   </style>
