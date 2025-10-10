@@ -1,0 +1,94 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  size?: string;
+}
+const { class: className, duration = '3s', size = '20px' } = Astro.props;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = size.match(regex);
+const { groups } = result;
+const quantity = groups.quantity;
+const unit = groups.unit;
+const containerSize = `${+quantity * 2}${unit}`;
+console.log('🚀 ~ containerSize:', containerSize);
+---
+
+<div id="container20" class={className}>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<style define:vars={{ duration, size, containerSize }}>
+  #container20 {
+    position: relative;
+    transform: rotate(45deg);
+    animation: anim20 1s infinite linear;
+    width: var(--containerSize);
+    height: var(--containerSize);
+    span {
+      position: absolute;
+      animation: anim20Spans 1s infinite linear;
+      width: var(--size);
+      height: var(--size);
+      &:nth-of-type(1) {
+        top: 0;
+        left: 0;
+        background-color: orange;
+      }
+      &:nth-of-type(2) {
+        top: 0;
+        right: 0;
+        background-color: blue;
+      }
+      &:nth-of-type(3) {
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+      }
+      &:nth-of-type(4) {
+        bottom: 0;
+        left: 0;
+        background-color: yellow;
+      }
+    }
+  }
+  @keyframes anim20 {
+    0% {
+      width: 40px;
+      height: 40px;
+    }
+    10% {
+      width: 40px;
+      height: 40px;
+    }
+    50% {
+      width: 60px;
+      height: 60px;
+    }
+    90% {
+      width: 40px;
+      height: 40px;
+    }
+    100% {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  @keyframes anim20Spans {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(90deg);
+    }
+    90% {
+      transform: rotate(90deg);
+    }
+    100% {
+      transform: rotate(90deg);
+    }
+  }
+</style>

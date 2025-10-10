@@ -79,3 +79,6 @@ export { default as Animation14 } from './animations/Animation14.astro';
 export { default as Animation15 } from './animations/Animation15.astro';
 export { default as Animation16 } from './animations/Animation16.astro';
 export { default as Animation17 } from './animations/Animation17.astro';
+export { default as Animation18 } from './animations/Animation18.astro';
+export { default as Animation19 } from './animations/Animation19.astro';
+export { default as Animation20 } from './animations/Animation20.astro';
