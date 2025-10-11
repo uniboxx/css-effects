@@ -1,0 +1,45 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  width?: string;
+  height?: string;
+}
+const {
+  class: className,
+  duration = '2s',
+  width = '80%',
+  height = '3px',
+} = Astro.props;
+---
+
+<div id="line24" class={className}></div>
+
+<style define:vars={{ duration, width, height }}>
+  #line24 {
+    animation: anim24 var(--duration) infinite linear alternate;
+    background-color: white;
+    width: var(--width);
+    height: var(--height);
+  }
+
+  @keyframes anim24 {
+    0% {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    47.5% {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    52.5% {
+      transform: scaleX(1);
+      transform-origin: right;
+    }
+    100% {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+  }
+</style>

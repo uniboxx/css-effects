@@ -1,0 +1,51 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text: string;
+}
+const { class: className, duration = '2s', text } = Astro.props;
+---
+
+<div id="container22" class={className}>
+  <h3>{text}<span>{text}</span></h3>
+</div>
+
+<style define:vars={{ duration }}>
+  #container22 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  h3 {
+    --border-size: 4px;
+    position: relative;
+    padding-right: var(--border-size);
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: anim22 5s linear infinite;
+      border-right: var(--border-size) solid #f6b93b;
+      width: 100%;
+      overflow: hidden;
+      color: #f6b93b;
+      text-wrap: nowrap;
+    }
+  }
+
+  @keyframes anim22 {
+    0% {
+      width: 0;
+    }
+
+    50% {
+      width: 100%;
+    }
+
+    100% {
+      width: 0;
+    }
+  }
+</style>

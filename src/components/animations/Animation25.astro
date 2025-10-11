@@ -1,0 +1,55 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  width?: string;
+  height?: string;
+  lines?: number;
+  origin?: 'center' | 'bottom' | 'top';
+}
+const {
+  class: className,
+  lines = 8,
+  duration = `${lines * 0.0875}s`,
+  width = '4px',
+  height = '30px',
+  origin = 'center',
+} = Astro.props;
+---
+
+<div id="container25" class={className}>
+  {
+    Array.from({ length: lines }).map((el, idx) => (
+      <div
+        class="line25"
+        style={`left: ${12.5 * idx}%; animation-delay: ${0.2 * idx}s`}
+      />
+    ))
+  }
+</div>
+
+<style define:vars={{ duration, width, height, origin }}>
+  #container25 {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--width) / 2);
+    .line25 {
+      transform-origin: var(--origin);
+      animation: anim25 var(--duration) linear infinite alternate;
+      border-radius: 10px;
+      background-color: white;
+      width: var(--width);
+      height: var(--height);
+    }
+  }
+
+  @keyframes anim25 {
+    0% {
+      transform: scaleY(0);
+    }
+
+    100% {
+      transform: scaleY(1);
+    }
+  }
+</style>

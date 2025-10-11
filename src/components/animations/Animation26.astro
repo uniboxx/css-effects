@@ -1,0 +1,76 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  size?: string;
+  colors?: string[];
+  circles?: number;
+}
+const {
+  class: className,
+  colors = ['#fff', '#ccae62', '#218c74', '#eb4d4b'],
+  circles = colors?.length,
+  duration = '1s',
+  size = '80px',
+} = Astro.props;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = size.match(regex)!;
+const quantity = +result?.groups?.quantity!;
+const unit = result?.groups?.unit;
+const borderSize = `${quantity * 0.025}${unit}`;
+console.log('🚀 ~ borderSize:', borderSize);
+---
+
+<div id="container26" class={className}>
+  {
+    Array.from({ length: circles }).map((el, idx) => {
+      const circleSize =
+        idx === 0
+          ? `${quantity / circles / 2}${unit}`
+          : `${(quantity / circles) * (idx + 1)}${unit}`;
+      return (
+        <div
+          class="circle26"
+          style={`--circleSize: ${circleSize};--color: ${colors?.[idx]}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style define:vars={{ duration, size, borderSize }}>
+  #container26 {
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    .circle26 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: anim26 3s infinite linear;
+      border: var(--borderSize) solid transparent;
+      border-right-color: var(--color);
+      border-left-color: var(--color);
+      border-radius: 50%;
+      width: var(--circleSize);
+      height: var(--circleSize);
+      &:nth-of-type(1) {
+        background-color: var(--color);
+      }
+      &:nth-of-type(3) {
+        animation-direction: reverse;
+      }
+    }
+  }
+
+  @keyframes anim26 {
+    0% {
+      transform: translate(-50%, -50%) rotate(0);
+    }
+
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+</style>
