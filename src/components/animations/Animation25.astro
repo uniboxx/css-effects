@@ -22,7 +22,7 @@ const {
     Array.from({ length: lines }).map((el, idx) => (
       <div
         class="line25"
-        style={`left: ${12.5 * idx}%; animation-delay: ${0.2 * idx}s`}
+        style={`left: ${(100 / lines) * idx}%; animation-delay: ${0.2 * idx}s`}
       />
     ))
   }

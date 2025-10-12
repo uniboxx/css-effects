@@ -1,0 +1,62 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  width?: string;
+  height?: string;
+  colors?: string[];
+  lines?: number;
+  origin?: 'center' | 'bottom' | 'top';
+}
+const {
+  class: className,
+  colors = ['#2eeca8', '#eade3d', '#55acee', '#ec902e', '#09b7bf', '#ea3d8c'],
+  lines = colors.length,
+  duration = `${lines * 0.15}s`,
+  width = '4px',
+  height = '30px',
+  origin = 'center',
+} = Astro.props;
+---
+
+<div id="container28" class={className}>
+  {
+    Array.from({ length: lines }).map((_, idx) => {
+      const delay = idx === 0 ? '0s' : `${0.1 * (idx + 1)}s`;
+      return (
+        <div
+          class="line28"
+          style={`left: ${(100 / lines) * idx}%;animation-delay: ${delay};background-color: ${colors[idx]}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style define:vars={{ duration, width, height, origin }}>
+  #container28 {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--width) / 2);
+    .line28 {
+      transform-origin: var(--origin);
+      animation: loading28 var(--duration) ease-in-out infinite;
+      border-radius: 10px;
+      width: var(--width);
+      height: var(--height);
+    }
+  }
+
+  @keyframes loading28 {
+    0% {
+      transform: scaleY(0.1);
+    }
+    35% {
+      transform: scaleY(1);
+    }
+    60%,
+    100% {
+      transform: scaleY(0.1);
+    }
+  }
+</style>

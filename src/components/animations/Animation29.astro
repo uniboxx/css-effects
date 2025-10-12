@@ -1,0 +1,63 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  number?: number;
+  boxColor?: string;
+  mediumSize?: string;
+}
+const {
+  class: className,
+  duration = '4s',
+  number = 5,
+  boxColor = '#f2f2f2',
+  mediumSize = '20px',
+} = Astro.props;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = mediumSize.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+---
+
+<div id="container29" class={className}>
+  {
+    Array.from({ length: number }).map((_, idx) => {
+      const random = Math.round((Math.random() * 0.6 + 0.7) * 100) / 100;
+      const randomSize = `${Math.trunc(quantity * random)}${unit}`;
+      const gap = (quantity * number) / (number + 1);
+      const delay = Math.ceil(Math.random() * number * 100) / 100;
+      return (
+        <div
+          class="square"
+          style={`bottom: -${randomSize};width: ${randomSize};height: ${randomSize};left: ${gap * (idx + 1)}%;animation-delay: ${delay}s`}
+        />
+      );
+    })
+  }
+  <slot />
+</div>
+
+<style define:vars={{ duration, boxColor }}>
+  #container29 {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .square {
+      position: absolute;
+      bottom: calc(var(--mediumSize) * -1);
+      transform: translateX(-50%);
+      z-index: -1;
+      animation: anim29 var(--duration) infinite ease-in-out;
+      background-color: var(--boxColor);
+    }
+  }
+  @keyframes anim29 {
+    100% {
+      bottom: 100%;
+      transform: rotate(180deg);
+      opacity: 0;
+    }
+  }
+</style>

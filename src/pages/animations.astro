@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import bgImage from '@/images/animation03/bg.jpg';
@@ -132,149 +132,179 @@ import img4 from '@/images/animation17/img-4.jpg';
     <div class="animation blue">
       <Animation26 class="animation26" />
     </div>
-
-    <style>
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 240px);
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin: 1rem 0;
-        padding: 10px;
-        .animation {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 5rem;
-          &.green {
-            background-color: #26de81;
-          }
-          &.orange {
-            background-color: #ea2027;
-          }
-          &.lightOrange {
-            background-color: #ee5253;
-          }
-          &.black {
-            background-color: #333;
-          }
-          &.blue {
-            background-color: #273c75;
-          }
-          &.gray {
-            background-color: #00000066;
-          }
-          &.white {
-            background-color: #fff;
-          }
-          &.no-flex {
-            display: block;
-          }
-          &.x2cells {
-            grid-column: span 2;
-          }
-          &.x2x2cells {
-            grid-column: span 2;
-            height: 200px;
-          }
-        }
-        .animation01 {
-          color: #fff;
-          font-size: 2.4rem;
-          line-height: 1;
-          font-family: arial;
-          letter-spacing: 5px;
-          text-align: center;
-          text-shadow:
-            0 1px 0 #efefef,
-            0 2px 0 #efefef,
-            0 3px 0 #efefef,
-            0 4px 0 #efefef,
-            0 0.8rem 5px #0000001a;
-        }
-        .animation02 {
-          border-radius: 12px;
-          background-color: #fff;
-          width: 3rem;
-          height: 3rem;
-        }
-
-        img.car {
-          position: absolute;
-          bottom: 0;
-          left: 35%;
-          width: calc(100% / 6);
-          height: auto;
-        }
-        img.motobike {
-          position: absolute;
-          bottom: 6%;
-          left: 60%;
-          width: calc(100% / 12);
-          height: auto;
-        }
-        .animation04 {
-          color: #fff;
-          font-size: 1rem;
-          span {
-            color: #181464;
-            font-family: arial;
-            text-transform: uppercase;
-          }
-        }
-        .animation06 {
-          transition: 0.3s;
-          border: 3px solid #fff;
-          padding: 10px;
-          color: #fff;
-          font-size: 2rem;
-          &:hover {
-            border: 3px solid #f44336;
-            color: #f44336;
-          }
-        }
-        .animation07 {
-          transition: 0.3s;
-          border: 2px solid #fff;
-          padding: 20px;
-          color: #fff;
-          font-size: 1.5rem;
-        }
-        .animation08 {
-          font-size: 1.5rem;
-        }
-        .animation10 {
-          font-weight: 700;
-          font-size: 2rem;
-        }
-        .animation13 {
-          font-size: 2rem;
-        }
-        .animation14 {
-          font-weight: 700;
-          font-size: 2rem;
-        }
-        .animation15 {
-          font-size: 1.3rem;
-        }
-        .animation16 {
-          font-size: 2.5rem;
-        }
-        .animation17 {
-          height: 200px;
-        }
-        .animation18 {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 1.5rem;
-        }
-        .animation22 {
-          color: #fff;
-          font-size: 1.3rem;
-        }
-      }
-    </style>
+    <div class="animation blue">
+      <Animation27 class="animation27" />
+    </div>
+    <div class="animation black">
+      <Animation28 class="animation28" />
+    </div>
+    <div class="animation black">
+      <Animation29 class="animation29">
+        <h3>Animation 29</h3>
+      </Animation29>
+    </div>
+    <div class="animation black">
+      <Animation30 class="animation30" />
+    </div>
+    <div class="animation white">
+      <Animation31 class="animation31" text="Animation 31" href="#" />
+    </div>
   </div>
 </BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 1rem 0;
+    padding: 10px;
+    .animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5rem;
+      &.green {
+        background-color: #26de81;
+      }
+      &.orange {
+        background-color: #ea2027;
+      }
+      &.lightOrange {
+        background-color: #ee5253;
+      }
+      &.black {
+        background-color: #333;
+      }
+      &.blue {
+        background-color: #273c75;
+      }
+      &.gray {
+        background-color: #00000066;
+      }
+      &.white {
+        background-color: #fff;
+      }
+      &.no-flex {
+        display: block;
+      }
+      &.x2cells {
+        grid-column: span 2;
+      }
+      &.x2x2cells {
+        grid-column: span 2;
+        height: 200px;
+      }
+    }
+    .animation01 {
+      color: #fff;
+      font-size: 2.4rem;
+      line-height: 1;
+      font-family: arial;
+      letter-spacing: 5px;
+      text-align: center;
+      text-shadow:
+        0 1px 0 #efefef,
+        0 2px 0 #efefef,
+        0 3px 0 #efefef,
+        0 4px 0 #efefef,
+        0 0.8rem 5px #0000001a;
+    }
+    .animation02 {
+      border-radius: 12px;
+      background-color: #fff;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    img.car {
+      position: absolute;
+      bottom: 0;
+      left: 35%;
+      width: calc(100% / 6);
+      height: auto;
+    }
+    img.motobike {
+      position: absolute;
+      bottom: 6%;
+      left: 60%;
+      width: calc(100% / 12);
+      height: auto;
+    }
+    .animation04 {
+      color: #fff;
+      font-size: 1rem;
+      span {
+        color: #181464;
+        font-family: arial;
+        text-transform: uppercase;
+      }
+    }
+    .animation06 {
+      transition: 0.3s;
+      border: 3px solid #fff;
+      padding: 10px;
+      color: #fff;
+      font-size: 2rem;
+      &:hover {
+        border: 3px solid #f44336;
+        color: #f44336;
+      }
+    }
+    .animation07 {
+      transition: 0.3s;
+      border: 2px solid #fff;
+      padding: 20px;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+    .animation08 {
+      font-size: 1.5rem;
+    }
+    .animation10 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .animation13 {
+      font-size: 2rem;
+    }
+    .animation14 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .animation15 {
+      font-size: 1.3rem;
+    }
+    .animation16 {
+      font-size: 2.5rem;
+    }
+    .animation17 {
+      height: 200px;
+    }
+    .animation18 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+    .animation22 {
+      color: #fff;
+      font-size: 1.3rem;
+    }
+    .animation29 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.1rem;
+      h3 {
+        border: solid white;
+        border-width: 3px 0 3px 0;
+      }
+    }
+    .animation31 {
+    }
+  }
+</style>
