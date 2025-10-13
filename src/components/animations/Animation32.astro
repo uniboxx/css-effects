@@ -1,0 +1,74 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  number?: number;
+  boxColors?: string[];
+  maxSize?: string;
+}
+const {
+  class: className,
+  duration = '8s',
+  number = 8,
+  boxColors = ['blue', 'red'],
+  maxSize = '40px',
+} = Astro.props;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = duration.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+---
+
+<div id="container32" class={className}>
+  {
+    Array.from({ length: number }).map(() => {
+      const maxDelay = quantity * 100 + 1;
+      const randomTop = `${Math.floor(Math.random() * 701) / 10}%`;
+      const randomLeft = `${Math.floor(Math.random() * 701) / 10}%`;
+      const randomDelay = `${Math.floor(Math.random() * maxDelay) / 100}${unit}`;
+      const randomColor =
+        boxColors[
+          Math.trunc(Math.floor(Math.random() * boxColors.length * 10) / 10)
+        ];
+      return (
+        <div
+          class="square"
+          style={`top: ${randomTop};left: ${randomLeft};animation-delay: ${randomDelay};--color: ${randomColor}`}
+        />
+      );
+    })
+  }
+  <slot />
+</div>
+
+<style define:vars={{ duration, maxSize }}>
+  #container32 {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .square {
+      position: absolute;
+      transform: scale(0);
+      z-index: -1;
+      animation: anim32 var(--duration) infinite ease-in-out;
+      border: 2px solid var(--color);
+      width: var(--maxSize);
+      height: var(--maxSize);
+    }
+  }
+  @keyframes anim32 {
+    0% {
+      transform: rotate(0deg) scale(0);
+      opacity: 1;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(960deg) scale(1);
+      opacity: 0;
+    }
+  }
+</style>

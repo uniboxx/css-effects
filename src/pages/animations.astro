@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import bgImage from '@/images/animation03/bg.jpg';
@@ -79,7 +79,7 @@ import img4 from '@/images/animation17/img-4.jpg';
         hoverColor="#fff"
       />
     </div>
-    <div class="animation x2cells white">
+    <div class="animation x2rows white">
       <Animation14
         class="animation14"
         text="ANIMATION 14"
@@ -149,6 +149,23 @@ import img4 from '@/images/animation17/img-4.jpg';
     <div class="animation white">
       <Animation31 class="animation31" text="Animation 31" href="#" />
     </div>
+    <div class="animation blue">
+      <Animation32 class="animation32">
+        <h3>Animation 32</h3>
+      </Animation32>
+    </div>
+    <div class="animation black x2cols">
+      <Animation33 class="animation33" />
+    </div>
+    <div class="animation black cWhite">
+      <Animation34 class="animation34" text="An34" />
+    </div>
+    <div class="animation navy cWhite">
+      <Animation35 class="animation35" text="An35" />
+    </div>
+    <div class="animation white">
+      <Animation36 class="animation36" text="Animation 36" href="#" />
+    </div>
   </div>
 </BaseLayout>
 
@@ -187,15 +204,24 @@ import img4 from '@/images/animation17/img-4.jpg';
       &.white {
         background-color: #fff;
       }
+      &.navy {
+        background-color: #001d30;
+      }
       &.no-flex {
         display: block;
       }
-      &.x2cells {
+      &.x2rows {
         grid-column: span 2;
+      }
+      &.x2cols {
+        height: 200px;
       }
       &.x2x2cells {
         grid-column: span 2;
         height: 200px;
+      }
+      &.cWhite {
+        color: white;
       }
     }
     .animation01 {
@@ -305,6 +331,17 @@ import img4 from '@/images/animation17/img-4.jpg';
       }
     }
     .animation31 {
+      font-size: 1.3rem;
+    }
+    .animation32 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .animation36 {
+      font-size: 1.3rem;
     }
   }
 </style>

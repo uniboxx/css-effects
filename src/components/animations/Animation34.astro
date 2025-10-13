@@ -1,0 +1,78 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text: string;
+  size?: string;
+  number?: number;
+}
+const {
+  class: className,
+  duration = '3s',
+  text,
+  size = '90px',
+  number = 3,
+} = Astro.props;
+
+function randomRad() {
+  let radius = '';
+  for (let i = 1; i <= 8; i++) {
+    const value = `${Math.floor(Math.random() * 31 + 40)}% `;
+    radius += value;
+    if (i === 4) radius += '/ ';
+  }
+  return radius;
+}
+randomRad();
+---
+
+<div id="container34" class={className}>
+  <h3 class="text34">{text}</h3>
+  {
+    Array.from({ length: number }).map((_, idx) => {
+      const direction = idx % 2 === 0 ? 'normal' : 'reverse';
+      let radius = randomRad();
+      return (
+        <div
+          class="ring34"
+          style={`border-radius: ${radius};animation-direction: ${direction}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style define:vars={{ duration, size }}>
+  #container34 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    overflow: hidden;
+    h3.text34 {
+      text-align: center;
+    }
+    .ring34 {
+      --ringSize: 80%;
+      position: absolute;
+      top: calc((100% - var(--ringSize)) / 2);
+      left: calc((100% - var(--ringSize)) / 2);
+      animation: loading34 var(--duration) infinite linear;
+      border: 0.05em solid #fff;
+      width: var(--ringSize);
+      height: var(--ringSize);
+    }
+  }
+
+  @keyframes loading34 {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

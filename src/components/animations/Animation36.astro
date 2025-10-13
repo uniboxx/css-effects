@@ -1,0 +1,152 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  color?: string;
+  duration?: string;
+  text: string;
+  href: string;
+}
+const {
+  class: className,
+  color = 'black',
+  duration = '.2s',
+  text,
+  href = '#',
+} = Astro.props;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = duration.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+const bgDelay = `${quantity * 4}${unit}`;
+---
+
+<a href={href} class={className}
+  >{text}
+  {
+    Array.from({ length: 4 }).map((_, idx) => {
+      const delay = `${quantity * idx}${unit}`;
+      return <span style={`--delay: ${delay};`} />;
+    })
+  }
+  <Icon id="pencil" name="mdi:pencil" />
+</a>
+
+<style define:vars={{ duration, color, bgDelay }}>
+  a {
+    position: relative;
+    z-index: 1;
+    transition: var(--duration);
+    padding: 10px 20px;
+    font: inherit;
+    span {
+      position: absolute;
+      transition: var(--duration);
+      background-color: var(--color);
+      &:nth-of-type(1),
+      &:nth-of-type(3) {
+        left: 0;
+        transform: scaleX(0);
+        width: 100%;
+        height: 3px;
+      }
+      &:nth-of-type(2),
+      &:nth-of-type(4) {
+        top: 0;
+        transform: scaleY(0);
+        width: 3px;
+        height: 100%;
+      }
+      &:nth-of-type(1) {
+        top: 0;
+        left: 0;
+        transform-origin: left;
+      }
+      &:nth-of-type(2) {
+        right: 0;
+        transform-origin: top;
+      }
+      &:nth-of-type(3) {
+        bottom: 0;
+        transform-origin: right;
+      }
+      &:nth-of-type(4) {
+        left: 0;
+        transform-origin: bottom;
+      }
+    }
+    #pencil {
+      position: absolute;
+      top: -1rem;
+      left: 0;
+      background-color: transparent;
+      width: 1rem;
+      color: var(--color);
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(0);
+      transform-origin: top left;
+      z-index: -1;
+      transition: calc(var(--duration) * 2.5);
+      background-color: var(--color);
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
+
+    &:hover {
+      transition-delay: var(--bgDelay);
+      color: white;
+      span {
+        transition-delay: var(--delay);
+        &:nth-of-type(1),
+        &:nth-of-type(3) {
+          transform: scaleX(1);
+        }
+        &:nth-of-type(2),
+        &:nth-of-type(4) {
+          transform: scaleY(1);
+        }
+      }
+      #pencil {
+        animation: drawing36 calc(var(--duration) * 5) linear forwards;
+      }
+      &::before {
+        transform: scale(1);
+        transform-origin: top left;
+        transition-delay: var(--bgDelay);
+      }
+    }
+  }
+
+  @keyframes drawing36 {
+    0% {
+      top: -1rem;
+      left: 0;
+    }
+    15.35% {
+      top: -1rem;
+      left: calc(100% - 1rem);
+    }
+    30.7% {
+      top: calc(100% - 1rem);
+      left: 100%;
+    }
+    46.05% {
+      top: calc(100% - 1rem);
+      left: 0;
+    }
+    61.4% {
+      top: -1rem;
+      left: 0;
+    }
+    100% {
+      top: calc(100% - 1rem);
+      left: 100%;
+    }
+  }
+</style>
