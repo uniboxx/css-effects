@@ -1,0 +1,92 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text: string;
+  color?: string;
+}
+const {
+  class: className,
+  text,
+  duration = `${text.length / 3}s`,
+  color = '#fff',
+} = Astro.props;
+---
+
+<div id="container41" class={className}>
+  <div class="lightbar"></div>
+  <div class="toplayer"></div>
+  <h3>{text}</h3>
+</div>
+
+<style define:vars={{ duration, color }}>
+  #container41 {
+    --lightbar-width: 3px;
+    --shadow: 0 0 0.125em #00b3ff, 0 0 0.25em #00b3ff, 0 0 0.5em #00b3ff,
+      0 0 1em #00b3ff, 0 0 1.5em #00b3ff;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    overflow: hidden;
+    h3 {
+      padding: 10px;
+      color: var(--color);
+      text-shadow: var(--shadow);
+    }
+    .lightbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scaleY(0) translateX(0);
+      animation: lightbar41 var(--duration) linear infinite;
+      box-shadow: var(--shadow);
+      border-radius: 0.125em;
+      background: var(--color);
+      width: var(--lightbar-width);
+      height: 100%;
+    }
+    .toplayer {
+      position: absolute;
+      top: -50%;
+      left: calc(var(--lightbar-width) * 1);
+      animation: toplayer41 calc(var(--duration) * 2) infinite linear;
+      background: inherit;
+      width: calc(100% - var(--lightbar-width) * 2);
+      height: 200%;
+    }
+  }
+
+  /* in 90% and 100% put the width of container */
+  @keyframes lightbar41 {
+    0% {
+      transform: scaleY(0) translateX(0);
+    }
+    10% {
+      transform: scaleY(1) translateX(0);
+    }
+    90% {
+      transform: scaleY(1) translateX(calc(159px - 0.125em));
+    }
+    100% {
+      transform: scaleY(0) translateX(calc(159px - 0.125em));
+    }
+  }
+  @keyframes toplayer41 {
+    5% {
+      transform: translateX(0);
+    }
+    45%,
+    50% {
+      transform: translateX(calc(100%));
+    }
+    50.0001%,
+    55% {
+      transform: translateX(calc(-100%));
+    }
+    95% {
+      transform: translateX(0);
+    }
+  }
+</style>

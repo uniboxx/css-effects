@@ -7,7 +7,6 @@ interface Props {
     color: string;
     shadow: string;
   }[];
-  maxSize?: string;
 }
 const {
   class: className,
@@ -17,7 +16,6 @@ const {
     { color: '#41c1fb', shadow: '#1fa4e0' },
     { color: '#e0bd1f', shadow: '#bb9e1b' },
   ],
-  maxSize = '40px',
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = duration.match(regex)!;

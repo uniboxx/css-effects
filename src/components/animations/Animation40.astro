@@ -1,0 +1,51 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text: string;
+  color?: string;
+}
+const {
+  class: className,
+  text,
+  duration = `${text.length / 2}s`,
+  color = '#fff',
+} = Astro.props;
+---
+
+<h3 class={className}>{text}</h3>
+
+<style define:vars={{ duration, color }}>
+  h3 {
+    position: relative;
+    background-color: inherit;
+    overflow: hidden;
+    color: var(--color);
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: fading40 var(--duration) linear infinite;
+      background-color: inherit;
+      /* background-color: black; */
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
+  }
+
+  @keyframes fading40 {
+    0%,
+    10% {
+      left: 0;
+    }
+    40%,
+    60% {
+      left: 100%;
+    }
+    90%,
+    100% {
+      left: 0;
+    }
+  }
+</style>

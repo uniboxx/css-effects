@@ -4,7 +4,7 @@ interface Props {
   duration?: string;
   text: string;
 }
-const { class: className, duration = '2s', text } = Astro.props;
+const { class: className, duration = '5s', text } = Astro.props;
 ---
 
 <div id="container22" class={className}>
@@ -26,7 +26,7 @@ const { class: className, duration = '2s', text } = Astro.props;
       position: absolute;
       top: 0;
       left: 0;
-      animation: anim22 5s linear infinite;
+      animation: anim22 var(--duration) linear infinite;
       border-right: var(--border-size) solid #f6b93b;
       width: 100%;
       overflow: hidden;

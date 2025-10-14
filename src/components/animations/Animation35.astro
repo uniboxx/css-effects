@@ -2,14 +2,12 @@
 interface Props {
   class?: string;
   duration?: string;
-  text: string;
   size?: string;
   colors?: string[];
 }
 const {
   class: className,
   duration = '2s',
-  text,
   size = '80px',
   colors = ['#001d30', '#51eeee'],
 } = Astro.props;
@@ -17,7 +15,6 @@ const [color1, color2] = colors;
 ---
 
 <div id="container35" class={className}>
-  <h3 class="text35">{text}</h3>
   <div class="ring35"></div>
 </div>
 
@@ -30,9 +27,6 @@ const [color1, color2] = colors;
     background-color: var(--color1);
     width: var(--size);
     height: var(--size);
-    h3.text35 {
-      text-align: center;
-    }
     .ring35 {
       position: absolute;
       animation: loading35 var(--duration) infinite linear;
