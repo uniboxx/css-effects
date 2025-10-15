@@ -2,17 +2,31 @@
 interface Props {
   duration?: string;
   class?: string;
+  colors?: string;
 }
-const { class: className, duration = '0.3s', ...rest } = Astro.props;
+const {
+  class: className,
+  duration = '0.3s',
+  colors = '#fff, #f44336',
+  ...rest
+} = Astro.props;
+const [color1, color2] = colors.split(',');
 ---
 
-<h3 class={className} {...rest}>Hover Me</h3>
+<a class={className} {...rest}>Hover Me</a>
 
-<style define:vars={{ duration }}>
-  h3 {
+<style define:vars={{ duration, color1, color2 }}>
+  a {
+    transition: 0.3s;
     cursor: pointer;
+    border: 3px solid var(--color1);
+    padding: 10px;
+    color: var(--color1);
+    font-size: 2rem;
     &:hover {
       animation: shake var(--duration) linear;
+      border: 3px solid var(--color2);
+      color: var(--color2);
     }
   }
   @keyframes shake {

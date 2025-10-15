@@ -3,15 +3,33 @@ interface Props {
   text: string;
   duration?: string;
   class?: string;
+  color?: string;
 }
-const { text, class: className, ...rest } = Astro.props;
+const {
+  text,
+  class: className,
+  color = '#fff',
+  duration = '3s',
+  ...rest
+} = Astro.props;
 ---
 
 <h3 class={className} {...rest}>{text}</h3>
 
-<style define:vars={{ duration: '3s' }}>
+<style define:vars={{ duration, color }}>
   h3 {
     animation: float var(--duration) linear infinite alternate;
+    color: var(--color);
+    line-height: 1;
+    font-family: arial;
+    letter-spacing: 5px;
+    text-align: center;
+    text-shadow:
+      0 calc(1em / 48 * 1) 0 #efefef,
+      0 calc(1em / 48 * 2) 0 #efefef,
+      0 calc(1em / 48 * 3) 0 #efefef,
+      0 calc(1em / 48 * 4) 0 #efefef,
+      0 0.8rem calc(1em / 48 * 5) #0000001a;
   }
   @keyframes float {
     from {

@@ -1,14 +1,22 @@
 ---
-import bg from '@/images/animation05/bg.png';
 import { getImage } from 'astro:assets';
+import bg from '@/images/animation05/bg.png';
 const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
+
+interface Props {
+  class?: string;
+  duration?: string;
+}
+const { class: className, duration = '15s' } = Astro.props;
 ---
 
-<div class="container" style=`--url: url(${optBg.src})`></div>
+<div id="container05" style={`--url: url(${optBg.src})`} class={className}>
+  <slot />
+</div>
 
-<style>
-  .container {
-    animation: scroll 15s linear infinite;
+<style define:vars={{ duration }}>
+  #container05 {
+    animation: scroll var(--duration) linear infinite;
     background: var(--url);
     width: 100%;
     height: 100%;

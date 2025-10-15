@@ -1,0 +1,88 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text: string;
+  size?: string;
+  colors?: string[];
+}
+const {
+  class: className,
+  duration = '1s',
+  text,
+  size = `${text.length * 0.75}em`,
+  colors = ['#74baff72', '#2980b9'],
+} = Astro.props;
+const [color1, color2] = colors;
+---
+
+<div id="container42" class={className}>
+  <div class="loader">
+    {
+      Array.from({ length: 8 }).map((_, idx) => {
+        return <div class="dot42" style={`--n: ${idx}`} />;
+      })
+    }
+  </div>
+  <h3>{text}</h3>
+</div>
+
+<style define:vars={{ duration, size, color1, color2 }}>
+  #container42 {
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    h3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .loader {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      .dot42 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(calc(45deg * var(--n)));
+        width: 100%;
+        height: 100%;
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          border-radius: 50%;
+          background-color: var(--color1);
+          width: calc(var(--size) / 8);
+          height: calc(var(--size) / 8);
+          content: '';
+        }
+        &:nth-of-type(odd)::before {
+          transform-origin: calc(var(--size) / 2);
+          animation: loading42 var(--duration) infinite linear;
+          background: var(--color2);
+        }
+      }
+    }
+  }
+
+  @keyframes loading42 {
+    0%,
+    25% {
+      transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+      transform: rotate(90deg) scale(1.3);
+    }
+
+    75%,
+    100% {
+      transform: rotate(180deg) scale(1);
+    }
+  }
+</style>

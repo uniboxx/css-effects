@@ -1,11 +1,10 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
 import { Image } from 'astro:assets';
-import bgImage from '@/images/animation03/bg.jpg';
-import car from '@/images/animation03/car.png';
-import motobike from '@/images/animation03/motobike.png';
+
 import bg12 from '@/images/animation12/bg.jpg';
 import img1 from '@/images/animation17/img-1.jpg';
 import img2 from '@/images/animation17/img-2.jpg';
@@ -22,39 +21,21 @@ import img4 from '@/images/animation17/img-4.jpg';
       <Animation02 class="animation02" />
     </div>
     <div class="animation">
-      <Animation03 class="animation03" bgImage={bgImage} width="180px">
-        <Image
-          src={car}
-          alt="car"
-          priority
-          width={50}
-          height={25}
-          class="car"
-        />
-        <Image
-          src={motobike}
-          alt="motobike"
-          priority
-          width={25}
-          height={25}
-          class="motobike"
-        />
-      </Animation03>
+      <Animation03 class="animation03" />
     </div>
     <div class="animation orange">
-      <Animation04
-        texts={['transitions', 'animations', 'transforms']}
-        class="animation04"
-      />
+      <Animation04 class="animation04" />
     </div>
-    <div class="animation no-flex">
-      <Animation05 class="animation05" />
+    <div class="animation">
+      <Animation05 class="animation05">
+        <h3>Content</h3>
+      </Animation05>
     </div>
     <div class="animation black">
       <Animation06 class="animation06" />
     </div>
     <div class="animation black">
-      <Animation07 class="animation07" bg="#f44336" />
+      <Animation07 class="animation07" />
     </div>
     <div class="animation black">
       <Animation08 class="animation08" text="LIGHTING" color="#484848" />
@@ -157,10 +138,10 @@ import img4 from '@/images/animation17/img-4.jpg';
     <div class="animation black x2rows">
       <Animation33 class="animation33" />
     </div>
-    <div class="animation black cWhite">
+    <div class="animation black">
       <Animation34 class="animation34" text="An34" />
     </div>
-    <div class="animation navy cWhite">
+    <div class="animation navy">
       <Animation35 class="animation35" />
     </div>
     <div class="animation white">
@@ -169,7 +150,7 @@ import img4 from '@/images/animation17/img-4.jpg';
     <div class="animation black x2rows">
       <Animation37 class="animation37" />
     </div>
-    <div class="animation navy cWhite">
+    <div class="animation navy">
       <Animation38 class="animation38" />
     </div>
     <div class="animation x2rows">
@@ -180,6 +161,21 @@ import img4 from '@/images/animation17/img-4.jpg';
     </div>
     <div class="animation navy">
       <Animation41 class="animation41" text="Animation 41" />
+    </div>
+    <div class="animation white x2rows">
+      <Animation42 class="animation42" text="Anim42" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation43 class="animation43" text="ANIMATION 43" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation44 class="animation44" text="AN44" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation45 class="animation45" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation46 class="animation46" />
     </div>
   </div>
 </BaseLayout>
@@ -212,6 +208,7 @@ import img4 from '@/images/animation17/img-4.jpg';
       }
       &.black {
         background-color: #333;
+        color: #fff;
       }
       &.blue {
         background-color: #273c75;
@@ -224,9 +221,7 @@ import img4 from '@/images/animation17/img-4.jpg';
       }
       &.navy {
         background-color: #001d30;
-      }
-      &.no-flex {
-        display: block;
+        color: #fff;
       }
       &.x2cols {
         grid-column: span 2;
@@ -241,72 +236,23 @@ import img4 from '@/images/animation17/img-4.jpg';
         grid-column: span 2;
         height: 200px;
       }
-      &.cWhite {
-        color: white;
-      }
     }
     .animation01 {
-      color: #fff;
-      font-size: 2.4rem;
-      line-height: 1;
-      font-family: arial;
-      letter-spacing: 5px;
-      text-align: center;
-      text-shadow:
-        0 1px 0 #efefef,
-        0 2px 0 #efefef,
-        0 3px 0 #efefef,
-        0 4px 0 #efefef,
-        0 0.8rem 5px #0000001a;
-    }
-    .animation02 {
-      border-radius: 12px;
-      background-color: #fff;
-      width: 3rem;
-      height: 3rem;
+      font-size: 2.4em;
     }
 
-    img.car {
-      position: absolute;
-      bottom: 0;
-      left: 35%;
-      width: calc(100% / 6);
-      height: auto;
-    }
-    img.motobike {
-      position: absolute;
-      bottom: 6%;
-      left: 60%;
-      width: calc(100% / 12);
-      height: auto;
-    }
     .animation04 {
       color: #fff;
       font-size: 1rem;
-      span {
-        color: #181464;
-        font-family: arial;
-        text-transform: uppercase;
-      }
     }
-    .animation06 {
-      transition: 0.3s;
-      border: 3px solid #fff;
-      padding: 10px;
+    .animation05 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: #fff;
-      font-size: 2rem;
-      &:hover {
-        border: 3px solid #f44336;
-        color: #f44336;
-      }
+      font-size: 1.3rem;
     }
-    .animation07 {
-      transition: 0.3s;
-      border: 2px solid #fff;
-      padding: 20px;
-      color: #fff;
-      font-size: 1.5rem;
-    }
+
     .animation08 {
       font-size: 1.5rem;
     }
@@ -363,6 +309,12 @@ import img4 from '@/images/animation17/img-4.jpg';
     }
     .animation36 {
       font-size: 1.3rem;
+    }
+    .animation42 {
+      font-size: 0.8rem;
+    }
+    .animation44 {
+      color: white;
     }
   }
 </style>

@@ -1,32 +1,73 @@
 ---
-import { getImage } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
+import bgImage from '@/images/animation03/bg.jpg';
+import car from '@/images/animation03/car.png';
+import motobike from '@/images/animation03/motobike.png';
 
+// please use px unit for size of the container
 interface Props {
-  bgImage: ImageMetadata;
   duration?: string;
   class?: string;
-  width: string;
+  size?: string;
 }
-const { bgImage, class: className, width, ...rest } = Astro.props;
+const {
+  class: className,
+  duration = '15s',
+  size = '180px',
+  ...rest
+} = Astro.props;
 const optBg = await getImage({ src: bgImage, alt: 'bg', format: 'webp' });
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = size.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+const carWidth = Math.floor((quantity / 18) * 5);
+const carHeight = Math.floor(carWidth / 2);
+const motoSize = carHeight;
 ---
 
-<div class="container" style={`--url: url(${optBg.src})`} {...rest}>
-  <slot />
+<div class="container03" style={`--url: url(${optBg.src})`} {...rest}>
+  <Image
+    src={car}
+    alt="car"
+    priority
+    width={carWidth}
+    height={carHeight}
+    class="car"
+  />
+  <Image
+    src={motobike}
+    alt="motobike"
+    priority
+    width={motoSize}
+    height={motoSize}
+    class="motobike"
+  />
 </div>
 
-<style define:vars={{ duration: '15s', width }}>
-  .container {
+<style define:vars={{ duration, size }}>
+  .container03 {
     position: relative;
-    animation: driving var(--duration) linear infinite;
+    animation: driving03 var(--duration) linear infinite;
     background: var(--url);
     background-position: bottom left;
     background-size: cover;
-    width: var(--width);
-    height: 100%;
+    width: var(--size);
+    height: calc(var(--size) / 2);
+    img {
+      position: absolute;
+    }
+    .car {
+      bottom: 0;
+      left: 25%;
+    }
+    .motobike {
+      bottom: 6%;
+      left: 60%;
+    }
   }
 
-  @keyframes driving {
+  @keyframes driving03 {
     from {
       background-position: bottom left;
     }

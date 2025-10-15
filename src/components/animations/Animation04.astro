@@ -1,21 +1,40 @@
 ---
+// to add styles to the variable span element add them to the ".class span" selector
 interface Props {
-  texts: string[];
-  duration?: number;
+  fixedText?: string;
+  varTexts?: string;
+  varColor?: string;
+  duration?: string;
   class?: string;
-  spanClass?: string;
 }
-const { texts, class: className, duration = 4000, ...rest } = Astro.props;
+const {
+  fixedText = 'I love Css',
+  varTexts = 'TRANSITIONS, ANIMATIONS, TRANSFORMS',
+  varColor = '#181464',
+  class: className,
+  duration = '4s',
+  ...rest
+} = Astro.props;
+
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = duration.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit?.toLowerCase();
+const fixDuration = unit === 's' ? quantity * 1000 : quantity;
+const firstText = varTexts.split(',')[0];
 ---
 
 <h3 class={className} {...rest}>
-  I Love Css <span data-texts={texts} data-duration={duration}>{texts[0]}</span>
+  {fixedText}
+  <span data-texts={varTexts} data-duration={fixDuration}>{firstText}</span>
 </h3>
 
-<style>
+<style define:vars={{ varColor }}>
   span {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    color: var(--varColor);
+    font-size: 1em;
     &.visible {
       opacity: 1;
     }
@@ -23,15 +42,15 @@ const { texts, class: className, duration = 4000, ...rest } = Astro.props;
 </style>
 
 <script>
-  const switchText = document.querySelector('span')!;
+  const span = document.querySelector('span') as HTMLSpanElement;
   let index = 0;
-  const texts = switchText.dataset.texts?.split(',')!;
-  const duration = switchText.dataset.duration!;
+  const texts = span.dataset.texts?.split(',')!;
+  const duration = +span.dataset.duration!;
 
   setInterval(() => {
-    switchText.classList.add('visible');
-    switchText.textContent = texts[index];
+    span.textContent = texts[index];
+    span.classList.add('visible');
     index = (index + 1) % texts?.length;
-    setTimeout(() => switchText.classList.remove('visible'), +duration);
-  }, +duration + 500);
+    setTimeout(() => span.classList.remove('visible'), duration);
+  }, duration + 500);
 </script>

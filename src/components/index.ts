@@ -103,3 +103,8 @@ export { default as Animation38 } from './animations/Animation38.astro';
 export { default as Animation39 } from './animations/Animation39.astro';
 export { default as Animation40 } from './animations/Animation40.astro';
 export { default as Animation41 } from './animations/Animation41.astro';
+export { default as Animation42 } from './animations/Animation42.astro';
+export { default as Animation43 } from './animations/Animation43.astro';
+export { default as Animation44 } from './animations/Animation44.astro';
+export { default as Animation45 } from './animations/Animation45.astro';
+export { default as Animation46 } from './animations/Animation46.astro';
