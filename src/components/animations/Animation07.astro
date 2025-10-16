@@ -3,20 +3,22 @@ interface Props {
   duration?: string;
   class?: string;
   colors?: string;
+  href: string;
 }
 const {
   class: className,
   duration = '0.5s',
   colors = '#fff, #f44336',
+  href,
   ...rest
 } = Astro.props;
 const [color1, color2] = colors.split(',');
 ---
 
-<h3 class={className} {...rest}>Hover Me</h3>
+<a class={className} {...rest}>Hover Me</a>
 
 <style define:vars={{ duration, color1, color2 }}>
-  h3 {
+  a {
     position: relative;
     z-index: 0;
     transition: 0.3s;

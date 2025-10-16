@@ -2,13 +2,13 @@
 interface Props {
   class?: string;
   color?: string;
-  size?: string;
+  hexSize?: string;
   duration?: string;
 }
 const {
   class: className,
-  color = '#fff',
-  size = '30px',
+  color = '#0af',
+  hexSize = '30px',
   duration = '2s',
 } = Astro.props;
 ---
@@ -17,22 +17,22 @@ const {
   <div id="hexagon"></div>
 </div>
 
-<style define:vars={{ color, size, duration }}>
+<style define:vars={{ color, hexSize, duration }}>
   #line30 {
     position: relative;
     top: 20%;
     animation: anim30 var(--duration) linear infinite alternate;
     margin: 0 auto;
     border: 2px solid var(--color);
-    width: calc(var(--size) * 6);
+    width: calc(var(--hexSize) * 6);
     #hexagon {
       position: absolute;
-      right: calc(100%-var(--size));
-      bottom: calc(var(--size) * 0.33);
+      right: calc(100%-var(--hexSize));
+      bottom: calc(var(--hexSize) * 0.33);
       animation: hexagon30 var(--duration) infinite linear alternate;
       background-color: var(--color);
-      width: var(--size);
-      height: calc(var(--size) * 0.6);
+      width: var(--hexSize);
+      height: calc(var(--hexSize) * 0.6);
       &::before,
       &::after {
         position: absolute;

@@ -9,9 +9,10 @@ interface Props {
 const {
   class: className,
   duration = '4s',
-  number = 5,
-  boxColor = '#f2f2f2',
+  number = 10,
+  boxColor = '#00f2f2',
   mediumSize = '20px',
+  ...rest
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = mediumSize.match(regex)!;
@@ -19,7 +20,7 @@ const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 ---
 
-<div id="container29" class={className}>
+<div id="container29" class={className} {...rest}>
   {
     Array.from({ length: number }).map((_, idx) => {
       const random = Math.round((Math.random() * 0.6 + 0.7) * 100) / 100;
@@ -41,8 +42,7 @@ const unit = result.groups?.unit!;
   #container29 {
     position: relative;
     z-index: 0;
-    width: 100%;
-    height: 100%;
+
     overflow: hidden;
     .square {
       position: absolute;

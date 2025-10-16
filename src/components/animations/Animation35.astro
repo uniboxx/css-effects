@@ -3,35 +3,40 @@ interface Props {
   class?: string;
   duration?: string;
   size?: string;
-  colors?: string[];
+  colors?: string;
 }
 const {
   class: className,
   duration = '2s',
   size = '80px',
-  colors = ['#001d30', '#51eeee'],
+  colors = '#001d30, #51eeee',
+  ...rest
 } = Astro.props;
-const [color1, color2] = colors;
+const [innerColor, outerColor] = colors.split(',');
 ---
 
-<div id="container35" class={className}>
-  <div class="ring35"></div>
+<div id="container35" class={className} {...rest}>
+  <div class="ring"></div>
 </div>
 
-<style define:vars={{ duration, size, color1, color2 }}>
+<style define:vars={{ duration, size, innerColor, outerColor }}>
   #container35 {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    background-color: var(--color1);
+    background-color: var(--innerColor);
     width: var(--size);
     height: var(--size);
-    .ring35 {
+    .ring {
       position: absolute;
       animation: loading35 var(--duration) infinite linear;
       border-radius: 50%;
-      background: linear-gradient(0deg, var(--color1) 40%, var(--color2) 100%);
+      background: linear-gradient(
+        0deg,
+        var(--innerColor) 40%,
+        var(--outerColor) 100%
+      );
       width: 100%;
       height: 100%;
       &::before,
@@ -42,16 +47,16 @@ const [color1, color2] = colors;
       }
       &::before {
         inset: calc(var(--size) / 12) calc(var(--size) / 8) 0 0;
-        background: var(--color1);
+        background: var(--innerColor);
       }
       &::after {
         top: 30%;
         right: -3%;
         box-shadow:
-          0 0 calc(var(--size) * 0.033 * 5) var(--color2),
-          0 0 calc(var(--size) * 0.033 * 10) var(--color2),
-          0 0 calc(var(--size) * 0.033 * 15) var(--color2);
-        background-color: var(--color2);
+          0 0 calc(var(--size) * 0.033 * 5) var(--outerColor),
+          0 0 calc(var(--size) * 0.033 * 10) var(--outerColor),
+          0 0 calc(var(--size) * 0.033 * 15) var(--outerColor);
+        background-color: var(--outerColor);
         width: 25%;
         height: 25%;
       }
