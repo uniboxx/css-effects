@@ -1,89 +1,55 @@
 ---
-import { Image } from 'astro:assets';
-
 interface Props {
   class?: string;
-  images: ImageMetadata[];
-  imageTime?: string;
   duration?: string;
-  width: number;
-  height: number;
+  transitionDuration?: string;
 }
 const {
   class: className,
-  images,
-  imageTime = '3s',
-  width,
-  height,
-  duration = '.5s',
+  duration = '3s',
+  transitionDuration = '2s',
+  ...rest
 } = Astro.props;
-
-const regex = /(?<time>[\d\.]+)(?<unit>(s|ms)$)/;
-const { groups } = imageTime.match(regex) ?? {};
-const time = +groups?.time!;
-const unit = groups?.unit!;
-const imagesNumber = images.length;
 ---
 
-<div
-  class:list={[className, 'slider']}
-  data-length={imagesNumber.toString()}
-  data-time={time}
-  data-unit={unit.toString()}
->
-  {
-    images.map((img, index) => (
-      <Image
-        class:list={['imgAnim17', { visible: index === 0 }]}
-        src={img}
-        alt={`${index + 1}`}
-        loading={index === 0 ? 'eager' : 'lazy'}
-        width={width}
-        height={height}
-      />
-    ))
-  }
+<div id="container17" class={className} data-duration={duration} {...rest}>
+  <slot />
 </div>
 
-<style define:vars={{ width, height, duration }}>
-  .slider {
-    position: relative;
-    width: calc(var(--width) * 1px);
-    /* overflow: hidden; */
-    .imgAnim17 {
-      position: absolute;
-      opacity: 0;
-      transition: opacity var(--duration) ease-in-out;
-      object-fit: cover;
-      &.visible {
-        opacity: 1;
-      }
-    }
+<style define:vars={{ transitionDuration }}>
+  #container17 {
+    transition: var(--transitionDuration);
   }
 </style>
 
 <script>
-  const imgs = Array.from(
-    document.querySelectorAll('.imgAnim17')
-  ) as HTMLImageElement[];
-  const slider = document.querySelector('.slider') as HTMLDivElement;
-  const length = +slider.dataset.length!;
-  const time = +slider.dataset.time!;
-  const unit = slider.dataset.unit!;
-  let timeToKeep = time;
+  const container = document.getElementById('container17') as HTMLDivElement;
+  const duration = container.dataset.duration!;
+  const regex = /(?<time>[\d\.]+)(?<unit>(s|ms)$)/;
+  const result = duration.match(regex)!;
+  let time = +result.groups?.time!;
+  const unit = result.groups?.unit!;
   if (unit === 's') {
-    timeToKeep = time * 1000;
-    // console.log('🚀 ~ timeToKeep:', timeToKeep);
+    time *= 1000;
   }
-
-  function switcher() {
-    let index = 0;
-    const interval = setInterval(() => {
-      imgs[index].classList.remove('visible');
-      index = (index + 1) % length;
-      imgs[index].classList.add('visible');
-    }, timeToKeep);
+  function hslGen() {
+    const h = Math.floor(Math.random() * 361);
+    const s = parseFloat(
+      (Math.trunc(Math.random() * (100 * 10 + 1)) / 10).toFixed(1)
+    );
+    const l = parseFloat(
+      (Math.trunc(Math.random() * (100 * 10 + 1)) / 10).toFixed(1)
+    );
+    return {
+      bg: `hsl(${h} ${s}% ${l}%)`,
+      color: `hsl(${(h + 170) % 360} ${s}% ${Math.round((100 - l) * 10) / 10}%)`,
+    };
   }
-
-  switcher();
+  function changeBg() {
+    const colors = hslGen();
+    container.style.backgroundColor = colors.bg;
+    container.style.color = colors.color;
+  }
+  setInterval(changeBg, time);
+  changeBg();
 </script>

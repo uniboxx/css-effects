@@ -6,6 +6,7 @@ interface Props {
   height?: string;
   lines?: number;
   origin?: 'center' | 'bottom' | 'top';
+  color?: string;
 }
 const {
   class: className,
@@ -14,21 +15,21 @@ const {
   width = '4px',
   height = '30px',
   origin = 'center',
+  color = '#fff',
 } = Astro.props;
 ---
 
 <div id="container25" class={className}>
   {
-    Array.from({ length: lines }).map((el, idx) => (
-      <div
-        class="line25"
-        style={`left: ${(100 / lines) * idx}%; animation-delay: ${0.2 * idx}s`}
-      />
-    ))
+    Array.from({ length: lines }).map((_, idx) => {
+      const left = `${(100 / lines) * idx}%`;
+      const delay = idx > 0 && `${0.2 * idx}s`;
+      return <div class="line25" style={`left: ${left};--delay: ${delay}`} />;
+    })
   }
 </div>
 
-<style define:vars={{ duration, width, height, origin }}>
+<style define:vars={{ duration, width, height, origin, color }}>
   #container25 {
     display: flex;
     justify-content: center;
@@ -36,8 +37,9 @@ const {
     .line25 {
       transform-origin: var(--origin);
       animation: anim25 var(--duration) linear infinite alternate;
+      animation-delay: var(--delay);
       border-radius: 10px;
-      background-color: white;
+      background-color: var(--color);
       width: var(--width);
       height: var(--height);
     }

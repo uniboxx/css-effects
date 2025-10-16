@@ -1,6 +1,8 @@
 ---
+// use the image in the below url
 import wave from '@/images/wave.png';
 import { getImage } from 'astro:assets';
+
 interface Props {
   class?: string;
   duration?: string;
@@ -8,65 +10,67 @@ interface Props {
 }
 const {
   class: className,
-  duration = '1s',
+  duration = '1.5s',
   color = '#00aeff',
   ...rest
 } = Astro.props;
-const optWave = await getImage({ src: wave, alt: 'wave', format: 'webp' });
+const optWave = await getImage({ src: wave, format: 'webp' });
 let { width, height } = optWave.attributes;
 width += 'px';
 height += 'px';
 ---
 
-<button class={className} {...rest}
+<a class={className} {...rest}
   >Animation 15
   <div class="wave" style={`--url: url(${optWave.src})`}></div>
-</button>
+</a>
 
 <style define:vars={{ color, duration, width, height }}>
-  button {
+  a {
     position: relative;
     z-index: 0;
     transition: var(--duration);
-    border: 2px solid var(--color);
-    background-color: transparent;
+    border: 0.125em solid var(--color);
     padding: 0.5em 1em;
     overflow: hidden;
     color: var(--color);
     .wave {
+      position: absolute;
       top: calc(100% + var(--height));
+      left: 0;
       z-index: -1;
       transition: var(--duration);
       background-color: var(--color);
+      width: 100%;
       height: 100%;
 
-      &,
       &::before {
         position: absolute;
-        left: 0;
-        width: 100%;
-        content: '';
-      }
-      &::before {
         top: calc(var(--height) * -1);
-        animation: wavy15 var(--duration) linear infinite;
+        left: 0;
         background: var(--url);
+        background-position-x: calc(var(--width) * -1);
+        width: 100%;
         height: var(--height);
+        content: '';
       }
     }
     &:hover {
       color: white;
       .wave {
         top: 0;
+        &::before {
+          animation: wavy15 var(--duration) linear infinite;
+        }
       }
     }
   }
   @keyframes wavy15 {
-    0% {
-      background-position-x: 0;
+    from {
+      background-position-x: calc(var(--width) * -1);
     }
-    100% {
-      background-position-x: var(--width);
+    to {
+      background-position-x: left;
     }
   }
 </style>

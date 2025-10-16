@@ -38,7 +38,7 @@ import img4 from '@/images/animation17/img-4.jpg';
       <Animation07 class="animation07" />
     </div>
     <div class="animation black">
-      <Animation08 class="animation08" text="LIGHTING" color="#484848" />
+      <Animation08 class="animation08" text="LIGHTING" />
     </div>
     <div class="animation black">
       <Animation09 class="animation09" />
@@ -53,42 +53,34 @@ import img4 from '@/images/animation17/img-4.jpg';
       <Animation12 class="animation12" bg={bg12} />
     </div>
     <div class="animation white">
-      <Animation13
-        class="animation13"
-        iconName="heart"
-        color="#f44336"
-        hoverColor="#fff"
-      />
+      <Animation13 class="animation13" iconName="mdi:heart" />
     </div>
     <div class="animation x2cols white">
-      <Animation14
-        class="animation14"
-        text="ANIMATION 14"
-        color1="#f44336"
-        color2="blue"
-      />
+      <Animation14 class="animation14" text="ANIMATION 14" />
     </div>
     <div class="animation black">
       <Animation15 class="animation15" />
     </div>
     <div class="animation black">
-      <Animation16 class="animation16" iconName="whatsapp" color="#58ea00" />
-    </div>
-    <div class="animation x2x2cells black">
-      <Animation17
-        class="animation17"
-        images={[img1, img2, img3, img4]}
-        imageTime="4s"
-        duration=".5s"
-        width={400}
-        height={200}
-      />
+      <Animation16 class="animation16" />
     </div>
     <div class="animation">
-      <Animation18 class="animation18">
-        <h3>Animation 18</h3>
-      </Animation18>
+      <Animation17 class="animation17">
+        <h3>Animation 17</h3>
+      </Animation17>
     </div>
+    <div class="animation x2x2cells black">
+      <Animation18
+        class="animation18"
+        images={[
+          { image: img1, alt: 'boat' },
+          { image: img2, alt: 'sunset' },
+          { image: img3, alt: 'mountain' },
+          { image: img4, alt: 'alpinist' },
+        ]}
+      />
+    </div>
+
     <div class="animation x2x2cells black">
       <Animation19 class="animation19" />
     </div>
@@ -105,7 +97,7 @@ import img4 from '@/images/animation17/img-4.jpg';
       <Animation23 class="animation23" text="An23" />
     </div>
     <div class="animation black">
-      <Animation24 class="animation24" width="80%" height="3px" />
+      <Animation24 class="animation24" />
     </div>
     <div class="animation black">
       <Animation25 class="animation25" />
@@ -117,7 +109,7 @@ import img4 from '@/images/animation17/img-4.jpg';
       <Animation27 class="animation27" />
     </div>
     <div class="animation black">
-      <Animation28 class="animation28" />
+      <Animation28 class="animation28" duration="2s" />
     </div>
     <div class="animation black">
       <Animation29 class="animation29">
@@ -236,6 +228,9 @@ import img4 from '@/images/animation17/img-4.jpg';
         grid-column: span 2;
         height: 200px;
       }
+      &.no-flex {
+        display: block;
+      }
     }
     .animation01 {
       font-size: 2.4em;
@@ -252,13 +247,23 @@ import img4 from '@/images/animation17/img-4.jpg';
       color: #fff;
       font-size: 1.3rem;
     }
-
     .animation08 {
       font-size: 1.5rem;
+    }
+    .animation09 {
+      color: red;
+      font-size: 3rem;
     }
     .animation10 {
       font-weight: 700;
       font-size: 2rem;
+    }
+    .animation11 {
+      width: 10rem;
+    }
+    .animation12 {
+      width: 240px;
+      height: 90px;
     }
     .animation13 {
       font-size: 2rem;
@@ -271,19 +276,25 @@ import img4 from '@/images/animation17/img-4.jpg';
       font-size: 1.3rem;
     }
     .animation16 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     .animation17 {
-      height: 200px;
-    }
-    .animation18 {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
+      height: 100%;
       font-size: 1.5rem;
     }
+    .animation18 {
+      width: 400px;
+      height: 200px;
+    }
+
     .animation22 {
-      color: #fff;
+      font-size: 1.3rem;
+    }
+    .animation23 {
       font-size: 1.3rem;
     }
     .animation29 {

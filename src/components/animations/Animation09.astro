@@ -1,15 +1,25 @@
 ---
-import heart from '@/images/heart.png';
-import { Image } from 'astro:assets';
+// need to install astro-icon and @iconify-json/mdi
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  duration?: string;
+}
+const { class: className, duration = '1.5s', ...rest } = Astro.props;
 ---
 
-<Image src={heart} alt="heart" width={50} height={50} />
+<div id="container09">
+  <Icon class={className} name="mdi:heart" {...rest} />
+</div>
 
-<style>
-  img {
-    animation: heartbeat 1.5s infinite;
+<style define:vars={{ duration }}>
+  #container09 {
+    [data-icon='mdi:heart'] {
+      animation: heartbeat09 var(--duration) infinite;
+    }
   }
-  @keyframes heartbeat {
+  @keyframes heartbeat09 {
     0% {
       transform: scale(1);
     }

@@ -6,15 +6,16 @@ const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
 interface Props {
   text: string;
   class?: string;
+  duration?: string;
 }
-const { text, class: className } = Astro.props;
+const { text, class: className, duration = '15s', ...rest } = Astro.props;
 ---
 
-<h3 class={className} style=`--url: url(${optBg.src})`>{text}</h3>
+<h3 class={className} style=`--url: url(${optBg.src})` {...rest}>{text}</h3>
 
-<style>
+<style define:vars={{ duration }}>
   h3 {
-    animation: moving10 15s linear infinite;
+    animation: moving10 var(--duration) linear infinite;
     background: var(--url);
     background-clip: text;
     color: transparent;
@@ -22,10 +23,10 @@ const { text, class: className } = Astro.props;
   }
   @keyframes moving10 {
     from {
-      background-position: 100% 100%;
+      background-position: right bottom;
     }
     to {
-      background-position: 0 0;
+      background-position: left top;
     }
   }
 </style>

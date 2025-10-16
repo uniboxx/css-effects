@@ -3,19 +3,35 @@ interface Props {
   class?: string;
   duration?: string;
   size?: string;
+  color?: string;
 }
-const { class: className, duration = '2s', size = '20px' } = Astro.props;
+const {
+  class: className,
+  duration = '2s',
+  size = '20px',
+  color = '#ff0',
+  ...rest
+} = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = size.match(regex);
-const { quantity, unit } = result?.groups ?? {};
-const containerSize = `${+quantity * 2.5}${unit}`;
+const sizeResult = size.match(regex)!;
+const sizeQuantity = +sizeResult.groups?.quantity!;
+const sizeUnit = sizeResult.groups?.unit!;
+const containerSize = `${+sizeQuantity * 2.5}${sizeUnit}`;
+const durationResult = duration.match(regex)!;
+const durationQuantity = +durationResult.groups?.quantity!;
+const durationUnit = durationResult.groups?.unit!;
 ---
 
-<div id="container21" class={className}>
-  <span></span><span></span><span></span>
+<div id="container21">
+  {
+    Array.from({ length: 3 }).map((_, idx) => {
+      const delay = `${(durationQuantity * 0.3333 * idx).toFixed(2)}${durationUnit}`;
+      return <span class={className} style={`--delay: ${delay}`} {...rest} />;
+    })
+  }
 </div>
 
-<style define:vars={{ duration, size, containerSize }}>
+<style define:vars={{ duration, size, containerSize, color }}>
   #container21 {
     position: relative;
     width: var(--containerSize);
@@ -24,53 +40,32 @@ const containerSize = `${+quantity * 2.5}${unit}`;
       position: absolute;
       top: 0;
       left: 0;
-      animation: anim21Spans var(--duration) infinite linear;
-      border-radius: 4px;
-      background-color: #fff;
+      animation: anim21 var(--duration) infinite linear;
+      animation-delay: var(--delay);
+      border-radius: 0.2em;
+      background-color: var(--color);
       width: var(--size);
       height: var(--size);
-      &:nth-of-type(2) {
-        animation-delay: calc(var(--duration) * 0.35);
-      }
-      &:nth-of-type(3) {
-        animation-delay: calc(var(--duration) * 0.7);
-      }
     }
   }
 
-  @keyframes anim21Spans {
-    0% {
-      top: 0;
-      left: 0;
-    }
-    12.5% {
-      top: 0;
-      left: 60%;
-    }
+  @keyframes anim21 {
+    12.5%,
     25% {
       top: 0;
       left: 60%;
     }
-    37.5% {
-      top: 60%;
-      left: 60%;
-    }
+    37.5%,
     50% {
       top: 60%;
       left: 60%;
     }
-    62.5% {
-      top: 60%;
-      left: 0;
-    }
+    62.5%,
     75% {
       top: 60%;
       left: 0;
     }
-    87.5% {
-      top: 0;
-      left: 0;
-    }
+    87.5%,
     100% {
       top: 0;
       left: 0;

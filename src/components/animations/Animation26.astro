@@ -3,13 +3,13 @@ interface Props {
   class?: string;
   duration?: string;
   size?: string;
-  colors?: string[];
+  colors?: string;
   circles?: number;
 }
 const {
   class: className,
-  colors = ['#fff', '#ccae62', '#218c74', '#eb4d4b'],
-  circles = colors?.length,
+  colors = '#fff, #ccae62, #218c74, #eb4d4b',
+  circles = colors.split(',').length,
   duration = '1s',
   size = '80px',
 } = Astro.props;
@@ -27,10 +27,11 @@ const borderSize = `${quantity * 0.025}${unit}`;
         idx === 0
           ? `${quantity / circles / 2}${unit}`
           : `${(quantity / circles) * (idx + 1)}${unit}`;
+      const color = colors.split(',')[idx];
       return (
         <div
-          class="circle26"
-          style={`--circleSize: ${circleSize};--color: ${colors?.[idx]}`}
+          class="circle"
+          style={`--circleSize: ${circleSize};--color: ${color}`}
         />
       );
     })
@@ -42,11 +43,10 @@ const borderSize = `${quantity * 0.025}${unit}`;
     position: relative;
     width: var(--size);
     height: var(--size);
-    .circle26 {
+    .circle {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: calc(50% - var(--circleSize) / 2);
+      left: calc(50% - var(--circleSize) / 2);
       border: var(--borderSize) solid transparent;
       border-right-color: var(--color);
       border-left-color: var(--color);
@@ -55,23 +55,19 @@ const borderSize = `${quantity * 0.025}${unit}`;
       height: var(--circleSize);
       &:not(:first-of-type) {
         animation: anim26 3s infinite linear;
+        &:nth-of-type(odd) {
+          animation-direction: reverse;
+        }
       }
       &:nth-of-type(1) {
         background-color: var(--color);
-      }
-      &:nth-of-type(odd) {
-        animation-direction: reverse;
       }
     }
   }
 
   @keyframes anim26 {
-    0% {
-      transform: translate(-50%, -50%) rotate(0);
-    }
-
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>

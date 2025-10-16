@@ -1,17 +1,17 @@
 ---
 interface Props {
   class?: string;
+  duration?: string;
 }
-const { class: className } = Astro.props;
+const { class: className, duration = '2s', ...rest } = Astro.props;
 ---
 
-<div id="container19" class={className}>
+<div id="container19" class={className} {...rest}>
   <span></span><span></span><span></span><span></span><span></span>
 </div>
 
-<style>
+<style define:vars={{ duration }}>
   #container19 {
-    --duration: 3s;
     --delay: calc(var(--duration) / 2);
     display: flex;
     border-top: 10px solid #fff;
@@ -24,10 +24,10 @@ const { class: className } = Astro.props;
       width: 3px;
       height: 150px;
       &:first-of-type {
-        animation: anim19Left var(--duration) infinite ease-in;
+        animation: anim19Left var(--duration) infinite ease-in-out;
       }
       &:last-of-type {
-        animation: anim19Right var(--duration) infinite ease-in;
+        animation: anim19Right var(--duration) infinite ease-in-out;
         animation-delay: var(--delay);
       }
       &::before {
@@ -50,7 +50,7 @@ const { class: className } = Astro.props;
     25% {
       transform: rotate(45deg);
     }
-    50% {
+    55% {
       transform: rotate(0deg);
     }
     100% {
@@ -64,7 +64,7 @@ const { class: className } = Astro.props;
     25% {
       transform: rotate(-45deg);
     }
-    50% {
+    55% {
       transform: rotate(0deg);
     }
     100% {

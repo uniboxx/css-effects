@@ -3,15 +3,24 @@ interface Props {
   class?: string;
   duration?: string;
   text: string;
+  colors?: string;
 }
-const { class: className, duration = '5s', text } = Astro.props;
+const {
+  class: className,
+  duration = '5s',
+  text,
+  colors = '#fff, #f6b93b',
+  ...rest
+} = Astro.props;
+
+const [color1, color2] = colors.split(',');
 ---
 
-<div id="container22" class={className}>
-  <h3>{text}<span>{text}</span></h3>
+<div id="container22" class={className} {...rest}>
+  <h3>&nbsp;{text}&nbsp;<span>&nbsp;{text}&nbsp;</span></h3>
 </div>
 
-<style define:vars={{ duration }}>
+<style define:vars={{ duration, color1, color2 }}>
   #container22 {
     display: flex;
     justify-content: center;
@@ -21,16 +30,17 @@ const { class: className, duration = '5s', text } = Astro.props;
   h3 {
     --border-size: 4px;
     position: relative;
-    padding-right: var(--border-size);
+    color: var(--color1);
     span {
+      display: block;
       position: absolute;
       top: 0;
       left: 0;
       animation: anim22 var(--duration) linear infinite;
-      border-right: var(--border-size) solid #f6b93b;
+      border-right: var(--border-size) solid var(--color2);
       width: 100%;
       overflow: hidden;
-      color: #f6b93b;
+      color: var(--color2);
       text-wrap: nowrap;
     }
   }

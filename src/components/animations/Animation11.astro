@@ -2,38 +2,45 @@
 interface Props {
   class?: string;
   color?: string;
+  duration?: string;
+  ballSize?: string;
+  number?: number;
 }
-const { class: className, color = '#fff' } = Astro.props;
+const {
+  class: className,
+  duration = '.8s',
+  color = '#fff',
+  ballSize = '1rem',
+  number = 5,
+  ...rest
+} = Astro.props;
 ---
 
-<ul data-style="none" class={className}>
+<ul data-style="none" class={className} {...rest}>
   {
-    Array.from({ length: 5 }, (_, index) => index + 1).map((_) => (
-      <li
-        style={`--delay: ${(Math.ceil(Math.random() * 50) / 100).toFixed(2)}s`}
-      />
-    ))
+    Array.from({ length: 5 }, (_, index) => index + 1).map(() => {
+      const delay = `${(Math.floor(Math.random() * number * 15) / 100).toFixed(2)}s`;
+      return <li style={`--delay: ${delay}`} />;
+    })
   }
 </ul>
 
-<style define:vars={{ color }}>
+<style define:vars={{ duration, color, ballSize }}>
   ul {
     display: flex;
     justify-content: center;
     align-items: end;
-    gap: 10px;
-    margin-bottom: 10px;
-    border-bottom: 5px solid var(--color);
-    width: 80%;
-    height: 100%;
+    gap: calc(var(--ballSize) / 2);
+    border-bottom: calc(var(--ballSize) / 4) solid var(--color);
+    min-height: calc(var(--ballSize) * 4.25);
     color: var(--color);
     li {
-      animation: jumping11 0.8s linear infinite;
+      animation: jumping11 var(--duration) linear infinite;
       animation-delay: var(--delay);
       border-radius: 50%;
       background-color: var(--color);
-      width: 20px;
-      height: 20px;
+      width: var(--ballSize);
+      height: var(--ballSize);
     }
   }
   @keyframes jumping11 {

@@ -1,27 +1,26 @@
 ---
 interface Props {
   text: string;
-  color1: string;
-  color2: string;
+  colors?: string;
   duration?: string;
   class?: string;
 }
 const {
   text,
-  color1,
-  color2,
+  colors = '#f44336, blue',
   duration = '3s',
   class: className,
   ...rest
 } = Astro.props;
-const arrayTxt = text.split('');
+
+const [color1, color2] = colors.split(',');
 ---
 
 <ul data-style="none" class={className} {...rest}>
   {
-    arrayTxt.map((letter, index) => (
-      <li style={`--delay: ${index * 0.2}s`}>{letter}</li>
-    ))
+    text
+      .split('')
+      .map((letter, idx) => <li style={`--delay: ${idx * 0.2}s`}>{letter}</li>)
   }
 </ul>
 

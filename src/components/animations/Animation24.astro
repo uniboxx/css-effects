@@ -4,21 +4,24 @@ interface Props {
   duration?: string;
   width?: string;
   height?: string;
+  color?: string;
 }
 const {
   class: className,
   duration = '2s',
-  width = '80%',
+  width = '180px',
   height = '3px',
+  color = '#fff',
+  ...rest
 } = Astro.props;
 ---
 
-<div id="line24" class={className}></div>
+<div id="line24" class={className} {...rest}></div>
 
-<style define:vars={{ duration, width, height }}>
+<style define:vars={{ duration, width, height, color }}>
   #line24 {
     animation: anim24 var(--duration) infinite linear alternate;
-    background-color: white;
+    background-color: var(--color);
     width: var(--width);
     height: var(--height);
   }

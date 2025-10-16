@@ -1,30 +1,33 @@
 ---
+// need to install astro-icon and @iconify-json/mdi
+// to set the size add font-size in the component class
 import { Icon } from 'astro-icon/components';
 
 interface Props {
   iconName: string;
   class?: string;
   duration?: string;
-  color: string;
-  hoverColor: string;
+  color?: string;
+  hoverColor?: string;
 }
 
 const {
   class: className,
   iconName,
   duration = '.5s',
-  color,
-  hoverColor,
+  color = '#f44336',
+  hoverColor = '#fff',
+  ...rest
 } = Astro.props;
 ---
 
-<div class="container">
-  <Icon name={`mdi:${iconName}`} class:list={[className, 'icon']} />
+<div id="container13">
+  <Icon name={iconName} class={className} {...rest} />
   <span></span><span></span>
 </div>
 
 <style define:vars={{ duration, color, hoverColor }}>
-  .container {
+  #container13 {
     display: flex;
     position: relative;
     justify-content: center;
@@ -33,7 +36,7 @@ const {
     border-radius: 50%;
     padding: 1em;
 
-    .icon {
+    svg {
       position: relative;
       z-index: 10;
       transition: var(--duration);
@@ -42,31 +45,33 @@ const {
 
     span {
       position: absolute;
-      top: 0;
-      left: 0;
       border-radius: 50%;
-      width: 100%;
-      height: 100%;
-      content: '';
       &:nth-of-type(1) {
+        top: 10%;
+        left: 10%;
         opacity: 0;
         z-index: 5;
         transition: var(--duration);
         background-color: var(--color);
+        width: 80%;
+        height: 80%;
       }
       &:nth-of-type(2) {
+        top: 5%;
+        left: 5%;
         opacity: 0;
         transition: var(--duration) linear infinite;
         border: 0.05em dashed var(--color);
+        width: 90%;
+        height: 90%;
       }
     }
     &:hover {
-      .icon {
+      svg {
         color: var(--hoverColor);
       }
       span {
         &:nth-of-type(1) {
-          transform: scale(0.8);
           opacity: 1;
         }
         &:nth-of-type(2) {
@@ -77,11 +82,8 @@ const {
     }
   }
   @keyframes rotating13 {
-    from {
-      transform: scale(0.9) rotate(0deg);
-    }
     to {
-      transform: scale(0.9) rotate(360deg);
+      transform: rotate(360deg);
     }
   }
 </style>

@@ -3,22 +3,20 @@ interface Props {
   text: string;
   duration?: string;
   class?: string;
-  color: string;
-  delay?: '.1s';
+  delay?: string;
 }
 const {
   text,
-  duration = '1.4s',
+  duration = `${(text.length / 5).toFixed(1)}s`,
   class: className,
-  color,
   delay = '0.1s',
   ...rest
 } = Astro.props;
 const arrayTxt = text.split('');
 const regex = /(?<delayTime>[\d\.]+)(?<delayUnit>(s|ms)$)/;
-const { groups } = delay.match(regex) ?? {};
-const delayTime = +groups?.delayTime!;
-const delayUnit = groups?.delayUnit;
+const result = delay.match(regex)!;
+const delayTime = +result.groups?.delayTime!;
+const delayUnit = result.groups?.delayUnit;
 ---
 
 <ul data-style="none" class={className} {...rest}>
@@ -31,26 +29,23 @@ const delayUnit = groups?.delayUnit;
   }
 </ul>
 
-<style define:vars={{ duration, color }}>
+<style define:vars={{ duration }}>
   ul {
     display: flex;
     gap: 5px;
     li {
       animation: lighting08 var(--duration) linear infinite;
       animation-delay: var(--letDelay);
-      color: var(--color);
-      /* &:nth-of-type(2) {
-        animation-delay: 0.1s;
-      } */
+      color: #484848;
     }
   }
   @keyframes lighting08 {
     0% {
-      color: var(--color);
+      color: #484848;
       text-shadow: none;
     }
     90% {
-      color: var(--color);
+      color: #484848;
       text-shadow: none;
     }
     100% {
