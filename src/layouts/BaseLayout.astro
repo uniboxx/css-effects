@@ -14,7 +14,7 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <slot name="head" />
-    <title>{title}</title>
+    <title>Css Effects | {title}</title>
   </head>
   <body>
     <header>
@@ -58,6 +58,11 @@ const { title } = Astro.props;
           class:list={[
             { active: Astro.url.pathname.startsWith('/animations') },
           ]}>Animations</a
+        >
+        <a
+          href="/clip-path"
+          class:list={[{ active: Astro.url.pathname.startsWith('/clip-path') }]}
+          >Clip path</a
         >
       </nav>
     </header>

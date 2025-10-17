@@ -1,0 +1,75 @@
+---
+//- available shapes:
+// triangleR, triangleB, triangleL
+
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class: string;
+  src: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  shape?: string;
+  position?: string;
+}
+const {
+  class: className,
+  shape,
+  src,
+  width,
+  height,
+  position = 'center',
+  ...rest
+} = Astro.props;
+const optImage = await getImage({
+  src,
+  format: 'webp',
+  width,
+  height,
+});
+let shapeCode = '';
+
+switch (shape) {
+  case 'triangleR':
+    shapeCode += 'polygon(0% 0%, 100% 50%, 0% 100%)';
+    break;
+  case 'triangleB':
+    shapeCode += 'polygon(0% 0%, 100% 0%, 50% 100%)';
+    break;
+  case 'triangleL':
+    shapeCode += 'polygon(100% 0%, 100% 100%, 0% 50%)';
+    break;
+  case 'circle':
+    shapeCode += 'circle(50% at 50% 50%)';
+    break;
+  case 'star':
+    shapeCode +=
+      'polygon(50% 0%, 64% 34%, 98% 35%, 70% 65%, 84% 100%, 50% 80%, 15% 100%, 30% 65%, 0 35%, 36% 34%)';
+    break;
+  default:
+    shapeCode += 'polygon(50% 0%, 100% 100%, 0% 100%)';
+}
+const [x, y] = position.split(' ');
+const posVar = `${x} ${y}`;
+---
+
+<div
+  id="shape01"
+  class={className}
+  style={`--url: url(${optImage.src});--position: ${posVar};--shape: ${shapeCode}`}
+  {...rest}
+>
+</div>
+
+<style define:vars={{ position }}>
+  #shape01 {
+    clip-path: var(--shape);
+    background: var(--url);
+    background-position: var(--position);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+  }
+</style>
