@@ -1,4 +1,14 @@
 ---
+import fingerprint from '@/images/animation46/fingerprint.svg';
+import scanned from '@/images/animation46/fingerprint_scanned.svg';
+import { getImage } from 'astro:assets';
+const optFingerprint = await getImage({
+  src: fingerprint,
+});
+const optScanned = await getImage({
+  src: scanned,
+});
+
 interface Props {
   class?: string;
   duration?: string;
@@ -7,22 +17,28 @@ interface Props {
 }
 const {
   class: className,
-  duration = '8s',
+  duration = '4s',
   size = '10em',
   text = 'scanning...',
 } = Astro.props;
 ---
 
 <div id="container46" class={className}>
-  <div class="fingerprint"></div>
+  <div
+    class="fingerprint"
+    style={`--url: url(${optFingerprint.src});--scannedUrl: url(${optScanned.src})`}
+  >
+  </div>
   <h3>{text}</h3>
 </div>
 
 <style define:vars={{ duration, size }}>
   #container46 {
+    --color: #3fefef;
     display: flex;
     position: relative;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     transition: var(--duration);
     border: 1px solid #fff;
@@ -31,54 +47,64 @@ const {
     color: #fff;
     .fingerprint {
       position: relative;
-    }
-    .orbit {
-      --orbitSize: calc(var(--size) / 1.68);
-      display: flex;
-      position: relative;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      width: var(--orbitSize);
-      height: var(--orbitSize);
-      p {
-        --pSize: calc(var(--fz) * 0.8);
-        --origin: calc(var(--orbitSize) / var(--divider));
+      background: var(--url);
+      background-size: contain;
+      width: calc(var(--size) * 0.75);
+      height: calc(var(--size) * 0.75);
+      &::before,
+      &::after {
         position: absolute;
-        top: 50%;
-        left: 0%;
-        transform: translate(-50%, -50%);
-        width: var(--pSize);
-        height: var(--pSize);
-        line-height: 0.8;
-        &::before {
-          position: absolute;
-          top: 0%;
-          left: 0%;
-          transform-origin: var(--origin);
-          animation: anim46 var(--duration) linear infinite;
-          width: 100%;
-          height: 100%;
-          content: 'O';
-          font-size: var(--fz);
-        }
+        top: 0;
+        left: 0;
+        width: 100%;
+        content: '';
       }
-
-      .moon {
-        box-shadow:
-          0 0 0 calc(var(--fz) / 5.8333) #ffffff0d,
-          0 0 0 calc(var(--fz) / 5.8333 * 2) #ffffff0d,
-          0 0 0 calc(var(--fz) / 5.8333 * 3) #ffffff0d;
-        border-radius: 50%;
-        background-color: #f5f5f5;
-        width: calc(var(--fz) * 2.28);
-        height: calc(var(--fz) * 2.28);
+      &::before {
+        animation: scanning46 var(--duration) ease-in-out infinite;
+        background: var(--scannedUrl);
+        background-size: cover;
+        height: 100%;
+        overflow: hidden;
       }
+      &::after {
+        filter: drop-shadow(0 0 calc(var(--size) * 0.05) var(--color))
+          drop-shadow(0 0 calc(var(--size) * 0.15) var(--color));
+        animation: animLine46 var(--duration) ease-in-out infinite;
+        border-radius: calc(var(--size) * 0.02);
+        background-color: var(--color);
+        height: calc(var(--size) * 0.02);
+      }
+    }
+    h3 {
+      filter: drop-shadow(0 0 calc(var(--size) * 0.05) var(--color));
+      animation: animText46 calc(var(--duration) / 8) ease-in-out infinite;
+      color: var(--color);
     }
   }
-  @keyframes anim46 {
+  @keyframes scanning46 {
+    0%,
     100% {
-      transform: rotate(360deg);
+      height: 0%;
+    }
+    50% {
+      height: 100%;
+    }
+  }
+  @keyframes animLine46 {
+    0%,
+    100% {
+      top: 0;
+    }
+    50% {
+      top: 100%;
+    }
+  }
+  @keyframes animText46 {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
     }
   }
 </style>

@@ -4,16 +4,16 @@ interface Props {
   duration?: string;
   text: string;
   size?: string;
-  colors?: string[];
+  colors?: string;
 }
 const {
   class: className,
   duration = '1s',
   text,
   size = `${text.length * 0.75}em`,
-  colors = ['#74baff72', '#2980b9'],
+  colors = '#74baff72, #2980b9',
 } = Astro.props;
-const [color1, color2] = colors;
+const [fixedDot, movingDot] = colors.split(',');
 ---
 
 <div id="container42" class={className}>
@@ -27,7 +27,7 @@ const [color1, color2] = colors;
   <h3>{text}</h3>
 </div>
 
-<style define:vars={{ duration, size, color1, color2 }}>
+<style define:vars={{ duration, size, fixedDot, movingDot }}>
   #container42 {
     position: relative;
     width: var(--size);
@@ -56,7 +56,7 @@ const [color1, color2] = colors;
           left: 0;
           z-index: 1;
           border-radius: 50%;
-          background-color: var(--color1);
+          background-color: var(--fixedDot);
           width: calc(var(--size) / 8);
           height: calc(var(--size) / 8);
           content: '';
@@ -64,7 +64,7 @@ const [color1, color2] = colors;
         &:nth-of-type(odd)::before {
           transform-origin: calc(var(--size) / 2);
           animation: loading42 var(--duration) infinite linear;
-          background: var(--color2);
+          background: var(--movingDot);
         }
       }
     }

@@ -3,20 +3,24 @@ interface Props {
   class?: string;
   duration?: string;
   size?: string;
-  bgColor?: string;
-  color?: string;
+  colors?: string;
 }
 const {
   class: className,
   size = '50px',
-  color = '#fff',
-  bgColor = '#00e1ffaa',
+  colors = '#fff, #00e1ffaa',
   duration = '2s',
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
+
+const [color, bgColor] = colors.split(',');
+function randDelay() {
+  const delay = Math.floor(Math.random() * quantity * 10) / 10;
+  return `${delay}${unit}`;
+}
 ---
 
 <div id="container39" class={className}>
@@ -25,8 +29,8 @@ const unit = result.groups?.unit!;
     <div class="rain">
       {
         Array.from({ length: 20 }).map((_, idx) => {
-          const delay = Math.floor(Math.random() * quantity * 10) / 10;
-          return <span style={`--n: ${idx};--delay: ${delay}${unit}`} />;
+          const delay = randDelay();
+          return <span style={`--n: ${idx};--delay: ${delay}`} />;
         })
       }
     </div>
@@ -45,7 +49,7 @@ const unit = result.groups?.unit!;
       position: relative;
       border-bottom: calc(var(--size) * 0.06) solid var(--color);
       width: calc(var(--size) * 3.3);
-      height: calc(var(--size) * 3.8);
+      height: calc(var(--size) * 3.83);
       .cloud {
         position: relative;
         top: calc(var(--size));
