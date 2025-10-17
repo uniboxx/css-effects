@@ -3,14 +3,14 @@ import { Icon } from 'astro-icon/components';
 
 interface Props {
   class?: string;
-  color?: string;
+  colors?: string;
   duration?: string;
   text: string;
   href: string;
 }
 const {
   class: className,
-  color = 'black',
+  colors = '#000, #fff',
   duration = '.2s',
   text,
   href = '#',
@@ -20,6 +20,7 @@ const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 const bgDelay = `${quantity * 4}${unit}`;
+const [color, hoverColor] = colors.split(',');
 ---
 
 <a href={href} class={className}
@@ -33,10 +34,10 @@ const bgDelay = `${quantity * 4}${unit}`;
   <Icon id="pencil" name="mdi:pencil" />
 </a>
 
-<style define:vars={{ duration, color, bgDelay }}>
+<style define:vars={{ duration, color, hoverColor, bgDelay }}>
   a {
     position: relative;
-    z-index: 1;
+    z-index: 0;
     transition: var(--duration);
     padding: 10px 20px;
     font: inherit;
@@ -100,7 +101,7 @@ const bgDelay = `${quantity * 4}${unit}`;
 
     &:hover {
       transition-delay: var(--bgDelay);
-      color: white;
+      color: var(--hoverColor);
       span {
         transition-delay: var(--delay);
         &:nth-of-type(1),
@@ -117,7 +118,6 @@ const bgDelay = `${quantity * 4}${unit}`;
       }
       &::before {
         transform: scale(1);
-        transform-origin: top left;
         transition-delay: var(--bgDelay);
       }
     }

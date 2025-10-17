@@ -1,17 +1,17 @@
 ---
 interface Props {
   class?: string;
-  colors?: string[];
+  colors?: string;
   size?: string;
   duration?: string;
 }
 const {
   class: className,
-  colors = ['#06c8f0', '#fff', '#fe4e4e', '#fff'],
+  colors = '#06c8f0, #fff, #fe4e4e, #f0f',
   size = '37px',
   duration = '2s',
 } = Astro.props;
-const [color1, color2, color3, color4] = colors;
+const [semiSmall, sphere, semiBig, sphereSmall] = colors.split(',');
 ---
 
 <div id="container37" class={className}>
@@ -22,7 +22,8 @@ const [color1, color2, color3, color4] = colors;
   </div>
 </div>
 
-<style define:vars={{ color1, color2, color3, color4, size, duration }}>
+<style define:vars={{ semiSmall, sphere, semiBig, sphereSmall, size, duration }}
+>
   #container37 {
     display: flex;
     justify-content: center;
@@ -45,7 +46,7 @@ const [color1, color2, color3, color4] = colors;
         z-index: 1;
         animation: circle37 var(--duration) linear infinite alternate;
         border-radius: 50%;
-        background: var(--color2);
+        background: var(--sphere);
         width: calc(var(--size) * 2);
         height: calc(var(--size) * 2);
       }
@@ -53,25 +54,22 @@ const [color1, color2, color3, color4] = colors;
         top: calc(var(--size) * 4);
         left: -150%;
         border-radius: 50%;
-        background: var(--color3);
+        background: var(--semiBig);
         width: calc(var(--size) * 8);
         height: calc(var(--size) * 8);
       }
       .loader {
         position: relative;
-        z-index: 0;
         animation: semicircle37 var(--duration) linear infinite alternate;
-        /* animation: anim37 var(--duration) linear infinite alternate; */
-        margin: 0 auto;
-        /* background-color: red; */
         width: calc(var(--size) * 2);
         height: calc(var(--size) * 2);
         &::before {
+          --radius: calc(var(--size) * 2);
           position: absolute;
           bottom: 0;
-          border-bottom-right-radius: calc(var(--size) * 2);
-          border-bottom-left-radius: calc(var(--size) * 2);
-          background: var(--color1);
+          border-bottom-right-radius: var(--radius);
+          border-bottom-left-radius: var(--radius);
+          background: var(--semiSmall);
           width: 100%;
           height: 50%;
           content: '';
@@ -82,7 +80,7 @@ const [color1, color2, color3, color4] = colors;
           transform: translateY(-100%) translateX(calc(var(--size) / -2));
           animation: ball37 var(--duration) linear infinite alternate;
           border-radius: 50%;
-          background-color: var(--color4);
+          background-color: var(--sphereSmall);
           width: calc(var(--size) / 2);
           height: calc(var(--size) / 2);
         }
