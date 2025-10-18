@@ -1,0 +1,69 @@
+---
+interface Props {
+  class?: string;
+  text?: string;
+  duration?: string;
+  color?: string;
+}
+const {
+  class: className,
+  text = 'Clip03',
+  duration = '1s',
+  color = '#03a9f4',
+  ...rest
+} = Astro.props;
+---
+
+<div id="wave03" class={className} {...rest}>
+  <h3>{text}</h3>
+  <h3>{text}</h3>
+</div>
+
+<style define:vars={{ duration, color }}>
+  #wave03 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    h3 {
+      position: absolute;
+      width: 100%;
+      line-height: 2.8em;
+      text-align: center;
+
+      &:first-of-type {
+        -webkit-text-stroke: 2px var(--color);
+        color: transparent;
+      }
+      &:last-of-type {
+        animation: waving03 var(--duration) ease-in-out infinite alternate;
+        color: var(--color);
+      }
+    }
+  }
+  @keyframes waving03 {
+    0% {
+      clip-path: polygon(
+        0% 38%,
+        21% 40%,
+        38% 51%,
+        54% 57%,
+        75% 57%,
+        100% 52%,
+        100% 100%,
+        0% 100%
+      );
+    }
+    100% {
+      clip-path: polygon(
+        0 49%,
+        16% 56%,
+        33% 55%,
+        55% 50%,
+        75% 42%,
+        100% 40%,
+        100% 100%,
+        0% 100%
+      );
+    }
+  }
+</style>

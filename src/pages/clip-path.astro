@@ -1,15 +1,45 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Clip01 } from '@/components';
+import { Clip01, Clip02, Clip03, Clip04 } from '@/components';
 
 import paris from '@/images/paris.jpg';
+import newYork from '@/images/new-york.jpg';
+import dubai from '@/images/dubai.jpg';
 ---
 
 <BaseLayout title="Clip path">
   <div class="grid">
     <div class="element row2">
-      <Clip01 src={paris} alt="paris" height={400} shape="star" class="paris" />
+      <Clip01
+        class="element01"
+        src={paris}
+        alt="paris"
+        height={400}
+        shape="star"
+      />
+    </div>
+    <div class="element">
+      <Clip02 class="element02" />
+    </div>
+    <div class="element">
+      <Clip03 class="element03" />
+    </div>
+    <div class="element row2 col2">
+      <Clip04
+        class="element04"
+        images={[
+          { src: paris, alt: 'paris', position: 'center' },
+          {
+            src: newYork,
+            alt: 'new-york',
+
+            position: '70% center',
+          },
+          { src: dubai, alt: 'dubai', position: '80% center' },
+        ]}
+        height={400}
+      />
     </div>
   </div>
 </BaseLayout>
@@ -23,7 +53,6 @@ import paris from '@/images/paris.jpg';
     align-items: center;
     gap: 20px;
     margin: 1rem 0;
-    padding: 10px;
     .element {
       --height: calc(var(--width) / 2);
       display: flex;
@@ -36,6 +65,17 @@ import paris from '@/images/paris.jpg';
       &.col2 {
         grid-column: span 2;
       }
+    }
+    .element02 {
+      font-size: 2rem;
+    }
+    .element03 {
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+    .element04 {
+      background-color: #222;
+      width: 80%;
     }
   }
 </style>

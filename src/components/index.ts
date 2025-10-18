@@ -109,3 +109,6 @@ export { default as Animation44 } from './animations/Animation44.astro';
 export { default as Animation45 } from './animations/Animation45.astro';
 export { default as Animation46 } from './animations/Animation46.astro';
 export { default as Clip01 } from './clip-paths/Clip01.astro';
+export { default as Clip02 } from './clip-paths/Clip02.astro';
+export { default as Clip03 } from './clip-paths/Clip03.astro';
+export { default as Clip04 } from './clip-paths/Clip04.astro';

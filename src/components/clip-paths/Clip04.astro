@@ -1,0 +1,91 @@
+---
+//- visit https://bennettfeely.com/clippy/ to get more shapes or generate your own
+
+import { getImage } from 'astro:assets';
+
+type Images = {
+  src: ImageMetadata;
+  alt: string;
+  position?: string;
+}[];
+
+interface Props {
+  class: string;
+  images: Images;
+  duration?: string;
+  width?: number;
+  height?: number;
+}
+const {
+  class: className,
+  images,
+  width,
+  height,
+  duration = '.5s',
+  ...rest
+} = Astro.props;
+
+async function optImages(images: Images) {
+  const optimizedImages = [];
+  for (let i = 0; i < images.length; i++) {
+    const optimized = await getImage({
+      src: images[i].src,
+      format: 'webp',
+      height,
+    });
+    optimizedImages.push(optimized);
+  }
+  return optimizedImages;
+}
+const opts = await optImages(images);
+console.log('🚀 ~ :34 ~ opts:', opts);
+---
+
+<div id="container04" class={className} {...rest}>
+  {
+    images.map((el, idx) => {
+      const clips = [
+        '0 0, 100% 0, 120% 100%, 0 100%',
+        '0 0, 100% 0, 80% 100%, 20% 100%',
+        '0 0, 100% 0, 100% 100%, -20% 100%',
+      ];
+      const left = idx === 0 ? '0%' : idx === 1 ? '20%' : '68%';
+      const width = idx === 1 ? '60%' : '32%';
+      const zIndex = idx === 1 ? 1 : 0;
+      return (
+        <div
+          style={`--url: url(${opts[idx].src});--position: ${el.position};clip-path: polygon(${clips[idx]});left: ${left};width: ${width};z-index: ${zIndex}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style define:vars={{ duration }}>
+  #container04 {
+    position: relative;
+    height: 100%;
+    div {
+      position: absolute;
+      background: var(--url) no-repeat;
+      background-position: var(--position);
+      background-size: cover;
+      height: 100%;
+      &:hover {
+        animation: fulling04 var(--duration) ease-in-out forwards;
+      }
+    }
+  }
+  @keyframes fulling04 {
+    0% {
+      z-index: 2;
+    }
+    100% {
+      left: 0;
+      z-index: 2;
+      clip-path: none;
+      background-position: center;
+      width: 100%;
+    }
+  }
+</style>
