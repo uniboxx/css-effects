@@ -1,0 +1,54 @@
+---
+interface Props {
+  class: string;
+  duration?: string;
+  textTop?: string;
+  textBottom?: string;
+  bgColor?: string;
+}
+const {
+  class: className,
+  duration = '.5s',
+  textTop = 'White',
+  textBottom = 'Black',
+  bgColor = '#c8d6e5',
+  ...rest
+} = Astro.props;
+---
+
+<div id="container06" class={className} {...rest}>
+  <h3>{textTop}</h3>
+  <h3>{textBottom}</h3>
+</div>
+
+<style define:vars={{ duration, bgColor }}>
+  #container06 {
+    position: relative;
+    transition: var(--duration);
+    background: var(--bgColor);
+    width: 100%;
+    height: 100%;
+    h3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: var(--duration);
+      background-color: var(--bgColor);
+      width: 100%;
+      text-align: center;
+      &:first-of-type {
+        clip-path: polygon(0 0, 100% 0, 0 100%, 0 100%);
+        color: #fff;
+      }
+      &:last-of-type {
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%);
+        color: #000;
+      }
+      &:hover {
+        z-index: 1;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+  }
+</style>

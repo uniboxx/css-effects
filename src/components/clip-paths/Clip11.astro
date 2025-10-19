@@ -1,0 +1,86 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  class: string;
+  duration?: string;
+  text1?: string;
+  text2?: string;
+  text3?: string;
+  text4?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '3s',
+  text1 = 'Bye Bye',
+  text2 = '2030',
+  text3 = 'Happy New Year',
+  text4 = '2031',
+  colors = '#4cb979, #fff',
+  ...rest
+} = Astro.props;
+const [color1, color2] = colors.split(',');
+---
+
+<div id="container11" class={className} {...rest}>
+  <div class="box box1">
+    <h3><span>{text1}</span> <span>{text2}</span></h3>
+  </div>
+  <div class="box box2">
+    <h3><span>{text3}</span> <span>{text4}</span></h3>
+  </div>
+</div>
+
+<style define:vars={{ duration, color1, color2 }}>
+  #container11 {
+    position: relative;
+    z-index: 0;
+    background: var(--color2);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .box {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      span:nth-of-type(2) {
+        font-size: 2em;
+        line-height: 1em;
+      }
+      h3 {
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-70%);
+        animation: clip11 var(--duration) infinite ease-in-out;
+        color: var(--color1);
+        text-align: center;
+      }
+      &.box2 {
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+        background: var(--color1);
+        h3 {
+          color: var(--color2);
+        }
+      }
+    }
+  }
+  @keyframes clip11 {
+    0%,
+    45% {
+      transform: translateY(-70%);
+    }
+    55%,
+    90% {
+      transform: translateY(70%);
+    }
+    100% {
+      transform: translateY(-70%);
+    }
+  }
+</style>

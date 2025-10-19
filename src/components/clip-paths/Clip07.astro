@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  class: string;
+  duration?: string;
+  image: ImageMetadata;
+  width?: number;
+  height?: number;
+}
+const {
+  class: className,
+  duration = '.5s',
+  image,
+  width,
+  height,
+  ...rest
+} = Astro.props;
+---
+
+<div id="container07" class={className} {...rest}>
+  <div class="image"><Image src={image} alt="avatar" height={height} /></div>
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style define:vars={{ duration, image }}>
+  #container07 {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    .image {
+      position: absolute;
+      clip-path: circle(71% at 50%);
+      transition: var(--duration);
+      width: 100%;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--duration);
+      padding: 0 5px 10px;
+      height: 100%;
+      & > * {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: calc(var(--duration) / 1.5);
+      }
+    }
+
+    &:hover {
+      .image {
+        clip-path: circle(3rem at 50% 38%);
+      }
+      .content {
+        & > * {
+          transform: translateY(0);
+          opacity: 1;
+          transition-delay: var(--duration);
+        }
+      }
+    }
+  }
+</style>

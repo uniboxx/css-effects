@@ -38,7 +38,6 @@ async function optImages(images: Images) {
   return optimizedImages;
 }
 const opts = await optImages(images);
-console.log('🚀 ~ :34 ~ opts:', opts);
 ---
 
 <div id="container04" class={className} {...rest}>
@@ -59,6 +58,7 @@ console.log('🚀 ~ :34 ~ opts:', opts);
       );
     })
   }
+  <slot />
 </div>
 
 <style define:vars={{ duration }}>
@@ -71,6 +71,7 @@ console.log('🚀 ~ :34 ~ opts:', opts);
       background-position: var(--position);
       background-size: cover;
       height: 100%;
+      color: white;
       &:hover {
         animation: fulling04 var(--duration) ease-in-out forwards;
       }
