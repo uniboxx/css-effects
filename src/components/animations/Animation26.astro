@@ -22,7 +22,7 @@ const borderSize = `${quantity * 0.025}${unit}`;
 
 <div id="container26" class={className}>
   {
-    Array.from({ length: circles }).map((el, idx) => {
+    Array.from({ length: circles }).map((_, idx) => {
       const circleSize =
         idx === 0
           ? `${quantity / circles / 2}${unit}`

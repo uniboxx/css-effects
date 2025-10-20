@@ -20,7 +20,6 @@ const optBg = await getImage({ src: bgImage, alt: 'bg', format: 'webp' });
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = size.match(regex)!;
 const quantity = +result.groups?.quantity!;
-const unit = result.groups?.unit!;
 const carWidth = Math.floor((quantity / 18) * 5);
 const carHeight = Math.floor(carWidth / 2);
 const motoSize = carHeight;
