@@ -22,17 +22,18 @@ import plant from '@/images/with-js02/plant.png';
 import tree from '@/images/with-js02/tree.png';
 
 const images = [hill1, hill2, hill3, hill4, hill5, leaf, plant, tree];
-const regex = /with-js02\/(?<filename>[^\.]+)/;
+// prettier-ignore
+const ids = ['hill1', 'hill2', 'hill3', 'hill4', 'hill5', 'leaf', 'plant', 'tree'];
 ---
 
 <div id="container02" class={className} {...props}>
   <slot name="header" />
   <section id="parallax">
     {
-      images.map((image) => {
-        const result = image.src.match(regex)!;
-        const id = result.groups?.filename;
-        return <Image id={id} src={image} alt="" height={270} format="webp" />;
+      images.map((image, idx) => {
+        return (
+          <Image id={ids[idx]} src={image} alt="" height={270} format="webp" />
+        );
       })
     }
     <h3 id="title">{heading}</h3>
