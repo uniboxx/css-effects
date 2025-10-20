@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+  heading?: string;
+}
+const {
+  class: className,
+  duration = '.25s',
+  text = 'JAVASCRIPT 01',
+  heading = 'JAVASCRIPT 02',
+  ...props
+} = Astro.props;
+import hill1 from '@/images/with-js02/hill1.png';
+import hill2 from '@/images/with-js02/hill2.png';
+import hill3 from '@/images/with-js02/hill3.png';
+import hill4 from '@/images/with-js02/hill4.png';
+import hill5 from '@/images/with-js02/hill5.png';
+import leaf from '@/images/with-js02/leaf.png';
+import plant from '@/images/with-js02/plant.png';
+import tree from '@/images/with-js02/tree.png';
+
+const images = [hill1, hill2, hill3, hill4, hill5, leaf, plant, tree];
+
+const regex = /with-js02\/(?<filename>[a-z\d]+)/;
+const height = 270;
+---
+
+<div id="container02" class={className} {...props}>
+  <slot name="header" />
+  <section id="parallax">
+    {
+      images.map((image, idx) => {
+        const result = image.src.match(regex)!;
+        const id = result.groups?.filename;
+        return (
+          <Image id={id} src={image} alt="" height={height} format="webp" />
+        );
+      })
+    }
+    <h3 id="title">{heading}</h3>
+    <h4>Scroll me</h4>
+  </section>
+  <div class="content">
+    <h3>Parallax scrolling website</h3>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem perferendis
+      impedit quis facere incidunt repellendus molestias enim sint blanditiis
+      error quo, est beatae nihil corrupti adipisci nam deserunt dolorum magnam
+      cupiditate aliquid harum ab eos mollitia? Dolorum modi eligendi aperiam
+      similique provident quisquam architecto eveniet quod, enim asperiores ea
+      officiis.
+    </p>
+  </div>
+</div>
+
+<style define:vars={{ duration }}>
+  #container02 {
+    position: relative;
+    width: 476px;
+    height: 100%;
+    overflow-y: scroll;
+    #parallax {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+      img {
+        position: absolute;
+        width: auto;
+        height: 100%;
+        pointer-events: none;
+      }
+      h3,
+      h4 {
+        position: absolute;
+        pointer-events: none;
+        color: #fff;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px #0003;
+      }
+      h4 {
+        bottom: 3em;
+        font-size: 1.5em;
+      }
+    }
+    .content {
+      position: relative;
+      margin: 0 auto;
+      background-color: #003329;
+      padding: 20px;
+      width: 476px;
+      color: #fff;
+      h3 {
+        margin-bottom: 0.5em;
+        font-size: 2em;
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container02') as HTMLDivElement;
+  const title = document.getElementById('title') as HTMLHeadingElement;
+  const leaf = document.getElementById('leaf') as HTMLImageElement;
+  const hill1 = document.getElementById('hill1') as HTMLImageElement;
+  const hill4 = document.getElementById('hill4') as HTMLImageElement;
+  const hill5 = document.getElementById('hill5') as HTMLImageElement;
+
+  container.addEventListener('scroll', () => {
+    const scroll = container.scrollTop;
+    title.style.marginTop = `${scroll * 2.5}px`;
+    leaf.style.top = `${scroll * -1.5}px`;
+    leaf.style.left = `${scroll * 1.5}px`;
+    hill1.style.top = `${scroll}px`;
+    hill4.style.left = `${scroll * -1.5}px`;
+    hill5.style.left = `${scroll * 1.5}px`;
+  });
+</script>

@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+// prettier-ignore
+import { Js01, Js02 } from '@/components';
+---
+
+<BaseLayout title="With Js">
+  <div class="grid">
+    <div class="element black">
+      <Js01 class="element01" />
+    </div>
+    <div class="element row2 col2 no-flex">
+      <Js02 class="element02">
+        <section id="header" slot="header">
+          <h3>Logo</h3>
+          <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+          </nav>
+        </section>
+      </Js02>
+    </div>
+  </div>
+
+  <style>
+    .grid {
+      --width: 15rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, var(--width));
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 1rem 0;
+      .element {
+        --height: calc(var(--width) / 2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: var(--height);
+        &.no-flex {
+          display: block;
+        }
+        &.row2 {
+          height: calc(var(--height) * 2);
+        }
+        &.row3 {
+          height: calc(var(--height) * 3);
+        }
+        &.col2 {
+          grid-column: span 2;
+        }
+        &.black {
+          background-color: #222;
+          color: #fafafa;
+          font-weight: 500;
+          font-size: 1rem;
+          letter-spacing: 0.05em;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .element02 {
+          background-color: #f9f9f9;
+          height: 100%;
+          #header {
+            --color: #359381;
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            align-items: center;
+            gap: 1em;
+            z-index: 100;
+            padding: 1.5em;
+            width: 100%;
+            h3 {
+              color: var(--color);
+              font-size: 1.5em;
+            }
+            nav {
+              a {
+                transition: 0.5s;
+                border-radius: 20px;
+                padding: 0.25em 0.4em;
+                color: var(--color);
+                font-weight: 500;
+                &:hover {
+                  background-color: var(--color);
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  </style>
+</BaseLayout>

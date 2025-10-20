@@ -119,3 +119,5 @@ export { default as Clip08 } from './clip-paths/Clip08.astro';
 export { default as Clip09 } from './clip-paths/Clip09.astro';
 export { default as Clip10 } from './clip-paths/Clip10.astro';
 export { default as Clip11 } from './clip-paths/Clip11.astro';
+export { default as Js01 } from './with-js/Js01.astro';
+export { default as Js02 } from './with-js/Js02.astro';
