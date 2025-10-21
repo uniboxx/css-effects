@@ -55,6 +55,7 @@ const imgHeight = 200;
 
 <style define:vars={{ circle1Color, circle2Color }}>
   #container06 {
+    position: relative;
     height: 100%;
     overflow-y: scroll;
 
@@ -177,7 +178,8 @@ const imgHeight = 200;
   container.addEventListener('scroll', () => {
     sections.forEach((section) => {
       const scrollDistance = container.scrollTop;
-      const secDistance = section.offsetTop - container.offsetTop;
+      // distance from top of positioned parent element (layout view, not visual view)
+      const secDistance = section.offsetTop;
       console.log('🚀 ~ :181 ~ secDistance:', secDistance);
     });
   });
