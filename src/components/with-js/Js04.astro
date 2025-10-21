@@ -1,0 +1,70 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+}
+const {
+  class: className,
+  duration = '1s',
+  text = 'JAVASCRIPT 04',
+  ...props
+} = Astro.props;
+
+let letters = text.split('');
+const length = letters.length;
+const hueDeg = Math.ceil(360 / (length + 1));
+
+function randomNum(num: number) {
+  const rand = Math.floor(Math.random() * num);
+  return rand;
+}
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = duration.match(regex)!;
+let quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+quantity = unit === 's' ? quantity * 5000 : quantity * 5;
+---
+
+<h3 class={className} {...props}>
+  {
+    letters.map((letter, idx) => {
+      return (
+        <span
+          style={`--duration: ${randomNum(quantity)}ms;--delay: ${randomNum(length) * 100}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
+          set:html={`${letter === ' ' ? '&nbsp;' : ''}`}
+        >
+          {letter}
+        </span>
+      );
+    })
+  }
+</h3>
+
+<style define:vars={{}}>
+  h3 {
+    position: relative;
+
+    span {
+      display: inline-block;
+      position: relative;
+      filter: var(--hue-rotate);
+      animation: changeColor04 var(--duration) linear infinite;
+      animation-delay: var(--delay);
+    }
+  }
+  @keyframes changeColor04 {
+    0%,
+    20% {
+      color: #fff2;
+    }
+    21%,
+    79% {
+      color: #0f0;
+    }
+    80%,
+    100% {
+      color: #fff2;
+    }
+  }
+</style>

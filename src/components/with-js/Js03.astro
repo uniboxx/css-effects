@@ -10,10 +10,10 @@ interface Props {
 }
 const {
   class: className,
-  duration = '.25s',
+  duration = '.5s',
   heading = 'PAUL SMITH',
   text = 'Creative Developer',
-  colors = 'blue, white',
+  colors = '#192a56, white',
   ...props
 } = Astro.props;
 import image from '@/images/with-js03/img.jpg';
@@ -21,72 +21,143 @@ const [dark, light] = colors.split(',');
 ---
 
 <div id="container03" class={className} {...props}>
-  <div class="content">
-    <h3>{heading}</h3>
-    <p>{text}</p>
+  <div id="card">
+    <div class="content">
+      <div class="contentBox">
+        <h3>{heading}</h3>
+        <p>{text}</p>
+        <div class="imgBox">
+          <Image src={image} alt="person" width={200} />
+        </div>
+        <button>HIRE ME</button>
+      </div>
+    </div>
+    <div id="toggle"><span></span></div>
   </div>
-  <Image src={image} alt="person" width={200} />
-  <a href="#">HIRE ME</a>
-  <span>&#xfe3f;</span>
 </div>
 
 <style define:vars={{ duration, dark, light }}>
   #container03 {
     display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    background-color: var(--dark);
-    padding: 0.5em 0 0;
+    justify-content: center;
     width: 100%;
     height: 100%;
+  }
+  #card {
+    position: relative;
+    transition: var(--duration);
+    margin: 1em auto;
+    border-radius: 20px;
+    background-color: var(--dark);
+    width: 12em;
+    height: 3.2em;
     color: var(--light);
     text-align: center;
     .content {
-      h3 {
-        font-size: 1em;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      .contentBox {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-items: center;
+        z-index: 10;
+        padding: 10px;
+        h3 {
+          font-weight: 500;
+          font-size: 1em;
+        }
+        p {
+          font-size: 0.8em;
+        }
       }
-      p {
-        font-size: 0.9em;
+      .imgBox {
+        position: relative;
+        margin-top: 1em;
+        box-shadow: 0.5em 0.5em 0.5em #0003;
+        border: 5px solid #fff;
+        background-color: var(--light);
+        width: 6em;
+        height: 6em;
+        img {
+          width: auto;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      button {
+        cursor: pointer;
+        margin-top: 5px;
+        outline: none;
+        box-shadow: -10px 10px 10px #0003;
+        border-radius: 20px;
+        background-color: var(--light);
+        padding: 0.5em 1em;
+        color: var(--dark);
+        font-size: 0.7em;
       }
     }
 
-    img {
-      width: auto;
-      height: 100%;
+    #toggle {
+      --height: 2.2em;
+      position: absolute;
+      bottom: calc(var(--height) * -1);
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      border-bottom-right-radius: 50%;
+      border-bottom-left-radius: 50%;
+      background-color: var(--dark);
+      width: 3em;
+      height: var(--height);
+      &::before,
+      &::after {
+        --offset: 4px;
+        position: absolute;
+        top: -1px;
+        z-index: -1;
+        /* background-color: red; */
+        width: 50%;
+        height: 60%;
+        content: '';
+      }
+      &::before {
+        left: calc(-50% + 1px);
+        box-shadow: 11px -10px 0 var(--offset) var(--dark);
+        border-top-right-radius: 20px;
+      }
+      &::after {
+        left: calc(100% - 1px);
+        box-shadow: -11px -10px 0 var(--offset) var(--dark);
+        border-top-left-radius: 20px;
+      }
+      span {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -70%) rotate(45deg);
+        transition: var(--duration);
+        border: solid var(--light);
+        border-width: 0 3px 3px 0;
+        width: 0.5em;
+        height: 0.5em;
+      }
     }
-    a {
-      border-radius: 20px;
-      background-color: var(--light);
-      padding: 0.25em 0.5em;
-      color: var(--dark);
-      font-size: 0.9em;
-    }
-    span {
-      align-self: stretch;
-      vertical-align: middle;
-      padding-bottom: 1em;
-      height: 3em;
+    &.active {
+      height: 80%;
+      #toggle span {
+        transform: translate(-50%, -70%) rotate(225deg);
+      }
     }
   }
 </style>
 
 <script>
-  const container = document.getElementById('container03') as HTMLDivElement;
-  const title = document.getElementById('title') as HTMLHeadingElement;
-  const leaf = document.getElementById('leaf') as HTMLImageElement;
-  const hill1 = document.getElementById('hill1') as HTMLImageElement;
-  const hill4 = document.getElementById('hill4') as HTMLImageElement;
-  const hill5 = document.getElementById('hill5') as HTMLImageElement;
-
-  container.addEventListener('scroll', () => {
-    const scroll = container.scrollTop;
-    title.style.marginTop = `${scroll * 2.5}px`;
-    leaf.style.top = `${scroll * -1.5}px`;
-    leaf.style.left = `${scroll * 1.5}px`;
-    hill1.style.top = `${scroll}px`;
-    hill4.style.left = `${scroll * -1.5}px`;
-    hill5.style.left = `${scroll * 1.5}px`;
+  const card = document.getElementById('card')!;
+  const toggle = document.getElementById('toggle');
+  toggle?.addEventListener('click', () => {
+    card.classList.toggle('active');
   });
 </script>

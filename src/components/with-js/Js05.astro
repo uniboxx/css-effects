@@ -1,0 +1,105 @@
+---
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '1s',
+  text = 'JAVASCRIPT 05',
+  colors = '#22e7c0, #ffb62e',
+  ...props
+} = Astro.props;
+
+const [circle1Color, circle2Color] = colors.split(',');
+---
+
+<div id="container05" class={className} {...props}>
+  <div class="content">
+    <section>
+      <h3>{text}<br /><span>scroll me</span></h3>
+      <div class="circle circle1">
+        <h3>{text}<br /><span>scroll me</span></h3>
+      </div>
+      <div class="circle circle2">
+        <h3>{text}<br /><span>scroll me</span></h3>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style define:vars={{ circle1Color, circle2Color }}>
+  #container05 {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+    .content {
+      min-height: 200%;
+
+      section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #333;
+        width: 100%;
+        h3 {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 100%;
+          color: #fff;
+          font-size: 3em;
+          text-align: center;
+          span {
+            font-size: 0.5em;
+          }
+        }
+        .circle1,
+        .circle2 {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          h3 {
+            -webkit-text-stroke: 2px #333;
+            color: transparent;
+            span {
+              font-size: 0.5em;
+            }
+          }
+        }
+        .circle1 {
+          clip-path: circle(20% at 0 0);
+          background-color: var(--circle1Color);
+        }
+        .circle2 {
+          clip-path: circle(20% at 100% 100%);
+          background-color: var(--circle2Color);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container05') as HTMLDivElement;
+  const section = container.querySelector('section') as HTMLDivElement;
+  const circles = section.querySelectorAll(
+    '.circle'
+  ) as NodeListOf<HTMLDivElement>;
+
+  section.style.height = `${container.clientHeight}px`;
+
+  container.addEventListener('scroll', () => {
+    // simulate fixed section
+    const scroll = container.scrollTop;
+    section.style.top = `${scroll}px`;
+
+    // increase circle size
+    const circle1 = circles[0];
+    const circle2 = circles[1];
+    circle1.style.clipPath = `circle(${scroll * 0.15 + 20}% at 0 0)`;
+    circle2.style.clipPath = `circle(${scroll * 0.15 + 20}% at 100% 100%)`;
+  });
+</script>

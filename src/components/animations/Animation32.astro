@@ -13,10 +13,12 @@ const {
   boxColors = '#09f, red, #fff',
   maxSize = '40px',
 } = Astro.props;
+
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
+
 function randNum(maxPerc: number) {
   const num = Math.floor(Math.random() * (maxPerc * 10 + 1)) / 10;
   return `${num}%`;

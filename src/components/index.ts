@@ -122,3 +122,6 @@ export { default as Clip11 } from './clip-paths/Clip11.astro';
 export { default as Js01 } from './with-js/Js01.astro';
 export { default as Js02 } from './with-js/Js02.astro';
 export { default as Js03 } from './with-js/Js03.astro';
+export { default as Js04 } from './with-js/Js04.astro';
+export { default as Js05 } from './with-js/Js05.astro';
+export { default as Js06 } from './with-js/Js06.astro';
