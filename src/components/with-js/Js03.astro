@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  heading?: string;
+  text?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '.25s',
+  heading = 'PAUL SMITH',
+  text = 'Creative Developer',
+  colors = 'blue, white',
+  ...props
+} = Astro.props;
+import image from '@/images/with-js03/img.jpg';
+const [dark, light] = colors.split(',');
+---
+
+<div id="container03" class={className} {...props}>
+  <div class="content">
+    <h3>{heading}</h3>
+    <p>{text}</p>
+  </div>
+  <Image src={image} alt="person" width={200} />
+  <a href="#">HIRE ME</a>
+  <span>&#xfe3f;</span>
+</div>
+
+<style define:vars={{ duration, dark, light }}>
+  #container03 {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    background-color: var(--dark);
+    padding: 0.5em 0 0;
+    width: 100%;
+    height: 100%;
+    color: var(--light);
+    text-align: center;
+    .content {
+      h3 {
+        font-size: 1em;
+      }
+      p {
+        font-size: 0.9em;
+      }
+    }
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+    a {
+      border-radius: 20px;
+      background-color: var(--light);
+      padding: 0.25em 0.5em;
+      color: var(--dark);
+      font-size: 0.9em;
+    }
+    span {
+      align-self: stretch;
+      vertical-align: middle;
+      padding-bottom: 1em;
+      height: 3em;
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container03') as HTMLDivElement;
+  const title = document.getElementById('title') as HTMLHeadingElement;
+  const leaf = document.getElementById('leaf') as HTMLImageElement;
+  const hill1 = document.getElementById('hill1') as HTMLImageElement;
+  const hill4 = document.getElementById('hill4') as HTMLImageElement;
+  const hill5 = document.getElementById('hill5') as HTMLImageElement;
+
+  container.addEventListener('scroll', () => {
+    const scroll = container.scrollTop;
+    title.style.marginTop = `${scroll * 2.5}px`;
+    leaf.style.top = `${scroll * -1.5}px`;
+    leaf.style.left = `${scroll * 1.5}px`;
+    hill1.style.top = `${scroll}px`;
+    hill4.style.left = `${scroll * -1.5}px`;
+    hill5.style.left = `${scroll * 1.5}px`;
+  });
+</script>

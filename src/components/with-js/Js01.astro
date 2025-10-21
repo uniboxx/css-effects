@@ -3,32 +3,27 @@ interface Props {
   class?: string;
   duration?: string;
   text?: string;
-  color?:string;
+  color?: string;
 }
 const {
   class: className,
   duration = '.25s',
   text = 'JAVASCRIPT 01',
-  color='#555',
+  color = '#555',
   ...props
 } = Astro.props;
 let letters = text.split('');
-const length= letters.length;
-const hueDeg = Math.ceil(360/(length+1));
-
+const length = letters.length;
+const hueDeg = Math.ceil(360 / (length + 1));
 ---
 
 <h3 class={className} {...props}>
   {
     letters.map((letter, idx) => {
-      if (letter === ' ') {
-        return <span
-          style={`--delay: ${40 * idx}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`} set:html="&nbsp;"
-        ></span>
-      }
       return (
         <span
           style={`--delay: ${40 * idx}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
+          set:html={`${letter === ' ' ? '&nbsp;' : ''}`}
         >
           {letter}
         </span>
@@ -37,16 +32,18 @@ const hueDeg = Math.ceil(360/(length+1));
   }
 </h3>
 
-<style define:vars={{ duration, color}}>
+<style define:vars={{ duration, color }}>
   h3 {
     position: relative;
+
     span {
+      display: inline-block;
       filter: var(--hue-rotate);
       transition: var(--duration);
       transition-delay: var(--delay);
       color: var(--color);
     }
-    
+
     &:hover span {
       color: #00ff2a;
       text-shadow:

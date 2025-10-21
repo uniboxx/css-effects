@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Js01, Js02 } from '@/components';
+import { Js01, Js02, Js03 } from '@/components';
 ---
 
 <BaseLayout title="With Js">
@@ -21,6 +21,9 @@ import { Js01, Js02 } from '@/components';
           </nav>
         </section>
       </Js02>
+    </div>
+    <div class="element row2">
+      <Js03 class="element03" />
     </div>
   </div>
 
@@ -55,7 +58,7 @@ import { Js01, Js02 } from '@/components';
           background-color: #222;
           color: #fafafa;
           font-weight: 500;
-          font-size: 1rem;
+          font-size: 1.5rem;
           letter-spacing: 0.05em;
           text-align: center;
           text-transform: uppercase;
