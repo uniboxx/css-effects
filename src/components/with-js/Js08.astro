@@ -1,0 +1,58 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className, ...props } = Astro.props;
+---
+
+<section id="container08" class={className} {...props}>
+  <slot />
+</section>
+
+<style>
+  #container08 {
+    i {
+      position: absolute;
+      animation: pulse08 ease-in-out infinite;
+      box-shadow:
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px #fff,
+        0 0 80px #fff;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+  }
+  @keyframes pulse08 {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    10%,
+    90% {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container08') as HTMLDivElement;
+
+  function createStars(n: number) {
+    for (let j = 0; j < n; j++) {
+      const star = document.createElement('i');
+      const x = Math.floor(Math.random() * container.clientWidth);
+      const y = Math.floor(Math.random() * container.clientHeight);
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+      const size = (Math.random() * 4 + 1).toFixed(2);
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      const duration = (Math.random() * 2 + 1).toFixed(2);
+      star.style.animationDuration = `${duration}s`;
+
+      container.appendChild(star);
+    }
+  }
+  createStars(200);
+</script>

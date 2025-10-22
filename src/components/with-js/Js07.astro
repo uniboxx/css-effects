@@ -1,0 +1,40 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  bg: ImageMetadata;
+}
+const { class: className, bg, ...props } = Astro.props;
+
+const optImg = await getImage({ src: bg, format: 'webp', height: 400 });
+---
+
+<div
+  id="container07"
+  class={className}
+  {...props}
+  style={`--url: url(${optImg.src})`}
+>
+  <slot />
+</div>
+
+<style>
+  #container07 {
+    position: relative;
+    background: var(--url);
+    background-size: cover;
+    background-position-x: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container07') as HTMLDivElement;
+
+  container.addEventListener('scroll', () => {
+    const scroll = container.scrollTop;
+    container.style.backgroundPositionX = `${scroll}px`;
+  });
+</script>

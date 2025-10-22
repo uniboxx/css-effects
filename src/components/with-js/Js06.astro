@@ -7,23 +7,14 @@ import { Image } from 'astro:assets';
 interface Props {
   class?: string;
   duration?: string;
-  text?: string;
-  colors?: string;
 }
 const {
   class: className,
   duration = '1s',
-  text = 'JAVASCRIPT 06',
-  colors = '#22e7c0, #ffb62e',
+
   ...props
 } = Astro.props;
 
-const [circle1Color, circle2Color] = colors.split(',');
-
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = duration.match(regex)!;
-let quantity = +result.groups?.quantity!;
-const unit = result.groups?.unit!;
 const imgHeight = 200;
 ---
 
@@ -32,19 +23,19 @@ const imgHeight = 200;
     <h3 class="animate">First Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>
   </section>
-  <section class="sec2 show-animate">
+  <section class="sec2">
     <h3 class="animate">Second Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>
   </section>
-  <section class="sec3 show-animate">
+  <section class="sec3">
     <h3 class="animate">Third Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>
   </section>
-  <section class="sec4 show-animate">
+  <section class="sec4">
     <h3 class="animate">Fourth Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>
   </section>
-  <section class="sec5 show-animate">
+  <section class="sec5">
     <div class="images">
       <Image src={img1} alt="img1" class="animate" height={imgHeight} />
       <Image src={img2} alt="img2" class="animate" height={imgHeight} />
@@ -53,7 +44,7 @@ const imgHeight = 200;
   </section>
 </div>
 
-<style define:vars={{ circle1Color, circle2Color }}>
+<style>
   #container06 {
     position: relative;
     height: 100%;
@@ -77,17 +68,35 @@ const imgHeight = 200;
         p {
           color: #0f0;
         }
+        & .animate {
+          transform: translateX(100%);
+        }
+        &.show-animate .animate {
+          transform: translateX(0);
+        }
       }
       &.sec3 {
         background-color: #056964;
         p {
           color: #ff0;
         }
+        & .animate {
+          transform: scale(0.7);
+        }
+        &.show-animate .animate {
+          transform: scale(1);
+        }
       }
       &.sec4 {
         background-color: #ffa600;
         p {
           color: #056964;
+        }
+        & .animate {
+          transform: rotate(30deg);
+        }
+        &.show-animate .animate {
+          transform: rotate(0deg);
         }
       }
       &.sec5 {
@@ -100,7 +109,19 @@ const imgHeight = 200;
           img {
             max-width: 25%;
             height: auto;
+            &:nth-child(2) {
+              transition-delay: 0.2s;
+            }
+            &:nth-child(3) {
+              transition-delay: 0.4s;
+            }
           }
+        }
+        & .animate {
+          transform: translateX(100%) rotate(-90deg);
+        }
+        &.show-animate .animate {
+          transform: translateX(0) rotate(0deg);
         }
       }
       h3 {
@@ -109,63 +130,21 @@ const imgHeight = 200;
       }
       p {
         font-size: 1.2em;
+        &.animate {
+          transition-delay: 0.2s;
+        }
+      }
+
+      & .animate {
+        opacity: 0;
+        filter: blur(5px);
+        transition: 0.5s;
+      }
+      &.show-animate .animate {
+        opacity: 1;
+        filter: blur(0px);
       }
     }
-  }
-  /* scrolling styles */
-  section .animate {
-    opacity: 0;
-    filter: blur(5px);
-    transition: 0.5s;
-  }
-
-  section.show-animate .animate {
-    opacity: 1;
-    filter: blur(0px);
-  }
-
-  .sec2 .animate {
-    transform: translateX(100%);
-  }
-
-  .sec2.show-animate .animate {
-    transform: translateX(0);
-  }
-
-  .sec3 .animate {
-    transform: scale(0.7);
-  }
-
-  .sec3.show-animate .animate {
-    transform: scale(1);
-  }
-
-  .sec4 .animate {
-    transform: rotate(30deg);
-  }
-
-  .sec4.show-animate .animate {
-    transform: rotate(0deg);
-  }
-
-  .sec5 .animate {
-    transform: translateX(100%) rotate(-90deg);
-  }
-
-  .sec5.show-animate .animate {
-    transform: translateX(0) rotate(0deg);
-  }
-
-  p.animate {
-    transition-delay: 0.2s;
-  }
-
-  .sec5 img:nth-child(2) {
-    transition-delay: 0.2s;
-  }
-
-  .sec5 img:nth-child(3) {
-    transition-delay: 0.4s;
   }
 </style>
 
@@ -180,7 +159,13 @@ const imgHeight = 200;
       const scrollDistance = container.scrollTop;
       // distance from top of positioned parent element (layout view, not visual view)
       const secDistance = section.offsetTop;
-      console.log('🚀 ~ :181 ~ secDistance:', secDistance);
+      // console.log('🚀 ~ :181 ~ secDistance:', secDistance);
+      const sectionHeight = section.clientHeight;
+      if (scrollDistance >= secDistance - sectionHeight * 0.2) {
+        section.classList.add('show-animate');
+      } else {
+        section.classList.remove('show-animate');
+      }
     });
   });
 </script>

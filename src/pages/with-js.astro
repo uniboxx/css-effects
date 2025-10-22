@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Js01, Js02, Js03, Js04, Js05, Js06 } from '@/components';
+import { Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09 } from '@/components';
+import bg07 from '@/images/with-js07/bg.jpg';
 ---
 
 <BaseLayout title="With Js">
@@ -33,6 +34,58 @@ import { Js01, Js02, Js03, Js04, Js05, Js06 } from '@/components';
     </div>
     <div class="element row2 col2 no-flex">
       <Js06 class="element06" />
+    </div>
+    <div class="element row2 col2 no-flex">
+      <Js07 class="element07" bg={bg07}>
+        <section>
+          <h3>Background Moving On Scroll</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+            quidem cumque magnam vero amet libero, rerum sequi et molestiae
+            animi quibusdam excepturi? Veritatis minima enim sint eius, nobis
+            saepe officia! Velit, alias est minima id facilis deserunt cum
+            debitis rerum fugit odit corporis officia, minus aut temporibus iste
+            exercitationem suscipit enim quia placeat quas vel inventore
+            recusandae earum. Reprehenderit, fugit. Veniam, optio adipisci. Est
+            cupiditate distinctio excepturi ea quaerat iure, assumenda sunt
+            eveniet itaque odio illum aliquam accusamus debitis qui laboriosam
+            deserunt possimus recusandae laudantium libero! Vitae, hic
+            molestiae! Provident. Nesciunt quisquam unde quia fugit suscipit
+            enim earum, porro corporis facilis adipisci veritatis ipsum
+            distinctio eaque labore, voluptas minima praesentium quis vero error
+            et animi? Dolor eaque rem reiciendis! Cum. Rerum natus, veniam
+            dolore animi, laborum laudantium quis dolores temporibus impedit
+            nisi suscipit obcaecati repellat facilis ea inventore! Suscipit
+            consectetur maiores ipsum quas voluptatum itaque dolorum officiis
+            consequatur quisquam nisi! Fugiat aspernatur reprehenderit, quod
+            impedit laboriosam, perferendis eum earum error veniam illum officia
+            porro quae, dolorem hic! Necessitatibus voluptatem, reiciendis iure
+            quisquam vel ad ratione architecto, exercitationem sint, in officia.
+            Quis voluptatem animi labore omnis cumque tenetur dignissimos, iusto
+            possimus error in! Maiores consequatur sapiente dolore corporis qui
+            molestias dolorum modi atque fuga suscipit, illo sit vitae
+            doloremque amet eligendi. Fugit corporis veniam optio consectetur,
+            porro rerum, molestiae, odio officia qui laboriosam et neque
+            expedita nulla facilis earum? Minus fuga, consectetur expedita
+            placeat molestiae dolores veniam delectus non recusandae alias.
+            Saepe illo voluptate ab pariatur id maiores inventore ea doloremque,
+            qui aperiam aliquid aspernatur assumenda ex consectetur doloribus
+            quidem nulla corrupti tenetur atque? Excepturi beatae praesentium
+            dolor harum minima deserunt. Exercitationem numquam porro atque nam
+            reprehenderit earum labore. Ipsam repellat voluptate ad enim amet
+            doloribus accusantium corrupti sed voluptates sunt sequi quisquam
+            porro repudiandae, autem pariatur magnam aliquam doloremque. Eaque.
+          </p>
+        </section>
+      </Js07>
+    </div>
+    <div class="element row2 col2 no-flex">
+      <Js08 class="element08">
+        <h3>Javascript<br /><span>08</span></h3>
+      </Js08>
+    </div>
+    <div class="element row2 col2 no-flex">
+      <Js09 class="element09" />
     </div>
   </div>
 
@@ -115,6 +168,75 @@ import { Js01, Js02, Js03, Js04, Js05, Js06 } from '@/components';
         .element03 {
           background-color: #252839;
         }
+        .element07 {
+          section {
+            margin: 4rem auto;
+            box-shadow: 0 10px 30px #0003;
+            background-color: #fff;
+            padding: 1rem;
+            width: 80%;
+            h3 {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+        .element08 {
+          --navy: #0d172e;
+          display: flex;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          background-color: var(--navy);
+          height: 100%;
+          &::before {
+            --size: calc(var(--width) * 2 * 0.3);
+            --spread: calc(var(--width) * 2 * 0.01);
+            position: absolute;
+            box-shadow:
+              0 0 0 var(--spread) var(--navy),
+              0 0 0 calc(var(--spread) * 1.3) #fff;
+            border: 20px solid #ff9100;
+            border-radius: 50%;
+            width: var(--size);
+            height: var(--size);
+            content: '';
+          }
+          h3 {
+            position: absolute;
+            transform: skewY(-7deg);
+            z-index: 5;
+            animation: floating08 5s ease-in-out infinite;
+            color: #fff;
+            font-weight: normal;
+            font-size: calc(var(--width) * 2 * 0.08);
+            line-height: 2em;
+            text-align: center;
+            text-shadow:
+              1px 1px 0 #ccc,
+              2px 2px 0 #ccc,
+              3px 3px 0 #ccc,
+              4px 4px 0 #0003;
+            span {
+              font-weight: 700;
+              font-size: calc(var(--width) * 2 * 0.2);
+              text-shadow:
+                2px 2px 0 #ccc,
+                3px 3px 0 #ccc,
+                4px 4px 0 #ccc,
+                5px 5px 0 #ccc,
+                10px 10px 0 #0003;
+            }
+          }
+        }
+      }
+    }
+    @keyframes floating08 {
+      0%,
+      100% {
+        transform: skewY(-7deg) translateY(-10px);
+      }
+      50% {
+        transform: skewY(-7deg) translateY(10px);
       }
     }
   </style>
