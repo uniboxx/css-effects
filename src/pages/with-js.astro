@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09 } from '@/components';
+import { Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
+import bg12 from '@/images/paris.jpg';
 ---
 
 <BaseLayout title="With Js">
@@ -87,6 +88,19 @@ import bg07 from '@/images/with-js07/bg.jpg';
     <div class="element row2 col2 no-flex">
       <Js09 class="element09" />
     </div>
+    <div class="element row2 no-flex">
+      <Js10 class="element10" />
+    </div>
+    <div class="element no-flex">
+      <Js11 class="element11" />
+    </div>
+    <div class="element no-flex col2 row2">
+      <Js12 class="element12" bg={bg12} position="center bottom">
+        <div class="x2height">
+          <h3>Javascript 12 <br /><span>scroll me</span></h3>
+        </div>
+      </Js12>
+    </div>
   </div>
 
   <style>
@@ -128,6 +142,9 @@ import bg07 from '@/images/with-js07/bg.jpg';
         &.white {
           background-color: #fff;
           color: #000;
+        }
+        .x2height {
+          height: 200%;
         }
         .element02 {
           background-color: #f9f9f9;
@@ -225,6 +242,28 @@ import bg07 from '@/images/with-js07/bg.jpg';
                 4px 4px 0 #ccc,
                 5px 5px 0 #ccc,
                 10px 10px 0 #0003;
+            }
+          }
+        }
+        .element10 {
+          background: linear-gradient(45deg, #8460ed, #ff1252);
+        }
+        .element11 {
+          background-color: #20415c;
+        }
+        .element12 {
+          background-color: #fff;
+          .x2height {
+            padding: 1em;
+            h3 {
+              background-clip: text;
+              -webkit-text-stroke: 1px #fff;
+              color: transparent;
+              font-size: 2em;
+              span {
+                color: #fff;
+                font-size: 0.5em;
+              }
             }
           }
         }

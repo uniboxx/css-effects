@@ -1,0 +1,69 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  bg: ImageMetadata;
+  position?: string;
+}
+let { class: className, bg, position = 'center', ...props } = Astro.props;
+
+const optBg = await getImage({ src: bg, format: 'webp' });
+---
+
+<section
+  id="container12"
+  class={className}
+  style={`--url: url(${optBg.src})`}
+  {...props}
+>
+  <div class="section">
+    <div class="skewed"></div>
+    <slot />
+  </div>
+</section>
+
+<style define:vars={{ position }}>
+  #container12 {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+
+    .section {
+      position: absolute;
+      background: var(--url);
+      background-position: center bottom;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      .skewed {
+        position: absolute;
+        bottom: -100%;
+        left: 0;
+        transform: skewY(-10deg);
+        transform-origin: left top;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container12') as HTMLDivElement;
+  const skewed = container.querySelector('.skewed') as HTMLDivElement;
+  const containerHeight = container.clientHeight;
+
+  container.addEventListener('scroll', () => {
+    const scroll = container.scrollTop;
+    const skewY = parseFloat(
+      ((scroll / containerHeight) * 10 * 1.5).toFixed(2)
+    );
+    console.log('🚀 ~ :62 ~ skewY:', skewY);
+    if (skewY <= 10) {
+      skewed.style.transform = `skewY(${-(10 - skewY)}deg)`;
+    }
+  });
+</script>

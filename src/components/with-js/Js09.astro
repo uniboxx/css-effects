@@ -14,7 +14,7 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
 ---
 
 <section id="container09" class={className} {...props}>
-  <section class="scene">
+  <div class="scene">
     <div class="sun"></div>
     <div class="bg" style={`--url: url(${optBg.src})`}>
       <Image
@@ -32,116 +32,116 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
         format="webp"
       />
     </div>
-  </section>
-
-  <style>
-    #container09 {
-      height: 100%;
-      .scene {
-        --night-color: #222833;
-        position: relative;
-        background: linear-gradient(#a6d8ff, #fff, #fff);
-        height: 100%;
-        overflow: hidden;
-        &.night {
-          background: var(--night-color);
-          .sun {
-            left: 45%;
-            box-shadow: 0 0 0 #fff;
-            &::before {
-              position: absolute;
-              top: -20%;
-              left: 20%;
-              box-shadow: none;
-              border-radius: 50%;
-              background: var(--night-color);
-              width: 100%;
-              height: 100%;
-              pointer-events: none;
-              content: '';
-            }
-          }
-        }
-        .sun {
-          --sun-size: calc(var(--width) * 0.078);
-          position: absolute;
-          top: var(--sun-size);
-          left: 55%;
-          transform: translateX(-50%);
-          transition: 0.2s;
-          cursor: pointer;
-          box-shadow: 0 0 calc(var(--sun-size) / 2) #fff;
-          border-radius: 50%;
-          background: #fff;
-          width: var(--sun-size);
-          height: var(--sun-size);
-        }
-        .bg {
-          --car-width: calc(var(--width) * 0.156);
-          position: absolute;
-          bottom: 0;
-          animation: animBg09 25s linear infinite;
-          background: var(--url);
-          background-size: 100%;
-          background-repeat: repeat-x;
-          width: 100%;
-          height: 40%;
-          .car {
-            position: absolute;
-            max-width: var(--car-width);
-            height: auto;
-            &.car1 {
-              bottom: calc(var(--car-width) * 0.1);
-              left: calc(var(--car-width) * -1);
-              z-index: 1;
-              animation: moveCar1 18s linear infinite;
-            }
-            &.car2 {
-              right: calc(var(--car-width) * -1);
-              bottom: calc(var(--car-width) * 0.25);
-              animation: moveCar2 12s linear infinite;
-            }
-          }
-        }
-      }
-    }
-    @keyframes animBg09 {
-      0% {
-        background-position-x: var(--width);
-      }
-      100% {
-        background-position-x: 0;
-      }
-    }
-    @keyframes moveCar1 {
-      0% {
-        transform: translateX(0px);
-      }
-      90%,
-      100% {
-        transform: translateX(calc(var(--width) * 1.156));
-      }
-    }
-    @keyframes moveCar2 {
-      0% {
-        transform: translateX(0px) rotateY(180deg);
-      }
-      90%,
-      100% {
-        transform: translateX(calc(var(--width) * -1.156)) rotateY(180deg);
-      }
-    }
-  </style>
-
-  <script>
-    const container = document.getElementById('container09') as HTMLDivElement;
-    const scene = container.querySelector('.scene') as HTMLDivElement;
-    const sun = scene.querySelector('.sun') as HTMLDivElement;
-
-    container.style.cssText = `--width: ${container.clientWidth}px;`;
-
-    sun.addEventListener('click', () => {
-      scene.classList.toggle('night');
-    });
-  </script>
+  </div>
 </section>
+
+<style>
+  #container09 {
+    height: 100%;
+    .scene {
+      --night-color: #222833;
+      position: relative;
+      background: linear-gradient(#a6d8ff, #fff, #fff);
+      height: 100%;
+      overflow: hidden;
+      &.night {
+        background: var(--night-color);
+        .sun {
+          left: 45%;
+          box-shadow: 0 0 0 #fff;
+          &::before {
+            position: absolute;
+            top: -20%;
+            left: 20%;
+            box-shadow: none;
+            border-radius: 50%;
+            background: var(--night-color);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            content: '';
+          }
+        }
+      }
+      .sun {
+        --sun-size: calc(var(--width) * 0.078);
+        position: absolute;
+        top: var(--sun-size);
+        left: 55%;
+        transform: translateX(-50%);
+        transition: 0.2s;
+        cursor: pointer;
+        box-shadow: 0 0 calc(var(--sun-size) / 2) #fff;
+        border-radius: 50%;
+        background: #fff;
+        width: var(--sun-size);
+        height: var(--sun-size);
+      }
+      .bg {
+        --car-width: calc(var(--width) * 0.156);
+        position: absolute;
+        bottom: 0;
+        animation: animBg09 25s linear infinite;
+        background: var(--url);
+        background-size: 100%;
+        background-repeat: repeat-x;
+        width: 100%;
+        height: 40%;
+        .car {
+          position: absolute;
+          max-width: var(--car-width);
+          height: auto;
+          &.car1 {
+            bottom: calc(var(--car-width) * 0.1);
+            left: calc(var(--car-width) * -1);
+            z-index: 1;
+            animation: moveCar1 18s linear infinite;
+          }
+          &.car2 {
+            right: calc(var(--car-width) * -1);
+            bottom: calc(var(--car-width) * 0.25);
+            animation: moveCar2 12s linear infinite;
+          }
+        }
+      }
+    }
+  }
+  @keyframes animBg09 {
+    0% {
+      background-position-x: var(--width);
+    }
+    100% {
+      background-position-x: 0;
+    }
+  }
+  @keyframes moveCar1 {
+    0% {
+      transform: translateX(0px);
+    }
+    90%,
+    100% {
+      transform: translateX(calc(var(--width) * 1.156));
+    }
+  }
+  @keyframes moveCar2 {
+    0% {
+      transform: translateX(0px) rotateY(180deg);
+    }
+    90%,
+    100% {
+      transform: translateX(calc(var(--width) * -1.156)) rotateY(180deg);
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container09') as HTMLDivElement;
+  const scene = container.querySelector('.scene') as HTMLDivElement;
+  const sun = scene.querySelector('.sun') as HTMLDivElement;
+
+  container.style.cssText = `--width: ${container.clientWidth}px;`;
+
+  sun.addEventListener('click', () => {
+    scene.classList.toggle('night');
+  });
+</script>

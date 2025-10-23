@@ -1,0 +1,161 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  icons?: string[];
+  colors?: string;
+}
+let {
+  class: className,
+  duration = '1.5s',
+  icons = [
+    'ion:home-outline',
+    'ion:person-outline',
+    'ion:heart-outline',
+    'mdi:bell-outline',
+  ],
+  colors = '#ff4886, #fff, #fff, #555',
+  ...props
+} = Astro.props;
+const [toggleBgColor, toggleColor, menuBgColor, iconColor] = colors.split(',');
+icons.splice(icons.length / 2, 0, '');
+const emptyIdx = Math.floor(icons.length / 2);
+---
+
+<section id="container11" class={className} {...props}>
+  <div class="navigation">
+    <div class="toggle"></div>
+    <ul data-style="none" class="menu">
+      {
+        icons.map((icon, idx) => {
+          const index = idx < emptyIdx ? idx : idx - 1;
+          return (
+            <li style={`--delay: ${(0.1 * (idx + 1) + 0.75).toFixed(2)}s `}>
+              {icon && (
+                <a href="#">
+                  <Icon name={icon} />
+                </a>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style
+  define:vars={{
+    duration,
+    toggleBgColor,
+    toggleColor,
+    menuBgColor,
+    iconColor,
+  }}
+>
+  #container11 {
+    width: 100%;
+    height: 100%;
+
+    &,
+    .navigation,
+    .toggle,
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .navigation {
+      position: relative;
+      background-color: inherit;
+
+      .toggle {
+        position: relative;
+        z-index: 10;
+        transition: var(--duration);
+        cursor: pointer;
+        border: 0.4em solid;
+        background-color: var(--toggleBgColor);
+        width: 3.5em;
+        height: 3.5em;
+        color: var(--toggleColor);
+        &::before {
+          position: absolute;
+          transition: var(--duration);
+          content: '+';
+          color: var(--toggleColor);
+          font-size: 2em;
+        }
+      }
+      &.active {
+        .toggle {
+          &::before {
+            transform: rotate(225deg);
+          }
+        }
+        .menu {
+          transform: translateY(0);
+          transition-delay: 0s, calc(var(--duration) / 3),
+            calc(var(--duration) / 3);
+          width: 15em;
+          height: 3.2em;
+          li {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      }
+      .toggle,
+      .menu {
+        transform: translateY(-1.5em);
+        border-radius: 4em;
+      }
+      .menu {
+        position: absolute;
+        gap: 2em;
+        transition:
+          transform calc(var(--duration) / 3),
+          width calc(var(--duration) / 3),
+          height calc(var(--duration) / 3);
+        transition-delay: calc(var(--duration) / 3 * 2),
+          calc(var(--duration) / 3), calc(var(--duration) / 3);
+        background-color: var(--menuBgColor);
+        width: 3em;
+        height: 3em;
+        li {
+          transform: translateY(-1.5em);
+          opacity: 0;
+          transition: 0.25s;
+          transition-delay: var(--delay);
+          cursor: pointer;
+          &:hover {
+            a {
+              color: var(--toggleBgColor);
+            }
+          }
+          a {
+            color: var(--iconColor);
+            font-size: 1.2em;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container11') as HTMLDivElement;
+  const navigation = container.querySelector('.navigation') as HTMLDivElement;
+  const toggle = navigation.querySelector('.toggle') as HTMLDivElement;
+
+  const bgColor =
+    window.getComputedStyle(container).backgroundColor ||
+    window.getComputedStyle(container).background;
+  toggle.style.borderColor = bgColor;
+
+  toggle.addEventListener('click', () => {
+    navigation.classList.toggle('active');
+  });
+</script>

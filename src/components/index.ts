@@ -128,3 +128,6 @@ export { default as Js06 } from './with-js/Js06.astro';
 export { default as Js07 } from './with-js/Js07.astro';
 export { default as Js08 } from './with-js/Js08.astro';
 export { default as Js09 } from './with-js/Js09.astro';
+export { default as Js10 } from './with-js/Js10.astro';
+export { default as Js11 } from './with-js/Js11.astro';
+export { default as Js12 } from './with-js/Js12.astro';

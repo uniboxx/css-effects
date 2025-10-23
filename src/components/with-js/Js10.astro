@@ -1,0 +1,115 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  icons?: string[];
+}
+const {
+  class: className,
+  duration = '.3s',
+  icons = [
+    'ion:home-outline',
+    'ion:camera-outline',
+    'ion:person-outline',
+    'ion:airplane-outline',
+    'ion:mail-outline',
+    'ion:key-outline',
+  ],
+  ...props
+} = Astro.props;
+---
+
+<section id="container10" class={className} {...props}>
+  <div class="toggle">
+    <Icon name="ion:add-outline" />
+  </div>
+  <ul data-style="none" class="menu">
+    {
+      icons.map((icon, idx) => {
+        return (
+          <li style={`--n: ${idx}`}>
+            <a href="#">
+              <Icon name={icon} />
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
+
+<style define:vars={{ duration }}>
+  #container10 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    &,
+    .toggle,
+    .menu li a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .toggle {
+      z-index: 20;
+      transition: var(--duration);
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: #fff;
+      width: 3.9em;
+      height: 3.9em;
+      color: #222;
+      [data-icon='ion:add-outline'] {
+        font-size: 1.66em;
+      }
+    }
+    &.active {
+      .toggle {
+        transform: rotate(45deg);
+      }
+      .menu li a {
+        top: 10%;
+      }
+    }
+    .menu {
+      &,
+      li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      li {
+        transform: rotate(calc(360deg / 6 * var(--n)));
+        pointer-events: none;
+        a {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(calc(360deg / -6 * var(--n)));
+          transition: var(--duration);
+          border-radius: 50%;
+          background-color: #fff;
+          width: 2.5em;
+          height: 2.5em;
+          pointer-events: visible;
+          color: #222;
+          font-size: 1.22em;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container10') as HTMLDivElement;
+  const toggle = container.querySelector('.toggle') as HTMLDivElement;
+
+  toggle.addEventListener('click', () => {
+    console.log('ciao');
+    container.classList.toggle('active');
+  });
+</script>
