@@ -1,0 +1,90 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  imageUrl: string;
+  height?: number;
+  width?: number;
+  format?: string;
+}
+const {
+  class: className,
+  duration = '.2s',
+  imageUrl,
+  width,
+  height,
+  format = 'webp',
+  ...props
+} = Astro.props;
+const optImg = await getImage({ src: imageUrl, width, height, format });
+const regex = /(?<quantity>[\d\.]+)(?<unit>s|ms)/;
+const result = duration.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+
+const interval = unit === 's' ? quantity * 1000 : quantity;
+---
+
+<section
+  id="container14"
+  class={className}
+  {...props}
+  data-interval={interval}
+  style={`--url: url(${optImg.src})`}
+>
+  {
+    Array.from({ length: 20 }).map((el, idx) => {
+      // prettier-ignore
+      return <div class="box" />
+    })
+  }
+</section>
+
+<style define:vars={{}}>
+  #container14 {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    &,
+    .box {
+      background: var(--url);
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .box {
+      position: absolute;
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container14') as HTMLDivElement;
+  const boxes = container.querySelectorAll(
+    '.box'
+  ) as NodeListOf<HTMLDivElement>;
+
+  const intervalTime = +container.dataset.interval!;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+
+  function genRand(max: number) {
+    return parseFloat((Math.random() * max).toFixed(2));
+  }
+
+  const interval = setInterval(() => {
+    boxes.forEach((box) => {
+      const left = genRand(containerWidth);
+      const top = genRand(containerHeight);
+      const height = genRand(containerHeight * 0.12);
+      const width = genRand(containerWidth * 0.3);
+      const bgPosition = genRand(containerHeight * 0.06);
+      box.style.left = `${left}px`;
+      box.style.top = `${top}px`;
+      box.style.height = `${height}px`;
+      box.style.width = `${width}px`;
+      box.style.backgroundPosition = `${bgPosition}px`;
+    });
+  }, intervalTime);
+</script>

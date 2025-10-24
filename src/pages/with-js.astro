@@ -1,24 +1,27 @@
 ---
+import type { ImageMetadata } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13 } from '@/components';
+import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
 import bg12 from '@/images/paris.jpg';
-import image13_1 from '@/images/with-js13/img1.jpg';
-import image13_2 from '@/images/with-js13/img2.jpg';
-import image13_3 from '@/images/with-js13/img3.jpg';
-import image13_4 from '@/images/with-js13/img4.jpg';
-
-// prettier-ignore
-const media13 = {media:[{
-    videoUrl: 'src/images/with-js13/video1.mp4',
-    image: image13_1, alt: 'video 1'},{
-    videoUrl: 'src/images/with-js13/video2.mp4',
-    image: image13_2, alt: 'video 2'},{
-    videoUrl: 'src/images/with-js13/video3.mp4',
-    image: image13_3, alt: 'video 3'},{
-    videoUrl: 'src/images/with-js13/video4.mp4',
-    image: image13_4, alt: 'video 4'}], width: 500, format:'webp'};
+// js13
+const videoUrls13 = Object.keys(
+  import.meta.glob('/src/images/with-js13/*.mp4')
+);
+const images13 = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/with-js13/*.jpg'
+);
+const imageUrls13 = Object.keys(images13);
+const media13 = {
+  videoUrls: videoUrls13,
+  imageUrls: imageUrls13,
+  alts: ['video1', 'video2', 'video3', 'video4'],
+  width: 1000,
+  format: 'webp',
+};
+// js14
+const imageUrl14 = '/src/images/with-js14/bg.jpg';
 ---
 
 <BaseLayout title="With Js">
@@ -81,6 +84,9 @@ const media13 = {media:[{
     </div>
     <div class="element no-flex col2 row2">
       <Js13 class="element13" mediaData={media13} />
+    </div>
+    <div class="element no-flex col2 row2">
+      <Js14 class="element14" imageUrl={imageUrl14} width={1000} />
     </div>
   </div>
 

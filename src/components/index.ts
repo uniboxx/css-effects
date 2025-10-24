@@ -133,3 +133,4 @@ export { default as Js10 } from './with-js/Js10.astro';
 export { default as Js11 } from './with-js/Js11.astro';
 export { default as Js12 } from './with-js/Js12.astro';
 export { default as Js13 } from './with-js/Js13.astro';
+export { default as Js14 } from './with-js/Js14.astro';
