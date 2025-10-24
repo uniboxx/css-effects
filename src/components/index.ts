@@ -1,3 +1,4 @@
+export { default as SampleContent } from './SampleContent.astro';
 export { default as Button01 } from './buttons/Button01.astro';
 export { default as Button02 } from './buttons/Button02.astro';
 export { default as Button03 } from './buttons/Button03.astro';
@@ -131,3 +132,4 @@ export { default as Js09 } from './with-js/Js09.astro';
 export { default as Js10 } from './with-js/Js10.astro';
 export { default as Js11 } from './with-js/Js11.astro';
 export { default as Js12 } from './with-js/Js12.astro';
+export { default as Js13 } from './with-js/Js13.astro';

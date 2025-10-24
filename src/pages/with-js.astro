@@ -1,9 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12 } from '@/components';
+import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
 import bg12 from '@/images/paris.jpg';
+import image13_1 from '@/images/with-js13/img1.jpg';
+import image13_2 from '@/images/with-js13/img2.jpg';
+import image13_3 from '@/images/with-js13/img3.jpg';
+import image13_4 from '@/images/with-js13/img4.jpg';
+
+// prettier-ignore
+const media13 = {media:[{
+    videoUrl: 'src/images/with-js13/video1.mp4',
+    image: image13_1, alt: 'video 1'},{
+    videoUrl: 'src/images/with-js13/video2.mp4',
+    image: image13_2, alt: 'video 2'},{
+    videoUrl: 'src/images/with-js13/video3.mp4',
+    image: image13_3, alt: 'video 3'},{
+    videoUrl: 'src/images/with-js13/video4.mp4',
+    image: image13_4, alt: 'video 4'}], width: 500, format:'webp'};
 ---
 
 <BaseLayout title="With Js">
@@ -39,44 +54,7 @@ import bg12 from '@/images/paris.jpg';
     <div class="element row2 col2 no-flex">
       <Js07 class="element07" bg={bg07}>
         <section>
-          <h3>Background Moving On Scroll</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
-            quidem cumque magnam vero amet libero, rerum sequi et molestiae
-            animi quibusdam excepturi? Veritatis minima enim sint eius, nobis
-            saepe officia! Velit, alias est minima id facilis deserunt cum
-            debitis rerum fugit odit corporis officia, minus aut temporibus iste
-            exercitationem suscipit enim quia placeat quas vel inventore
-            recusandae earum. Reprehenderit, fugit. Veniam, optio adipisci. Est
-            cupiditate distinctio excepturi ea quaerat iure, assumenda sunt
-            eveniet itaque odio illum aliquam accusamus debitis qui laboriosam
-            deserunt possimus recusandae laudantium libero! Vitae, hic
-            molestiae! Provident. Nesciunt quisquam unde quia fugit suscipit
-            enim earum, porro corporis facilis adipisci veritatis ipsum
-            distinctio eaque labore, voluptas minima praesentium quis vero error
-            et animi? Dolor eaque rem reiciendis! Cum. Rerum natus, veniam
-            dolore animi, laborum laudantium quis dolores temporibus impedit
-            nisi suscipit obcaecati repellat facilis ea inventore! Suscipit
-            consectetur maiores ipsum quas voluptatum itaque dolorum officiis
-            consequatur quisquam nisi! Fugiat aspernatur reprehenderit, quod
-            impedit laboriosam, perferendis eum earum error veniam illum officia
-            porro quae, dolorem hic! Necessitatibus voluptatem, reiciendis iure
-            quisquam vel ad ratione architecto, exercitationem sint, in officia.
-            Quis voluptatem animi labore omnis cumque tenetur dignissimos, iusto
-            possimus error in! Maiores consequatur sapiente dolore corporis qui
-            molestias dolorum modi atque fuga suscipit, illo sit vitae
-            doloremque amet eligendi. Fugit corporis veniam optio consectetur,
-            porro rerum, molestiae, odio officia qui laboriosam et neque
-            expedita nulla facilis earum? Minus fuga, consectetur expedita
-            placeat molestiae dolores veniam delectus non recusandae alias.
-            Saepe illo voluptate ab pariatur id maiores inventore ea doloremque,
-            qui aperiam aliquid aspernatur assumenda ex consectetur doloribus
-            quidem nulla corrupti tenetur atque? Excepturi beatae praesentium
-            dolor harum minima deserunt. Exercitationem numquam porro atque nam
-            reprehenderit earum labore. Ipsam repellat voluptate ad enim amet
-            doloribus accusantium corrupti sed voluptates sunt sequi quisquam
-            porro repudiandae, autem pariatur magnam aliquam doloremque. Eaque.
-          </p>
+          <SampleContent />
         </section>
       </Js07>
     </div>
@@ -100,6 +78,9 @@ import bg12 from '@/images/paris.jpg';
           <h3>Javascript 12 <br /><span>scroll me</span></h3>
         </div>
       </Js12>
+    </div>
+    <div class="element no-flex col2 row2">
+      <Js13 class="element13" mediaData={media13} />
     </div>
   </div>
 
@@ -262,6 +243,7 @@ import bg12 from '@/images/paris.jpg';
               font-size: 2em;
               span {
                 color: #fff;
+                font-weight: 100;
                 font-size: 0.5em;
               }
             }

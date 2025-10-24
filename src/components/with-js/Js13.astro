@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  mediaData: {
+    media: { videoUrl: string; image: ImageMetadata; alt: string }[];
+    width?: number;
+    height?: number;
+    format?: string;
+  };
+}
+let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
+const { media: mediaRefs, width, height, format } = mediaData;
+const videoSrcs = mediaRefs.map((el) => el.videoUrl).join(',');
+---
+
+<section id="container13" class={className} {...props}>
+  <video class="video" autoplay muted loop data-srcs={videoSrcs}>
+    <source src={mediaRefs[0].videoUrl} type="video/mp4" />
+  </video>
+  <ul data-style="none" class="navigation">
+    {
+      mediaRefs.map((el, idx) => {
+        // prettier-ignore
+        return (<li><Image src={el.image} alt={el.alt} width={width} height={height} format={format} /></li>);
+      })
+    }
+  </ul>
+</section>
+
+<style define:vars={{ duration }}>
+  #container13 {
+    position: relative;
+    height: 100%;
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .navigation {
+      display: flex;
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateX(-50%);
+      z-index: 100;
+      li {
+        opacity: 0.7;
+        cursor: pointer;
+        background-color: #fff;
+        padding: 1px;
+
+        img {
+          width: var(--img-width);
+          height: auto;
+        }
+        &,
+        & img {
+          transition: var(--duration);
+        }
+        &:hover {
+          opacity: 1;
+          img {
+            width: calc(var(--img-width) / 3 * 5);
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container13') as HTMLDivElement;
+  const video = container.querySelector('.video') as HTMLVideoElement;
+  const thumbs = container.querySelectorAll(
+    'ul li'
+  ) as NodeListOf<HTMLLIElement>;
+  const videoSrcs = video.dataset.srcs?.split(',');
+
+  const containerWidth = container.clientWidth;
+  container.style.cssText = `--img-width: ${containerWidth / 10}px`;
+  // thumbs linsteners
+  thumbs.forEach((thumb, idx) => {
+    thumb.addEventListener('click', () => {
+      video.src = videoSrcs?.[idx] || '';
+    });
+  });
+</script>
