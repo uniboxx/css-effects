@@ -2,7 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14 } from '@/components';
+import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14, Js15, Js16 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
 import bg12 from '@/images/paris.jpg';
 // js13
@@ -22,6 +22,8 @@ const media13 = {
 };
 // js14
 const imageUrl14 = '/src/images/with-js14/bg.jpg';
+const parisUrl = '/src/images/paris.jpg';
+const imageUrl6 = '/src/images/with-js16/img.jpg';
 ---
 
 <BaseLayout title="With Js">
@@ -88,6 +90,29 @@ const imageUrl14 = '/src/images/with-js14/bg.jpg';
     <div class="element no-flex col2 row2">
       <Js14 class="element14" imageUrl={imageUrl14} width={1000} />
     </div>
+    <div class="element no-flex col2 row2">
+      <Js15
+        class="element15"
+        imageUrl={parisUrl}
+        position="center bottom"
+        width={1000}
+      >
+        <SampleContent class="sample" />
+      </Js15>
+    </div>
+    <!-- prettier-ignore -->
+    <div class="element black col2">
+      <Js16
+        class="element16"
+        user={{
+          imageUrl: imageUrl6,
+          details: { name: 'Alaa Gomaa', job: 'Web Developer' },
+        }}
+        alt="user"
+        width={100}
+        iconNames={['ion:heart-outline', 'ion:person-outline', 'ion:trash-outline']}
+      />
+    </div>
   </div>
 
   <style>
@@ -120,11 +145,6 @@ const imageUrl14 = '/src/images/with-js14/bg.jpg';
         &.black {
           background-color: #222;
           color: #fafafa;
-          font-weight: 500;
-          font-size: 1.5rem;
-          letter-spacing: 0.05em;
-          text-align: center;
-          text-transform: uppercase;
         }
         &.white {
           background-color: #fff;
@@ -253,6 +273,12 @@ const imageUrl14 = '/src/images/with-js14/bg.jpg';
                 font-size: 0.5em;
               }
             }
+          }
+        }
+        .element15 {
+          .sample {
+            position: relative;
+            padding: 400px 2rem 2rem;
           }
         }
       }

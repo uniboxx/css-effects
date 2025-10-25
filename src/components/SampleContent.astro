@@ -1,34 +1,54 @@
-<h3>Background Moving On Scroll</h3>
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quidem
-  cumque magnam vero amet libero, rerum sequi et molestiae animi quibusdam
-  excepturi? Veritatis minima enim sint eius, nobis saepe officia! Velit, alias
-  est minima id facilis deserunt cum debitis rerum fugit odit corporis officia,
-  minus aut temporibus iste exercitationem suscipit enim quia placeat quas vel
-  inventore recusandae earum. Reprehenderit, fugit. Veniam, optio adipisci. Est
-  cupiditate distinctio excepturi ea quaerat iure, assumenda sunt eveniet itaque
-  odio illum aliquam accusamus debitis qui laboriosam deserunt possimus
-  recusandae laudantium libero! Vitae, hic molestiae! Provident. Nesciunt
-  quisquam unde quia fugit suscipit enim earum, porro corporis facilis adipisci
-  veritatis ipsum distinctio eaque labore, voluptas minima praesentium quis vero
-  error et animi? Dolor eaque rem reiciendis! Cum. Rerum natus, veniam dolore
-  animi, laborum laudantium quis dolores temporibus impedit nisi suscipit
-  obcaecati repellat facilis ea inventore! Suscipit consectetur maiores ipsum
-  quas voluptatum itaque dolorum officiis consequatur quisquam nisi! Fugiat
-  aspernatur reprehenderit, quod impedit laboriosam, perferendis eum earum error
-  veniam illum officia porro quae, dolorem hic! Necessitatibus voluptatem,
-  reiciendis iure quisquam vel ad ratione architecto, exercitationem sint, in
-  officia. Quis voluptatem animi labore omnis cumque tenetur dignissimos, iusto
-  possimus error in! Maiores consequatur sapiente dolore corporis qui molestias
-  dolorum modi atque fuga suscipit, illo sit vitae doloremque amet eligendi.
-  Fugit corporis veniam optio consectetur, porro rerum, molestiae, odio officia
-  qui laboriosam et neque expedita nulla facilis earum? Minus fuga, consectetur
-  expedita placeat molestiae dolores veniam delectus non recusandae alias. Saepe
-  illo voluptate ab pariatur id maiores inventore ea doloremque, qui aperiam
-  aliquid aspernatur assumenda ex consectetur doloribus quidem nulla corrupti
-  tenetur atque? Excepturi beatae praesentium dolor harum minima deserunt.
-  Exercitationem numquam porro atque nam reprehenderit earum labore. Ipsam
-  repellat voluptate ad enim amet doloribus accusantium corrupti sed voluptates
-  sunt sequi quisquam porro repudiandae, autem pariatur magnam aliquam
-  doloremque. Eaque.
-</p>
+---
+interface Props {
+  class?: string;
+}
+const { class: className, ...props } = Astro.props;
+---
+
+<div class={className} {...props}>
+  <h3>Background Moving On Scroll</h3>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quidem
+    cumque magnam vero amet libero, rerum sequi et molestiae animi quibusdam
+    excepturi? Veritatis minima enim sint eius, nobis saepe officia! Velit,
+    alias est minima id facilis deserunt cum debitis rerum fugit odit corporis
+    officia, minus aut temporibus iste exercitationem suscipit enim quia placeat
+    quas vel inventore recusandae earum. Reprehenderit, fugit. Veniam, optio
+    adipisci. Est cupiditate distinctio excepturi ea quaerat iure, assumenda
+    sunt eveniet itaque odio illum aliquam accusamus debitis qui laboriosam
+    deserunt possimus recusandae laudantium libero! Vitae, hic molestiae!
+    Provident. Nesciunt quisquam unde quia fugit suscipit enim earum, porro
+    corporis facilis adipisci veritatis ipsum distinctio eaque labore, voluptas
+    minima praesentium quis vero error et animi? Dolor eaque rem reiciendis!
+    Cum. Rerum natus, veniam dolore animi, laborum laudantium quis dolores
+    temporibus impedit nisi suscipit obcaecati repellat facilis ea inventore!
+    Suscipit consectetur maiores ipsum quas voluptatum itaque dolorum officiis
+    consequatur quisquam nisi! Fugiat aspernatur reprehenderit, quod impedit
+    laboriosam, perferendis eum earum error veniam illum officia porro quae,
+    dolorem hic! Necessitatibus voluptatem, reiciendis iure quisquam vel ad
+    ratione architecto, exercitationem sint, in officia. Quis voluptatem animi
+    labore omnis cumque tenetur dignissimos, iusto possimus error in! Maiores
+    consequatur sapiente dolore corporis qui molestias dolorum modi atque fuga
+    suscipit, illo sit vitae doloremque amet eligendi. Fugit corporis veniam
+    optio consectetur, porro rerum, molestiae, odio officia qui laboriosam et
+    neque expedita nulla facilis earum? Minus fuga, consectetur expedita placeat
+    molestiae dolores veniam delectus non recusandae alias. Saepe illo voluptate
+    ab pariatur id maiores inventore ea doloremque, qui aperiam aliquid
+    aspernatur assumenda ex consectetur doloribus quidem nulla corrupti tenetur
+    atque? Excepturi beatae praesentium dolor harum minima deserunt.
+    Exercitationem numquam porro atque nam reprehenderit earum labore. Ipsam
+    repellat voluptate ad enim amet doloribus accusantium corrupti sed
+    voluptates sunt sequi quisquam porro repudiandae, autem pariatur magnam
+    aliquam doloremque. Eaque.
+  </p>
+</div>
+
+<style>
+  div {
+    background: #000;
+    color: #fff;
+  }
+  h3 {
+    margin-bottom: 1rem;
+  }
+</style>

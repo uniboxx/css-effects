@@ -1,0 +1,143 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  user: { imageUrl: string; details: { name: string; job: string } };
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  iconNames: string[];
+}
+// prettier-ignore
+const { class: className, duration='.5s', user, alt, width, height, format = 'webp', iconNames, ...props } = Astro.props;
+
+const {
+  imageUrl,
+  details: { name, job },
+} = user;
+const optImg = await getImage({ src: imageUrl, width, height, format });
+---
+
+<section id="container16" class={className} {...props}>
+  <div class="menu">
+    <div class="user">
+      <div class="imgBox">
+        <img src={optImg.src} alt={alt} />
+      </div>
+      <div class="details">
+        <h3>{name}</h3>
+        <p>{job}</p>
+      </div>
+    </div>
+    <div class="navigation">
+      {
+        iconNames.map((icon) =>
+          // prettier-ignore
+          <span><a><Icon name={icon} /></a></span>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style define:vars={{ duration }}>
+  #container16 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .menu {
+      gap: 0.3em;
+      &,
+      .user,
+      .details,
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .user {
+        gap: 0.5em;
+        border-radius: 0.5em;
+        background: #fff;
+        padding: 0.5em;
+        height: 4em;
+        color: black;
+        .imgBox {
+          border-radius: 0.3em;
+          width: 3em;
+          height: 3em;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .details {
+          flex-direction: column;
+          h3 {
+            font-weight: 600;
+          }
+          p {
+            color: #0009;
+            font-weight: 500;
+            font-size: 0.8em;
+          }
+        }
+      }
+    }
+    .navigation {
+      --size: 0.3em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--size);
+      transition: var(--duration);
+      cursor: pointer;
+      border-radius: 0.5em;
+      background: #fff;
+      width: 2.5em;
+      height: 4em;
+      span {
+        border-radius: 50%;
+        background: #000;
+        width: var(--size);
+        height: var(--size);
+        a {
+          transition: var(--duration);
+          font-size: 0em;
+        }
+      }
+
+      &.active {
+        --size: 2.5em;
+        flex-direction: row;
+        gap: calc(var(--size) / 3);
+        width: 10em;
+        span {
+          a {
+            font-size: 1.25em;
+          }
+          &:hover {
+            background: #273c75;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container16') as HTMLDivElement;
+  const navigation = container.querySelector('.navigation') as HTMLDivElement;
+
+  navigation.addEventListener('click', () => {
+    navigation.classList.toggle('active');
+  });
+</script>

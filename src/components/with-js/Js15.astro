@@ -1,0 +1,87 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  imageUrl: string;
+  position?: string;
+  height?: number;
+  width?: number;
+  format?: string;
+}
+const {
+  class: className,
+  duration = '.2s',
+  imageUrl,
+  position = 'center',
+  width,
+  height,
+  format = 'webp',
+  ...props
+} = Astro.props;
+const optImg = await getImage({ src: imageUrl, width, height, format });
+---
+
+<section
+  id="container15"
+  class={className}
+  {...props}
+  style={`--url: url(${optImg.src})`}
+>
+  <div class="bg">
+    <div class="side left"></div>
+    <div class="side right"></div>
+  </div>
+  <slot />
+</section>
+
+<style define:vars={{ position }}>
+  #container15 {
+    position: relative;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      .side {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--url);
+        background-position: var(--position);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        &.left {
+          /* prettier-ignore */
+          clip-path: polygon(0% 0%, 68% 0%, 33% 15%, 68% 24%, 35% 36%, 68% 44%, 35% 54%, 68% 64%, 36% 74%, 68% 85%, 36% 89%, 69% 100%, 0 100%);
+        }
+        &.right {
+          /* prettier-ignore */
+          clip-path: polygon(100% 0, 68% 0%, 33% 15%, 68% 24%, 35% 36%, 68% 44%, 35% 54%, 68% 64%, 36% 74%, 68% 85%, 36% 89%, 69% 100%, 100% 100%);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.querySelector('#container15') as HTMLDivElement;
+  const bg = container.querySelector('.bg') as HTMLDivElement;
+  const left = container.querySelector('.left') as HTMLDivElement;
+  const right = container.querySelector('.right') as HTMLDivElement;
+
+  container.addEventListener('scroll', () => {
+    const scroll = container.scrollTop;
+    bg.style.top = `${scroll}px`;
+    left.style.left = `${-scroll}px`;
+    right.style.left = `${scroll}px`;
+  });
+</script>
