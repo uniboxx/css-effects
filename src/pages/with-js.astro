@@ -2,7 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
-import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14, Js15, Js16 } from '@/components';
+import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14, Js15, Js16, Js17, Js18 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
 import bg12 from '@/images/paris.jpg';
 // js13
@@ -112,6 +112,14 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
         width={100}
         iconNames={['ion:heart-outline', 'ion:person-outline', 'ion:trash-outline']}
       />
+    </div>
+    <!-- prettier-ignore -->
+    <div class="element row2 no-flex">
+      <Js17 class="element17" iconNames={[ 'ion:camera-outline', 'ion:home-outline', 'ion:happy-outline', 'ion:locate-outline', 'ion:battery-half-outline', 'ion:alarm-outline', 'ion:calculator-outline', 'ion:bulb-outline', 'ion:chatbubbles-outline',]}
+      />
+    </div>
+    <div class="element black col2 row2 no-flex">
+      <Js18 class="element18" />
     </div>
   </div>
 
@@ -280,6 +288,15 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
             position: relative;
             padding: 400px 2rem 2rem;
           }
+        }
+        .element17 {
+          background: #0f296d;
+        }
+        .element18 {
+          color: #fff;
+          font-weight: 700;
+          font-size: 2rem;
+          letter-spacing: 2px;
         }
       }
     }

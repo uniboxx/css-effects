@@ -1,0 +1,77 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+}
+// prettier-ignore
+const { class: className, duration='3s', text="Javascript 18 wavy effect", ...props } = Astro.props;
+
+const textArray = text.split('');
+let index = 0;
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = duration.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+---
+
+<div id="container18" class={className} {...props}>
+  <h3 id="text">
+    {
+      textArray.map((letter, idx) => {
+        if (letter === ' ') return letter;
+        return (
+          <span
+            style={`--delay: ${(index++ * quantity) / textArray.length}${unit}`}
+          >
+            {letter}
+          </span>
+        );
+      })
+    }
+  </h3>
+</div>
+
+<!-- prettier-ignore -->
+<style
+  define:vars={{
+    duration,
+  }}
+>
+  #container18 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    h3 {
+      font: inherit;
+      span {
+        display: inline-block;
+        position: relative;
+        transform: translateY(0px);
+        animation: wave18 var(--duration) ease-in-out infinite;
+        animation-delay: var(--delay);
+      }
+    }
+  }
+  @keyframes wave18 {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0px);
+    }
+    25% {
+      transform: translateY(calc(var(--height) / -3));
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container18') as HTMLDivElement;
+
+  const containerHeight = container.clientHeight;
+  container.style.cssText = `--height: ${containerHeight}px;`;
+</script>

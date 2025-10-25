@@ -136,3 +136,5 @@ export { default as Js13 } from './with-js/Js13.astro';
 export { default as Js14 } from './with-js/Js14.astro';
 export { default as Js15 } from './with-js/Js15.astro';
 export { default as Js16 } from './with-js/Js16.astro';
+export { default as Js17 } from './with-js/Js17.astro';
+export { default as Js18 } from './with-js/Js18.astro';

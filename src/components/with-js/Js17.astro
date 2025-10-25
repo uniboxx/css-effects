@@ -1,0 +1,114 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  size?: string;
+  iconNames: string[];
+  colors?: string;
+}
+// prettier-ignore
+const { class: className, duration='.5s', size='4em', iconNames, colors='#c22c15, #fff, #0f296d, #fff, #f87966', ...props } = Astro.props;
+
+const [bgColor, dotColor, bgIcon, colorIcon, colorHoverIcon] =
+  colors.split(',');
+const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
+const result = size.match(regex)!;
+const quantity = +result.groups?.quantity!;
+const unit = result.groups?.unit!;
+---
+
+<div id="container17" class={className} {...props}>
+  <section class="navigation">
+    {
+      iconNames.map((icon, idx) => {
+        const xMultiplier = idx % 3 === 0 ? -1 : idx % 3 === 1 ? 0 : 1;
+        const yMultiplier = idx < 3 ? -1 : idx < 6 ? 0 : 1;
+        // prettier-ignore
+        return (
+          <span style={`--delay: ${idx*.1}s;--x: ${quantity / 5 * xMultiplier}${unit};--y: ${quantity / 5 * yMultiplier}${unit}`}><a href="#"><Icon name={icon} /></a></span>
+        )
+      })
+    }
+  </section>
+</div>
+
+<!-- prettier-ignore -->
+<style
+  define:vars={{
+    duration,
+    size,
+    bgColor,
+    dotColor,
+    bgIcon,
+    colorIcon,
+    colorHoverIcon,
+  }}
+>
+  #container17 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .navigation {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      transition: var(--duration);
+      transition-delay: calc(var(--duration) * 1.5);
+      cursor: pointer;
+      border-radius: 0.5em;
+      background: var(--bgColor);
+      width: var(--size);
+      height: var(--size);
+
+      span {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        transform: translate(var(--x), var(--y));
+        transition: var(--duration);
+        transition-delay: var(--delay);
+        border-radius: 50%;
+        background: var(--dotColor);
+        width: calc(var(--size) / 10);
+        height: calc(var(--size) / 10);
+        a {
+          transition: var(--duration);
+          color: #fff;
+          font-size: 0em;
+        }
+      }
+      &.active {
+        transition-delay: 0s;
+        width: calc(var(--size) * 3);
+        height: calc(var(--size) * 3);
+        span {
+          transform: translate(calc(var(--x) * 4), calc(var(--y) * 4));
+          background: var(--bgIcon);
+          width: calc(var(--size) * 0.6);
+          height: calc(var(--size) * 0.6);
+          color: var(--colorIcon);
+          a {
+            font-size: 1.35em;
+            &:hover {
+              color: var(--colorHoverIcon);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.getElementById('container17') as HTMLDivElement;
+  const navigation = container.querySelector('.navigation') as HTMLDivElement;
+
+  navigation.addEventListener('click', () => {
+    navigation.classList.toggle('active');
+  });
+</script>
