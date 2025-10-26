@@ -21,7 +21,6 @@ let {
 } = Astro.props;
 const [toggleBgColor, toggleColor, menuBgColor, iconColor] = colors.split(',');
 icons.splice(icons.length / 2, 0, '');
-const emptyIdx = Math.floor(icons.length / 2);
 ---
 
 <section id="container11" class={className} {...props}>
@@ -30,7 +29,6 @@ const emptyIdx = Math.floor(icons.length / 2);
     <ul data-style="none" class="menu">
       {
         icons.map((icon, idx) => {
-          const index = idx < emptyIdx ? idx : idx - 1;
           return (
             <li style={`--delay: ${(0.1 * (idx + 1) + 0.75).toFixed(2)}s `}>
               {icon && (

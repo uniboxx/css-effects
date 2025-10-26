@@ -80,7 +80,7 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
     return parseFloat((Math.random() * max).toFixed(2));
   }
 
-  const interval = setInterval(() => {
+  setInterval(() => {
     boxes.forEach((box) => {
       const left = genRand(containerWidth);
       const top = genRand(containerHeight);

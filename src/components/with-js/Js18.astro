@@ -1,6 +1,4 @@
 ---
-import { Icon } from 'astro-icon/components';
-
 interface Props {
   class?: string;
   duration?: string;
@@ -20,7 +18,7 @@ const unit = result.groups?.unit!;
 <div id="container18" class={className} {...props}>
   <h3 id="text">
     {
-      textArray.map((letter, idx) => {
+      textArray.map((letter) => {
         if (letter === ' ') return letter;
         return (
           <span
