@@ -15,14 +15,17 @@ interface Props {
 }
 let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
 const { videos, images, alts, width, height, format } = mediaData;
-const videoSrcs = Object.keys(videos);
+const videoSrcs = Object.keys(videos).map((key) => {
+  return key.replace(/\/public(.+)/, '$1');
+});
+
 const firstVideoUrl = videoSrcs[0];
 const imageUrls = Object.keys(images);
 ---
 
 <section id="container13" class={className} {...props}>
   <video class="video" autoplay muted loop data-srcs={videoSrcs}>
-    <source src="/src/images/with-js13/video1.mp4" type="video/mp4" />
+    <source src={firstVideoUrl} type="video/mp4" />
   </video>
   <ul data-style="none" class="navigation">
     {
