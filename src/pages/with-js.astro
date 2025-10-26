@@ -6,15 +6,15 @@ import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js
 import bg07 from '@/images/with-js07/bg.jpg';
 import bg12 from '@/images/paris.jpg';
 // js13
-const videoUrls13 = Object.keys(
-  import.meta.glob('/src/images/with-js13/*.mp4')
-);
+const videos13 = import.meta.glob('/src/images/with-js13/*.mp4');
+console.log('🚀 ~ :10 ~ videos13:', videos13);
+
 const images13 = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/with-js13/*.jpg'
 );
-console.log('🚀 ~ :15 ~ images13:', images13);
+
 const media13 = {
-  videoUrls: videoUrls13,
+  videos: videos13,
   images: images13,
   alts: ['video1', 'video2', 'video3', 'video4'],
   width: 1000,
@@ -100,8 +100,8 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
         <SampleContent class="sample" />
       </Js15>
     </div>
-    <!-- prettier-ignore -->
-    iv class="element black col2">
+
+    <div class="element black col2">
       <Js16
         class="element16"
         user={{
@@ -110,206 +110,221 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
         }}
         alt="user"
         width={100}
-        iconNames={['ion:heart-outline', 'ion:person-outline', 'ion:trash-outline']}
+        iconNames={[
+          'ion:heart-outline',
+          'ion:person-outline',
+          'ion:trash-outline',
+        ]}
       />
     </div>
 
-    <!-- prettier-ignore -->
-    iv class="element row2 no-flex">
-      <Js17 class="element17" iconNames={[ 'ion:camera-outline', 'ion:home-outline', 'ion:happy-outline', 'ion:locate-outline', 'ion:battery-half-outline', 'ion:alarm-outline', 'ion:calculator-outline', 'ion:bulb-outline', 'ion:chatbubbles-outline',]}
+    <div class="element row2 no-flex">
+      <Js17
+        class="element17"
+        iconNames={[
+          'ion:camera-outline',
+          'ion:home-outline',
+          'ion:happy-outline',
+          'ion:locate-outline',
+          'ion:battery-half-outline',
+          'ion:alarm-outline',
+          'ion:calculator-outline',
+          'ion:bulb-outline',
+          'ion:chatbubbles-outline',
+        ]}
       />
     </div>
 
     <div class="element black col2 row2 no-flex">
       <Js18 class="element18" />
     </div>
-  </div>
 
-  <style>
-    .grid {
-      --width: 15rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, var(--width));
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin: 1rem 0 3rem;
-      .element {
-        --height: calc(var(--width) / 2);
-        display: flex;
+    <style>
+      .grid {
+        --width: 15rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, var(--width));
         justify-content: center;
         align-items: center;
-        height: var(--height);
-        &.no-flex {
-          display: block;
-        }
-        &.row2 {
-          height: calc(var(--height) * 2);
-        }
-        &.row3 {
-          height: calc(var(--height) * 3);
-        }
-        &.col2 {
-          grid-column: span 2;
-        }
-        &.black {
-          background-color: #222;
-          color: #fafafa;
-        }
-        &.white {
-          background-color: #fff;
-          color: #000;
-        }
-        .x2height {
-          height: 200%;
-        }
-        .element02 {
-          background-color: #f9f9f9;
-          height: 100%;
-          #header {
-            --color: #359381;
-            display: flex;
-            position: absolute;
-            top: 0;
-            left: 0;
-            align-items: center;
-            gap: 1em;
-            z-index: 100;
-            padding: 1.5em;
-            width: 100%;
-            h3 {
-              color: var(--color);
-              font-size: 1.5em;
-            }
-            nav {
-              a {
-                transition: 0.5s;
-                border-radius: 20px;
-                padding: 0.25em 0.4em;
+        gap: 20px;
+        margin: 1rem 0 3rem;
+        .element {
+          --height: calc(var(--width) / 2);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: var(--height);
+          &.no-flex {
+            display: block;
+          }
+          &.row2 {
+            height: calc(var(--height) * 2);
+          }
+          &.row3 {
+            height: calc(var(--height) * 3);
+          }
+          &.col2 {
+            grid-column: span 2;
+          }
+          &.black {
+            background-color: #222;
+            color: #fafafa;
+          }
+          &.white {
+            background-color: #fff;
+            color: #000;
+          }
+          .x2height {
+            height: 200%;
+          }
+          .element02 {
+            background-color: #f9f9f9;
+            height: 100%;
+            #header {
+              --color: #359381;
+              display: flex;
+              position: absolute;
+              top: 0;
+              left: 0;
+              align-items: center;
+              gap: 1em;
+              z-index: 100;
+              padding: 1.5em;
+              width: 100%;
+              h3 {
                 color: var(--color);
-                font-weight: 500;
-                &:hover {
-                  background-color: var(--color);
-                  color: #fff;
+                font-size: 1.5em;
+              }
+              nav {
+                a {
+                  transition: 0.5s;
+                  border-radius: 20px;
+                  padding: 0.25em 0.4em;
+                  color: var(--color);
+                  font-weight: 500;
+                  &:hover {
+                    background-color: var(--color);
+                    color: #fff;
+                  }
                 }
               }
             }
           }
-        }
-        .element03 {
-          background-color: cyan;
-        }
-        .element03 {
-          background-color: #252839;
-        }
-        .element07 {
-          section {
-            margin: 4rem auto;
-            box-shadow: 0 10px 30px #0003;
-            background-color: #fff;
-            padding: 1rem;
-            width: 80%;
-            h3 {
-              margin-bottom: 1rem;
-            }
+          .element03 {
+            background-color: cyan;
           }
-        }
-        .element08 {
-          --navy: #0d172e;
-          display: flex;
-          position: relative;
-          justify-content: center;
-          align-items: center;
-          background-color: var(--navy);
-          height: 100%;
-          &::before {
-            --size: calc(var(--width) * 2 * 0.3);
-            --spread: calc(var(--width) * 2 * 0.01);
-            position: absolute;
-            box-shadow:
-              0 0 0 var(--spread) var(--navy),
-              0 0 0 calc(var(--spread) * 1.3) #fff;
-            border: 20px solid #ff9100;
-            border-radius: 50%;
-            width: var(--size);
-            height: var(--size);
-            content: '';
+          .element03 {
+            background-color: #252839;
           }
-          h3 {
-            position: absolute;
-            transform: skewY(-7deg);
-            z-index: 5;
-            animation: floating08 5s ease-in-out infinite;
-            color: #fff;
-            font-weight: normal;
-            font-size: calc(var(--width) * 2 * 0.08);
-            line-height: 2em;
-            text-align: center;
-            text-shadow:
-              1px 1px 0 #ccc,
-              2px 2px 0 #ccc,
-              3px 3px 0 #ccc,
-              4px 4px 0 #0003;
-            span {
-              font-weight: 700;
-              font-size: calc(var(--width) * 2 * 0.2);
-              text-shadow:
-                2px 2px 0 #ccc,
-                3px 3px 0 #ccc,
-                4px 4px 0 #ccc,
-                5px 5px 0 #ccc,
-                10px 10px 0 #0003;
-            }
-          }
-        }
-        .element10 {
-          background: linear-gradient(45deg, #8460ed, #ff1252);
-        }
-        .element11 {
-          background-color: #20415c;
-        }
-        .element12 {
-          background-color: #fff;
-          .x2height {
-            padding: 1em;
-            h3 {
-              background-clip: text;
-              -webkit-text-stroke: 1px #fff;
-              color: transparent;
-              font-size: 2em;
-              span {
-                color: #fff;
-                font-weight: 100;
-                font-size: 0.5em;
+          .element07 {
+            section {
+              margin: 4rem auto;
+              box-shadow: 0 10px 30px #0003;
+              background-color: #fff;
+              padding: 1rem;
+              width: 80%;
+              h3 {
+                margin-bottom: 1rem;
               }
             }
           }
-        }
-        .element15 {
-          .sample {
+          .element08 {
+            --navy: #0d172e;
+            display: flex;
             position: relative;
-            padding: 400px 2rem 2rem;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--navy);
+            height: 100%;
+            &::before {
+              --size: calc(var(--width) * 2 * 0.3);
+              --spread: calc(var(--width) * 2 * 0.01);
+              position: absolute;
+              box-shadow:
+                0 0 0 var(--spread) var(--navy),
+                0 0 0 calc(var(--spread) * 1.3) #fff;
+              border: 20px solid #ff9100;
+              border-radius: 50%;
+              width: var(--size);
+              height: var(--size);
+              content: '';
+            }
+            h3 {
+              position: absolute;
+              transform: skewY(-7deg);
+              z-index: 5;
+              animation: floating08 5s ease-in-out infinite;
+              color: #fff;
+              font-weight: normal;
+              font-size: calc(var(--width) * 2 * 0.08);
+              line-height: 2em;
+              text-align: center;
+              text-shadow:
+                1px 1px 0 #ccc,
+                2px 2px 0 #ccc,
+                3px 3px 0 #ccc,
+                4px 4px 0 #0003;
+              span {
+                font-weight: 700;
+                font-size: calc(var(--width) * 2 * 0.2);
+                text-shadow:
+                  2px 2px 0 #ccc,
+                  3px 3px 0 #ccc,
+                  4px 4px 0 #ccc,
+                  5px 5px 0 #ccc,
+                  10px 10px 0 #0003;
+              }
+            }
+          }
+          .element10 {
+            background: linear-gradient(45deg, #8460ed, #ff1252);
+          }
+          .element11 {
+            background-color: #20415c;
+          }
+          .element12 {
+            background-color: #fff;
+            .x2height {
+              padding: 1em;
+              h3 {
+                background-clip: text;
+                -webkit-text-stroke: 1px #fff;
+                color: transparent;
+                font-size: 2em;
+                span {
+                  color: #fff;
+                  font-weight: 100;
+                  font-size: 0.5em;
+                }
+              }
+            }
+          }
+          .element15 {
+            .sample {
+              position: relative;
+              padding: 400px 2rem 2rem;
+            }
+          }
+          .element17 {
+            background: #0f296d;
+          }
+          .element18 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 2px;
           }
         }
-        .element17 {
-          background: #0f296d;
+      }
+      @keyframes floating08 {
+        0%,
+        100% {
+          transform: skewY(-7deg) translateY(-10px);
         }
-        .element18 {
-          color: #fff;
-          font-weight: 700;
-          font-size: 2rem;
-          letter-spacing: 2px;
+        50% {
+          transform: skewY(-7deg) translateY(10px);
         }
       }
-    }
-    @keyframes floating08 {
-      0%,
-      100% {
-        transform: skewY(-7deg) translateY(-10px);
-      }
-      50% {
-        transform: skewY(-7deg) translateY(10px);
-      }
-    }
-  </style>
+    </style>
+  </div>
 </BaseLayout>

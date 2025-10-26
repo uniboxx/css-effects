@@ -5,7 +5,7 @@ interface Props {
   class?: string;
   duration?: string;
   mediaData: {
-    videoUrls: string[];
+    videos: Record<string, () => Promise<unknown>>;
     images: { [key: string]: () => Promise<{ default: ImageMetadata }> };
     alts: string[];
     width?: number;
@@ -14,9 +14,9 @@ interface Props {
   };
 }
 let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
-const { videoUrls, images, alts, width, height, format } = mediaData;
-const firstVideoUrl = videoUrls[0];
-const videoSrcs = videoUrls.join(',');
+const { videos, images, alts, width, height, format } = mediaData;
+const videoSrcs = Object.keys(videos);
+const firstVideoUrl = videoSrcs[0];
 const imageUrls = Object.keys(images);
 const imageFncs = Object.values(images);
 const image1 = await imageFncs[0]();
