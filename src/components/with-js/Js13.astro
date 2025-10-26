@@ -15,11 +15,11 @@ interface Props {
 }
 let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
 const { videos, images, alts, width, height, format } = mediaData;
-const videoSrcs = Object.keys(videos).map((key) => {
+const videoUrls = Object.keys(videos).map((key) => {
   return key.replace(/\/public(.+)/, '$1');
 });
-
-const firstVideoUrl = videoSrcs[0];
+const videoSrcs = videoUrls.join(',');
+const firstVideoUrl = videoUrls[0];
 const imageUrls = Object.keys(images);
 ---
 
