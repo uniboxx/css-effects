@@ -4,7 +4,7 @@ import { getImage } from 'astro:assets';
 interface Props {
   class?: string;
   duration?: string;
-  imageUrl: string;
+  image: ImageMetadata;
   height?: number;
   width?: number;
   format?: string;
@@ -12,13 +12,13 @@ interface Props {
 const {
   class: className,
   duration = '.2s',
-  imageUrl,
+  image,
   width,
   height,
   format = 'webp',
   ...props
 } = Astro.props;
-const optImg = await getImage({ src: imageUrl, width, height, format });
+const optImg = await getImage({ src: image, width, height, format });
 const regex = /(?<quantity>[\d\.]+)(?<unit>s|ms)/;
 const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
@@ -48,11 +48,10 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
   #container14 {
     position: relative;
     height: 100%;
-    overflow-y: scroll;
     .content {
       width: 100%;
       height: 100%;
-      overflow-y: hidden;
+      overflow: hidden;
       &,
       .box {
         position: absolute;
