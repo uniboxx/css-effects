@@ -4,7 +4,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
 import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14, Js15, Js16, Js17, Js18 } from '@/components';
 import bg07 from '@/images/with-js07/bg.jpg';
-import bg12 from '@/images/paris.jpg';
+import paris from '@/images/paris.jpg';
+import image14 from '/src/images/with-js14/bg.jpg';
+import image16 from '/src/images/with-js16/img.jpg';
 // js13
 const videos13 = import.meta.glob('/public/videos/*.mp4');
 
@@ -20,9 +22,6 @@ const media13 = {
   format: 'webp',
 };
 // js14
-const image14 = '/src/images/with-js14/bg.jpg';
-const parisUrl = '/src/images/paris.jpg';
-const imageUrl6 = '/src/images/with-js16/img.jpg';
 ---
 
 <BaseLayout title="With Js">
@@ -77,7 +76,7 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
       <Js11 class="element11" />
     </div>
     <div class="element no-flex col2 row2">
-      <Js12 class="element12" bg={bg12} position="center bottom">
+      <Js12 class="element12" bg={paris} position="center bottom">
         <div class="x2height">
           <h3>Javascript 12 <br /><span>scroll me</span></h3>
         </div>
@@ -92,7 +91,7 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
     <div class="element no-flex col2 row2">
       <Js15
         class="element15"
-        imageUrl={parisUrl}
+        image={paris}
         position="center bottom"
         width={1000}
       >
@@ -104,7 +103,7 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
       <Js16
         class="element16"
         user={{
-          imageUrl: imageUrl6,
+          image: image16,
           details: { name: 'Alaa Gomaa', job: 'Web Developer' },
         }}
         alt="user"

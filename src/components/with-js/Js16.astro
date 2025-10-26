@@ -5,7 +5,7 @@ import { getImage } from 'astro:assets';
 interface Props {
   class?: string;
   duration?: string;
-  user: { imageUrl: string; details: { name: string; job: string } };
+  user: { image: ImageMetadata; details: { name: string; job: string } };
   alt: string;
   width?: number;
   height?: number;
@@ -16,10 +16,10 @@ interface Props {
 const { class: className, duration='.5s', user, alt, width, height, format = 'webp', iconNames, ...props } = Astro.props;
 
 const {
-  imageUrl,
+  image,
   details: { name, job },
 } = user;
-const optImg = await getImage({ src: imageUrl, width, height, format });
+const optImg = await getImage({ src: image, width, height, format });
 ---
 
 <section id="container16" class={className} {...props}>

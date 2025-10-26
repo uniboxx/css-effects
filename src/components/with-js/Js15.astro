@@ -4,7 +4,7 @@ import { getImage } from 'astro:assets';
 interface Props {
   class?: string;
   duration?: string;
-  imageUrl: string;
+  image: ImageMetadata;
   position?: string;
   height?: number;
   width?: number;
@@ -13,14 +13,14 @@ interface Props {
 const {
   class: className,
   duration = '.2s',
-  imageUrl,
+  image,
   position = 'center',
   width,
   height,
   format = 'webp',
   ...props
 } = Astro.props;
-const optImg = await getImage({ src: imageUrl, width, height, format });
+const optImg = await getImage({ src: image, width, height, format });
 ---
 
 <section
