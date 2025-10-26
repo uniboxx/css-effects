@@ -12,10 +12,10 @@ const videoUrls13 = Object.keys(
 const images13 = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/with-js13/*.jpg'
 );
-const imageUrls13 = Object.keys(images13);
+console.log('🚀 ~ :15 ~ images13:', images13);
 const media13 = {
   videoUrls: videoUrls13,
-  imageUrls: imageUrls13,
+  images: images13,
   alts: ['video1', 'video2', 'video3', 'video4'],
   width: 1000,
   format: 'webp',
@@ -101,7 +101,7 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
       </Js15>
     </div>
     <!-- prettier-ignore -->
-    <div class="element black col2">
+    iv class="element black col2">
       <Js16
         class="element16"
         user={{
@@ -113,11 +113,13 @@ const imageUrl6 = '/src/images/with-js16/img.jpg';
         iconNames={['ion:heart-outline', 'ion:person-outline', 'ion:trash-outline']}
       />
     </div>
+
     <!-- prettier-ignore -->
-    <div class="element row2 no-flex">
+    iv class="element row2 no-flex">
       <Js17 class="element17" iconNames={[ 'ion:camera-outline', 'ion:home-outline', 'ion:happy-outline', 'ion:locate-outline', 'ion:battery-half-outline', 'ion:alarm-outline', 'ion:calculator-outline', 'ion:bulb-outline', 'ion:chatbubbles-outline',]}
       />
     </div>
+
     <div class="element black col2 row2 no-flex">
       <Js18 class="element18" />
     </div>

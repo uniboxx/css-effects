@@ -1,12 +1,12 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
   mediaData: {
     videoUrls: string[];
-    imageUrls: string[];
+    images: { [key: string]: () => Promise<{ default: ImageMetadata }> };
     alts: string[];
     width?: number;
     height?: number;
@@ -14,17 +14,13 @@ interface Props {
   };
 }
 let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
-const { videoUrls, imageUrls, alts, width, height, format } = mediaData;
+const { videoUrls, images, alts, width, height, format } = mediaData;
 const firstVideoUrl = videoUrls[0];
 const videoSrcs = videoUrls.join(',');
-async function optimizeImages(urls: string[]) {
-  return Promise.all(
-    urls.map(async (url) => {
-      return await getImage({ src: url, format, width, height });
-    })
-  );
-}
-const optImages = await optimizeImages(imageUrls);
+const imageUrls = Object.keys(images);
+const imageFncs = Object.values(images);
+const image1 = await imageFncs[0]();
+console.log('🚀 ~ :25 ~ image1:', image1);
 ---
 
 <section id="container13" class={className} {...props}>
@@ -33,9 +29,9 @@ const optImages = await optimizeImages(imageUrls);
   </video>
   <ul data-style="none" class="navigation">
     {
-      optImages.map((el, idx) => {
+      imageUrls.map((imageUrl, idx) => {
         // prettier-ignore
-        return (<li><img src={el.src} alt={alts[idx]} /></li>);
+        return (<li><Image src={images[imageUrl]()} alt={alts[idx]} width={width} height={height} format={format} /></li>);
       })
     }
   </ul>
