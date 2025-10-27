@@ -7,6 +7,10 @@ import bg07 from '@/images/with-js07/bg.jpg';
 import paris from '@/images/paris.jpg';
 import image14 from '/src/images/with-js14/bg.jpg';
 import image16 from '/src/images/with-js16/img.jpg';
+// js02
+const images02 = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/with-js02/*.png'
+);
 // js13
 const videos13 = import.meta.glob('/public/videos/*.mp4');
 
@@ -27,19 +31,24 @@ const media13 = {
 <BaseLayout title="With Js">
   <div class="grid">
     <div class="element black">
-      <Js01 class="element01" />
+      <span class="absolute">Hover over text</span>
+      <Js01 class="element01" startHue={143} />
     </div>
-    <div class="element row2 col2 no-flex">
-      <Js02 class="element02">
+    <div class="element row2 no-flex col2">
+      <Js02 class="element02" images={images02}>
         <section id="header" slot="header">
           <h3>Logo</h3>
           <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Services</a>
+            <a href="">Contact</a>
           </nav>
         </section>
+        <section slot="content" class="content">
+          <SampleContent />
+        </section>
+        <h4 class="absolute">Scroll me</h4>
       </Js02>
     </div>
     <div class="element row2">
@@ -48,25 +57,25 @@ const media13 = {
     <div class="element black">
       <Js04 class="element04" />
     </div>
-    <div class="element white row2 col2 no-flex">
+    <div class="element white row2 no-flex">
       <Js05 class="element05" />
     </div>
-    <div class="element row2 col2 no-flex">
+    <div class="element row2 no-flex">
       <Js06 class="element06" />
     </div>
-    <div class="element row2 col2 no-flex">
+    <div class="element row2 no-flex">
       <Js07 class="element07" bg={bg07}>
         <section>
           <SampleContent />
         </section>
       </Js07>
     </div>
-    <div class="element row2 col2 no-flex">
+    <div class="element row2 no-flex">
       <Js08 class="element08">
         <h3>Javascript<br /><span>08</span></h3>
       </Js08>
     </div>
-    <div class="element row2 col2 no-flex">
+    <div class="element row2 no-flex">
       <Js09 class="element09" />
     </div>
     <div class="element row2 no-flex">
@@ -75,31 +84,33 @@ const media13 = {
     <div class="element no-flex">
       <Js11 class="element11" />
     </div>
-    <div class="element no-flex col2 row2">
+    <div class="element no-flex row2">
       <Js12 class="element12" bg={paris} position="center bottom">
         <div class="x2height">
           <h3>Javascript 12 <br /><span>scroll me</span></h3>
         </div>
       </Js12>
     </div>
-    <div class="element no-flex col2 row2">
+    <div class="element no-flex row2">
       <Js13 class="element13" mediaData={media13} />
     </div>
-    <div class="element no-flex col2 row2">
+    <div class="element no-flex row2">
       <Js14 class="element14" image={image14} width={1000} />
     </div>
-    <div class="element no-flex col2 row2">
+    <div class="element no-flex row2">
       <Js15
         class="element15"
         image={paris}
         position="center bottom"
         width={1000}
+        text="Scroll me"
+        ;
       >
         <SampleContent class="sample" />
       </Js15>
     </div>
 
-    <div class="element black col2">
+    <div class="element black">
       <Js16
         class="element16"
         user={{
@@ -133,25 +144,39 @@ const media13 = {
       />
     </div>
 
-    <div class="element black col2 row2 no-flex">
+    <div class="element black row2 no-flex">
       <Js18 class="element18" />
     </div>
 
     <style>
       .grid {
-        --width: 15rem;
+        --min-width: 15rem;
         display: grid;
-        grid-template-columns: repeat(auto-fill, var(--width));
-        justify-content: center;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(min(var(--min-width), 100%), 1fr)
+        );
         align-items: center;
+        justify-items: center;
         gap: 20px;
         margin: 1rem 0 3rem;
+        padding: 0 20px;
         .element {
-          --height: calc(var(--width) / 2);
+          --height: calc(var(--min-width) / 2);
           display: flex;
+          position: relative;
           justify-content: center;
           align-items: center;
+          width: 100%;
           height: var(--height);
+          & .absolute {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            color: #fffa;
+          }
           &.no-flex {
             display: block;
           }
@@ -161,9 +186,7 @@ const media13 = {
           &.row3 {
             height: calc(var(--height) * 3);
           }
-          &.col2 {
-            grid-column: span 2;
-          }
+
           &.black {
             background-color: #222;
             color: #fafafa;
@@ -175,9 +198,22 @@ const media13 = {
           .x2height {
             height: 200%;
           }
+          .element01 {
+            font-size: 2rem;
+          }
           .element02 {
             background-color: #f9f9f9;
             height: 100%;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            .absolute {
+              top: 35%;
+              color: #fff;
+              font-weight: normal;
+              font-size: 1.2rem;
+            }
+
             #header {
               --color: #359381;
               display: flex;
@@ -189,10 +225,12 @@ const media13 = {
               z-index: 100;
               padding: 1.5em;
               width: 100%;
+              font-size: 0.8rem;
               h3 {
                 color: var(--color);
-                font-size: 1.5em;
+                font-size: 1.2rem;
               }
+
               nav {
                 a {
                   transition: 0.5s;
@@ -207,12 +245,18 @@ const media13 = {
                 }
               }
             }
+            .content {
+              font-size: 1rem;
+            }
           }
           .element03 {
             background-color: cyan;
           }
           .element03 {
             background-color: #252839;
+          }
+          .element04 {
+            font-size: 2rem;
           }
           .element07 {
             section {
@@ -235,8 +279,8 @@ const media13 = {
             background-color: var(--navy);
             height: 100%;
             &::before {
-              --size: calc(var(--width) * 2 * 0.3);
-              --spread: calc(var(--width) * 2 * 0.01);
+              --size: calc(var(--min-width) * 2 * 0.3);
+              --spread: calc(var(--min-width) * 2 * 0.01);
               position: absolute;
               box-shadow:
                 0 0 0 var(--spread) var(--navy),
@@ -254,7 +298,7 @@ const media13 = {
               animation: floating08 5s ease-in-out infinite;
               color: #fff;
               font-weight: normal;
-              font-size: calc(var(--width) * 2 * 0.08);
+              font-size: calc(var(--min-width) * 2 * 0.08);
               line-height: 2em;
               text-align: center;
               text-shadow:
@@ -264,7 +308,7 @@ const media13 = {
                 4px 4px 0 #0003;
               span {
                 font-weight: 700;
-                font-size: calc(var(--width) * 2 * 0.2);
+                font-size: calc(var(--min-width) * 2 * 0.2);
                 text-shadow:
                   2px 2px 0 #ccc,
                   3px 3px 0 #ccc,
@@ -311,6 +355,13 @@ const media13 = {
             font-weight: 700;
             font-size: 2rem;
             letter-spacing: 2px;
+          }
+        }
+        @media screen and (min-width: 40rem) {
+          .element {
+            &.col2 {
+              grid-column: span 2;
+            }
           }
         }
       }

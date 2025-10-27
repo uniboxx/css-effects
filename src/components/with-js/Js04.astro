@@ -29,10 +29,10 @@ quantity = unit === 's' ? quantity * 5000 : quantity * 5;
 <h3 class={className} {...props}>
   {
     letters.map((letter, idx) => {
+      if (letter === ' ') return letter;
       return (
         <span
           style={`--duration: ${randomNum(quantity)}ms;--delay: ${randomNum(length) * 100}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
-          set:html={`${letter === ' ' ? '&nbsp;' : ''}`}
         >
           {letter}
         </span>

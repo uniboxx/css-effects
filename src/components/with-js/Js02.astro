@@ -5,23 +5,18 @@ interface Props {
   class?: string;
   duration?: string;
   heading?: string;
+  images: { [key: string]: () => Promise<{ default: ImageMetadata }> };
 }
 const {
   class: className,
   duration = '.25s',
   heading = 'JAVASCRIPT 02',
+  images,
   ...props
 } = Astro.props;
-import hill1 from '@/images/with-js02/hill1.png';
-import hill2 from '@/images/with-js02/hill2.png';
-import hill3 from '@/images/with-js02/hill3.png';
-import hill4 from '@/images/with-js02/hill4.png';
-import hill5 from '@/images/with-js02/hill5.png';
-import leaf from '@/images/with-js02/leaf.png';
-import plant from '@/images/with-js02/plant.png';
-import tree from '@/images/with-js02/tree.png';
 
-const images = [hill1, hill2, hill3, hill4, hill5, leaf, plant, tree];
+const imageUrls = Object.keys(images);
+
 // prettier-ignore
 const ids = ['hill1', 'hill2', 'hill3', 'hill4', 'hill5', 'leaf', 'plant', 'tree'];
 ---
@@ -30,33 +25,29 @@ const ids = ['hill1', 'hill2', 'hill3', 'hill4', 'hill5', 'leaf', 'plant', 'tree
   <slot name="header" />
   <section id="parallax">
     {
-      images.map((image, idx) => {
+      imageUrls.map((image, idx) => {
         return (
-          <Image id={ids[idx]} src={image} alt="" height={270} format="webp" />
+          <Image
+            id={ids[idx]}
+            src={images[image]()}
+            alt=""
+            height={270}
+            format="webp"
+          />
         );
       })
     }
     <h3 id="title">{heading}</h3>
-    <h4>Scroll me</h4>
   </section>
-  <div class="content">
-    <h3>Parallax scrolling website</h3>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem perferendis
-      impedit quis facere incidunt repellendus molestias enim sint blanditiis
-      error quo, est beatae nihil corrupti adipisci nam deserunt dolorum magnam
-      cupiditate aliquid harum ab eos mollitia? Dolorum modi eligendi aperiam
-      similique provident quisquam architecto eveniet quod, enim asperiores ea
-      officiis.
-    </p>
-  </div>
+  <slot name="content" />
+  <slot />
 </div>
 
 <style define:vars={{ duration }}>
   #container02 {
     position: relative;
-    width: 476px;
     height: 100%;
+    overflow-x: hidden;
     overflow-y: scroll;
     #parallax {
       display: flex;
@@ -71,33 +62,11 @@ const ids = ['hill1', 'hill2', 'hill3', 'hill4', 'hill5', 'leaf', 'plant', 'tree
         height: 100%;
         pointer-events: none;
       }
-      h3,
-      h4 {
+      h3 {
         position: absolute;
-        pointer-events: none;
-        color: #fff;
-        font-size: 2em;
-        text-shadow: 2px 2px 4px #0003;
-      }
-      h3 {
         z-index: 1;
-      }
-      h4 {
-        bottom: 3em;
-        color: #fffc;
-        font-size: 1.5em;
-      }
-    }
-    .content {
-      position: relative;
-      margin: 0 auto;
-      background-color: #003329;
-      padding: 20px;
-      width: 476px;
-      color: #fff;
-      h3 {
-        margin-bottom: 0.5em;
-        font-size: 2em;
+        pointer-events: none;
+        font: inherit;
       }
     }
   }

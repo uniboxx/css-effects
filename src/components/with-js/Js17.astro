@@ -27,7 +27,7 @@ const unit = result.groups?.unit!;
         const yMultiplier = idx < 3 ? -1 : idx < 6 ? 0 : 1;
         // prettier-ignore
         return (
-          <span style={`--delay: ${idx*.1}s;--x: ${quantity / 5 * xMultiplier}${unit};--y: ${quantity / 5 * yMultiplier}${unit}`}><a href="#"><Icon name={icon} /></a></span>
+          <span style={`--delay: ${idx*.1}s;--x: ${quantity / 5 * xMultiplier}${unit};--y: ${quantity / 5 * yMultiplier}${unit}`}><a href=""><Icon name={icon} /></a></span>
         )
       })
     }

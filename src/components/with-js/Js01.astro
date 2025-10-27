@@ -4,26 +4,29 @@ interface Props {
   duration?: string;
   text?: string;
   color?: string;
+  startHue?: number;
 }
 const {
   class: className,
   duration = '.25s',
   text = 'JAVASCRIPT 01',
-  color = '#555',
+  color = '#666',
+  startHue = 143,
   ...props
 } = Astro.props;
 let letters = text.split('');
-const length = letters.length;
-const hueDeg = Math.ceil(360 / (length + 1));
+const lenghtWithoutSpaces = letters.filter((letter) => letter !== ' ').length;
+const hueDeg = Math.ceil(360 / lenghtWithoutSpaces);
+let spanIndex = 0;
 ---
 
 <h3 class={className} {...props}>
   {
     letters.map((letter, idx) => {
+      if (letter === ' ') return letter;
       return (
         <span
-          style={`--delay: ${40 * idx}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
-          set:html={`${letter === ' ' ? '&nbsp;' : ''}`}
+          style={`--delay: ${40 * idx}ms;--hoverColor: oklch(.867 .287 ${(143 + hueDeg * spanIndex++) % 360});`}
         >
           {letter}
         </span>
@@ -34,22 +37,19 @@ const hueDeg = Math.ceil(360 / (length + 1));
 
 <style define:vars={{ duration, color }}>
   h3 {
-    position: relative;
-
     span {
       display: inline-block;
-      filter: var(--hue-rotate);
       transition: var(--duration);
       transition-delay: var(--delay);
       color: var(--color);
     }
 
     &:hover span {
-      color: #00ff2a;
+      color: var(--hoverColor);
       text-shadow:
-        0 0 0.1em #0f0,
-        0 0 0.3em #0f0,
-        0 0 0.6em #0f0;
+        0 0 0.1em var(--hoverColor),
+        0 0 0.3em var(--hoverColor),
+        0 0 0.6em var(--hoverColor);
     }
   }
 </style>

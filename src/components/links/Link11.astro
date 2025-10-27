@@ -3,7 +3,7 @@ const slotText = await Astro.slots.render('default');
 const space = String.fromCharCode(160);
 ---
 
-<a href="#" data-text={space + space + slotText + space + space}
+<a href="" data-text={space + space + slotText + space + space}
   >&nbsp;&nbsp;<slot />&nbsp;&nbsp;</a
 >
 
