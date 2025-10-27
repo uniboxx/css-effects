@@ -1,45 +1,65 @@
 ---
 // prettier-ignore
-import { Button01, Button02, Button03, Button04, Button05, Button06, Button07, Button08, Button09, Button10, Button11, Button12, Button13, Button14, Button15, Button16, Button17, Button18, Button19, Button20, Button21, Button22, Button23, Button24 } from '@/components';
+import { Link01, Link02, Link03, Link04, Link05, Link06, Link07, Link08, Link09, Link10, Link11, Link12, Link13, Link14, Link15, Link16, Link17, Link18, Link19, Link20, Link21, Link22, Link23, Link24, Link25, Link26, Link27, Link28, Link29, Link30, Link31, Link32, Link33, Link34, Link35, Link36 } from '@/components';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Buttons">
-  <h2>Hover over the button</h2>
+<BaseLayout title="Links">
+  <h2>Hover over the link</h2>
   <div class="grid">
-    <Button01>Button01 <small>Hover Me</small></Button01>
-    <Button02>Button02 <small>Hover Me</small></Button02>
-    <Button03>Button03 <small>Hover Me</small></Button03>
-    <Button04>Button04 <small>Hover Me</small></Button04>
-    <Button05>Button05 <small>Hover Me</small></Button05>
-    <Button06>Button06 <small>Hover Me</small></Button06>
-    <Button07 />
-    <Button08>Button08 <small>Hover Me</small></Button08>
-    <Button09>Button09 <small>Hover Me</small></Button09>
-    <Button10>Button10 <small>Hover Me</small></Button10>
-    <Button11 />
+    <Link01 id="link01" class="link link01">Link 01</Link01>
+    <Link02 id="link02" class="link link02">Link 02</Link02>
+    <Link03 id="link03" class="link link03">Link 03</Link03>
+    <Link04 id="link04" class="link link04">Link 04</Link04>
+    <Link05 id="link05" class="link link05">Link 05</Link05>
+    <Link06 id="link06" class="link link06">Link 06</Link06>
+    <Link07 id="link07" class="link link07">Link 07</Link07>
+    <Link08 id="link08" class="link link08">Link 08</Link08>
+    <Link09 id="link09" class="link link09">Link 09</Link09>
+    <Link10 id="link10" class="link link10">Link 10</Link10>
+    <Link11 id="link11" class="link link11" />
     <div class="bg">
-      <Button12>Button12 <small>Hover Me</small> </Button12>
+      <Link12 id="link12" class="link link12">Link 12 </Link12>
     </div>
-    <Button13>Button13 <small>Hover Me</small> </Button13>
-    <div class="bg"><Button14>Button14 <small>Hover Me</small> </Button14></div>
-    <div class="bg"><Button15>Button15 <small>Hover Me</small> </Button15></div>
-    <div class="bg"><Button16>Button16 <small>Hover Me</small> </Button16></div>
-    <Button17><small>Hover Me</small></Button17>
-    <div class="bg"><Button18>Button18 <small>Hover Me</small> </Button18></div>
-    <Button19>Button19<small>Hover Me</small></Button19>
-    <Button20>Button20<small>Hover Me</small></Button20>
+    <Link13 id="link13" class="link link13">Link 13 </Link13>
+    <div class="bg">
+      <Link14 id="link14" class="link link14">Link14 </Link14>
+    </div>
+    <div class="bg">
+      <Link15 id="link15" class="link link15">Link15 </Link15>
+    </div>
+    <div class="bg">
+      <Link16 id="link16" class="link link16">Link16 </Link16>
+    </div>
+    <Link17 id="link17" class="link link17" />
+    <div class="bg">
+      <Link18 id="link18" class="link link18">Link18 </Link18>
+    </div>
+    <Link19 id="link19" class="link link19">Link19</Link19>
+    <Link20 id="link20" class="link link20">Link20</Link20>
     <div class="bg green">
-      <Button21>Button21<small>Hover Me</small></Button21>
+      <Link21 id="link21" class="link link21">Link21</Link21>
     </div>
-    <Button22>Button22<small>Hover Me</small></Button22>
+    <Link22 id="link22" class="link link22">Link22</Link22>
     <div class="bg black">
-      <Button23>Button23<small>Hover Me</small></Button23>
+      <Link23 id="link23" class="link link23">Link23</Link23>
     </div>
     <div class="bg blue">
-      <Button24>Button24<small>Hover Me</small></Button24>
+      <Link24 id="link24" class="link link24">Link24</Link24>
     </div>
+    <Link25>🏠️ Link01</Link25>
+    <Link26>🏠️ Link02</Link26>
+    <Link27>🏠️ Link03</Link27>
+    <Link28>🏠️ Link04</Link28>
+    <Link29>🏠️ Link05</Link29>
+    <Link30>🏠️ Link06</Link30>
+    <Link31>🏠️ Link07</Link31>
+    <Link32>🏠️ Link08</Link32>
+    <Link33>🏠️ Link09</Link33>
+    <Link34>🏠️ Link10</Link34>
+    <Link35>🏠️ Link11</Link35>
+    <Link36>🏠️ Link12</Link36>
   </div>
 </BaseLayout>
 
@@ -57,9 +77,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     margin-bottom: 0 auto 3rem;
     padding: 10px;
   }
-  small {
-    font-size: 1rem;
-  }
   .bg {
     display: flex;
     justify-content: center;
@@ -76,4 +93,60 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       background-color: #0c2461;
     }
   }
+  .link {
+    border: 3px solid var(--color);
+    background-color: transparent;
+    padding: 0.5rem 0.7rem;
+    color: var(--color);
+    font-size: 2rem;
+  }
+  .link01 {
+    --color: #262626;
+    border-width: 4px;
+  }
+  .link02 {
+    --color: #351435;
+  }
+  .link03 {
+    --color: #262626;
+  }
+  .link03 {
+    --color: #262626;
+  }
+  .link04 {
+    --color: #e1332d;
+    font-size: 1.6rem;
+  }
+  .link05 {
+    --color: #fff;
+    --bg: #262626;
+    border-color: var(--color);
+    background: var(--bg);
+  }
+  .link06 {
+    --color: #fff;
+    --bg: #262626;
+    border-color: var(--color);
+    background: var(--bg);
+  }
+  .link07 {
+    --bg: #262626;
+    border-color: var(--bg);
+    background: var(--bg);
+  }
+  .link08 {
+    --color: #262626;
+    --bg: transparent;
+    border-color: var(--color);
+    background: var(--bg);
+    color: var(--color);
+  }
 </style>
+
+<script>
+  const link = document.getElementById('link08');
+
+  link?.addEventListener('click', () => {
+    console.log(link.id);
+  });
+</script>

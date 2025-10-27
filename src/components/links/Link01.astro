@@ -1,43 +1,67 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { HTMLTag, Polymorphic } from 'astro/types';
 
-<style>
-  a {
-    --primary-color: #222;
-    --duration: 0.5s;
-    /* change these variables to have different effect */
-    --before-origin: left;
-    --after-origin: right;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    color: inherit;
-    font-size: 1.2rem;
-    text-decoration: none;
-    &::before,
-    &::after {
-      position: absolute;
-      left: 0;
-      transform: scaleX(0);
-      transition: var(--duration);
-      background-color: var(--primary-color);
+// prettier-ignore
+type Props<Tag extends HTMLTag> = Polymorphic<{
+  as: Tag;
+  class?: string;
+  duration?: string;
+  colors?: string;
+}>
+const {
+  class: className,
+  duration = '.5s',
+  colors = '#fff200,  #333',
+  ...attrs
+} = Astro.props;
+
+const Tag = attrs.href ? 'a' : 'button';
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+---
+
+<div><Tag class={className} {...attrs}><slot /></Tag></div>
+
+<style define:vars={{ duration, hoverBgColor, hoverColor }}>
+  div {
+    a,
+    button {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      z-index: 0;
+      transition: calc(var(--duration) * 2);
+      cursor: pointer;
       width: 100%;
-      height: 2px;
-      content: '';
-    }
-    &::before {
-      top: 0;
-      transform-origin: var(--before-origin);
-    }
-    &::after {
-      bottom: 0;
-      transform-origin: var(--after-origin);
-    }
-    &:hover::before,
-    &:hover::after {
-      transform: scale(1);
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(-90deg);
+        transform-origin: bottom left;
+        z-index: -1;
+        transition: transform var(--duration) ease-in-out;
+        background-color: var(--hoverBgColor);
+        width: 100%;
+        height: 100%;
+        content: '';
+      }
+      &:hover {
+        color: var(--hoverColor);
+        &::before {
+          transform: rotate(0);
+        }
+      }
     }
   }
 </style>

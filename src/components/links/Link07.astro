@@ -1,52 +1,70 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'bgColor, color' 
+*/
+import type { HTMLAttributes } from 'astro/types';
 
-<style>
-  a {
-    --primary-color: #262626;
-    --secondary-color: #fafafa;
-    --duration: 0.5s;
-    display: flex;
+interface Props extends HTMLAttributes<'button'> {
+  class?: string;
+  duration?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '.7s',
+  colors = '#fffa65, #262626',
+  ...props
+} = Astro.props;
+const [bgColor, color] = colors.split(',');
+---
+
+<button class={className} {...props}>
+  <slot />
+  <div id="before"><slot /></div>
+  <div id="after"><slot /></div>
+</button>
+
+<style define:vars={{ duration, bgColor, color }}>
+  button {
     position: relative;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    transition: var(--duration);
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    color: inherit;
-    font-size: 1.2rem;
-    text-decoration: none;
+    transition: color var(--duration) ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+    color: transparent !important;
 
-    &::before,
-    &::after {
+    #before,
+    #after {
+      display: flex;
       position: absolute;
-      left: 0;
-      transition: var(--duration);
+      flex-direction: column;
+      justify-content: center;
+      transition: transform var(--duration) ease-in-out;
+      background-color: var(--bgColor);
       width: 100%;
-      content: '';
-    }
-    &::before {
-      transform: scale(0);
-      z-index: -1;
-      background-color: var(--primary-color);
       height: 100%;
+      color: var(--color);
+      font: inherit;
     }
-    &::after {
-      opacity: 0;
-      border: solid var(--primary-color);
-      border-width: 2px 0 2px 0;
-      height: 200%;
+    #before {
+      bottom: 0;
+      left: 0;
+      transform: translate(-100%, 100%);
+    }
+    #after {
+      top: 0;
+      right: 0;
     }
 
     &:hover {
-      color: var(--secondary-color);
-      &::before {
-        transform: scale(1);
+      #before {
+        transform: translate(0, 0);
       }
-      &::after {
-        opacity: 1;
-        height: 130%;
+      #after {
+        transform: translate(100%, -100%);
       }
     }
   }

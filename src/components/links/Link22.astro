@@ -1,12 +1,26 @@
-<button>
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  class?: string;
+  duration?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '.5s',
+  colors = '#250e74, #fafafa',
+  ...props
+} = Astro.props;
+const [primaryColor, secondaryColor] = colors?.split(',');
+---
+
+<button class={className} {...props}>
   <slot />
 </button>
 
-<style>
+<style define:vars={{ duration, primaryColor, secondaryColor }}>
   button {
-    --primary-color: #250e74;
-    --secondary-color: #fafafa;
-    --duration: 0.5s;
     --button-height: 88px;
     --button-border-size: 4px;
     --before-border-size: calc(
@@ -14,18 +28,18 @@
     );
     display: flex;
     position: relative;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 0;
     transition: var(--duration);
     cursor: pointer;
-    border: var(--button-border-size) solid var(--primary-color);
+    border: var(--button-border-size) solid;
+    border-color: var(--primaryColor);
     background-color: transparent;
     padding: 0.5rem 0.7rem;
     height: var(--button-height);
     overflow: hidden;
-    color: var(--primary-color);
+    color: var(--primaryColor);
     font-size: 2rem;
     line-height: 1;
 
@@ -38,8 +52,8 @@
       left: 0;
       z-index: -1;
       transition: var(--duration);
-      border-top: var(--before-border-size) solid var(--primary-color);
-      border-bottom: var(--before-border-size) solid var(--primary-color);
+      border-top: var(--before-border-size) solid var(--primaryColor);
+      border-bottom: var(--before-border-size) solid var(--primaryColor);
       content: '';
     }
     &::before {
@@ -52,7 +66,7 @@
     }
 
     &:hover {
-      color: var(--secondary-color);
+      color: var(--secondaryColor);
       &::before,
       &::after {
         transform: translateX(0);

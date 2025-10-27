@@ -1,43 +1,57 @@
-<a href=""><slot /></a>
-<!-- in alternative to before/after you can use different spans   -->
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { HTMLAttributes } from 'astro/types';
 
-<style>
-  a {
-    --primary-color: #ee5a24;
+interface Props extends HTMLAttributes<'button'> {
+  class?: string;
+  duration?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '.5s',
+  colors = '#f44336, #fff',
+  ...props
+} = Astro.props;
+const [hoverBgColor, hoverColor] = colors.split(',');
+---
 
-    --duration: 0.5s;
+<button class={className} {...props}><slot /></button>
+
+<style define:vars={{ duration, hoverBgColor, hoverColor }}>
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    transition: var(--duration);
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
-    width: max-content;
+    cursor: pointer;
     overflow: hidden;
-    color: inherit;
-    font-size: 1.2rem;
-    text-decoration: none;
 
     &::before {
+      display: flex;
       position: absolute;
       top: 0;
       left: 0;
-      transform: scale(0);
-      z-index: -1;
-      transition: calc(var(--duration) / 5 * 3);
-      background-color: var(--primary-color);
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-100%);
+      transition: var(--duration) ease-in-out;
+      background-color: var(--hoverBgColor);
       width: 100%;
       height: 100%;
-      content: '';
+      content: 'Yeah!';
+      color: var(--hoverColor);
+      text-transform: uppercase;
     }
 
-    &:hover {
-      transform: scale(1.5);
-      &::before {
-        transform: scale(1);
-      }
+    &:hover::before {
+      transform: translateY(0);
     }
   }
 </style>

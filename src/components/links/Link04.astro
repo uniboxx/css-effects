@@ -1,51 +1,35 @@
-<a href=""><slot /></a>
-<!-- in alternative to before/after you can use different spans   -->
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+*/
+import type { HTMLAttributes } from 'astro/types';
 
-<style>
-  a {
-    --primary-color: #00bcd4;
-    --secondary-color: #f0f;
-    --duration: 0.5s;
+interface Props extends HTMLAttributes<'button'> {
+  class?: string;
+  duration?: string;
+}
+const { class: className, duration = '.5s', ...props } = Astro.props;
+---
+
+<button class={className} {...props}><slot /></button>
+
+<style define:vars={{ duration }}>
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin: 0 auto;
-    padding: 0.5rem 0;
-    width: max-content;
-    color: inherit;
-    font-size: 1.2rem;
-    text-decoration: none;
-
-    &::before,
-    &::after {
-      position: absolute;
-      bottom: 0;
-      transform: scaleX(0);
-      transition: var(--duration);
-      width: 50%;
-      height: 5px;
-      content: '';
-    }
-    &::before {
-      left: 0%;
-      transform-origin: left;
-      background-color: var(--primary-color);
-    }
-    &::after {
-      right: 0%;
-      transform-origin: right;
-      background-color: var(--secondary-color);
-    }
-
+    transition: var(--duration) ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+    letter-spacing: -2px;
     &:hover {
-      &::before {
-        transform: scaleX(1) translateX(100%);
-      }
-      &::after {
-        transform: scaleX(1) translateX(-100%);
-      }
+      border-width: 7px;
+      font-weight: bold;
+      letter-spacing: 4px;
     }
   }
 </style>

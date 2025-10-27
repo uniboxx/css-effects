@@ -1,55 +1,56 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { HTMLAttributes } from 'astro/types';
 
-<style>
-  a {
-    --primary-color: #e91e63;
-    --duration: 0.5s;
-    --size: 0.6rem;
+interface Props extends HTMLAttributes<'button'> {
+  class?: string;
+  duration?: string;
+  colors?: string;
+}
+const {
+  class: className,
+  duration = '.7s',
+  colors = '#351435, #fff',
+  ...props
+} = Astro.props;
+const [hoverBgColor, hoverColor] = colors.split(',');
+---
 
+<button class={className} {...props}><slot /></button>
+
+<style define:vars={{ duration, hoverBgColor, hoverColor }}>
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    transition: var(--duration);
-    padding: 0.5rem 1rem;
-    color: inherit;
-    font-size: 1.2rem;
-    text-decoration: none;
-    &::before,
-    &::after {
+    z-index: 0;
+    transition: color var(--duration) ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+    &::before {
       position: absolute;
-      opacity: 0;
-      transition: calc(var(--duration) / 5 * 3);
-      border: solid var(--primary-color);
-      width: var(--size);
-      height: var(--size);
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: var(--duration) ease-in-out;
+      background-color: var(--hoverBgColor);
+      width: 0;
+      height: 100%;
       content: '';
     }
-    &::before {
-      bottom: var(--size);
-      left: var(--size);
-      border-width: 0 0 3px 3px;
-    }
-    &::after {
-      top: var(--size);
-      right: var(--size);
-      border-width: 3px 3px 0 0;
-    }
+
     &:hover {
-      background-color: var(--primary-color);
-      color: white;
-      &::before,
-      &::after {
-        opacity: 1;
-      }
+      color: var(--hoverColor);
       &::before {
-        bottom: calc(var(--size) * -0.65);
-        left: calc(var(--size) * -0.65);
-      }
-      &::after {
-        top: calc(var(--size) * -0.65);
-        right: calc(var(--size) * -0.65);
+        /* se volessi farlo entrare da un altro lato dovrei usare transform: translate */
+        width: 100%;
       }
     }
   }
