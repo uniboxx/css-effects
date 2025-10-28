@@ -6,17 +6,19 @@ set optionally:
 - duration as string 'value and s | ms' 
 - colors as string 'hoverBgColor, hoverColor' 
 */
-import type { HTMLTag, Polymorphic } from 'astro/types';
+import type { Polymorphic } from 'astro/types';
+
+type Tag = 'a' | 'button';
 
 // prettier-ignore
-type Props<Tag extends HTMLTag> = Polymorphic<{
-  as: Tag;
+type Props<TagGeneric extends Tag> = {
   class?: string;
   duration?: string;
   colors?: string;
-}>
+} & Polymorphic<{ as: TagGeneric }>;
+
 const {
-  class: className,
+  class: classList,
   duration = '.5s',
   colors = '#fff200,  #333',
   ...attrs
@@ -27,40 +29,43 @@ const Tag = attrs.href ? 'a' : 'button';
 const [hoverBgColor, hoverColor] = colors.split(',');
 ---
 
-<div><Tag class={className} {...attrs}><slot /></Tag></div>
+<Tag
+  class={classList}
+  {...attrs}
+  style={`--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`}
+  ><slot /></Tag
+>
 
-<style define:vars={{ duration, hoverBgColor, hoverColor }}>
-  div {
-    a,
-    button {
-      display: flex;
-      position: relative;
-      justify-content: center;
-      align-items: center;
-      z-index: 0;
-      transition: calc(var(--duration) * 2);
-      cursor: pointer;
+<style>
+  a,
+  button {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    transition: calc(var(--duration) * 2);
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(-90deg);
+      transform-origin: bottom left;
+      z-index: -1;
+      transition: transform var(--duration) ease-in-out;
+      background-color: var(--hoverBgColor);
       width: 100%;
-      overflow: hidden;
-
+      height: 100%;
+      content: '';
+    }
+    &:hover {
+      color: var(--hoverColor);
       &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: rotate(-90deg);
-        transform-origin: bottom left;
-        z-index: -1;
-        transition: transform var(--duration) ease-in-out;
-        background-color: var(--hoverBgColor);
-        width: 100%;
-        height: 100%;
-        content: '';
-      }
-      &:hover {
-        color: var(--hoverColor);
-        &::before {
-          transform: rotate(0);
-        }
+        transform: rotate(0);
       }
     }
   }

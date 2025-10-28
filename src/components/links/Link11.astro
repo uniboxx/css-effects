@@ -1,61 +1,83 @@
-<button>
-  <div id="before">Button11</div>
-  <div id="after">Button11</div>
-</button>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { Polymorphic } from 'astro/types';
+
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  class?: string;
+  duration?: string;
+  colors?: string;
+} & Polymorphic<{ as: TagGeneric }>;
+
+const {
+  class: classList,
+  duration = '.5s',
+  colors = '#363636, #ff0',
+  ...attrs
+} = Astro.props;
+
+const Tag = attrs.href ? 'a' : 'button';
+
+const [bgColor, color] = colors.split(',');
+---
+
+<Tag
+  class={classList}
+  {...attrs}
+  style={`--duration: ${duration};--bgColor: ${bgColor};--color: ${color};`}
+  ><slot />
+  <div class="before"><slot /></div>
+  <div class="after"><slot /></div>
+</Tag>
 
 <style>
+  a,
   button {
-    --primary-color: #363636;
-    --secondary-color: #ff0;
-    --duration: 0.5s;
     position: relative;
-    border: none;
-    background-color: #999;
-    height: 4.5rem;
+    cursor: pointer;
     overflow-x: hidden;
+    color: transparent !important;
 
-    #before,
-    #after {
+    .before,
+    .after {
       display: flex;
       position: absolute;
       top: 0;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       transition: var(--duration);
       cursor: pointer;
-      border: 3px solid var(--secondary-color);
-      background-color: var(--primary-color);
-      padding: 0.5rem 0.7rem;
+      background: var(--bgColor);
       width: 100%;
-      height: 4.5rem;
       height: 100%;
-      color: var(--secondary-color);
-      font-size: 2rem;
-      line-height: 1;
-      small {
-        font-size: 1rem;
-      }
+      color: var(--color);
     }
 
-    #before {
+    .before {
       left: -100%;
       transform: scale(0) rotateY(0deg);
       opacity: 0;
       pointer-events: none;
     }
-    #after {
+    .after {
       left: 0;
-      /* opacity: 0; */
     }
 
     &:hover {
-      #before {
+      .before {
         left: 0;
         transform: scale(1) rotateY(360deg);
         opacity: 1;
       }
-      #after {
+      .after {
         left: 100%;
         transform: scale(0) rotateY(360deg);
         opacity: 0;

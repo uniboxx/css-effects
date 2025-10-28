@@ -4,31 +4,43 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'bgColor, color' 
+- colors as string 'hoverBgColor, hoverColor' 
 */
-import type { HTMLAttributes } from 'astro/types';
+import type { Polymorphic } from 'astro/types';
 
-interface Props extends HTMLAttributes<'button'> {
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
   class?: string;
   duration?: string;
   colors?: string;
-}
+} & Polymorphic<{ as: TagGeneric }>;
+
 const {
-  class: className,
+  class: classList,
   duration = '.7s',
   colors = '#fffa65, #262626',
-  ...props
+  ...attrs
 } = Astro.props;
+
+const Tag = attrs.href ? 'a' : 'button';
+
 const [bgColor, color] = colors.split(',');
 ---
 
-<button class={className} {...props}>
+<Tag
+  class={classList}
+  {...attrs}
+  style={`--duration: ${duration};--bgColor: ${bgColor};--color: ${color};`}
+>
   <slot />
   <div id="before"><slot /></div>
   <div id="after"><slot /></div>
-</button>
+</Tag>
 
-<style define:vars={{ duration, bgColor, color }}>
+<style>
+  a,
   button {
     position: relative;
     transition: color var(--duration) ease-in-out;

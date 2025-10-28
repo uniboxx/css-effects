@@ -18,11 +18,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <Link08 id="link08" class="link link08">Link 08</Link08>
     <Link09 id="link09" class="link link09">Link 09</Link09>
     <Link10 id="link10" class="link link10">Link 10</Link10>
-    <Link11 id="link11" class="link link11" />
-    <div class="bg">
-      <Link12 id="link12" class="link link12">Link 12 </Link12>
-    </div>
-    <Link13 id="link13" class="link link13">Link 13 </Link13>
+    <Link11 id="link11" class="link link11">Link 11</Link11>
+    <Link12 id="link12" class="link link12">Link 12</Link12>
+    <Link13 id="link13" class="link link13">Link 13</Link13>
     <div class="bg">
       <Link14 id="link14" class="link link14">Link14 </Link14>
     </div>
@@ -95,7 +93,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   }
   .link {
     border: 3px solid var(--color);
-    background-color: transparent;
+    background-color: var(--bg);
     padding: 0.5rem 0.7rem;
     color: var(--color);
     font-size: 2rem;
@@ -120,26 +118,35 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .link05 {
     --color: #fff;
     --bg: #262626;
-    border-color: var(--color);
-    background: var(--bg);
   }
   .link06 {
     --color: #fff;
     --bg: #262626;
-    border-color: var(--color);
-    background: var(--bg);
   }
   .link07 {
+    --color: #262626;
     --bg: #262626;
-    border-color: var(--bg);
-    background: var(--bg);
   }
   .link08 {
     --color: #262626;
-    --bg: transparent;
-    border-color: var(--color);
-    background: var(--bg);
-    color: var(--color);
+  }
+  .link09 {
+    --color: tomato;
+  }
+  .link10 {
+    --bg: #f1c40f;
+    --color: #fff;
+    border-color: var(--bg);
+  }
+  .link11 {
+    --bg: #999;
+    border-color: #ff0;
+  }
+  .link12 {
+    --bg: #363636;
+    --color: #ff0;
+    border: none;
+    border-radius: 8px;
   }
 </style>
 

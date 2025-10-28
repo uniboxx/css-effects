@@ -1,6 +1,4 @@
 ---
-import type { HTMLTag, Polymorphic } from 'astro/types';
-
 /*
 INFORMATIONS
 set optionally:
@@ -8,27 +6,39 @@ set optionally:
 - duration as string 'value and s | ms' 
 - colors as string 'hoverBgColor, hoverColor' 
 */
+import type { Polymorphic } from 'astro/types';
 
-type Props<Tag extends HTMLTag> = Polymorphic<{
-  as: Tag;
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
   class?: string;
   duration?: string;
   colors?: string;
-}>;
+} & Polymorphic<{ as: TagGeneric }>;
+
 const {
-  class: className,
+  class: classList,
   duration = '.5s',
   colors = '#262626, #fff',
   ...attrs
 } = Astro.props;
 
 const Tag = attrs.href ? 'a' : 'button';
+
 const [hoverBgColor, hoverColor] = colors.split(',');
 ---
 
-<Tag class={className} {...attrs}><slot /><div id="after"><slot /></div></Tag>
+<Tag
+  class={classList}
+  {...attrs}
+  style={`--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`}
+>
+  <slot />
+  <div class="after"><slot /></div>
+</Tag>
 
-<style define:vars={{ duration, hoverBgColor, hoverColor }}>
+<style>
   a,
   button {
     display: flex;
@@ -37,7 +47,7 @@ const [hoverBgColor, hoverColor] = colors.split(',');
     align-items: center;
     cursor: pointer;
     overflow: hidden;
-    #after {
+    .after {
       display: flex;
       position: absolute;
       top: 0;
@@ -54,7 +64,7 @@ const [hoverBgColor, hoverColor] = colors.split(',');
     }
 
     &:hover {
-      #after {
+      .after {
         transform: scale(1);
         opacity: 1;
       }
