@@ -1,29 +1,57 @@
-<button>
-  <div><span class="first-letter">B</span><span>utton17</span></div>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { Polymorphic } from 'astro/types';
+
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  text?:string;
+  hoverSize1?:string;
+} & Polymorphic<{ as: TagGeneric }>;
+
+const {
+  class: classList,
+  duration = '.2s',
+  colors = '#272727, #f6f6f6',
+  text = 'Link 17',
+  hoverSize1 = '2em',
+  ...attrs
+} = Astro.props;
+
+const Tag = attrs.href ? 'a' : 'button';
+
+const firstLetter = text[0];
+const restLetters = text.slice(1);
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};--hoverSize1: ${hoverSize1}`;
+---
+
+<Tag class={classList} {...attrs} style={style}>
+  <span class="first-letter" data-content={firstLetter}>{firstLetter}</span
+  ><span>{restLetters}</span>
   <slot />
-</button>
+</Tag>
 
 <style>
+  a,
   button {
-    --primary-color: #272727;
-    --secondary-color: #f6f6f6;
-    --duration: 0.2s;
-
     display: flex;
     position: relative;
-    flex-direction: column;
     justify-content: center;
-    justify-content: center;
-    align-items: center;
     align-items: center;
     transition: var(--duration);
     cursor: pointer;
-    border: 2px solid var(--primary-color);
-    background-color: transparent;
-    padding: 0.5rem 0.7rem;
-    color: var(--primary-color);
-    font-size: 2rem;
-    line-height: 1;
 
     &::before {
       position: absolute;
@@ -31,8 +59,8 @@
       left: 0;
       opacity: 0;
       z-index: -1;
-      transition: 0.8s;
-      background: var(--primary-color);
+      transition: calc(var(--duration) * 3);
+      background: var(--hoverBgColor);
       width: 100%;
       height: 100%;
       content: '';
@@ -42,17 +70,17 @@
       &::before {
         position: absolute;
         transition: var(--duration);
-        content: 'B';
-        color: var(--primary-color);
+        content: attr(data-content);
+        color: var(--hoverBgColor);
       }
     }
 
     &:hover {
-      color: var(--secondary-color);
+      color: var(--hoverColor);
       .first-letter::before {
         transform: translate(-45%, -30%) rotate(360deg);
-        color: var(--secondary-color);
-        font-size: 5rem;
+        color: var(--hoverColor);
+        font-size: var(--hoverSize1);
       }
       &::before {
         transform: rotate(15deg);

@@ -1,31 +1,40 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+import type { Polymorphic } from 'astro/types';
 
-interface Props extends HTMLAttributes<'button'> {
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
   class?: string;
   duration?: string;
   colors?: string;
-}
+} & Polymorphic<{ as: TagGeneric }>;
+
 const {
-  class: className,
+  class: classList,
   duration = '.5s',
   colors = '#250e74, #fafafa',
-  ...props
+  ...attrs
 } = Astro.props;
-const [primaryColor, secondaryColor] = colors?.split(',');
+
+const Tag = attrs.href ? 'a' : 'button';
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
 ---
 
-<button class={className} {...props}>
-  <slot />
-</button>
+<Tag class:list={[classList, 'tag22']} {...attrs} style={style}><slot /></Tag>
 
-<style define:vars={{ duration, primaryColor, secondaryColor }}>
+<style>
+  a,
   button {
-    --button-height: 88px;
-    --button-border-size: 4px;
-    --before-border-size: calc(
-      (var(--button-height) - 2 * var(--button-border-size)) / 2
-    );
     display: flex;
     position: relative;
     justify-content: center;
@@ -33,40 +42,30 @@ const [primaryColor, secondaryColor] = colors?.split(',');
     z-index: 0;
     transition: var(--duration);
     cursor: pointer;
-    border: var(--button-border-size) solid;
-    border-color: var(--primaryColor);
-    background-color: transparent;
-    padding: 0.5rem 0.7rem;
-    height: var(--button-height);
     overflow: hidden;
-    color: var(--primaryColor);
-    font-size: 2rem;
-    line-height: 1;
 
     &::before,
     &::after {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
       z-index: -1;
       transition: var(--duration);
-      border-top: var(--before-border-size) solid var(--primaryColor);
-      border-bottom: var(--before-border-size) solid var(--primaryColor);
+      inset: 0;
+      border-top: var(--borderSize) solid var(--hoverBgColor);
+      border-bottom: var(--borderSize) solid var(--hoverBgColor);
       content: '';
     }
     &::before {
       transform: translateX(-100%);
-      border-right: var(--before-border-size) solid transparent;
+      border-right: var(--borderSize) solid transparent;
     }
     &::after {
       transform: translateX(100%);
-      border-left: var(--before-border-size) solid transparent;
+      border-left: var(--borderSize) solid transparent;
     }
 
     &:hover {
-      color: var(--secondaryColor);
+      border-color: var(--hoverBgColor);
+      color: var(--hoverColor);
       &::before,
       &::after {
         transform: translateX(0);
@@ -74,3 +73,14 @@ const [primaryColor, secondaryColor] = colors?.split(',');
     }
   }
 </style>
+
+<script>
+  const link = document.querySelector('.tag22')! as
+    | HTMLAnchorElement
+    | HTMLButtonElement;
+
+  const height = link?.clientHeight;
+  const halfHeight = `${height / 2}px`;
+
+  link.style.cssText += `--borderSize: ${halfHeight}`;
+</script>

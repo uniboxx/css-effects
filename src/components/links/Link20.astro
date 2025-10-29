@@ -1,34 +1,56 @@
-<button>
-  <slot />
-</button>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'bgColor1, hoverColor' 
+*/
+import type { Polymorphic } from 'astro/types';
+
+type Tag = 'a' | 'button';
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  class?: string;
+  duration?: string;
+  colors?: string;
+} & Polymorphic<{ as: TagGeneric }>;
+
+const {
+  class: classList,
+  duration = '.3s',
+  colors = '#ee5253,  #0a3d62',
+  ...attrs
+} = Astro.props;
+
+const Tag = attrs.href ? 'a' : 'button';
+
+const [bgColor1, bgColor2, hoverColor] = colors.split(',');
+---
+
+<Tag
+  class={classList}
+  {...attrs}
+  style={`--duration: ${duration}; --bgColor1: ${bgColor1};--bgColor2: ${bgColor2};`}
+  ><slot /></Tag
+>
 
 <style>
+  a,
   button {
-    --primary-color: #ee5253;
-    --secondary-color: #0a3d62;
-    --tertiary-color: #fafafa;
-    --duration: 0.3s;
-
     display: flex;
     position: relative;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: var(--duration);
     cursor: pointer;
-    border: none;
-    background-color: transparent;
-    padding: 0.5rem 0.7rem;
-    color: var(--tertiary-color);
-    font-size: 2rem;
-    line-height: 1;
 
     &::before,
     &::after {
       position: absolute;
       transform: skewX(30deg);
       z-index: -1;
-      /* transform: translate(-50%, -50%) rotate(-60deg); */
       transition: var(--duration) cubic-bezier(0.68, -0.55, 0.265, 1.55);
       width: 50%;
       height: 100%;
@@ -37,12 +59,12 @@
     &::before {
       top: -5px;
       left: -1%;
-      background-color: var(--primary-color);
+      background-color: var(--bgColor1);
     }
     &::after {
       top: 5px;
       left: 51%;
-      background-color: var(--secondary-color);
+      background-color: var(--bgColor2);
     }
 
     &:hover {

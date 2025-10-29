@@ -27,14 +27,10 @@ const {
 const Tag = attrs.href ? 'a' : 'button';
 
 const [hoverBgColor, hoverColor] = colors.split(',');
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
 ---
 
-<Tag
-  class={classList}
-  {...attrs}
-  style={`--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`}
-  ><slot /></Tag
->
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
   a,
