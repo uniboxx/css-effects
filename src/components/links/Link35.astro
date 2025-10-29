@@ -1,59 +1,95 @@
 ---
-const slotText = await Astro.slots.render('default');
-const space = String.fromCharCode(160);
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'color1, color2' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  borderWidth?:string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.5s',
+  colors = '#262626, #00ade1',
+  borderWidth = '8px',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [color1, color2] = colors.split(',');
+
+const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--color1: ${color1}; --borderWidth: ${borderWidth};`;
 ---
 
-<a href="" data-text={space + space + slotText + space + space}
-  >&nbsp;&nbsp;<slot />&nbsp;&nbsp;</a
+<Tag class={classList} {...attrs} style={style}
+  ><slot /><span><slot /></span></Tag
 >
 
 <style>
-  a {
-    --primary-color: #00ade1;
-    --secondary-color: #262626;
-    --duration: 0.5s;
-    --border-size: 8px;
+  a,
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    transition: var(--duration) ease-out;
-    transition-delay: 0;
-    margin: 0 auto;
+    transition: var(--duration) 0s ease-out;
+    border-right: var(--borderWidth) solid #000;
     width: max-content;
-    height: 2.5rem;
-    -webkit-text-stroke: 1px var(--secondary-color);
-    color: transparent;
+    -webkit-text-stroke-color: var(--color1);
+    color: transparent !important;
     text-decoration: none;
 
     &,
-    &::before {
+    span {
+      -webkit-text-stroke-width: 1px;
       font-weight: 900;
-      font-size: 1.2rem;
     }
 
-    &::before {
-      display: flex;
+    span {
+      display: inline-block;
       position: absolute;
       left: 0%;
       align-items: center;
       transition: var(--duration);
-      border-right: var(--border-size) solid var(--primary-color);
+      border-right: var(--borderWidth) solid var(--color2);
+      padding: inherit;
       width: 0%;
       height: 100%;
-      -webkit-text-stroke: 1px var(--primary-color);
+      -webkit-text-stroke-color: var(--color2);
       overflow: hidden;
-      content: attr(data-text);
-      color: var(--primary-color);
+      color: var(--color2);
+      font: inherit;
       text-align: center;
-      white-space: nowrap;
     }
 
     &:hover {
       transition-delay: calc(var(--duration) * 0.3);
-      -webkit-text-stroke: 1px var(--primary-color);
-      &::before {
+      -webkit-text-stroke: 1px var(--color2);
+      span {
         width: 100%;
       }
     }

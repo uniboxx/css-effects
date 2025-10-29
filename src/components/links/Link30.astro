@@ -30,35 +30,40 @@ const {
   type,
   class: classList,
   duration = '.5s',
-  colors = '#16a085,  #fff',
+  colors = '#000, #16a085,  #fff',
   ...rest
 } = Astro.props;
 
 const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
 const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
-const [hoverBgColor, hoverColor] = colors.split(',');
+const [color, hoverBgColor, hoverColor] = colors.split(',');
 
-const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
+const style = `--duration: ${duration};--color: ${color}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
 ---
 
 <Tag class={classList} {...attrs} style={style}
-  ><span><slot /></span><span><slot /></span></Tag
+  ><slot /><span><slot /></span><span><slot /></span></Tag
 >
 
 <style>
   a,
   button {
     position: relative;
-    transition: var(--duration);
-    margin: 0 auto;
-    width: 100%;
-    min-height: 2.6rem;
+    justify-content: center;
+    cursor: pointer;
+    width: max-content;
     overflow: hidden;
-    color: inherit;
-    font-size: 1.2rem;
+    color: transparent !important;
     text-decoration: none;
 
+    &,
+    span {
+      display: flex;
+      align-items: center;
+      transition: var(--duration);
+      width: max-content;
+    }
     span,
     &::before {
       position: absolute;
@@ -66,13 +71,14 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       transition: var(--duration);
       width: 100%;
       height: 100%;
+      color: var(--color);
     }
     &::before {
       display: inline-block;
       right: 0;
       transform-origin: right;
       background-color: var(--hoverBgColor);
-      max-width: 0;
+      width: 0;
       content: '';
     }
     span {
@@ -91,7 +97,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     &:hover {
       &::before {
         left: 0;
-        max-width: 100%;
+        width: 100%;
       }
       span {
         transform: translateY(-100%);

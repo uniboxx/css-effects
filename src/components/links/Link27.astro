@@ -65,12 +65,15 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor};--hoverC
 <style>
   a,
   button {
+    --dur: calc(var(--duration) / 2);
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    transition: calc(var(--duration) / 2) calc(var(--duration) / 2);
+    transition: var(--dur) var(--dur);
+    cursor: pointer;
+    width: max-content;
     color: inherit;
     text-decoration: none;
 
@@ -87,7 +90,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor};--hoverC
       content: '';
     }
     &:hover {
-      color: var(--hoverColor);
+      color: var(--hoverColor) !important;
       span {
         transform: scaleY(1);
       }

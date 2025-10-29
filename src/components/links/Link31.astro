@@ -1,21 +1,61 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.5s',
+  colors = '#262626,  #fafafa',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
+---
+
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
-  a {
-    --primary-color: #262626;
-    --secondary-color: #fafafa;
-    --duration: 0.5s;
+  a,
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     transition: var(--duration);
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
-    width: 100%;
+    cursor: pointer;
+    width: max-content;
     color: inherit;
-    font-size: 1.2rem;
     text-decoration: none;
 
     &::before,
@@ -24,23 +64,24 @@
       left: 0;
       transition: var(--duration);
       width: 100%;
+      pointer-events: none;
       content: '';
     }
     &::before {
       transform: scale(0);
       z-index: -1;
-      background-color: var(--primary-color);
+      background-color: var(--hoverBgColor);
       height: 100%;
     }
     &::after {
       opacity: 0;
-      border: solid var(--primary-color);
+      border: solid var(--hoverBgColor);
       border-width: 2px 0 2px 0;
       height: 200%;
     }
 
     &:hover {
-      color: var(--secondary-color);
+      color: var(--hoverColor) !important;
       &::before {
         transform: scale(1);
       }

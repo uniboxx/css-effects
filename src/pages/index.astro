@@ -58,7 +58,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0 auto 3rem;
+    margin-bottom: 3rem;
     padding: 10px;
   }
 
@@ -173,21 +173,27 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   a.link {
     cursor: default;
     padding: 0.5rem 1rem;
+    color: var(--color);
     font-size: 1.3rem;
+    bg: var(--bg);
+    margin: 0 auto;
+    border: none;
+  }
+
+  .link33 {
+    --color: #ffeb3b;
   }
 </style>
 
 <script>
-  const link = document.getElementById('link01');
-  const anchors = document.querySelectorAll('a.link');
+  const links = document.querySelectorAll('.link')! as NodeListOf<
+    HTMLAnchorElement | HTMLButtonElement
+  >;
 
-  link?.addEventListener('click', () => {
-    console.log(link.id);
-  });
-
-  anchors.forEach((a) => {
-    a.addEventListener('click', (e) => {
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
+      console.log(link?.id);
     });
   });
 </script>

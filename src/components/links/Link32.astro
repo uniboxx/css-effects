@@ -1,27 +1,70 @@
-<a href=""><slot /><span></span><span></span><span></span><span></span></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, and optional hoverColor' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.2s',
+  colors = '#ff0',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor || hoverBgColor};`;
+---
+
+<Tag class={classList} {...attrs} style={style}
+  ><slot /><span></span><span></span><span></span><span></span></Tag
+>
 
 <style>
-  a {
-    --primary-color: #ff0;
-    --duration: 0.2s;
+  a,
+  button {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     transition: var(--duration);
-    margin: 0 auto;
-    padding: 0.5rem 0;
+    cursor: pointer;
     width: max-content;
     color: inherit;
-    font-size: 1.2rem;
     text-decoration: none;
 
     span {
       position: absolute;
       opacity: 0;
       transition: var(--duration);
-      border: 0 solid var(--primary-color);
+      border: 0 solid var(--hoverBgColor);
       width: 10px;
       height: 10px;
       content: '';
@@ -56,7 +99,7 @@
     }
 
     &:hover {
-      color: var(--primary-color);
+      color: var(--hoverColor) !important;
       span {
         opacity: 1;
         &:nth-child(1),

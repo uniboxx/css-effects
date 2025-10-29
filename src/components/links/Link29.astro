@@ -56,12 +56,9 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     align-items: center;
     gap: 1rem;
     transition: var(--duration);
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
+    cursor: pointer;
     width: max-content;
-    overflow: hidden;
     color: inherit;
-    font-size: 1.2rem;
     text-decoration: none;
 
     &::before {
@@ -79,7 +76,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
 
     &:hover {
       transform: scale(var(--zoom));
-      color: var(--hoverColor);
+      color: var(--hoverColor) !important;
       &::before {
         transform: scale(1);
       }

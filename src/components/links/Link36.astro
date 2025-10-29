@@ -1,36 +1,77 @@
 ---
-const slotText = await Astro.slots.render('default');
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'color1, color2' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  borderWidth?:string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.5s',
+  colors = '#262626, #3bffa7',
+  borderWidth = '8px',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [color1, color2] = colors.split(',');
+
+const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--color1: ${color1}; --borderWidth: ${borderWidth};`;
+const randClass = 'link' + Math.random().toString(36).slice(2, 11);
+console.log('🚀 ~ :46 ~ randClass:', randClass);
 ---
 
-<a href="" data-text={slotText}><slot /></a>
+<Tag class:list={[classList, randClass]} {...attrs} style={style}
+  ><slot /><span><slot /></span></Tag
+>
 
 <style>
-  a {
-    --primary-color: #ffffff1a;
-    --secondary-color: #262626;
-    --tertiary-color: #3bffa7;
-    --duration: 0.5s;
-
+  a,
+  button {
     position: relative;
     transition: var(--duration);
     transition-delay: var(--duration);
     width: max-content;
-    color: var(--secondary-color);
+    color: var(--color1);
     font-weight: 700;
     font-size: 1.3rem;
     text-decoration: none;
 
     &,
-    &::before {
+    span {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      padding: 0.5rem 1rem;
       height: 100%;
     }
 
-    &::before {
+    span {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -40,22 +81,23 @@ const slotText = await Astro.slots.render('default');
       transition-delay: 0s;
       width: max-content;
       height: 100%;
-      content: attr(data-text);
-      color: var(--tertiary-color);
+      -webkit-text-stroke: 1px solid #000;
+      pointer-events: none;
+      color: var(--color2);
+      font: inherit;
       font-weight: 500;
-      font-size: 0.8rem;
       letter-spacing: 1.5rem;
       text-shadow:
-        0 0 10px var(--tertiary-color),
-        0 0 30px var(--tertiary-color),
-        0 0 80px var(--tertiary-color);
+        0 0 10px var(--color2),
+        0 0 30px var(--color2),
+        0 0 80px var(--color2);
       text-transform: uppercase;
     }
 
     &:hover {
       transition-delay: 0s;
-      color: var(--primary-color);
-      &::before {
+      color: #ffffff1a !important;
+      span {
         opacity: 1;
         transition-delay: var(--duration);
         letter-spacing: 0.15rem;
@@ -63,3 +105,11 @@ const slotText = await Astro.slots.render('default');
     }
   }
 </style>
+
+<script define:vars={{ randClass }}>
+  const link36 = document.querySelector(`.${randClass}`);
+  const span = link36.querySelector('span');
+
+  const linkFontSize = parseFloat(getComputedStyle(link36).fontSize);
+  span.style.fontSize = `${linkFontSize * 0.9}px`;
+</script>
