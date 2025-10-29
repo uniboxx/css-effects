@@ -6,31 +6,42 @@ set optionally:
 - duration as string 'value and s | ms' 
 - colors as string 'hoverBgColor, hoverColor' 
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-} & Polymorphic<{ as: TagGeneric }>;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.5s',
   colors = '#250e74, #fafafa',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [hoverBgColor, hoverColor] = colors.split(',');
 const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
 ---
 
-<Tag class:list={[classList, 'tag22']} {...attrs} style={style}><slot /></Tag>
+<Tag class:list={[classList, 'link22']} {...rest} style={style}><slot /></Tag>
 
 <style>
   a,
@@ -75,7 +86,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
 </style>
 
 <script>
-  const link = document.querySelector('.tag22')! as
+  const link = document.querySelector('.link22')! as
     | HTMLAnchorElement
     | HTMLButtonElement;
 

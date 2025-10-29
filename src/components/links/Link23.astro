@@ -6,25 +6,36 @@ set optionally:
 - duration as string 'value and s | ms' 
 - colors as string 'hoverBgColor, hoverColor' 
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-} & Polymorphic<{ as: TagGeneric }>;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.5s',
   colors = '#1e9bff,  #fafafa',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [hoverBgColor, hoverColor] = colors.split(',');
 const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
@@ -104,7 +115,9 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     }
 
     &:hover {
+      transition-delay: var(--duration);
       border: 2px solid transparent;
+      background: transparent;
       color: var(--hoverColor);
       span {
         transition-delay: 0s;

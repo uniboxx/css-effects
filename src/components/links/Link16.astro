@@ -4,37 +4,48 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'hoverBgColor, hoverColor' 
+- colors as string 'borderColor' 
+- borderSize as string
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-} & Polymorphic<{ as: TagGeneric }>;
+  borderSize?: string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.25s',
   colors = '#c47135',
-  ...attrs
+  borderSize = '3px',
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [borderColor] = colors.split(',');
+
+const style = `--duration: ${duration}; --borderColor: ${borderColor};--borderSize: ${borderSize} `;
 ---
 
-<Tag
-  class={classList}
-  {...attrs}
-  style={`--duration: ${duration}; --borderColor: ${borderColor}; `}
-  ><slot /></Tag
->
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
   a,
@@ -58,14 +69,14 @@ const [borderColor] = colors.split(',');
     &::before {
       top: -6px;
       left: -6px;
-      border-top: 2px solid var(--borderColor);
-      border-left: 2px solid var(--borderColor);
+      border-top: var(--borderSize) solid var(--borderColor);
+      border-left: var(--borderSize) solid var(--borderColor);
     }
     &::after {
       right: -6px;
       bottom: -6px;
-      border-right: 2px solid var(--borderColor);
-      border-bottom: 2px solid var(--borderColor);
+      border-right: var(--borderSize) solid var(--borderColor);
+      border-bottom: var(--borderSize) solid var(--borderColor);
     }
 
     &:hover {

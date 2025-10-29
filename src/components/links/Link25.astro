@@ -4,7 +4,8 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'hoverBgColor, hoverColor' 
+- colors as string 'hoverBgColor'
+- size as height of lines
 */
 
 type Tag = 'a' | 'button';
@@ -26,26 +27,24 @@ type Props<TagGeneric extends Tag> = {
 } & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.5s',
   colors = '#222',
-  href,
-  tag: Tag = href ? 'a' : 'button',
-  type = 'submit',
   size = '2px',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const baseAttributes = { classList, duration, colors, ...attrs };
 const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
-const allAttributes = { ...baseAttributes, ...attributesBasedOnTag };
-const { ...attributes } = allAttributes;
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [hoverBgColor] = colors.split(',');
 const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor};--size: ${size}`;
 ---
 
-<Tag class={classList} {...attributes} style={style}><slot /></Tag>
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
   a,

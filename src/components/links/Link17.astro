@@ -6,29 +6,38 @@ set optionally:
 - duration as string 'value and s | ms' 
 - colors as string 'hoverBgColor, hoverColor' 
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-  text?:string;
-  hoverSize1?:string;
-} & Polymorphic<{ as: TagGeneric }>;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.2s',
   colors = '#272727, #f6f6f6',
   text = 'Link 17',
   hoverSize1 = '2em',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const firstLetter = text[0];
 const restLetters = text.slice(1);

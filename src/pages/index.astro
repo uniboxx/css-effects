@@ -178,12 +178,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 </style>
 
 <script>
-  const link = document.getElementById('link08');
+  const link = document.getElementById('link01');
   const anchors = document.querySelectorAll('a.link');
 
   link?.addEventListener('click', () => {
     console.log(link.id);
   });
+
   anchors.forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();

@@ -4,37 +4,45 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'hoverBgColor, hoverColor' 
+- colors as string 'color1, color2' 
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-} & Polymorphic<{ as: TagGeneric }>;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.4s',
   colors = '#fdc518, #f00',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [color1, color2] = colors.split(',');
+
+const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};`;
 ---
 
-<Tag
-  class={classList}
-  {...attrs}
-  style={`--duration: ${duration}; --color1: ${color1}; --color2: ${color2};`}
-  ><slot /></Tag
->
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
   a,

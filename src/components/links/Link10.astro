@@ -4,36 +4,46 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'hoverBgColor1, hoverBgColor2, hoverColor or hoverColor1, hoverColor2' 
+- colors as string 'hoverBgColor1, hoverBgColor2, hoverColor1 or hoverColor1, hoverColor2' 
 */
-import type { Polymorphic } from 'astro/types';
 
 type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
 
 // prettier-ignore
 type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
   class?: string;
   duration?: string;
   colors?: string;
-} & Polymorphic<{ as: TagGeneric }>;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
   class: classList,
   duration = '.3s',
   colors = '#2e7711, tomato, #fff',
-  ...attrs
+  ...rest
 } = Astro.props;
 
-const Tag = attrs.href ? 'a' : 'button';
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [hoverBgColor1, hoverBgColor2, hoverColor1, hoverColor2] =
   colors.split(',');
+
+const style = `--duration: ${duration};--hoverBgColor1: ${hoverBgColor1};--hoverBgColor2: ${hoverBgColor2};--hoverColor1: ${hoverColor1};--hoverColor2: ${hoverColor2 || hoverColor1};`;
 ---
 
-<Tag
-  class={classList}
-  {...attrs}
-  style={`--duration: ${duration};--hoverBgColor1: ${hoverBgColor1};--hoverColor1: ${hoverColor1};--hoverBgColor2: ${hoverBgColor2};--hoverColor2: ${hoverColor2 || hoverColor1};`}
+<Tag class={classList} {...attrs} style={style}
   ><slot />
   <div class="before"><slot /></div>
   <div class="after"><slot /></div>
