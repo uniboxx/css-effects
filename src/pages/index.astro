@@ -189,11 +189,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   const links = document.querySelectorAll('.link')! as NodeListOf<
     HTMLAnchorElement | HTMLButtonElement
   >;
+  const mode = import.meta.env.DEV ? 'development' : 'production';
+  // console.log('🚀 ~ :197 ~ mode:', mode);
 
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log(link?.id);
+      if (mode === 'development') console.log(link?.id);
     });
   });
 </script>
