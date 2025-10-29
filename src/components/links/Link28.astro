@@ -1,11 +1,55 @@
-<a href=""><slot /></a>
-<!-- in alternative to before/after you can use different spans   -->
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'color1, color2' 
+- lineHeight as string (height of lines)
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  lineHeight?:string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.4s',
+  colors = '#00bcd4, #f0f',
+  lineHeight = '5px',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [color1, color2] = colors.split(',');
+
+const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--lineHeight: ${lineHeight};`;
+---
+
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
-  a {
-    --primary-color: #00bcd4;
-    --secondary-color: #f0f;
-    --duration: 0.5s;
+  a,
+  button {
     display: flex;
     position: relative;
     justify-content: center;
@@ -25,18 +69,18 @@
       transform: scaleX(0);
       transition: var(--duration);
       width: 50%;
-      height: 5px;
+      height: var(--lineHeight);
       content: '';
     }
     &::before {
       left: 0%;
       transform-origin: left;
-      background-color: var(--primary-color);
+      background-color: var(--color1);
     }
     &::after {
       right: 0%;
       transform-origin: right;
-      background-color: var(--secondary-color);
+      background-color: var(--color2);
     }
 
     &:hover {

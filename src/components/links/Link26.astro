@@ -1,11 +1,57 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor'
+- size as height of lines
+- borderWidth as string
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  size?:string;
+  borderWidth?:string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.5s',
+  colors = '#e91e63, #fff',
+  size = '.6rem',
+  borderWidth = '3px',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor};--hoverColor: ${hoverColor};--size: ${size};--borderWidth: ${borderWidth}`;
+---
+
+<Tag class={classList} {...attrs} style={style}><slot /></Tag>
 
 <style>
-  a {
-    --primary-color: #e91e63;
-    --duration: 0.5s;
-    --size: 0.6rem;
-
+  a,
+  button {
     display: flex;
     position: relative;
     justify-content: center;
@@ -21,7 +67,7 @@
       position: absolute;
       opacity: 0;
       transition: calc(var(--duration) / 5 * 3);
-      border: solid var(--primary-color);
+      border: solid var(--hoverBgColor);
       width: var(--size);
       height: var(--size);
       content: '';
@@ -29,16 +75,17 @@
     &::before {
       bottom: var(--size);
       left: var(--size);
-      border-width: 0 0 3px 3px;
+      border-width: 0 0 var(--borderWidth) var(--borderWidth);
     }
     &::after {
       top: var(--size);
       right: var(--size);
-      border-width: 3px 3px 0 0;
+      border-width: var(--borderWidth) var(--borderWidth) 0 0;
     }
     &:hover {
-      background-color: var(--primary-color);
-      color: white;
+      transition-delay: calc(var(--duration) / 2);
+      background-color: var(--hoverBgColor);
+      color: var(--hoverColor);
       &::before,
       &::after {
         opacity: 1;

@@ -1,10 +1,54 @@
-<a href=""><span><slot /></span><span><slot /></span></a>
-<!-- in alternative to before/after you can use different spans   -->
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type,
+  class: classList,
+  duration = '.5s',
+  colors = '#16a085,  #fff',
+  ...rest
+} = Astro.props;
+
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const { ...attrs } = { ...attributesBasedOnTag, ...rest };
+
+const [hoverBgColor, hoverColor] = colors.split(',');
+
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
+---
+
+<Tag class={classList} {...attrs} style={style}
+  ><span><slot /></span><span><slot /></span></Tag
+>
 
 <style>
-  a {
-    --primary-color: #16a085;
-    --duration: 0.5s;
+  a,
+  button {
     position: relative;
     transition: var(--duration);
     margin: 0 auto;
@@ -27,7 +71,7 @@
       display: inline-block;
       right: 0;
       transform-origin: right;
-      background-color: var(--primary-color);
+      background-color: var(--hoverBgColor);
       max-width: 0;
       content: '';
     }
@@ -37,16 +81,15 @@
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      transition-delay: var(--duration);
       padding: 0.5rem 1rem;
     }
     span:nth-child(2) {
       top: 100%;
+      color: var(--hoverColor);
     }
 
     &:hover {
       &::before {
-        right: unset;
         left: 0;
         max-width: 100%;
       }
