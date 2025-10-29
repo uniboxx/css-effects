@@ -1,9 +1,55 @@
-<a href=""><slot /></a>
+---
+/*
+INFORMATIONS
+set optionally:
+- class 
+- duration as string 'value and s | ms' 
+- colors as string 'hoverBgColor, hoverColor' 
+*/
+
+type Tag = 'a' | 'button';
+type AnchorProps = {
+  href: string;
+};
+type ButtonProps = {
+  type?: 'submit' | 'reset' | 'button';
+};
+
+// prettier-ignore
+type Props<TagGeneric extends Tag> = {
+  tag?: TagGeneric;
+  class?: string;
+  duration?: string;
+  colors?: string;
+  size?:string;
+  [key: string]: string | string[] | undefined;
+} & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
+
+const {
+  class: classList,
+  duration = '.5s',
+  colors = '#222',
+  href,
+  tag: Tag = href ? 'a' : 'button',
+  type = 'submit',
+  size = '2px',
+  ...attrs
+} = Astro.props;
+
+const baseAttributes = { classList, duration, colors, ...attrs };
+const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
+const allAttributes = { ...baseAttributes, ...attributesBasedOnTag };
+const { ...attributes } = allAttributes;
+
+const [hoverBgColor] = colors.split(',');
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor};--size: ${size}`;
+---
+
+<Tag class={classList} {...attributes} style={style}><slot /></Tag>
 
 <style>
-  a {
-    --primary-color: #222;
-    --duration: 0.5s;
+  a,
+  button {
     /* change these variables to have different effect */
     --before-origin: left;
     --after-origin: right;
@@ -12,9 +58,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    padding: 0.5rem 1rem;
     color: inherit;
-    font-size: 1.2rem;
     text-decoration: none;
     &::before,
     &::after {
@@ -22,9 +66,9 @@
       left: 0;
       transform: scaleX(0);
       transition: var(--duration);
-      background-color: var(--primary-color);
+      background-color: var(--hoverBgColor);
       width: 100%;
-      height: 2px;
+      height: var(--size);
       content: '';
     }
     &::before {

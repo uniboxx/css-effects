@@ -32,18 +32,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <Link22 id="link22" class="link link22">Link 22</Link22>
     <Link23 id="link23" class="link link23">Link 23</Link23>
     <Link24 id="link24" class="link link24">Link 24</Link24>
-    <Link25>🏠️ Link01</Link25>
-    <Link26>🏠️ Link02</Link26>
-    <Link27>🏠️ Link03</Link27>
-    <Link28>🏠️ Link04</Link28>
-    <Link29>🏠️ Link05</Link29>
-    <Link30>🏠️ Link06</Link30>
-    <Link31>🏠️ Link07</Link31>
-    <Link32>🏠️ Link08</Link32>
-    <Link33>🏠️ Link09</Link33>
-    <Link34>🏠️ Link10</Link34>
-    <Link35>🏠️ Link11</Link35>
-    <Link36>🏠️ Link12</Link36>
+    <Link25 id="link25" href="#" class="link link25">🏠️ Link 25</Link25>
+    <Link26 id="link26" href="#" class="link link26">🏠️ Link 26</Link26>
+    <Link27 id="link27" href="#" class="link link27">🏠️ Link 27</Link27>
+    <Link28 id="link28" href="#" class="link link28">🏠️ Link 28</Link28>
+    <Link29 id="link29" href="#" class="link link29">🏠️ Link 29</Link29>
+    <Link30 id="link30" href="#" class="link link30">🏠️ Link 30</Link30>
+    <Link31 id="link31" href="#" class="link link31">🏠️ Link 31</Link31>
+    <Link32 id="link32" href="#" class="link link32">🏠️ Link 32</Link32>
+    <Link33 id="link33" href="#" class="link link33">🏠️ Link 33</Link33>
+    <Link34 id="link34" href="#" class="link link34">🏠️ Link 34</Link34>
+    <Link35 id="link35" href="#" class="link link35">🏠️ Link 35</Link35>
+    <Link36 id="link36" href="#" class="link link36">🏠️ Link 36</Link36>
   </div>
 </BaseLayout>
 
@@ -61,22 +61,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     margin-bottom: 0 auto 3rem;
     padding: 10px;
   }
-  .bg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #363636;
-    height: 5rem;
-    &.green {
-      background-color: #2eceb1;
-    }
-    &.black {
-      background-color: #222;
-    }
-    &.blue {
-      background-color: #0c2461;
-    }
-  }
+
   .link {
     border: 3px solid var(--color);
     background-color: var(--bg);
@@ -185,12 +170,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     --bg: #000080;
     border: none;
   }
+  a.link {
+    cursor: default;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+  }
 </style>
 
 <script>
   const link = document.getElementById('link08');
+  const anchors = document.querySelectorAll('a.link');
 
   link?.addEventListener('click', () => {
     console.log(link.id);
+  });
+  anchors.forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
   });
 </script>
