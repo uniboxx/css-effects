@@ -1,19 +1,51 @@
 ---
-const { width, height } = Astro.props;
+/*
+INFORMATIONS
+set: 
+- image as imagemetadata
+- alt as string
+- width and/or height as numbers
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+- format as string
+- loading as 'lazy' | 'eager' | null
+*/
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  image: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
+}
+// prettier-ignore
+const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
 ---
 
-<figure>
-  <slot />
-  <slot name="caption" />
-</figure>
+<div id="container04">
+  <Image
+    src={image}
+    alt={alt}
+    loading={loading}
+    width={width}
+    height={height}
+    format={format}
+    {...attrs}
+  />
+  <div class="caption">
+    <slot />
+  </div>
+</div>
 
-<style define:vars={{ width, height }}>
-  figure {
-    --duration: 0.5s;
-    --captionHeight: 35%;
+<style define:vars={{ duration }}>
+  #container04 {
     position: relative;
-    width: calc(var(--width) * 1px);
-    height: calc(var(--height) * 1px);
     overflow: hidden;
     img {
       transition: var(--duration);
@@ -21,35 +53,34 @@ const { width, height } = Astro.props;
       height: 100%;
       object-fit: contain;
     }
-    figcaption {
-      display: flex;
+    .caption {
       position: absolute;
       bottom: 0;
       left: 0;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       transform: translateY(100%);
       transition: var(--duration);
       background-color: #000000;
+      padding: 0.5em 0;
       width: 100%;
-      height: var(--captionHeight);
       color: #fff;
       text-align: center;
-
-      p {
-        font-size: 1rem;
-        text-transform: capitalize;
-      }
     }
     &:hover {
       img {
         transform: translateY(calc(var(--captionHeight) * -1));
       }
 
-      figcaption {
+      .caption {
         transform: translateX(0%);
       }
     }
   }
 </style>
+
+<script>
+  const container = document.getElementById('container04') as HTMLDivElement;
+  const img = container.querySelector('img') as HTMLImageElement;
+  const caption = container.querySelector('.caption') as HTMLDivElement;
+
+  container.style.cssText += `--captionHeight: ${caption.clientHeight}px`;
+</script>

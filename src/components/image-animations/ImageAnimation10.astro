@@ -4,7 +4,6 @@ const { width, height } = Astro.props;
 
 <figure>
   <slot />
-  <slot name="caption" />
 </figure>
 
 <style define:vars={{ width, height }}>
@@ -15,8 +14,6 @@ const { width, height } = Astro.props;
     transition: var(--duration);
     border: 10px solid #fff;
     background-color: #444;
-    width: calc(var(--width) * 1px);
-    height: calc(var(--height) * 1px);
     overflow: hidden;
     img {
       width: 100%;

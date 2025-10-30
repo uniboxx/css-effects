@@ -1,19 +1,44 @@
 ---
-const { width, height } = Astro.props;
+/*
+INFORMATIONS
+set: 
+- image as imagemetadata
+- alt as string
+- width and/or height as numbers
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+- format as string
+- loading as 'lazy' | 'eager' | null
+*/
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  duration?: string;
+  image: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
+}
+// prettier-ignore
+const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
 ---
 
-<figure>
-  <slot />
-  <slot name="caption" />
-</figure>
+<!-- prettier-ignore -->
+<div class:list={[className, "container"]}>
+  <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
+  <div class="caption">
+    <slot />
+  </div>
+</div>
 
-<style define:vars={{ width, height }}>
-  figure {
-    --duration: 0.5s;
-    --primary-color: #ae895d;
+<style define:vars={{ duration }}>
+  .container {
     position: relative;
-    width: calc(var(--width) * 1px);
-    height: calc(var(--height) * 1px);
     overflow: hidden;
     img {
       transition: var(--duration);
@@ -21,7 +46,7 @@ const { width, height } = Astro.props;
       height: 100%;
       object-fit: contain;
     }
-    figcaption {
+    .caption {
       display: flex;
       position: absolute;
       top: 0;
@@ -39,7 +64,7 @@ const { width, height } = Astro.props;
       img {
         transform: scale(1.2) rotate(9deg);
       }
-      figcaption {
+      .caption {
         opacity: 1;
       }
     }

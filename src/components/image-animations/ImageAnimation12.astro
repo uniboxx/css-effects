@@ -1,86 +1,87 @@
 ---
+/*
+INFORMATIONS
+set: 
+- image as imagemetadata
+- alt as string
+- width and/or height as numbers
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+- format as string
+- positionY as string (y value, default center)
+*/
+import { Image } from 'astro:assets';
 import { getImage } from 'astro:assets';
 
-const { image, width, height } = Astro.props;
+interface Props {
+  class?: string;
+  duration?: string;
+  image: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  positionY?: string;
+}
+// prettier-ignore
+const { class:className, duration='.5s', image, alt, width, height, format = 'webp', positionY='center', ...attrs } = Astro.props;
 
-const optImg = await getImage({ src: image, width, height });
-
-const { src } = optImg;
+const optImg = await getImage({ src: image, width, height, format });
 ---
 
-<figure>
-  <slot name="caption" />
-  <div class="image" style={`--url: url(${src})`}></div>
-</figure>
+<!-- prettier-ignore -->
+<div>
+  <Image src={image} alt={alt} width={width} height={height} format={format} {...attrs}>
+  <Image src={image} alt={alt} width={width} height={height} format={format} {...attrs}>
+  <slot />
+</div>
 
-<style define:vars={{ width, height }}>
-  figure {
-    --duration: 0.5s;
+<style define:vars={{ duration, positionY }}>
+  div {
     position: relative;
-    width: calc(var(--width) * 1px);
-    height: calc(var(--height) * 1px);
-    figcaption {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 1rem;
-      background-color: #000;
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      text-align: center;
-      h3,
-      a {
-        background-color: white;
-        color: black;
-      }
-      p,
-      a {
-        align-self: center;
-      }
-      p {
-        width: 80%;
-      }
-      a {
-        padding: 10px;
-        text-decoration: none;
-        text-transform: uppercase;
-      }
-    }
-    .image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    width: 100%;
+    height: 100%;
 
-      &::before,
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      &:nth-of-type(1){
+        clip-path: polygon(0 0,50% 0, 50% 100%, 0 100%);
+      }
+
+      /* &::before,
       &::after {
         position: absolute;
         top: 0;
         transition: var(--duration);
         background-image: var(--url);
+        background-size: cover;
+        background-position-y: var(--positionY);
         width: 50%;
         height: 100%;
         content: '';
-      }
-      &::before {
+      }*/
+      &:nth-of-type(1) {
         left: 0;
         transform-origin: bottom;
+        /* background-position-x: left; */
       }
-      &::after {
+      &:nth-of-type(2) {
         right: 0;
         transform-origin: top;
-        background-position: right;
-      }
+        /* background-position-x: right; */
+      } 
     }
 
     &:hover {
-      .image {
-        &::before {
+      img {
+        &:nth-of-type(1) {
           transform: rotateX(90deg) translateY(50%);
         }
-        &::after {
+        &:nth-of-type(2) {
           transform: rotateX(90deg) translateY(-50%);
         }
       }
@@ -90,3 +91,7 @@ const { src } = optImg;
     }
   }
 </style>
+
+<script>
+
+</script>
