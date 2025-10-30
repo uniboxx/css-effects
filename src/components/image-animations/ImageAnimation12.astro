@@ -22,62 +22,67 @@ interface Props {
   width?: number;
   height?: number;
   format?: string;
+  loading?: string;
   positionY?: string;
 }
 // prettier-ignore
-const { class:className, duration='.5s', image, alt, width, height, format = 'webp', positionY='center', ...attrs } = Astro.props;
+const { class:className, duration='.5s', image, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
 
 const optImg = await getImage({ src: image, width, height, format });
 ---
 
-<!-- prettier-ignore -->
-<div>
-  <Image src={image} alt={alt} width={width} height={height} format={format} {...attrs}>
-  <Image src={image} alt={alt} width={width} height={height} format={format} {...attrs}>
-  <slot />
+<div id="container12" {...attrs} style={`--url: url(${optImg.src})`}>
+  <Image class="image" src={image} alt={alt} width={10} height={10} />
+  <div class="bg-image"></div>
+  <div class="bg-image"></div>
+  <div class="caption"><slot /></div>
 </div>
 
 <style define:vars={{ duration, positionY }}>
-  div {
+  #container12 {
     position: relative;
     width: 100%;
     height: 100%;
 
-    img {
-      position: absolute;
-      inset: 0;
+    .image {
+      position: relative;
+      z-index: -2;
       width: 100%;
       height: 100%;
-      &:nth-of-type(1){
-        clip-path: polygon(0 0,50% 0, 50% 100%, 0 100%);
-      }
+    }
 
-      /* &::before,
-      &::after {
-        position: absolute;
-        top: 0;
-        transition: var(--duration);
-        background-image: var(--url);
-        background-size: cover;
-        background-position-y: var(--positionY);
-        width: 50%;
-        height: 100%;
-        content: '';
-      }*/
+    .bg-image {
+      position: absolute;
+      top: 0;
+      transition: var(--duration);
+      background-image: var(--url);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position-y: var(--positionY);
+      width: 50%;
+      height: 100%;
+
       &:nth-of-type(1) {
         left: 0;
         transform-origin: bottom;
-        /* background-position-x: left; */
+        background-position-x: left;
       }
       &:nth-of-type(2) {
         right: 0;
         transform-origin: top;
-        /* background-position-x: right; */
-      } 
+        background-position-x: right;
+      }
+    }
+    .caption {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
     &:hover {
-      img {
+      .bg-image {
         &:nth-of-type(1) {
           transform: rotateX(90deg) translateY(50%);
         }
@@ -91,7 +96,3 @@ const optImg = await getImage({ src: image, width, height, format });
     }
   }
 </style>
-
-<script>
-
-</script>

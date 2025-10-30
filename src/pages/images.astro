@@ -73,7 +73,7 @@ import cat from '@/images/cat.jpg';
       </div>
     </ImageAnimation09>
     <ImageAnimation10 image={cat} alt="cat" width={300}>
-      <div class="content">
+      <div class="content content10">
         <h3>Image Animation 10</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
@@ -82,16 +82,16 @@ import cat from '@/images/cat.jpg';
       </div>
     </ImageAnimation10>
     <ImageAnimation11 image={cat} alt="cat" width={300}>
-      <figcaption class="invert">
+      <div class="content content11">
         <h3>Image Animation 11</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
         </p>
         <a href="">read more</a>
-      </figcaption></ImageAnimation11
+      </div></ImageAnimation11
     >
     <ImageAnimation12 image={cat} alt="cat" width={300}>
-      <div class="content">
+      <div class="content content12">
         <h3>Image Animation 12</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
@@ -125,6 +125,7 @@ import cat from '@/images/cat.jpg';
     justify-content: center;
     gap: 0.5rem;
     height: 100%;
+    text-align: center;
     & > *:not(a) {
       padding: 0.25rem 0.5rem;
     }
@@ -155,6 +156,29 @@ import cat from '@/images/cat.jpg';
     &.content09 {
       a {
         background: #000;
+      }
+    }
+    &.content10,
+    &.content11 {
+      h3,
+      a {
+        background: #000;
+      }
+    }
+    &.content12 {
+      background: #000;
+      color: #fff;
+      a {
+        transition: 0.2s;
+        border: 1px solid transparent;
+        background: #fff;
+        color: #000;
+        text-transform: capitalize;
+        &:hover {
+          border: 1px solid #fff;
+          background: #000;
+          color: #fff;
+        }
       }
     }
   }
