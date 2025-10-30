@@ -172,12 +172,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   }
   a.link {
     cursor: default;
+    margin: 0 auto;
+    border: none;
+    background: var(--bg);
     padding: 0.5rem 1rem;
     color: var(--color);
     font-size: 1.3rem;
-    bg: var(--bg);
-    margin: 0 auto;
-    border: none;
   }
 
   .link33 {
@@ -189,13 +189,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   const links = document.querySelectorAll('.link')! as NodeListOf<
     HTMLAnchorElement | HTMLButtonElement
   >;
-  const mode = import.meta.env.DEV ? 'development' : 'production';
-  // console.log('🚀 ~ :197 ~ mode:', mode);
 
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      if (mode === 'development') console.log(link?.id);
+      if (import.meta.env.DEV) console.log(link?.id);
     });
   });
 </script>

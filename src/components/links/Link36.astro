@@ -42,8 +42,7 @@ const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 const [color1, color2] = colors.split(',');
 
 const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--color1: ${color1}; --borderWidth: ${borderWidth};`;
-const randClass = 'link' + Math.random().toString(36).slice(2, 11);
-console.log('🚀 ~ :46 ~ randClass:', randClass);
+const randClass = 'link_' + Math.random().toString(36).slice(2, 11);
 ---
 
 <Tag class:list={[classList, randClass]} {...attrs} style={style}

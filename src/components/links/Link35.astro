@@ -30,9 +30,9 @@ const {
   tag: Tag = href ? 'a' : 'button',
   type,
   class: classList,
-  duration = '.5s',
+  duration = '1s',
   colors = '#262626, #00ade1',
-  borderWidth = '8px',
+  borderWidth = '.3em',
   ...rest
 } = Astro.props;
 
@@ -41,23 +41,22 @@ const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [color1, color2] = colors.split(',');
 
-const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--color1: ${color1}; --borderWidth: ${borderWidth};`;
+const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--borderWidth: ${borderWidth};`;
 ---
 
 <Tag class={classList} {...attrs} style={style}
-  ><slot /><span><slot /></span></Tag
+  >&nbsp;&nbsp;<slot />&nbsp;&nbsp;<span>&nbsp;&nbsp;<slot />&nbsp;&nbsp;</span
+  ></Tag
 >
 
 <style>
   a,
   button {
-    display: flex;
     position: relative;
     justify-content: center;
-    align-items: center;
     gap: 1rem;
     transition: var(--duration) 0s ease-out;
-    border-right: var(--borderWidth) solid #000;
+    padding: 0.5em 0 !important;
     width: max-content;
     -webkit-text-stroke-color: var(--color1);
     color: transparent !important;
@@ -65,18 +64,18 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
 
     &,
     span {
+      display: flex;
+      align-items: center;
       -webkit-text-stroke-width: 1px;
       font-weight: 900;
     }
 
     span {
-      display: inline-block;
       position: absolute;
-      left: 0%;
-      align-items: center;
+      right: 0;
+      left: 0;
       transition: var(--duration);
       border-right: var(--borderWidth) solid var(--color2);
-      padding: inherit;
       width: 0%;
       height: 100%;
       -webkit-text-stroke-color: var(--color2);
@@ -84,11 +83,12 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
       color: var(--color2);
       font: inherit;
       text-align: center;
+      text-wrap: nowrap;
     }
 
     &:hover {
-      transition-delay: calc(var(--duration) * 0.3);
-      -webkit-text-stroke: 1px var(--color2);
+      transition-delay: var(--duration);
+      -webkit-text-stroke-color: var(--color2);
       span {
         width: 100%;
       }
