@@ -1,17 +1,38 @@
-<article><slot /></article>
+---
+/* INFORMATIONS:
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+- colors as string (bgColor, color)
+- text
+*/
+interface Props {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  text: string;
+}
+// prettier-ignore
+const { class: className, duration ='.5s', colors = '#013d4a, #fafafa', text='88', ...attrs } = Astro.props;
 
-<style>
+const [bgColor, color] = colors.split(',');
+---
+
+<article class={className} {...attrs}>
+  <div class="content"><slot /></div><span>{text}</span>
+</article>
+
+<style define:vars={{ duration, bgColor, color }}>
   article {
-    --primary-color: #262626;
-    --secondary-color: #013d4a;
-    --tertiary-color: #fafafa;
-    --duration: 0.5s;
     position: relative;
     transition: var(--duration);
-    cursor: pointer;
-    box-shadow: 0 10px 30px var(--box-shadow-color);
-    border-radius: 10px;
-    background: var(--tertiary-color);
+    box-shadow: 0 10px 30px #26262688;
+    background: #fafafa;
+
+    &,
+    span {
+      border-radius: 10px;
+    }
 
     span {
       display: flex;
@@ -19,11 +40,9 @@
       justify-content: center;
       align-items: center;
       transition: var(--duration);
-      background-color: var(--secondary-color);
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      color: var(--tertiary-color);
+      inset: 0;
+      background-color: var(--bgColor);
+      color: #fafafa;
       font-weight: 700;
       font-size: 6rem;
     }
@@ -31,12 +50,14 @@
     .content {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
       gap: 1rem;
-      margin-top: 6rem;
-      padding: 1rem 2rem;
-      color: var(--primary-color);
+      margin-top: 8rem;
+      padding: 0 2rem 1rem;
+      color: #262626;
       text-align: center;
+
       h3 {
         font-weight: 700;
       }
@@ -46,15 +67,15 @@
       }
       a {
         transition: 0.3s;
-        border: 1px solid var(--primary-color);
+        border: 1px solid #262626;
         border-radius: 10px;
-        background-color: var(--tertiary-color);
+        background-color: #fafafa;
         padding: 5px 10px;
         width: max-content;
         font-size: 0.9rem;
         &:hover {
-          background-color: var(--secondary-color);
-          color: var(--tertiary-color);
+          background-color: var(--bgColor);
+          color: #fafafa;
         }
       }
     }
@@ -65,12 +86,12 @@
         top: 2rem;
         left: 50%;
         transform: translateX(-50%);
-        border: 2px solid var(--secondary-color);
+        border: 2px solid var(--bgColor);
         border-radius: 50%;
         background-color: transparent;
         width: 4rem;
         height: 4rem;
-        color: var(--secondary-color);
+        color: var(--bgColor);
         font-size: 1.8rem;
       }
     }

@@ -1,29 +1,45 @@
-<article><slot /></article>
+---
+/* INFORMATIONS:
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+- colors as string (hoverBgColor, hoverColor)
+- borderHeight as string (starting height)
+*/
+interface Props {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  borderHeight?: string;
+}
+// prettier-ignore
+const { class: className, duration ='.5s', colors = '#ff56ac, #fafafa', borderHeight='5px', ...attrs } = Astro.props;
 
-<style>
+const [hoverBgColor, hoverColor] = colors.split(',');
+---
+
+<article class={className} {...attrs}><slot /></article>
+
+<style define:vars={{ duration, hoverBgColor, hoverColor, borderHeight }}>
   article {
-    --box-shadow-color: #26262688;
-    --primary-color: #26262688;
-    --secondary-color: #fafafa;
-    --tertiary-color: #ff56ac;
-    --duration: 0.5s;
     display: flex;
     position: relative;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
     z-index: 0;
-    cursor: pointer;
-    box-shadow: 0 10px 30px var(--box-shadow-color);
-    background-color: var(--secondary-color);
+    box-shadow: 0 10px 30px #26262688;
+    background-color: var(--hoverColor);
     padding: 2rem;
+
     p {
-      align-self: center;
-      color: var(--primary-color);
+      color: #26262688;
     }
     a {
-      align-self: start;
       box-shadow: 0 2px 20px #0000000d;
-      background-color: var(--secondary-color);
+      border-radius: 5px;
+      background-color: inherit;
       padding: 0.5rem;
       font-weight: 600;
     }
@@ -37,16 +53,17 @@
       bottom: 0;
       left: 0;
       z-index: -1;
-      background-color: var(--tertiary-color);
+      border-radius: inherit;
+      background-color: var(--hoverBgColor);
       width: 100%;
-      height: 5px;
+      height: var(--borderHeight);
       content: '';
     }
 
     &:hover {
       h3,
       p {
-        color: var(--secondary-color);
+        color: var(--hoverColor);
       }
 
       &::after {

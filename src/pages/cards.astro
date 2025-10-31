@@ -4,19 +4,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Card01, Card02, Card03, Card04, Card05, Card06, Card07, Card08, Card09} from '@/components';
 import { Image } from 'astro:assets';
 
-import card02 from '@/images/card02.jpg';
-import card03 from '@/images/card03.png';
-import card05 from '@/images/card05.png';
-import card06 from '@/images/card06.jpg';
-import card07 from '@/images/card07.jpg';
-import card08 from '@/images/headphone1.png';
-import card09 from '@/images/shoes.png';
+import card02 from '@/images/cards/card02.jpg';
+import card03 from '@/images/cards/card03.png';
+import card05 from '@/images/cards/card05.png';
+import card06 from '@/images/cards/card06.jpg';
+import card07 from '@/images/cards/card07.jpg';
+import card08 from '@/images/cards/headphone1.png';
+import card09 from '@/images/cards/shoes.png';
 ---
 
 <BaseLayout title="Cards">
   <h2>Hover over the card item</h2>
   <div class="grid">
-    <Card01>
+    <Card01 class="card card01">
       <h3>Card01</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tempore
@@ -25,40 +25,27 @@ import card09 from '@/images/shoes.png';
       </p>
       <a href="">Read More</a>
     </Card01>
-    <Card02>
-      <figure>
-        <Image src={card02} alt="card02" priority width={250} height={250} />
-      </figure>
-      <div class="content">
-        <h3>Card02</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
-        </p>
-      </div>
+    <Card02 class="card card02" image={card02} alt="angel">
+      <h3>Card02</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
+      </p>
     </Card02>
-    <Card03>
-      <figure>
-        <Image src={card03} alt="card03" priority width={300} height={300} />
-      </figure>
-      <div class="content">
-        <h3>Captain Marvel</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-          excepturi earum temporibus hic quidem, facere non delectus voluptates.
-        </p>
-        <a href="">Read More</a>
-      </div>
+    <Card03 class="card card03" image={card03} alt="woman">
+      <h3>Captain Marvel</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+        excepturi earum temporibus hic quidem, facere non delectus voluptates.
+      </p>
+      <a href="">Read More</a>
     </Card03>
-    <Card04>
-      <span>88</span>
-      <div class="content">
-        <h3>Card04</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-          excepturi earum temporibus hic quidem, facere non delectus voluptates.
-        </p>
-        <a href="">Read More</a>
-      </div>
+    <Card04 class="card card04" text="88">
+      <h3>Card04</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+        excepturi earum temporibus hic quidem, facere non delectus voluptates.
+      </p>
+      <a href="">Read More</a>
     </Card04>
     <Card05>
       <figure>
@@ -136,10 +123,35 @@ import card09 from '@/images/shoes.png';
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 320px));
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 16rem));
     justify-content: center;
-    gap: 40px;
+    gap: 80px 40px;
     margin-bottom: 20rem;
     padding: 10px;
   }
+  .card {
+    h3 {
+      align-self: start;
+    }
+    a {
+      align-self: start;
+    }
+  }
+  .card01 {
+    border-radius: 10px;
+  }
 </style>
+
+<script>
+  const links = document.querySelectorAll(
+    '.card a'
+  )! as NodeListOf<HTMLAnchorElement>;
+
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (import.meta.env.DEV)
+        console.log(link.parentElement?.parentElement?.classList[1]);
+    });
+  });
+</script>
