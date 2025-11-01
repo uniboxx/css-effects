@@ -127,11 +127,14 @@ import card09 from '@/images/cards/shoes.png';
     justify-content: center;
     gap: 80px 40px;
     margin-bottom: 3rem;
-    padding: 10px;
     overflow-x: clip;
-    /* overflow-y: visible; */
+    overflow-y: visible;
+    @media screen and (min-width: 40rem) {
+      overflow-x: unset;
+    }
   }
   .card {
+    padding: 20px;
     h3 {
       align-self: start;
     }
@@ -143,11 +146,6 @@ import card09 from '@/images/cards/shoes.png';
     border-radius: 10px;
   }
   .card03 {
-    overflow-x: clip;
-    overflow-y: visible;
-    @media screen and (min-width: 40rem) {
-      overflow-x: unset;
-    }
   }
 </style>
 
