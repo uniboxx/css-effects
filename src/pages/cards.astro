@@ -47,27 +47,16 @@ import card09 from '@/images/cards/shoes.png';
       </p>
       <a href="">Read More</a>
     </Card04>
-    <Card05>
-      <figure>
-        <Image src={card05} alt="card05" priority width={300} height={300} />
-        <figcaption>Design</figcaption>
-      </figure>
-      <div class="content">
-        <h3>Card05</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-          excepturi earum temporibus hic quidem, facere non delectus voluptates.
-        </p>
-        <a href="">Read More</a>
-      </div>
+    <Card05 class="card card05" image={card05} alt="design" width={300}>
+      <h3>Card05</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+        excepturi earum temporibus hic quidem, facere non delectus voluptates.
+      </p>
+      <a href="">Read More</a>
     </Card05>
-    <Card06>
-      <figure>
-        <Image src={card06} alt="card06" priority width={300} height={300} />
-      </figure>
-      <div class="details">
-        <h3>John Doe <br /><span>Founder</span></h3>
-      </div>
+    <Card06 class="card card06" image={card06} alt="John Doe" width={300}>
+      <h3>John Doe <br /><span>Founder</span></h3>
     </Card06>
     <Card07>
       <figure>
@@ -134,7 +123,6 @@ import card09 from '@/images/cards/shoes.png';
     }
   }
   .card {
-    padding: 20px;
     h3 {
       align-self: start;
     }
@@ -145,7 +133,18 @@ import card09 from '@/images/cards/shoes.png';
   .card01 {
     border-radius: 10px;
   }
-  .card03 {
+  .card06 {
+    h3 {
+      color: #777;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      span {
+        color: #f38695;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+    }
   }
 </style>
 
