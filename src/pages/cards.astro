@@ -128,7 +128,8 @@ import card09 from '@/images/cards/shoes.png';
     gap: 80px 40px;
     margin-bottom: 3rem;
     padding: 10px;
-    overflow-x: hidden;
+    overflow-x: clip;
+    /* overflow-y: visible; */
   }
   .card {
     h3 {
@@ -140,6 +141,13 @@ import card09 from '@/images/cards/shoes.png';
   }
   .card01 {
     border-radius: 10px;
+  }
+  .card03 {
+    overflow-x: clip;
+    overflow-y: visible;
+    @media screen and (min-width: 40rem) {
+      overflow-x: unset;
+    }
   }
 </style>
 
