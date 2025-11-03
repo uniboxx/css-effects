@@ -30,16 +30,16 @@ const {
   type,
   class: classList,
   duration = '.3s',
-  colors = '#f44336, #fff',
+  colors = '#fff, #f44336, #fff',
   ...rest
 } = Astro.props;
 
 const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
 const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
-const [hoverBgColor, hoverColor] = colors.split(',');
+const [bandColor, hoverBgColor, hoverColor] = colors.split(',');
 
-const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
+const style = `--duration: ${duration};--bandColor: ${bandColor}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
 ---
 
 <Tag class={classList} {...attrs} style={style}><slot /></Tag>
@@ -49,6 +49,8 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
   button {
     display: flex;
     position: relative;
+    flex-wrap: wrap;
+    gap: 0.1em 0.4em;
     justify-content: center;
     align-items: center;
     transition: var(--duration) ease-in-out;
@@ -59,15 +61,17 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     overflow: clip;
     line-height: 1;
     &::before {
+      --band-size: 1em;
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       transform: translateX(-50%) translateY(100%) rotate(45deg);
       transform-origin: top;
       transition: var(--duration) ease-in-out;
-      background-color: white;
-      width: 100%;
-      height: 2em;
+      border-top: var(--band-size) solid var(--bandColor);
+      background-color: transparent;
+      width: 142%; /* maximum ration hypotenuse/longer side */
+      height: 100%;
       content: '';
     }
 
@@ -75,9 +79,9 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       background-color: var(--hoverBgColor);
       color: var(--hoverColor);
       &::before {
-        top: 0;
-        transform: translateX(50%) translateY(-100%) rotate(45deg);
-        transform-origin: bottom;
+        transform: translateX(calc(142% / 2 - 50%))
+          translateY(calc(var(--band-size) * -1)) rotate(45deg);
+        transform-origin: 50% var(--band-size);
       }
     }
   }

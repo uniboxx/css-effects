@@ -4,7 +4,6 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'hoverBgColor, hoverColor' 
 */
 
 type Tag = 'a' | 'button';
@@ -20,17 +19,11 @@ type Props<TagGeneric extends Tag> = {
   tag?: TagGeneric;
   class?: string;
   duration?: string;
-  colors?: string;
   [key: string]: string | string[] | undefined;
 } & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
-const {
-  href,
-  tag: Tag = href ? 'a' : 'button',
-  type,
-  class: classList,
-  duration = '.5s',
-  ...rest
+// prettier-ignore
+const { href, tag: Tag = href ? 'a' : 'button', type, class: classList, duration = '.5s', ...rest
 } = Astro.props;
 
 const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
@@ -48,6 +41,8 @@ const style = `--duration: ${duration};`;
     position: relative;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.1em 0.4em;
     transition: var(--duration) ease-in-out;
     cursor: pointer;
     background: transparent;

@@ -58,15 +58,20 @@ const style = `--duration: ${duration};--bgColor: ${bgColor};--color: ${color};`
     padding: 0.5em 0.7em;
     overflow: clip;
     color: transparent !important;
-    line-height: 1;
+    &,
     .before,
     .after {
       display: flex;
-      position: absolute;
+      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
+      gap: 0.1em 0.4em;
+      line-height: 1;
+    }
+    .before,
+    .after {
+      position: absolute;
       transition: var(--duration);
-      cursor: pointer;
       inset: 0;
       background: var(--bgColor);
       color: var(--color);
@@ -76,10 +81,6 @@ const style = `--duration: ${duration};--bgColor: ${bgColor};--color: ${color};`
       left: -100%;
       transform: scale(0) rotateY(0deg);
       opacity: 0;
-      pointer-events: none;
-    }
-    .after {
-      left: 0;
     }
 
     &:hover {

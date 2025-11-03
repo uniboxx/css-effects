@@ -12,7 +12,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <Link02 class="link link02">Link 02</Link02>
     <Link03 class="link link03">Link 03</Link03>
     <Link04 class="link link04">Link 04</Link04>
-    <Link05 class="link link05">Link 05</Link05>
+    <Link05 class="link link05"
+      >Link 05 <Fragment slot="hover">Hovered</Fragment></Link05
+    >
     <Link06 class="link link06">Link 06</Link06>
     <Link07 class="link link07">Link 07</Link07>
     <Link08 class="link link08">Link 08</Link08>
@@ -194,7 +196,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      if (import.meta.env.DEV) console.log(link?.id);
+      if (import.meta.env.DEV) console.log(link?.classList);
     });
   });
 </script>

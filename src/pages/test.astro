@@ -1,16 +1,32 @@
 ---
-import { Link02 } from '@/components';
+import { Link10 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="test">
-  <Link02 class="link">Link test</Link02>
-  <!-- <Link17 class="link" text="Link test" /> -->
+  <div class="button">
+    <Link10 class="link"><div>🏠️</div>Link test</Link10>
+    <!-- <Link05 class="link"
+      >🏠️ Link test
+      <Fragment class="hover" slot="hover">🏠️ Hovered</Fragment>
+    </Link05> -->
+  </div>
 </BaseLayout>
 
 <style>
-  .link {
-    margin: 10rem auto;
-    font-size: 2rem;
+  .button {
+    padding: 0 5px;
+    .link {
+      margin: 5rem auto;
+      /* border-color: #000; */
+      font-size: 2rem;
+      .hover {
+        /* background: green; */
+        text-transform: none;
+      }
+    }
+    @media screen and (min-width: 40rem) {
+      padding: unset;
+    }
   }
 </style>
