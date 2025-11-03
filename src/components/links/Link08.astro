@@ -55,7 +55,11 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    overflow: hidden;
+    border: 0.056em solid #000;
+    background: transparent;
+    padding: 0.5em 0.7em;
+    overflow: clip;
+    line-height: 1;
     .after {
       display: flex;
       position: absolute;

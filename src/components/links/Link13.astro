@@ -54,9 +54,12 @@ const style = `--duration: ${duration}; --bgColor1: ${bgColor1}; --bgColor2: ${b
     perspective: 1000px;
     transition: var(--duration);
     cursor: pointer;
+    background: transparent;
+    padding: 0.5em 0.7em;
 
     &::before,
     &::after {
+      --offset: 0.085em;
       position: absolute;
       z-index: -1;
       mix-blend-mode: multiply;
@@ -66,14 +69,14 @@ const style = `--duration: ${duration}; --bgColor1: ${bgColor1}; --bgColor2: ${b
       content: '';
     }
     &::before {
-      top: -3px;
-      left: -3px;
+      top: calc(var(--offset) * -1);
+      left: calc(var(--offset) * -1);
       transform-origin: top;
       background-color: var(--bgColor1);
     }
     &::after {
-      top: 3px;
-      left: 3px;
+      top: var(--offeset);
+      left: var(--offeset);
       transform-origin: bottom;
       background-color: var(--bgColor2);
     }
@@ -85,11 +88,11 @@ const style = `--duration: ${duration}; --bgColor1: ${bgColor1}; --bgColor2: ${b
         left: 0;
       }
       &::before {
-        top: -6px;
+        top: calc(var(--offset) * -2);
         transform: rotateX(75deg);
       }
       &::after {
-        top: 6px;
+        top: calc(var(--offset) * 2);
         transform: rotateX(-75deg);
       }
     }

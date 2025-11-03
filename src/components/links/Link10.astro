@@ -58,7 +58,10 @@ const style = `--duration: ${duration};--hoverBgColor1: ${hoverBgColor1};--hover
     align-items: center;
     perspective: 500px;
     cursor: pointer;
-    overflow: hidden;
+    background: transparent;
+    padding: 0.5em 0.7em;
+    overflow: clip;
+    line-height: 1;
     .before,
     .after {
       display: flex;

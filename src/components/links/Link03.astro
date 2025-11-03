@@ -54,7 +54,11 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     z-index: 0;
     transition: color var(--duration) ease-in-out;
     cursor: pointer;
-    overflow: hidden;
+    border: 0.056em solid #f00;
+    border: 0.056em solid #000;
+    background: transparent;
+    padding: 0.5em 0.7em;
+    line-height: 1;
 
     &::before,
     &::after {

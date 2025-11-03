@@ -21,7 +21,8 @@ type Props<TagGeneric extends Tag> = {
   class?: string;
   duration?: string;
   colors?: string;
-  [key: string]: string | string[] | undefined;
+  number?:number
+  [key: string]: string | string[] | number| undefined;
 } & (TagGeneric extends 'a' ? AnchorProps : ButtonProps);
 
 const {
@@ -31,6 +32,7 @@ const {
   class: classList,
   duration = '.2s',
   colors = '#f6b93b,  #363636',
+  number = 4,
   ...rest
 } = Astro.props;
 
@@ -39,13 +41,24 @@ const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
 const [hoverBgColor, hoverColor] = colors.split(',');
 
-const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};--delay: calc(var(--duration)/2)`;
+const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hoverColor: ${hoverColor};`;
+const regex = /(?<size>[\d\.]+)(?<unit>s|ms)/;
+const { groups } = regex.exec(duration)!;
+const size = +groups?.size!;
+const unit = groups?.unit!;
 ---
 
 <Tag class={classList} {...attrs} style={style}>
-  <span>
-    <slot />
-  </span>
+  <slot />
+  {
+    Array.from({ length: number }).map((_, idx) => {
+      return (
+        <span
+          style={`left: ${(100 / number) * idx}%;width: ${100 / number}%;transition-delay: ${(size / 2) * idx}${unit}`}
+        />
+      );
+    })
+  }
 </Tag>
 
 <style>
@@ -58,50 +71,30 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     z-index: 0;
     transition: var(--duration);
     cursor: pointer;
-    overflow: hidden;
+    border: 0.056em solid var(--hoverBgColor);
+    background: var(--hoverColor);
+    padding: 0.5em 0.7em;
+    overflow: clip;
+    color: var(--hoverBgColor);
+    line-height: 1;
 
-    &::before,
-    &::after,
-    span::before,
-    span::after {
+    span {
       position: absolute;
       z-index: -1;
       transition-duration: var(--duration);
       background-color: var(--hoverBgColor);
-      width: 25%;
       height: 100%;
-      content: '';
-    }
-    &::before,
-    span::before {
-      top: 100%;
-    }
-    &::after,
-    span::after {
-      top: -100%;
-    }
-    &::before {
-      left: 0%;
-    }
-    &::after {
-      left: 25%;
-      transition-delay: var(--delay);
-    }
-    span::before {
-      left: 50%;
-      transition-delay: calc(var(--delay) * 2);
-    }
-    span::after {
-      left: 75%;
-      transition-delay: calc(var(--delay) * 3);
+      &:nth-of-type(odd) {
+        top: 100%;
+      }
+      &:nth-of-type(even) {
+        top: -100%;
+      }
     }
 
     &:hover {
       color: var(--hoverColor);
-      &::before,
-      &::after,
-      span::before,
-      span::after {
+      span {
         top: 0%;
       }
     }

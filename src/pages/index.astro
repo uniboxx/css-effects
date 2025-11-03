@@ -8,66 +8,68 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 <BaseLayout title="Links">
   <h2>Hover over the link</h2>
   <div class="grid">
-    <Link01 id="link01" class="link link01">Link 01</Link01>
-    <Link02 id="link02" class="link link02">Link 02</Link02>
-    <Link03 id="link03" class="link link03">Link 03</Link03>
-    <Link04 id="link04" class="link link04">Link 04</Link04>
-    <Link05 id="link05" class="link link05">Link 05</Link05>
-    <Link06 id="link06" class="link link06">Link 06</Link06>
-    <Link07 id="link07" class="link link07">Link 07</Link07>
-    <Link08 id="link08" class="link link08">Link 08</Link08>
-    <Link09 id="link09" class="link link09">Link 09</Link09>
-    <Link10 id="link10" class="link link10">Link 10</Link10>
-    <Link11 id="link11" class="link link11">Link 11</Link11>
-    <Link12 id="link12" class="link link12">Link 12</Link12>
-    <Link13 id="link13" class="link link13">Link 13</Link13>
-    <Link14 id="link14" class="link link14">Link 14</Link14>
-    <Link15 id="link15" class="link link15">Link 15</Link15>
-    <Link16 id="link16" class="link link16">Link 16</Link16>
-    <Link17 id="link17" class="link link17" />
-    <Link18 id="link18" class="link link18">Link 18</Link18>
-    <Link19 id="link19" class="link link19">Link 19</Link19>
-    <Link20 id="link20" class="link link20">Link 20</Link20>
-    <Link21 id="link21" class="link link21">Link 21</Link21>
-    <Link22 id="link22" class="link link22">Link 22</Link22>
-    <Link23 id="link23" class="link link23">Link 23</Link23>
-    <Link24 id="link24" class="link link24">Link 24</Link24>
-    <Link25 id="link25" href="#" class="link link25">🏠️ Link 25</Link25>
-    <Link26 id="link26" href="#" class="link link26">🏠️ Link 26</Link26>
-    <Link27 id="link27" href="#" class="link link27">🏠️ Link 27</Link27>
-    <Link28 id="link28" href="#" class="link link28">🏠️ Link 28</Link28>
-    <Link29 id="link29" href="#" class="link link29">🏠️ Link 29</Link29>
-    <Link30 id="link30" href="#" class="link link30">🏠️ Link 30</Link30>
-    <Link31 id="link31" href="#" class="link link31">🏠️ Link 31</Link31>
-    <Link32 id="link32" href="#" class="link link32">🏠️ Link 32</Link32>
-    <Link33 id="link33" href="#" class="link link33">🏠️ Link 33</Link33>
-    <Link34 id="link34" href="#" class="link link34">🏠️ Link 34</Link34>
-    <Link35 id="link35" href="#" class="link link35">🏠️ Link 35</Link35>
-    <Link36 id="link36" href="#" class="link link36">🏠️ Link 36</Link36>
+    <Link01 class="link link01">Link 01</Link01>
+    <Link02 class="link link02">Link 02</Link02>
+    <Link03 class="link link03">Link 03</Link03>
+    <Link04 class="link link04">Link 04</Link04>
+    <Link05 class="link link05">Link 05</Link05>
+    <Link06 class="link link06">Link 06</Link06>
+    <Link07 class="link link07">Link 07</Link07>
+    <Link08 class="link link08">Link 08</Link08>
+    <Link09 class="link link09">Link 09</Link09>
+    <Link10 class="link link10">Link 10</Link10>
+    <Link11 class="link link11">Link 11</Link11>
+    <Link12 class="link link12">Link 12</Link12>
+    <Link13 class="link link13">Link 13</Link13>
+    <Link14 class="link link14">Link 14</Link14>
+    <Link15 class="link link15">Link 15</Link15>
+    <Link16 class="link link16">Link 16</Link16>
+    <Link17 class="link link17" text="Link 17" />
+    <Link18 class="link link18">Link 18</Link18>
+    <Link19 class="link link19">Link 19</Link19>
+    <Link20 class="link link20">Link 20</Link20>
+    <Link21 class="link link21">Link 21</Link21>
+    <Link22 class="link link22">Link 22</Link22>
+    <Link23 class="link link23">Link 23</Link23>
+    <Link24 class="link link24">Link 24</Link24>
+    <Link25 href="#" class="link link25">🏠️ Link 25</Link25>
+    <Link26 href="#" class="link link26">🏠️ Link 26</Link26>
+    <Link27 href="#" class="link link27">🏠️ Link 27</Link27>
+    <Link28 href="#" class="link link28">🏠️ Link 28</Link28>
+    <Link29 href="#" class="link link29">🏠️ Link 29</Link29>
+    <Link30 href="#" class="link link30">🏠️ Link 30</Link30>
+    <Link31 href="#" class="link link31">🏠️ Link 31</Link31>
+    <Link32 href="#" class="link link32">🏠️ Link 32</Link32>
+    <Link33 href="#" class="link link33">🏠️ Link 33</Link33>
+    <Link34 href="#" class="link link34">🏠️ Link 34</Link34>
+    <Link35 href="#" class="link link35">🏠️ Link 35</Link35>
+    <Link36 href="#" class="link link36">🏠️ Link 36</Link36>
   </div>
 </BaseLayout>
 
 <style>
   h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     text-align: center;
   }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
-    grid-gap: 20px;
+    grid-gap: 40px;
     justify-content: center;
     align-items: center;
+    justify-items: center;
     margin-bottom: 3rem;
-    padding: 10px;
   }
 
   .link {
     border: 3px solid var(--color);
     background-color: var(--bg);
-    padding: 0.5rem 0.7rem;
     color: var(--color);
     font-size: 2rem;
+    &[href] {
+      border: none;
+    }
   }
   .link01 {
     --color: #262626;
@@ -173,7 +175,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   a.link {
     cursor: default;
     margin: 0 auto;
-    border: none;
     background: var(--bg);
     padding: 0.5rem 1rem;
     color: var(--color);
