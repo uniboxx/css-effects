@@ -26,20 +26,23 @@ interface Props {
 }
 // prettier-ignore
 const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+const styles = `--duration: ${duration};  `;
 ---
 
 <!-- prettier-ignore -->
-<article class={className}>
+<figure class={className} style={styles} {...attrs}>
   <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
   <div class="caption">
     <slot />
   </div>
-</article>
+</figure>
 
-<style define:vars={{ duration }}>
-  article {
+<style>
+  figure {
     position: relative;
-    overflow: hidden;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
     img {
       transition: var(--duration);
       height: 100%;

@@ -2,48 +2,48 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
 import { ImageAnimation01, ImageAnimation02, ImageAnimation03, ImageAnimation04, ImageAnimation05, ImageAnimation06, ImageAnimation07, ImageAnimation08, ImageAnimation09, ImageAnimation10, ImageAnimation11, ImageAnimation12 } from '@/components';
-import { Image } from 'astro:assets';
+
 import cat from '@/images/cat.jpg';
 ---
 
 <BaseLayout title="Images">
   <h2>Hover over the image</h2>
   <div class="grid">
-    <ImageAnimation01 image={cat} alt="cat" width={300}>
+    <ImageAnimation01 class="element" image={cat} alt="cat" width={300}>
       <h3>Image Animation 01</h3>
       <p>You can write anything here</p>
     </ImageAnimation01>
-    <ImageAnimation02 image={cat} alt="cat" width={300}>
+    <ImageAnimation02 class="element" image={cat} alt="cat" width={300}>
       <div class="content">
         <h3>Image Animation 02</h3>
         <p>You can write anything here</p>
       </div>
     </ImageAnimation02>
-    <ImageAnimation03 image={cat} alt="cat" width={300}>
+    <ImageAnimation03 class="element" image={cat} alt="cat" width={300}>
       <div class="content">
         <h3>Image Animation 03</h3>
         <p>You can write anything here</p>
       </div>
     </ImageAnimation03>
-    <ImageAnimation04 image={cat} alt="cat" width={300}>
+    <ImageAnimation04 class="element" image={cat} alt="cat" width={300}>
       <div class="content">
         <h3>Image Animation 04</h3>
         <p>You can write anything here</p>
       </div>
     </ImageAnimation04>
-    <ImageAnimation05 image={cat} alt="cat" width={300}>
+    <ImageAnimation05 class="element" image={cat} alt="cat" width={300}>
       <div class="content content05">
         <h3>Image Animation 05</h3>
         <p>You can write anything here</p>
       </div>
     </ImageAnimation05>
-    <ImageAnimation06 image={cat} alt="cat" width={300}>
+    <ImageAnimation06 class="element" image={cat} alt="cat" width={300}>
       <div class="content">
         <h3>Image Animation 06</h3>
         <p>You can write anything here</p>
       </div>
     </ImageAnimation06>
-    <ImageAnimation07 image={cat} alt="cat" width={300}>
+    <ImageAnimation07 class="element" image={cat} alt="cat" width={300}>
       <div class="content content07">
         <h3>Image Animation 07</h3>
         <p>
@@ -52,7 +52,7 @@ import cat from '@/images/cat.jpg';
         <a href="">read more</a>
       </div>
     </ImageAnimation07>
-    <ImageAnimation08 image={cat} alt="cat" width={300}>
+    <ImageAnimation08 class="element" image={cat} alt="cat" width={300}>
       <div class="content content08">
         <h3>Image Animation 08</h3>
         <p>
@@ -61,7 +61,7 @@ import cat from '@/images/cat.jpg';
         <a href="">read more</a>
       </div>
     </ImageAnimation08>
-    <ImageAnimation09 image={cat} alt="cat" width={300}>
+    <ImageAnimation09 class="element" image={cat} alt="cat" width={300}>
       <div class="content content09">
         <h3>Image Animation 09</h3>
         <p>
@@ -70,7 +70,7 @@ import cat from '@/images/cat.jpg';
         <a href="">read more</a>
       </div>
     </ImageAnimation09>
-    <ImageAnimation10 image={cat} alt="cat" width={300}>
+    <ImageAnimation10 class="element" image={cat} alt="cat" width={300}>
       <div class="content content10">
         <h3>Image Animation 10</h3>
         <p>
@@ -79,7 +79,7 @@ import cat from '@/images/cat.jpg';
         <a href="">read more</a>
       </div>
     </ImageAnimation10>
-    <ImageAnimation11 image={cat} alt="cat" width={300}>
+    <ImageAnimation11 class="element" image={cat} alt="cat" width={300}>
       <div class="content content11">
         <h3>Image Animation 11</h3>
         <p>
@@ -88,7 +88,7 @@ import cat from '@/images/cat.jpg';
         <a href="">read more</a>
       </div></ImageAnimation11
     >
-    <ImageAnimation12 image={cat} alt="cat" width={300}>
+    <ImageAnimation12 class="element" image={cat} alt="cat" width={300}>
       <div class="content content12">
         <h3>Image Animation 12</h3>
         <p>
@@ -109,14 +109,18 @@ import cat from '@/images/cat.jpg';
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(10rem, 15rem));
-    /* align-items: start; */
     justify-content: center;
     align-items: center;
     justify-items: center;
     gap: 20px;
     margin-bottom: 3rem;
     padding: 10px;
+    .element {
+      max-width: 100%;
+      height: auto;
+    }
   }
+
   .content {
     display: flex;
     flex-direction: column;

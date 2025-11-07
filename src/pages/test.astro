@@ -1,33 +1,45 @@
 ---
-import { Link36 } from '@/components';
+import { ImageAnimation02 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+import cat from '@/images/cat.jpg';
 ---
 
 <BaseLayout title="test">
-  <div class="button">
-    <Link36 href="#" class="link"><div>🏠️</div>Link36</Link36>
-    <!-- <Link24 class="link"><div>🏠️</div>Link test</Link24> -->
-    <!-- <Link17 class="link" text="Link 17" /> -->
-    <!-- <Link05 class="link"
+  <div class="wrapper">
+    <ImageAnimation02 class="element" image={cat} alt="cat" width={400}>
+      <h3>Image Animation 02</h3>
+      <p>You can write anything here</p>
+      <!-- <Link36 href="#" class="link"><div>🏠️</div>Link36</Link36> -->
+      <!-- <Link24 class="link"><div>🏠️</div>Link test</Link24> -->
+      <!-- <Link17 class="link" text="Link 17" /> -->
+      <!-- <Link05 class="link"
       >🏠️ Link test
       <Fragment class="hover" slot="hover">🏠️ Hovered</Fragment>
     </Link05> -->
-  </div>
+    </ImageAnimation02>
 
-  <style>
-    .button {
-      padding: 0 5px;
-      .link {
-        margin: 5rem auto;
-        font-size: 2rem;
-        .hover {
-          /* background: green; */
-          text-transform: none;
+    <style>
+      .wrapper {
+        padding: 0 5px;
+        .link,
+        .element {
+          margin: 2rem auto;
+        }
+        .link {
+          font-size: 2rem;
+          .hover {
+            /* background: green; */
+            text-transform: none;
+          }
+        }
+        .element {
+          font-size: 1.5rem;
+        }
+        @media screen and (min-width: 40rem) {
+          padding: unset;
         }
       }
-      @media screen and (min-width: 40rem) {
-        padding: unset;
-      }
-    }
-  </style>
+    </style>
+  </div>
 </BaseLayout>
