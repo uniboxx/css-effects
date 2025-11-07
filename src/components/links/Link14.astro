@@ -72,6 +72,7 @@ const unit = groups?.unit!;
     transition: var(--duration);
     cursor: pointer;
     border: 0.056em solid var(--hoverBgColor);
+    border-radius: 5px;
     background: var(--hoverColor);
     padding: 0.5em 0.7em;
     overflow: clip;
@@ -93,6 +94,7 @@ const unit = groups?.unit!;
     }
 
     &:hover {
+      border-color: var(--hoverColor);
       color: var(--hoverColor);
       span {
         top: 0%;

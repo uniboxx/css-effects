@@ -56,8 +56,12 @@ const style = `--duration: ${duration}; --bandColor: ${bandColor};--hoverBgColor
     align-items: center;
     transition: var(--duration);
     cursor: pointer;
-    border: 0.056em solid #000;
-    overflow: hidden;
+    border: 0.056em solid var(--hoverBgColor);
+    background: transparent;
+    gap: 0.1em 0.4em;
+    padding: 0.5em 0.7em;
+    overflow: clip;
+    line-height: 1;
     span {
       position: absolute;
       top: 0;

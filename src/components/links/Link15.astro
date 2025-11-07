@@ -42,20 +42,44 @@ const [color1, color2] = colors.split(',');
 const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};`;
 ---
 
-<Tag class={classList} {...attrs} style={style}><slot /></Tag>
+<Tag class={classList} {...attrs} style={style}>
+  <slot />
+  <div class="text text1"><slot /></div>
+  <div class="text text2"><slot /></div>
+</Tag>
 
 <style>
   a,
   button {
-    display: flex;
     position: relative;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
     background: #363636;
-    padding: 0.5em 0.7em;
-    color: #f6b93b;
-    line-height: 1;
+    color: transparent;
+
+    &,
+    .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.1em 0.4em;
+      cursor: pointer;
+      inset: 1;
+      padding: 0.5em 0.7em;
+      line-height: 1;
+    }
+    .text {
+      position: absolute;
+      transition: var(--duration) var(--duration);
+      width: 100%;
+      height: 100%;
+      &.text1 {
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+        color: var(--color1);
+      }
+      &.text2 {
+        clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        color: var(--color2);
+      }
+    }
 
     &::before,
     &::after {
@@ -67,7 +91,7 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
     }
 
     &::before {
-      --width: 85%;
+      --width: 90%;
       --height: 140%;
       top: calc(100 - var(--width) / -2);
       left: calc(100 - var(--width) / 2);
@@ -76,7 +100,7 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
     }
     &::after {
       --width: 110%;
-      --height: 70%;
+      --height: 80%;
       top: calc(100 - var(--width) / 2);
       left: calc(100 - var(--width) / -2);
       transition-delay: var(--duration);
@@ -90,6 +114,12 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
       }
       &::after {
         transform: rotateX(180deg);
+      }
+      .text1 {
+        color: var(--color2);
+      }
+      .text2 {
+        color: var(--color1);
       }
     }
   }

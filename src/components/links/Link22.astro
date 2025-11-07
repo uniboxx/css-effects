@@ -54,7 +54,11 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     transition: var(--duration);
     cursor: pointer;
     border: 0.056em solid #000;
-    overflow: hidden;
+    background: transparent;
+    overflow: clip;
+    padding: 0.5em 0.7em;
+    gap: 0.1em 0.4em;
+    line-height: 1;
 
     &::before,
     &::after {

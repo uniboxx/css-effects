@@ -54,11 +54,13 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     transition: var(--duration);
     cursor: pointer;
+    gap: 0.1em 0.4em;
+    padding: 0.5em 0.7em;
     width: max-content;
     color: inherit;
+    line-height: 1;
     text-decoration: none;
 
     &::before {
@@ -68,6 +70,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       transform: scale(0);
       z-index: -1;
       transition: var(--duration);
+      border-radius: 5px;
       background-color: var(--hoverBgColor);
       width: 100%;
       height: 100%;

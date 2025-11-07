@@ -32,7 +32,7 @@ const {
   class: classList,
   duration = '1s',
   colors = '#262626, #00ade1',
-  borderWidth = '.3em',
+  borderWidth = '.2em',
   ...rest
 } = Astro.props;
 
@@ -45,8 +45,7 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
 ---
 
 <Tag class={classList} {...attrs} style={style}
-  >&nbsp;&nbsp;<slot />&nbsp;&nbsp;<span>&nbsp;&nbsp;<slot />&nbsp;&nbsp;</span
-  ></Tag
+  >&nbsp;<slot />&nbsp;&nbsp;<span>&nbsp;<slot />&nbsp;&nbsp;</span></Tag
 >
 
 <style>
@@ -54,12 +53,12 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
   button {
     position: relative;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.1em 0.4em;
     transition: var(--duration) 0s ease-out;
-    padding: 0.5em 0 !important;
+    padding: 0.3em 0em;
     width: max-content;
     -webkit-text-stroke-color: var(--color1);
-    color: transparent !important;
+    color: transparent;
     text-decoration: none;
 
     &,
@@ -74,8 +73,10 @@ const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2}
       position: absolute;
       right: 0;
       left: 0;
+      gap: inherit;
       transition: var(--duration);
       border-right: var(--borderWidth) solid var(--color2);
+      padding: inherit;
       width: 0%;
       height: 100%;
       -webkit-text-stroke-color: var(--color2);

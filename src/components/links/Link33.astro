@@ -51,9 +51,10 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     transition: var(--duration);
     cursor: pointer;
+    gap: 0.1em 0.4em;
+    padding: 0.5em 0.7em;
     width: max-content;
     color: inherit;
     text-decoration: none;
@@ -86,8 +87,8 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       &::before,
       &::after {
         transform: rotate(360deg);
-        width: 15px;
-        height: 15px;
+        width: 0.5em;
+        height: 0.5em;
       }
     }
   }

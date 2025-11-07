@@ -4,7 +4,7 @@ INFORMATIONS
 set optionally:
 - class 
 - duration as string 'value and s | ms' 
-- colors as string 'color1, color2' 
+- colors as string 'color1, color1' 
 */
 
 type Tag = 'a' | 'button';
@@ -31,7 +31,7 @@ const {
   type,
   class: classList,
   duration = '.5s',
-  colors = '#262626, #3bffa7',
+  colors = '#3bffa7',
   borderWidth = '8px',
   ...rest
 } = Astro.props;
@@ -39,9 +39,9 @@ const {
 const attributesBasedOnTag = Tag === 'a' ? { href } : { type };
 const { ...attrs } = { ...attributesBasedOnTag, ...rest };
 
-const [color1, color2] = colors.split(',');
+const [color1] = colors.split(',');
 
-const style = `--duration: ${duration}; --color1: ${color1}; --color2: ${color2};--color1: ${color1}; --borderWidth: ${borderWidth};`;
+const style = `--duration: ${duration}; --color1: ${color1}; `;
 const randClass = 'link_' + Math.random().toString(36).slice(2, 11);
 ---
 
@@ -53,12 +53,11 @@ const randClass = 'link_' + Math.random().toString(36).slice(2, 11);
   a,
   button {
     position: relative;
+    gap: 0.1em 0.4em;
     transition: var(--duration);
     transition-delay: var(--duration);
-    width: max-content;
-    color: var(--color1);
+    padding: 0.5em 0.7em;
     font-weight: 700;
-    font-size: 1.3rem;
     text-decoration: none;
 
     &,
@@ -66,30 +65,29 @@ const randClass = 'link_' + Math.random().toString(36).slice(2, 11);
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      height: 100%;
+      width: max-content;
     }
 
     span {
       position: absolute;
       top: 50%;
       left: 50%;
+      gap: inherit;
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: var(--duration);
       transition-delay: 0s;
-      width: max-content;
-      height: 100%;
+      padding: inherit;
+      width: inherit;
       -webkit-text-stroke: 1px solid #000;
       pointer-events: none;
-      color: var(--color2);
+      color: var(--color1);
       font: inherit;
-      font-weight: 500;
       letter-spacing: 1.5rem;
       text-shadow:
-        0 0 10px var(--color2),
-        0 0 30px var(--color2),
-        0 0 80px var(--color2);
+        0 0 10px var(--color1),
+        0 0 30px var(--color1),
+        0 0 80px var(--color1);
       text-transform: uppercase;
     }
 

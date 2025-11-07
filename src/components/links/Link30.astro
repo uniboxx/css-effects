@@ -50,19 +50,23 @@ const style = `--duration: ${duration};--color: ${color}; --hoverBgColor: ${hove
   a,
   button {
     position: relative;
-    justify-content: center;
     cursor: pointer;
     width: max-content;
-    overflow: hidden;
+    overflow: clip;
     color: transparent !important;
     text-decoration: none;
 
     &,
     span {
       display: flex;
+      justify-content: center;
       align-items: center;
+      gap: 0.1em 0.4em;
       transition: var(--duration);
+      border-radius: 5px;
+      padding: 0.5em 0.7em;
       width: max-content;
+      line-height: 1;
     }
     span,
     &::before {

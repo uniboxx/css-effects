@@ -50,9 +50,13 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
 <style>
   a,
   button {
+    display: flex;
     position: relative;
-    width: 100%;
-    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.85em;
+    background: #000080;
+    color: #fff;
 
     &::before,
     &::after {
@@ -85,6 +89,7 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       position: relative;
       justify-content: center;
       align-items: center;
+      gap: 0.1em 0.4em;
       z-index: 10;
       backdrop-filter: blur(15px);
       transition: var(--duration);
@@ -95,9 +100,11 @@ const style = `--duration: ${duration}; --hoverBgColor: ${hoverBgColor}; --hover
       border-right: 1px solid #fff4;
       border-bottom: 1px solid rgb(255 255 255 /0.1);
       border-left: 1px solid #fff4;
-      border-radius: 30px;
+      border-radius: inherit;
       background-color: #ffffff0d;
-      overflow: hidden;
+      padding: 0.5em 0.7em;
+      overflow: clip;
+      line-height: 1;
 
       &::before {
         position: absolute;
