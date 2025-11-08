@@ -31,9 +31,9 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
 <!-- prettier-ignore -->
 <figure class={className}>
   <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
-  <div class="caption">
+  <figcaption>
     <slot />
-  </div>
+  </figcaption>
 </figure>
 
 <style define:vars={{ duration }}>
@@ -48,7 +48,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
       height: 100%;
       object-fit: cover;
     }
-    .caption {
+    figcaption {
       display: flex;
       position: absolute;
       flex-direction: column;
@@ -67,7 +67,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
         transform: scale(1.3) rotate(-15deg);
       }
 
-      .caption {
+      figcaption {
         transform: translateX(0);
       }
     }

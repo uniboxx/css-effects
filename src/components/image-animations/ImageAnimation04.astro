@@ -28,7 +28,7 @@ interface Props {
 const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
 ---
 
-<div id="container04">
+<figure id="figure_yi2ks8ke" class={className} {...attrs}>
   <Image
     src={image}
     alt={alt}
@@ -36,27 +36,32 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
     width={width}
     height={height}
     format={format}
-    {...attrs}
   />
-  <div class="caption">
+  <figcaption>
     <slot />
-  </div>
-</div>
+  </figcaption>
+</figure>
 
 <style define:vars={{ duration }}>
-  #container04 {
+  figure {
     position: relative;
-    overflow: hidden;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
     img {
       transition: var(--duration);
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .caption {
+    figcaption {
+      display: flex;
       position: absolute;
       bottom: 0;
       left: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       transform: translateY(100%);
       transition: var(--duration);
       background-color: #000000;
@@ -70,7 +75,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
         transform: translateY(calc(var(--captionHeight) * -1));
       }
 
-      .caption {
+      figcaption {
         transform: translateX(0%);
       }
     }
@@ -78,9 +83,10 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
 </style>
 
 <script>
-  const container = document.getElementById('container04') as HTMLDivElement;
-  const img = container.querySelector('img') as HTMLImageElement;
-  const caption = container.querySelector('.caption') as HTMLDivElement;
+  const container = document.getElementById(
+    'figure_yi2ks8ke'
+  ) as HTMLDivElement;
+  const caption = container.querySelector('figcaption') as HTMLDivElement;
 
   container.style.cssText += `--captionHeight: ${caption.clientHeight}px`;
 </script>

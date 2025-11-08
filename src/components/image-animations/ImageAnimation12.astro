@@ -29,26 +29,30 @@ interface Props {
 const { class:className, duration='.5s', image, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
 
 const optImg = await getImage({ src: image, width, height, format });
+const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: ${positionY};`;
 ---
 
-<div id="container12" {...attrs} style={`--url: url(${optImg.src})`}>
-  <Image class="image" src={image} alt={alt} width={10} height={10} />
+<!-- prettier-ignore -->
+<figure class={className} {...attrs} style={styles}>
+  <Image class="image" src={image} alt={alt} width={1} height={1} format={format} loading="lazy"
+  />
   <div class="bg-image"></div>
   <div class="bg-image"></div>
-  <div class="caption"><slot /></div>
-</div>
+  <figcaption><slot /></figcaption>
+</figure>
 
-<style define:vars={{ duration, positionY }}>
-  #container12 {
+<style>
+  figure {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
 
     .image {
       position: relative;
       z-index: -2;
       width: 100%;
-      height: 100%;
+      height: auto;
     }
 
     .bg-image {
@@ -73,12 +77,18 @@ const optImg = await getImage({ src: image, width, height, format });
         background-position-x: right;
       }
     }
-    .caption {
+    figcaption {
+      display: flex;
       position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5em;
       z-index: -1;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      background: #000;
+      color: #fff;
+      text-align: center;
     }
 
     &:hover {

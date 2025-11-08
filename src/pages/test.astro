@@ -1,5 +1,5 @@
 ---
-import { ImageAnimation02 } from '@/components';
+import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 import cat from '@/images/cat.jpg';
@@ -7,9 +7,13 @@ import cat from '@/images/cat.jpg';
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <ImageAnimation02 class="element" image={cat} alt="cat" width={400}>
-      <h3>Image Animation 02</h3>
-      <p>You can write anything here</p>
+    <ImageAnimation12 class="element" image={cat} alt="cat" width={400}>
+      <h3>Image Animation 12</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem,
+        recusandae?
+      </p>
+      <a href="#">Read More</a>
       <!-- <Link36 href="#" class="link"><div>🏠️</div>Link36</Link36> -->
       <!-- <Link24 class="link"><div>🏠️</div>Link test</Link24> -->
       <!-- <Link17 class="link" text="Link 17" /> -->
@@ -17,7 +21,7 @@ import cat from '@/images/cat.jpg';
       >🏠️ Link test
       <Fragment class="hover" slot="hover">🏠️ Hovered</Fragment>
     </Link05> -->
-    </ImageAnimation02>
+    </ImageAnimation12>
 
     <style>
       .wrapper {
@@ -34,7 +38,7 @@ import cat from '@/images/cat.jpg';
           }
         }
         .element {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
         }
         @media screen and (min-width: 40rem) {
           padding: unset;

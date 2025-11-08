@@ -29,33 +29,34 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
 ---
 
 <!-- prettier-ignore -->
-<div class:list={[className, "container"]}>
+<figure class={className}>
   <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
-  <div class="caption">
+  <figcaption>
     <slot />
-  </div>
-</div>
+  </figcaption>
+</figure>
 
 <style define:vars={{ duration }}>
-  .container {
+  figure {
     position: relative;
-    overflow: hidden;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
     img {
       transition: var(--duration);
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .caption {
+    figcaption {
       display: flex;
       position: absolute;
-      top: 0;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
       transition: var(--duration);
-      width: 100%;
-      height: 100%;
+      inset: 0;
       content: '';
       color: #fff;
     }
@@ -64,7 +65,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
       img {
         transform: scale(1.2) rotate(9deg);
       }
-      .caption {
+      figcaption {
         opacity: 1;
       }
     }

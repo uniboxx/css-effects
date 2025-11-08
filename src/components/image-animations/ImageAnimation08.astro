@@ -31,51 +31,50 @@ const { class:className, duration='.25s', image, alt, width, height, format = 'w
 ---
 
 <!-- prettier-ignore -->
-<div class:list={[className, "container"]}>
+<figure class={className}>
   <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
-  <div class="caption">
+  <figcaption>
     <slot />
-  </div>
-</div>
+  </figcaption>
+</figure>
 
 <style define:vars={{ duration, hoverBgColor }}>
-  .container {
+  figure {
     position: relative;
     transition: var(--duration);
-    overflow: hidden;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
     img {
       transition: var(--duration);
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .caption {
+    figcaption {
       display: flex;
       position: absolute;
-      top: 0;
-      left: 0;
       flex-direction: column;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.5em;
       transition: var(--duration);
-      width: 100%;
-      height: 100%;
+      inset: 0;
       color: #fff;
       text-align: center;
-      & > *:first-child {
-        & > * {
-          transition: var(--duration);
-        }
-        & > *:first-child {
-          transform: translateY(-320%);
-        }
 
-        & > *:nth-child(2) {
-          transform: translateX(100%) rotate(90deg);
-        }
-        & > *:nth-child(n + 3) {
-          transform: translateY(-600%);
-        }
+      & > * {
+        opacity: 0;
+        transition: var(--duration);
+      }
+      & > *:first-child {
+        transform: translateY(-320%);
+      }
+
+      & > *:nth-child(2) {
+        transform: translateX(100%) rotate(90deg);
+      }
+      & > *:nth-child(n + 3) {
+        transform: translateY(-600%);
       }
     }
     &::after {
@@ -91,20 +90,21 @@ const { class:className, duration='.25s', image, alt, width, height, format = 'w
     }
 
     &:hover {
-      .caption {
+      figcaption {
+        & > * {
+          opacity: 1;
+        }
         & > *:first-child {
-          & > *:first-child {
-            transform: translateY(0%);
-            transition-delay: 0.5s;
-          }
-          & > *:nth-child(2) {
-            transform: translateX(0%) rotate(0deg);
-            transition-delay: 0.4s;
-          }
-          & > *:nth-child(n + 3) {
-            transform: translateY(0);
-            transition-delay: 0.3s;
-          }
+          transform: translateY(0%);
+          transition-delay: 0.5s;
+        }
+        & > *:nth-child(2) {
+          transform: translateX(0%) rotate(0deg);
+          transition-delay: 0.4s;
+        }
+        & > *:nth-child(n + 3) {
+          transform: translateY(0);
+          transition-delay: 0.3s;
         }
       }
       &::after {

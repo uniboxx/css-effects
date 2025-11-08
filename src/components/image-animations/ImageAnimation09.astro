@@ -31,20 +31,22 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
 ---
 
 <!-- prettier-ignore -->
-<div class:list={[className, "container"]}>
+<figure class={className}>
   <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
-  <div class="caption">
+  <figcaption>
     <slot />
-  </div>
-</div>
+  </figcaption>
+</figure>
 
 <style define:vars={{ duration, hoverBgColor }}>
-  .container {
+  figure {
     position: relative;
     transition: var(--duration);
     border: 10px solid #fff;
     background-color: #444;
-    overflow: hidden;
+    width: 20rem;
+    height: 20rem;
+    overflow: clip;
     img {
       transition: var(--duration);
       transition-delay: var(--duration);
@@ -52,8 +54,13 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
       height: 100%;
       object-fit: cover;
     }
-    .caption {
+    figcaption {
+      display: flex;
       position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5em;
       opacity: 0;
       transition: calc(var(--duration) / 2);
       transition-delay: 0;
@@ -75,7 +82,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
         transform: scale(0);
         transition-delay: 0s;
       }
-      .caption {
+      figcaption {
         opacity: 1;
         transition: var(--duration);
         transition-delay: calc(var(--duration) * 1.7);
