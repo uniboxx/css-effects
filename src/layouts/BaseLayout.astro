@@ -66,9 +66,8 @@ const { title } = Astro.props;
         >
       </nav>
     </header>
-    <main>
-      <slot />
-    </main>
+    <slot />
+    <footer><p>By Unibox</p></footer>
   </body>
 </html>
 
@@ -111,10 +110,15 @@ const { title } = Astro.props;
       }
     }
   }
-  main {
+  footer {
     display: flex;
-    flex: 1;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    background: #000;
+    padding: 2rem 5px;
+    color: #fff;
+    font-size: 1.5rem;
   }
 </style>
 

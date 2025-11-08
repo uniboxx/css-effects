@@ -66,7 +66,12 @@ import cat from '@/images/cat.jpg';
       </p>
       <a href="">read more</a>
     </ImageAnimation11>
-    <ImageAnimation12 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation12
+      class="element element12"
+      image={cat}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 12</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
@@ -84,16 +89,14 @@ import cat from '@/images/cat.jpg';
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10rem, 15rem));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     justify-content: center;
     align-items: center;
     justify-items: center;
-    gap: 20px;
-    margin-bottom: 3rem;
+    gap: 1em;
     padding: 10px;
-    .element {
-      width: 100%;
-      height: 100%;
+    .element:not(.element12) {
+      height: auto;
     }
   }
 </style>

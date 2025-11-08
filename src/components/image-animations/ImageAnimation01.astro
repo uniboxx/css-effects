@@ -40,10 +40,9 @@ const styles = `--duration: ${duration};  `;
 <style>
   figure {
     position: relative;
-    width: 20rem;
-    height: 20rem;
     overflow: clip;
     img {
+      display: block;
       transition: var(--duration);
       height: 100%;
       object-fit: cover;
@@ -54,6 +53,7 @@ const styles = `--duration: ${duration};  `;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 1em;
       opacity: 0;
       transition: var(--duration);
       inset: 0;

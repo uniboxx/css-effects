@@ -44,10 +44,9 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
     transition: var(--duration);
     border: 10px solid #fff;
     background-color: #444;
-    width: 20rem;
-    height: 20rem;
     overflow: clip;
     img {
+      display: block;
       transition: var(--duration);
       transition-delay: var(--duration);
       width: 100%;
@@ -61,7 +60,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 0.5em;
+      gap: 1em;
       inset: 0;
     }
     figcaption {

@@ -44,15 +44,14 @@ const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: $
 <style>
   figure {
     position: relative;
-    width: 20rem;
-    height: 20rem;
+    height: 100%;
     overflow: clip;
 
     .image {
       position: relative;
       z-index: -2;
       width: 100%;
-      height: auto;
+      height: 100%;
     }
 
     .bg-image {
@@ -83,7 +82,7 @@ const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: $
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 0.5em;
+      gap: 1em;
       z-index: -1;
       inset: 0;
       background: #000;

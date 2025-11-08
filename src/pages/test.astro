@@ -1,33 +1,45 @@
 ---
+import { Card02 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 import cat from '@/images/cat.jpg';
+import angel from '@/images/cards/card02.jpg';
 ---
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <ImageAnimation12 class="element" image={cat} alt="cat" width={400}>
-      <h3>Image Animation 12</h3>
+    <!-- <Card02 class="card card02" image={angel} alt="angel" width={400}>
+      <h3>Card02</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tempore
+        quaerat sed corrupti explicabo, beatae dignissimos eos perferendis culpa
+        doloremque quis saepe possimus obcaecati dolore.
+      </p>
+      <a href="">Read More</a>
+    </Card02> -->
+    <ImageAnimation12 class="image" image={cat} alt="cat" width={400}>
+      <h3>Image Animation 01</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem,
         recusandae?
       </p>
       <a href="#">Read More</a>
-      <!-- <Link36 href="#" class="link"><div>🏠️</div>Link36</Link36> -->
-      <!-- <Link24 class="link"><div>🏠️</div>Link test</Link24> -->
-      <!-- <Link17 class="link" text="Link 17" /> -->
-      <!-- <Link05 class="link"
+    </ImageAnimation12>
+    <!-- <Link36 href="#" class="link"><div>🏠️</div>Link36</Link36> -->
+    <!-- <Link24 class="link"><div>🏠️</div>Link test</Link24> -->
+    <!-- <Link17 class="link" text="Link 17" /> -->
+    <!-- <Link05 class="link"
       >🏠️ Link test
       <Fragment class="hover" slot="hover">🏠️ Hovered</Fragment>
     </Link05> -->
-    </ImageAnimation12>
 
     <style>
       .wrapper {
         padding: 0 5px;
         .link,
-        .element {
+        .image,
+        .card {
           margin: 2rem auto;
         }
         .link {
@@ -37,7 +49,9 @@ import cat from '@/images/cat.jpg';
             text-transform: none;
           }
         }
-        .element {
+        .image {
+          width: 15rem;
+          height: 15rem;
           font-size: 1.2rem;
         }
         @media screen and (min-width: 40rem) {
