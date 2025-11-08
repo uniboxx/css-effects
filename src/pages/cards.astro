@@ -112,15 +112,13 @@ import card09 from '@/images/cards/shoes.png';
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(11rem, 16rem));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     justify-content: center;
+    align-items: center;
+    justify-items: center;
     gap: 80px 40px;
-    margin-bottom: 3rem;
+    padding: 0.5rem;
     overflow-x: clip;
-    overflow-y: visible;
-    @media screen and (min-width: 40rem) {
-      overflow-x: unset;
-    }
   }
   .card {
     h3 {

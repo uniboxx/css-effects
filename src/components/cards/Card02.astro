@@ -46,7 +46,6 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
     background-color: #fafafa;
     padding: 1em 2em;
     width: 15rem;
-    height: 15rem;
     &,
     img {
       border-radius: 0.4em;
@@ -65,12 +64,16 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
     }
     .content {
       display: flex;
+      position: relative;
       flex-direction: column;
       justify-content: center;
       gap: 1rem;
       transform: translateY(-200%);
-      opacity: 0;
-      transition: calc(var(--duration) * 0.6);
+
+      transition: calc(var(--duration) * 1);
+      inset: 0;
+      max-height: 0;
+      overflow-y: clip;
       color: #111;
       p {
         color: #26262688;
@@ -78,10 +81,9 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
     }
 
     &:hover {
-      height: 100%;
       .content {
-        transform: translateY(-120%);
-        opacity: 1;
+        transform: translateY(0);
+        max-height: 40rem;
       }
     }
   }
