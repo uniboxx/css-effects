@@ -29,7 +29,7 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
 ---
 
 <!-- prettier-ignore -->
-<article class={className} {...attrs}>
+<article id="card_sliecdk4321" class={className} {...attrs}>
   <figure>
     <Image src={image} alt={alt} priority width={width} height={height} format={format} loading={loading} />
   </figure>
@@ -39,13 +39,15 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
 <style define:vars={{ duration }}>
   article {
     --offset: 3em;
+    display: flex;
     position: relative;
+    flex-direction: column;
     transform: translateY(calc(var(--offset) * 0.75));
     transition: var(--duration);
     box-shadow: 0 10px 30px #26262688;
     background-color: #fafafa;
-    padding: 1em 2em;
-    width: 15rem;
+    padding: 1rem 2rem;
+    width: 100%;
     &,
     img {
       border-radius: 0.4em;
@@ -68,12 +70,13 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
       flex-direction: column;
       justify-content: center;
       gap: 1rem;
-      transform: translateY(-200%);
-
-      transition: calc(var(--duration) * 1);
-      inset: 0;
+      transform: translateY(-10rem);
+      /* opacity: 0; */
+      transition:
+        transform calc(var(--duration) * 0.6),
+        max-height var(--duration);
       max-height: 0;
-      overflow-y: clip;
+      overflow-y: hidden;
       color: #111;
       p {
         color: #26262688;
@@ -82,7 +85,7 @@ const { class: className, duration =".5s",  image, alt, width, height=400,  load
 
     &:hover {
       .content {
-        transform: translateY(0);
+        transform: translateY(calc(var(--offset) * -0.5));
         max-height: 40rem;
       }
     }

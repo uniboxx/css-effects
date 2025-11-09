@@ -1,23 +1,23 @@
 ---
-import { Card02 } from '@/components';
+import { Card03 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 import cat from '@/images/cat.jpg';
-import angel from '@/images/cards/card02.jpg';
+import card02 from '@/images/cards/card02.jpg';
+import card03 from '@/images/cards/card03.png';
 ---
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Card02 class="card card02" image={angel} alt="angel" width={400}>
-      <h3>Card02</h3>
+    <Card03 class="card card03" image={card03} alt="card03" width={400}>
+      <h3>Card03</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tempore
-        quaerat sed corrupti explicabo, beatae dignissimos eos perferendis culpa
-        doloremque quis saepe possimus obcaecati dolore.
+        quaerat sed corrupti explicabo.
       </p>
       <a href="">Read More</a>
-    </Card02>
+    </Card03>
     <!-- <ImageAnimation12 class="image" image={cat} alt="cat" width={400}>
       <h3>Image Animation12</h3>
       <p>
@@ -56,7 +56,17 @@ import angel from '@/images/cards/card02.jpg';
       height: 15rem;
       font-size: 1.2rem;
     }
-    @media screen and (min-width: 40rem) {
+    .card {
+      width: 17rem;
+      height: 17rem;
+    }
+    & .card02 {
+      height: auto;
+    }
+    & .card03 {
+      height: 15rem;
+    }
+    @media screen and (min-width: 20rem) {
       padding: unset;
     }
   }

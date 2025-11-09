@@ -112,13 +112,15 @@ import card09 from '@/images/cards/shoes.png';
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, 17rem);
     justify-content: center;
     align-items: center;
     justify-items: center;
     gap: 80px 40px;
     padding: 0.5rem;
     overflow-x: clip;
+    @media screen and (min-width: 40rem) {
+    }
   }
   .card {
     h3 {
@@ -131,6 +133,7 @@ import card09 from '@/images/cards/shoes.png';
   .card01 {
     border-radius: 10px;
   }
+
   .card06 {
     h3 {
       color: #777;
