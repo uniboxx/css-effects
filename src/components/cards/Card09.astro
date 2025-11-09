@@ -1,19 +1,50 @@
-<article><slot /></article>
+---
+import { getImage } from 'astro:assets';
+
+/* INFORMATIONS:
+set: 
+- url as string
+- alt as string 
+- width and/or height as numbers
+- loading as 'lazy' or 'eager' or null (default 'lazy')
+- format as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+*/
+interface Props {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager' | null;
+  format?: string;
+  title?: string;
+}
+// prettier-ignore
+const { class: classList, duration =".5s", colors='#9bdc22, #03a9f4, #e91e63', url, alt, width=400, height, loading="lazy", format="webp", title='Card09', ...attrs } = Astro.props;
+
+const { src } = await getImage({ src: url, format, width, height, loading });
+const [color1, color2, color3] = colors.split(',');
+const styles = `--duration: ${duration};--color1: ${color1};--color2: ${color2};--color3: ${color3};`;
+---
+
+<article class={classList} style={styles} data-content={title} {...attrs}>
+  <figure><img src={src} alt={alt} /></figure>
+  <div class="content"><slot /></div>
+</article>
 
 <style>
   article {
-    --primary-color: #232323;
-    --secondary-color: #9bdc22;
-    --shoes-color2: #03a9f4;
-    --shoes-color3: #e91e63;
-    --duration: 0.5s;
-
     position: relative;
     cursor: pointer;
-    border-radius: 20px;
-    background-color: var(--primary-color);
-    height: 450px;
-    overflow: hidden;
+    border-radius: 1em;
+    background-color: #232323;
+    /* width: 100%; */
+    overflow: clip;
 
     &::before,
     &::after {
@@ -22,19 +53,16 @@
 
     /* circle */
     &::before {
-      top: 0;
-      left: 0;
       clip-path: circle(150px at 80% 20%);
       transition: var(--duration) ease-in-out;
-      background-color: var(--secondary-color);
-      width: 100%;
-      height: 100%;
+      inset: 0;
+      background-color: var(--color1);
       content: '';
     }
     &::after {
       top: 30%;
       left: -20%;
-      content: 'card09';
+      content: attr(data-content);
       color: #ffffff05;
       font-style: italic;
       font-weight: 800;
@@ -50,11 +78,13 @@
       width: 100%;
 
       img {
+        display: block;
         position: relative;
         transform: rotate(-25deg);
         margin: 0 auto;
         width: 70%;
-        height: 100%;
+        height: auto;
+        object-fit: cover;
       }
     }
 
@@ -108,13 +138,13 @@
         width: 1rem;
         height: 1rem;
         &:nth-of-type(1) {
-          background-color: var(--secondary-color);
+          background-color: var(--color1);
         }
         &:nth-of-type(2) {
-          background-color: var(--shoes-color2);
+          background-color: var(--color2);
         }
         &:nth-of-type(3) {
-          background-color: var(--shoes-color3);
+          background-color: var(--color3);
         }
       }
 
@@ -134,7 +164,7 @@
 
     &:hover {
       &::before {
-        clip-path: circle(300px at 80% -20%);
+        clip-path: circle(17rem at 80% -20%);
       }
       figure {
         top: 0;
@@ -159,7 +189,7 @@
       }
     }
     .size span:hover {
-      background-color: var(--secondary-color);
+      background-color: var(--color1);
     }
   }
 </style>

@@ -1,23 +1,20 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- image as ImageMetadata
+- url as string
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null
 set optionally:
 - class as string
 - duration as string 'value and s | ms' 
-- cardHeight as string (starting card height)
 */
 interface Props {
   class?: string;
   duration?: string;
-  cardHeight?: string;
-  image: ImageMetadata;
+  url: string;
   alt: string;
   width?: number;
   height?: number;
@@ -26,20 +23,22 @@ interface Props {
   gradients?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s",  image, alt, height=400, cardHeight="250px", format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
+const { class: className, duration =".5s",  url, alt, width=400,  height, format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
 
 const [gradient1, gradient2] = gradients.split(',');
+
+const { src } = await getImage({ src: url, format, width, height, loading });
 ---
 
 <!-- prettier-ignore -->
 <article class={className} {...attrs}>
   <figure>
-    <Image src={image} alt={alt} height={height} format={format} loading={loading} />
+    <img src={src} alt={alt}  />
   </figure>
   <div class="content"><slot /></div>
 </article>
 
-<style define:vars={{ duration, cardHeight, gradient1, gradient2 }}>
+<style define:vars={{ duration, gradient1, gradient2 }}>
   article {
     position: relative;
     transition: var(--duration);

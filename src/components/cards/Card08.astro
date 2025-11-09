@@ -1,17 +1,50 @@
-<article><slot /></article>
+---
+import { getImage } from 'astro:assets';
+
+/* INFORMATIONS:
+set: 
+- url as string
+- alt as string 
+- width and/or height as numbers
+- loading as 'lazy' or 'eager' or null (default 'lazy')
+- format as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms' 
+*/
+interface Props {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager' | null;
+  format?: string;
+}
+// prettier-ignore
+const { class: classList, duration =".5s", colors='#219bf3', url, alt, width=400,  height, loading="lazy", format="webp", ...attrs } = Astro.props;
+
+const { src } = await getImage({ src: url, format, width, height, loading });
+const [color1] = colors.split(',');
+const styles = `--duration: ${duration};--color1: ${color1};`;
+---
+
+<article class={classList} style={styles} {...attrs}>
+  <figure><img src={src} alt={alt} /></figure>
+  <div class="details"><slot /></div>
+</article>
 
 <style>
   article {
-    --primary-color: #122936;
-    --secondary-color: #219bf3;
-    --duration: 0.5s;
-
     position: relative;
     cursor: pointer;
-    border-radius: 20px;
-    background-color: var(--primary-color);
+    border-radius: 1em;
+    background-color: #122936;
+    width: 100%;
     height: 420px;
-    overflow: hidden;
+    overflow: clip;
 
     &::before {
       position: absolute;
@@ -19,7 +52,7 @@
       left: 0;
       transform: skewY(-15deg);
       transition: var(--duration);
-      background-color: var(--secondary-color);
+      background-color: var(--color1);
       width: 100%;
       height: 100%;
       content: '';
@@ -68,7 +101,7 @@
         transition: var(--duration);
         margin-top: 1rem;
         border-radius: 30px;
-        background-color: var(--secondary-color);
+        background-color: var(--color1);
         padding: 10px 30px;
         font-weight: normal;
       }

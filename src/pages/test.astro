@@ -1,23 +1,33 @@
 ---
-import { Card03 } from '@/components';
+import { Card09 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 import cat from '@/images/cat.jpg';
-import card02 from '@/images/cards/card02.jpg';
-import card03 from '@/images/cards/card03.png';
+const cardImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/cards/*.{jpg,png}'
+);
+const [url02, url03, url05, url06, url07, url08, url09] =
+  Object.keys(cardImages);
 ---
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Card03 class="card card03" image={card03} alt="card03" width={400}>
-      <h3>Card03</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tempore
-        quaerat sed corrupti explicabo.
-      </p>
-      <a href="">Read More</a>
-    </Card03>
+    <Card09 class="card card09" url={url09} alt="card09">
+      <!-- <h3>John Doe</h3>
+      <p>Developer</p> -->
+      <!-- <Card04 class="card card04" text="88"> -->
+      <h3>Card09</h3>
+      <div class="size">
+        <h4>Size:</h4>
+        <span>7</span><span>8</span><span>9</span><span>10</span>
+      </div>
+      <div class="color">
+        <h4>Color:</h4>
+        <span></span><span></span><span></span>
+      </div>
+      <a href="">Buy Now</a>
+    </Card09>
     <!-- <ImageAnimation12 class="image" image={cat} alt="cat" width={400}>
       <h3>Image Animation12</h3>
       <p>
@@ -58,13 +68,18 @@ import card03 from '@/images/cards/card03.png';
     }
     .card {
       width: 17rem;
-      height: 17rem;
     }
-    & .card02 {
-      height: auto;
-    }
-    & .card03 {
-      height: 15rem;
+    & {
+      .card02,
+      .card03 {
+        height: 15rem;
+      }
+      .card06 {
+        height: 20rem;
+      }
+      .card09 {
+        height: 25rem;
+      }
     }
     @media screen and (min-width: 20rem) {
       padding: unset;

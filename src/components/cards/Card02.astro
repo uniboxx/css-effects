@@ -1,10 +1,9 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- image as ImageMetadata
+- url as string (url of the image)
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null
@@ -14,10 +13,11 @@ set optionally:
 - duration as string 'value and s | ms' 
 - cardHeight as string (starting card height)
 */
+
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  url: string;
   alt: string;
   width?: number;
   height?: number;
@@ -25,13 +25,14 @@ interface Props {
   format?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s",  image, alt, width, height=400,  loading="lazy", format='webp',  ...attrs } = Astro.props;
+const { class: className, duration =".5s", url, alt, width, height=400,  loading="lazy", format='webp',  ...attrs } = Astro.props;
+
+const { src } = await getImage({ src: url, format, width, height, loading });
 ---
 
-<!-- prettier-ignore -->
-<article id="card_sliecdk4321" class={className} {...attrs}>
+<article class={className} {...attrs}>
   <figure>
-    <Image src={image} alt={alt} priority width={width} height={height} format={format} loading={loading} />
+    <img src={src} alt={alt} />
   </figure>
   <div class="content"><slot /></div>
 </article>

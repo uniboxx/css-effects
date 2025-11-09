@@ -1,25 +1,23 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- image as ImageMetadata
+- url as string
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null (default 'lazy')
 - format as string
-- caption as string text
+- caption as string 
 set optionally:
 - class as string
 - duration as string 'value and s | ms' 
-- cardHeight as string (starting card height)
 */
 interface Props {
   class?: string;
   duration?: string;
   colors?: string;
-  image: ImageMetadata;
+  url: string;
   alt: string;
   width?: number;
   height?: number;
@@ -28,15 +26,16 @@ interface Props {
   caption?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s", colors='#ff0057, #fafafa',  image, alt, width=300,  height, loading="lazy", format="webp", caption='Design',  ...attrs } = Astro.props;
+const { class: className, duration =".5s", colors='#ff0057, #fafafa',  url, alt, width=300,  height, loading="lazy", format="webp", caption='Design',  ...attrs } = Astro.props;
 
 const [hoverBgColor, hoverColor] = colors.split(',');
+
+const { src } = await getImage({ src: url, format, width, height, loading });
 ---
 
-<!-- prettier-ignore -->
 <article class={className} {...attrs}>
   <figure>
-    <Image src={image} alt={alt} width={width} height={height} loading={loading} format={format}  />
+    <img src={src} alt={alt} />
     <figcaption>{caption}</figcaption>
   </figure>
   <div class="content"><slot /></div>
@@ -46,8 +45,9 @@ const [hoverBgColor, hoverColor] = colors.split(',');
   article {
     position: relative;
     cursor: pointer;
-    box-shadow: 0 10px 30px var(--box-shadow-color);
     border-radius: 10px;
+    width: 100%;
+    overflow-y: clip;
 
     figure,
     .content {
@@ -70,8 +70,8 @@ const [hoverBgColor, hoverColor] = colors.split(',');
       }
 
       img {
-        height: 100%;
-        object-fit: cover;
+        width: 100%;
+        height: auto;
       }
       figcaption {
         color: var(--hoverColor);
@@ -81,7 +81,7 @@ const [hoverBgColor, hoverColor] = colors.split(',');
 
     .content {
       transform: translateY(-50%);
-      box-shadow: 0 20px 50px #000000cc;
+
       padding: 1rem 2rem;
       color: #262626;
       h3 {
@@ -118,6 +118,9 @@ const [hoverBgColor, hoverColor] = colors.split(',');
         & > * {
           opacity: 1;
         }
+      }
+      .content {
+        box-shadow: 0 1em 2em #000000cc;
       }
     }
   }
