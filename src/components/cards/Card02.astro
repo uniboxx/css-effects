@@ -1,4 +1,6 @@
 ---
+import { imageMetadata } from 'astro/assets/utils';
+import { Image } from 'astro:assets';
 import { getImage } from 'astro:assets';
 
 /* INFORMATIONS:
@@ -17,7 +19,7 @@ set optionally:
 interface Props {
   class?: string;
   duration?: string;
-  url: string;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -25,14 +27,27 @@ interface Props {
   format?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s", url, alt, width, height=400,  loading="lazy", format='webp',  ...attrs } = Astro.props;
+const { class: className, duration =".5s", imagePath, alt, width, height=400,  loading="lazy", format='webp',  ...attrs } = Astro.props;
+console.log('🚀 ~ :31 ~ imagePath:', imagePath);
 
-const { src } = await getImage({ src: url, format, width, height, loading });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/cards/*'
+);
+console.log('🚀 ~ :33 ~ images:', images);
+if (!images[imagePath])
+  throw new Error(`${imagePath} does not exist in @/images/cards/`);
 ---
 
 <article class={className} {...attrs}>
   <figure>
-    <img src={src} alt={alt} />
+    <Image
+      src={import(imagePath)}
+      alt={alt}
+      width={width}
+      height={height}
+      format={format}
+      loading={loading}
+    />
   </figure>
   <div class="content"><slot /></div>
 </article>

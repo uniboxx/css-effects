@@ -6,7 +6,15 @@ import { Card01, Card02, Card03, Card04, Card05, Card06, Card07, Card08, Card09}
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/cards/*.{jpg,png}'
 );
-const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
+const [
+  imagePath02,
+  imagePath03,
+  imagePath05,
+  imagePath06,
+  imagePath07,
+  imagePath08,
+  imagePath09,
+] = Object.keys(images);
 ---
 
 <BaseLayout title="Cards">
@@ -21,13 +29,13 @@ const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
       </p>
       <a href="">Read More</a>
     </Card01>
-    <Card02 class="card card02" url={url02} alt="angel">
+    <Card02 class="card card02" imagePath={imagePath02} alt="angel">
       <h3>Card02</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
       </p>
     </Card02>
-    <Card03 class="card card03" url={url03} alt="woman">
+    <!-- <Card03 class="card card03" imagePath={imagePath03} alt="woman">
       <h3>Captain Marvel</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
@@ -43,7 +51,7 @@ const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
       </p>
       <a href="">Read More</a>
     </Card04>
-    <Card05 class="card card05" url={url05} alt="design">
+    <Card05 class="card card05" imagePath={imagePath05} alt="design">
       <h3>Card05</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
@@ -51,10 +59,15 @@ const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
       </p>
       <a href="">Read More</a>
     </Card05>
-    <Card06 class="card card06" url={url06} alt="John Doe" width={300}>
+    <Card06
+      class="card card06"
+      imagePath={imagePath06}
+      alt="John Doe"
+      width={300}
+    >
       <h3>John Doe <br /><span>Founder</span></h3>
     </Card06>
-    <Card07 url={url07} alt="card07">
+    <Card07 imagePath={imagePath07} alt="card07">
       <h3>Card07</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
@@ -62,12 +75,12 @@ const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
       </p>
       <a href="">Read More</a>
     </Card07>
-    <Card08 url={url08} alt="card08">
+    <Card08 imagePath={imagePath08} alt="card08">
       <h3>Card08</h3>
       <p>$60.<small>99</small></p>
       <a href="#">Buy Now</a>
     </Card08>
-    <Card09 class="card card09" url={url09} alt="card09">
+    <Card09 class="card card09" imagePath={imagePath09} alt="card09">
       <h3>Card09</h3>
       <div class="size">
         <h4>Size:</h4>
@@ -78,7 +91,7 @@ const [url02, url03, url05, url06, url07, url08, url09] = Object.keys(images);
         <span></span><span></span><span></span>
       </div>
       <a href="">Buy Now</a>
-    </Card09>
+    </Card09> -->
   </div>
 </BaseLayout>
 
