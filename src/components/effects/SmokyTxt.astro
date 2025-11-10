@@ -1,22 +1,28 @@
 ---
+/*
+INFORMATIONS:
+set
+- text as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
 interface Props {
-  text: string;
-  fontSize: string; // any unit
-  duration: string; // any unit
   class?: string;
+  text: string;
+  duration?: string; // any unit
 }
-const { text, fontSize, duration, class: className, ...props } = Astro.props;
-const regex = /(?<time>\d+(?:\.\d+)?)(?<unit>[^\d\.]+)/;
+const { class: classList, text, duration = '1s', ...props } = Astro.props;
+
+const regex = /(?<time>\d+(?:\.\d+)?)(?<unit>s|ms)/;
 const result = duration.match(regex);
-
 const { time, unit } = result?.groups!;
-
 const delay = +(+time / text.length).toFixed(2);
 
 const textArray = text.split('');
 ---
 
-<ul data-style="none" class={className} {...props}>
+<ul data-style="none" class={classList} {...props}>
   {
     textArray.map((letter, index) => {
       const ownDelay = delay * index;
@@ -25,26 +31,30 @@ const textArray = text.split('');
   }
 </ul>
 
-<style define:vars={{ fontSize, duration }}>
+<style define:vars={{ duration }}>
   ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: max-content;
-    font-family: serif;
+    margin: 0 auto;
+    background: #222;
+    padding: 0.7em 1em;
+    width: fit-content;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.25em;
     li {
       transition: var(--duration);
-      color: #fff;
-      font-weight: bold;
-      font-size: var(--fontSize);
-      letter-spacing: 0.5rem;
+      color: inherit;
+      font: inherit;
+      letter-spacing: inherit;
     }
 
     &:hover {
       li {
         /* STRANGE - different behaviors */
         /* transform: translateY(calc(var(--fontSize) * -2)) rotate(45deg); */
-        transform: rotate(45deg) translateY(calc(var(--fontSize) * -2));
+        transform: rotate(45deg) translateY(-2em);
 
         opacity: 0;
         filter: blur(20px);

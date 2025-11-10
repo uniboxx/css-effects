@@ -1,28 +1,39 @@
 ---
 interface Props {
+  class?: string;
   text: string;
-  duration: string;
-  fontSize: string;
-  color: string;
+  duration?: string;
   hoverColor: string;
 }
-const { text, duration, fontSize, color, hoverColor } = Astro.props;
+// prettier-ignore
+const { class: classList, text, duration='.5s', hoverColor, ...attrs
+} = Astro.props;
 ---
 
-<h1 data-text={text}>{text}</h1>
+<div class={classList} {...attrs}>
+  <h3 data-text={text}>{text}</h3>
+</div>
 
-<style define:vars={{ fontSize, duration, color, hoverColor }}>
-  h1 {
+<style define:vars={{ duration, hoverColor }}>
+  div {
+    margin: 0 auto;
+    background: #222;
+    padding: 0.7em 1em;
+    width: fit-content;
+    color: #fff;
+  }
+  h3 {
     position: relative;
-    color: var(--color);
-    font-size: var(--fontSize);
+    margin: 0 auto;
+    width: fit-content;
     &::before {
       position: absolute;
       transition: var(--duration);
       width: 0;
-      overflow: hidden;
+      overflow-x: hidden;
       content: attr(data-text);
       color: var(--hoverColor);
+      white-space: nowrap;
     }
 
     &:hover {

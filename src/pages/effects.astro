@@ -10,18 +10,10 @@ import cards from '@/data/cards.json';
 <BaseLayout title="Effects">
   <h2 id="main-subtitle">Hover over the effect</h2>
   <div class="grid">
-    <div class="effect">
-      <SmokyTxt text="SMOKY" fontSize="2rem" duration="1s" />
-    </div>
-    <div class="effect orangered">
-      <FillTxt
-        text="TEXT"
-        fontSize="3rem"
-        duration="0.5s"
-        color="#fafafa"
-        hoverColor="dodgerblue"
-      />
-    </div>
+    <SmokyTxt class="effect smokytxt" text="SMOKY" />
+
+    <FillTxt class="effect filltxt" text="Fill Text" hoverColor="dodgerblue" />
+
     <div class="effect light">
       <Diagonal
         boxSize="5remx5rem"
@@ -90,17 +82,15 @@ import cards from '@/data/cards.json';
     text-align: center;
   }
   .effect {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
     background-color: #3b3b3b;
-    height: 6rem;
+    height: 6rem; */
     &.light {
       background-color: #dfe6e9;
     }
-    &.orangered {
-      background-color: #a8380f;
-    }
+
     &.violet {
       background-color: #9b59b6;
     }
@@ -114,6 +104,13 @@ import cards from '@/data/cards.json';
     }
     &.transparent {
       background-color: transparent;
+    }
+    &.smokytxt,
+    &.filltxt {
+      font-size: 2rem;
+    }
+    &.filltxt {
+      background: #a8380f;
     }
   }
 </style>

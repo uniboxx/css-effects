@@ -1,5 +1,5 @@
 ---
-import { Card09 } from '@/components';
+import { FillTxt } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
@@ -20,16 +20,17 @@ const [
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Card09
+    <FillTxt class="effect filltxt" text="Fill Text" hoverColor="dodgerblue" />
+    <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
       alt="card09"
       title="Card09"
-    >
-      <!-- <h3>John Doe</h3>
+    > -->
+    <!-- <h3>John Doe</h3>
       <p>Developer</p> -->
-      <!-- <Card04 class="card card04" text="88"> -->
-      <h3>Card09</h3>
+    <!-- <Card04 class="card card04" text="88"> -->
+    <!-- <h3>Card09</h3>
       <div class="size">
         <h4>Size:</h4>
         <span>7</span><span>8</span><span>9</span><span>10</span>
@@ -37,14 +38,14 @@ const [
       <div class="color">
         <h4>Color:</h4>
         <span></span><span></span><span></span>
-      </div>
-      <!-- <p>$60.<small>99</small></p>
+      </div> -->
+    <!-- <p>$60.<small>99</small></p>
       <a href="">Buy Now</a> -->
-      <!-- <p>
+    <!-- <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, aperiam.
       </p>
       <a href="#">Read more</a> -->
-    </Card09>
+    <!-- </Card09> -->
     <!-- <ImageAnimation12 class="image" image={cat} alt="cat" width={400}>
       <h3>Image Animation12</h3>
       <p>
@@ -68,7 +69,8 @@ const [
     padding: 0 5px;
     .link,
     .image,
-    .card {
+    .card,
+    .effect {
       margin: 2rem auto;
     }
     .link {
@@ -85,18 +87,14 @@ const [
     }
     .card {
       width: 17rem;
-    }
-    & {
-      .card02 {
-      }
-      .card03 {
+      &.card03 {
         height: 15rem;
       }
 
-      .card06 {
+      &.card06 {
         height: 20rem;
       }
-      .card08 {
+      &.card08 {
         & > * {
           font-weight: 500;
           letter-spacing: 1px;
@@ -113,10 +111,21 @@ const [
           font-weight: normal;
         }
       }
-      .card09 {
+      &.card09 {
         height: 25rem;
       }
     }
+    .effect {
+      width: max-content;
+      &.smokytxt,
+      &.filltxt {
+        font-size: 2rem;
+      }
+      &.filltxt {
+        background: #a8380f;
+      }
+    }
+
     @media screen and (min-width: 20rem) {
       padding: unset;
     }

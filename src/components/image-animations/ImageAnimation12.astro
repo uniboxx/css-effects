@@ -33,11 +33,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
 );
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
-const optImg = await getImage({
-  src: images[imagePath](),
-  width,
-  height,
-  format,
+// prettier-ignore
+const optImg = await getImage({ src: images[imagePath](), width, height, format, loading,
 });
 const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: ${positionY};`;
 ---
