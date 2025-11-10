@@ -1,28 +1,39 @@
 ---
+/*
+INFORMATIONS:
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- color as string (color of border)
+*/
+
 interface Props {
-  fontSize: string;
-  duration: string;
-  delay: string;
+  class?: string;
+  duration?: string;
 }
-const { fontSize, duration, delay } = Astro.props;
+const { class: classList, duration = '.5s' } = Astro.props;
 const text = ['clo', 'se'];
 ---
 
-<ul data-style="none">
+<ul class={classList} data-style="none">
   <li>{text[0]}</li>
   <li>
     {text[1].split('').map((el) => <span id={el}>{el}</span>)}
   </li>
 </ul>
 
-<style define:vars={{ fontSize, duration, delay }}>
+<style define:vars={{ duration }}>
   ul {
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin: 0 auto;
+    background: #9b59b6;
+    padding: 0.2em 0.5em;
+    width: fit-content;
     color: white;
-    font-size: var(--fontSize);
+    font-size: 3rem;
     font-family: 'Just Another Hand', cursive;
     li,
     span {
@@ -42,15 +53,15 @@ const text = ['clo', 'se'];
         }
         &:last-of-type {
           transform: translateX(0.2rem) rotate(180deg);
-          transition-delay: var(--delay);
+          transition-delay: var(--duration);
           span {
             &:last-of-type {
               transform: rotate(180deg);
-              transition-delay: calc(var(--delay) * 2);
+              transition-delay: calc(var(--duration) * 2);
             }
             &:first-of-type {
               transform: translate(-0.2rem, -0.1rem) rotate(90deg);
-              transition-delay: calc(var(--delay) * 3);
+              transition-delay: calc(var(--duration) * 3);
             }
           }
         }

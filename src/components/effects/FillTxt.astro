@@ -1,9 +1,19 @@
 ---
+/*
+INFORMATIONS:
+set
+- text as string
+- hoverColor as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
+
 interface Props {
-  class?: string;
   text: string;
-  duration?: string;
   hoverColor: string;
+  class?: string;
+  duration?: string;
 }
 // prettier-ignore
 const { class: classList, text, duration='.5s', hoverColor, ...attrs

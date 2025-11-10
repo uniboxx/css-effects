@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Just+Another+Hand&display=swap');
 
 *,
 *::before,
@@ -54,11 +54,11 @@ a {
   text-decoration: none;
 }
 
-img,
+/* img,
 picture,
 video,
 canvas,
 svg {
-  /* display: block;
-  max-width: 100%; */
-}
+  display: block;
+  max-width: 100%;
+} */

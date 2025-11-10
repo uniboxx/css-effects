@@ -1,65 +1,67 @@
 ---
-interface Props {
-  boxSize: string;
-  duration: string;
-  fontSize: string;
-  backgroundColor: string;
-  color: string;
-  hoverColor: string;
-}
-const { boxSize, duration, fontSize, backgroundColor, color, hoverColor } =
-  Astro.props;
-const sizes = boxSize.split('x');
-const boxUnit = sizes[0].match(/[^\d\.]+/)?.[0];
+import { Icon } from 'astro-icon/components';
 
-const [width, height] = sizes;
-const diagSize =
-  Math.ceil(Math.sqrt(parseFloat(width) ** 2 + parseFloat(height) ** 2) * 10) /
-    10 +
-  boxUnit!;
+/*
+INFORMATIONS:
+set
+- text as string
+- hoverColor as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  colors?: string;
+  icon: string;
+  href: string;
+}
+const {
+  class: classList,
+  duration = '.7s',
+  colors = '#10ac84, #f1f1f1',
+  icon,
+  href = '#',
+  ...attrs
+} = Astro.props;
+
+const [color, hoverColor] = colors.split(',');
 ---
 
-<div class="icon">
-  <slot />
-</div>
+<a href={href} class:list={[classList, 'icon']} {...attrs}>
+  <Icon name={icon} />
+</a>
 
-<style
-  define:vars={{
-    width,
-    height,
-    fontSize,
-    duration,
-    backgroundColor,
-    color,
-    hoverColor,
-    diagSize,
-  }}
->
+<style define:vars={{ duration, color, hoverColor }}>
   .icon {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
+    margin: auto;
     box-shadow: 0 5px 15px -5px #00000070;
     border-radius: 30%;
-    background-color: var(--backgroundColor);
-    width: var(--width);
-    height: var(--height);
-    overflow: hidden;
+    background-color: #fff;
+    width: 5rem;
+    height: 5rem;
+    overflow: clip;
     color: var(--color);
-    font-size: var(--fontSize);
+    font: inherit;
     svg {
       transition: var(--duration);
     }
     &::before {
+      --size: 150%;
       position: absolute;
-      bottom: calc(var(--diagSize) * -1);
-      left: calc(var(--diagSize) * -1);
+      bottom: calc(var(--size) * -1);
+      left: calc(var(--size) * -1);
       transform: rotate(45deg) translateY(-25%);
       transition: var(--duration) cubic-bezier(0.17, 0.67, 0.88, 1.53);
       background-color: var(--color);
-      width: var(--diagSize);
-      height: var(--diagSize);
+      width: var(--size);
+      height: var(--size);
       pointer-events: none;
       content: '';
     }
