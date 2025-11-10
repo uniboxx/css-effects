@@ -58,7 +58,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
     cursor: pointer;
     border-radius: 1em;
     background-color: #232323;
-    /* width: 100%; */
+    width: 100%;
     overflow: clip;
 
     &::before,
@@ -81,7 +81,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
       color: #ffffff05;
       font-style: italic;
       font-weight: 800;
-      font-size: 12rem;
+      font-size: 12em;
     }
 
     figure {
@@ -89,7 +89,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
       top: 50%;
       transform: translateY(-50%);
       transition: var(--duration);
-      padding: 40px 0;
+      padding: 4em 0;
       width: 100%;
 
       img {
@@ -109,7 +109,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
       z-index: 5;
       transition: 1s;
       width: 100%;
-      height: 100px;
+      height: 5em;
       color: #fafafa;
       text-align: center;
 
@@ -165,13 +165,13 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
       a {
         position: relative;
-        transform: translateY(50px);
+        transform: translateY(3em);
         opacity: 0;
         transition: var(--duration);
-        margin-top: 0.5rem;
-        border-radius: 4px;
+        margin-top: 0.5em;
+        border-radius: 0.2em;
         background-color: #fafafa;
-        padding: 10px 30px;
+        padding: 0.5em 1.5em;
         color: #111;
         font-weight: 600;
       }
@@ -186,7 +186,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
         transform: translateY(0);
       }
       .content {
-        height: 210px;
+        height: 12em;
         & > div {
           opacity: 1;
         }
