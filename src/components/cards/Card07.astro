@@ -1,9 +1,9 @@
 ---
-import { getImage } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- url as sgtring
+- imagePath as sgtring
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null (default 'lazy')
@@ -15,27 +15,27 @@ set optionally:
 interface Props {
   class?: string;
   duration?: string;
-  colors?: string;
-  url: string;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
   loading?: 'lazy' | 'eager' | null;
   format?: string;
-  caption?: string;
 }
 // prettier-ignore
-const { class: classList, duration =".5s",   url, alt, width=400,  height, loading="lazy", format="webp",   ...attrs } = Astro.props;
+const { class: classList, duration =".5s",   imagePath, alt, width=400,  height, loading="lazy", format="webp",   ...attrs } = Astro.props;
 
 const id = 'card_' + Math.random().toString(36).slice(2, 11);
 
 const styles = `--duration: ${duration};`;
 
-const { src } = await getImage({ src: url, format, width, height, loading });
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/**/*');
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
+<!-- prettier-ignore -->
 <article id={id} class={classList} style={styles} {...attrs}>
-  <img src={src} alt={alt} />
+   <Image src={images[imagePath]()} alt={alt} width={width} height={height} format={format} loading={loading} />
   <div class="content"><slot /></div>
 </article>
 

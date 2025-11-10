@@ -33,14 +33,14 @@ const [
       class="card card02"
       imagePath={imagePath02}
       alt="angel"
-      cardHeight="15rem"
+      cardHeight="13rem"
     >
       <h3>Card02</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
       </p>
     </Card02>
-    <!-- <Card03 class="card card03" imagePath={imagePath03} alt="woman">
+    <Card03 class="card card03" imagePath={imagePath03} alt="woman">
       <h3>Captain Marvel</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
@@ -80,23 +80,17 @@ const [
       </p>
       <a href="">Read More</a>
     </Card07>
-    <Card08 imagePath={imagePath08} alt="card08">
+    <Card08 class="card card08" imagePath={imagePath08} alt="card08">
       <h3>Card08</h3>
       <p>$60.<small>99</small></p>
       <a href="#">Buy Now</a>
     </Card08>
-    <Card09 class="card card09" imagePath={imagePath09} alt="card09">
-      <h3>Card09</h3>
-      <div class="size">
-        <h4>Size:</h4>
-        <span>7</span><span>8</span><span>9</span><span>10</span>
-      </div>
-      <div class="color">
-        <h4>Color:</h4>
-        <span></span><span></span><span></span>
-      </div>
-      <a href="">Buy Now</a>
-    </Card09> -->
+    <Card09
+      class="card card09"
+      imagePath={imagePath09}
+      alt="card09"
+      title="Card09"
+    />
   </div>
 </BaseLayout>
 
@@ -122,9 +116,7 @@ const [
     }
   }
   .card {
-    h3 {
-      align-self: start;
-    }
+    h3,
     a {
       align-self: start;
     }
@@ -134,6 +126,9 @@ const [
   }
   .card02 {
     align-self: start;
+  }
+  .card03 {
+    height: 15rem;
   }
 
   .card06 {
@@ -148,6 +143,26 @@ const [
         font-weight: 500;
         font-size: 0.9rem;
       }
+    }
+  }
+  .card08 {
+    h3,
+    p,
+    a {
+      align-self: center;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+    a {
+      margin-top: 1em;
+      border-radius: 1em;
+      background-color: var(--color1);
+      padding: 0.5em 1.5em;
+      font-weight: normal;
     }
   }
   .card09 {

@@ -1,9 +1,9 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- url as string
+- imagePath as string
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null (default 'lazy')
@@ -16,25 +16,40 @@ interface Props {
   class?: string;
   duration?: string;
   colors?: string;
-  url: string;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
   loading?: 'lazy' | 'eager' | null;
   format?: string;
-  title?: string;
+  title: string;
 }
 // prettier-ignore
-const { class: classList, duration =".5s", colors='#9bdc22, #03a9f4, #e91e63', url, alt, width=400, height, loading="lazy", format="webp", title='Card09', ...attrs } = Astro.props;
+const { class: classList, duration =".5s", colors='#9bdc22, #03a9f4, #e91e63', imagePath, alt, width=400, height, loading="lazy", format="webp", title='Card09', ...attrs } = Astro.props;
 
-const { src } = await getImage({ src: url, format, width, height, loading });
 const [color1, color2, color3] = colors.split(',');
 const styles = `--duration: ${duration};--color1: ${color1};--color2: ${color2};--color3: ${color3};`;
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/**/*');
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
+<!-- prettier-ignore -->
 <article class={classList} style={styles} data-content={title} {...attrs}>
-  <figure><img src={src} alt={alt} /></figure>
-  <div class="content"><slot /></div>
+  <figure>
+    <Image src={images[imagePath]()} alt={alt} width={width} height={height} format={format} loading={loading} />
+  </figure>
+  <div class="content">
+    <h3>Card09</h3>
+      <div class="size">
+        <h4>Size:</h4>
+        <span>7</span><span>8</span><span>9</span><span>10</span>
+      </div>
+      <div class="color">
+        <h4>Color:</h4>
+        <span></span><span></span><span></span>
+      </div>
+      <a href="">Buy Now</a>
+  </div>
 </article>
 
 <style>
@@ -100,6 +115,7 @@ const styles = `--duration: ${duration};--color1: ${color1};--color2: ${color2};
 
       h3 {
         position: relative;
+        margin-bottom: 1em;
         font-weight: 600;
         letter-spacing: 1px;
       }
@@ -110,18 +126,17 @@ const styles = `--duration: ${duration};--color1: ${color1};--color2: ${color2};
         opacity: 0;
         transition: var(--duration);
         padding: 8px 20px;
-        h4 {
+        & > *:first-child {
           margin-right: 10px;
           font-weight: 300;
           font-size: 0.8rem;
           letter-spacing: 2px;
           text-transform: uppercase;
         }
-      }
-      .size span,
-      .color span {
-        cursor: pointer;
-        margin: 0 5px;
+        span {
+          cursor: pointer;
+          margin: 0 5px;
+        }
       }
       .size span {
         transition: var(--duration);

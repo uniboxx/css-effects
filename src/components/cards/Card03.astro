@@ -1,9 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { getImage } from 'astro:assets';
 
 /* INFORMATIONS:
 set: 
-- url as string
+- imagePath as string
 - alt as string 
 - width and/or height as numbers
 - loading as 'lazy' or 'eager' or null
@@ -14,7 +15,7 @@ set optionally:
 interface Props {
   class?: string;
   duration?: string;
-  url: string;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -23,17 +24,19 @@ interface Props {
   gradients?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s",  url, alt, width=400,  height, format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
+const { class: className, duration =".5s",  imagePath, alt, width=400,  height, format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
 
 const [gradient1, gradient2] = gradients.split(',');
 
-const { src } = await getImage({ src: url, format, width, height, loading });
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/**/*');
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <!-- prettier-ignore -->
 <article class={className} {...attrs}>
   <figure>
-    <img src={src} alt={alt}  />
+    <Image src={images[imagePath]()} alt={alt} width={width} height={height} format={format} loading={loading}
+    />
   </figure>
   <div class="content"><slot /></div>
 </article>

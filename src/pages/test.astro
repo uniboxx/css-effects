@@ -1,5 +1,5 @@
 ---
-import { Card02 } from '@/components';
+import { Card09 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
@@ -20,30 +20,31 @@ const [
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Card02
-      class="card card02"
-      imagePath={imagePath02}
-      alt="card02"
-      cardHeight="15rem"
+    <Card09
+      class="card card09"
+      imagePath={imagePath09}
+      alt="card09"
+      title="Card09"
     >
       <!-- <h3>John Doe</h3>
       <p>Developer</p> -->
       <!-- <Card04 class="card card04" text="88"> -->
-      <h3>Card02</h3>
-      <!-- <div class="size">
+      <h3>Card09</h3>
+      <div class="size">
         <h4>Size:</h4>
         <span>7</span><span>8</span><span>9</span><span>10</span>
       </div>
       <div class="color">
         <h4>Color:</h4>
         <span></span><span></span><span></span>
-      </div> -->
-      <!-- <a href="">Buy Now</a> -->
-      <p>
+      </div>
+      <!-- <p>$60.<small>99</small></p>
+      <a href="">Buy Now</a> -->
+      <!-- <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, aperiam.
       </p>
-      <a href="#">Read more</a>
-    </Card02>
+      <a href="#">Read more</a> -->
+    </Card09>
     <!-- <ImageAnimation12 class="image" image={cat} alt="cat" width={400}>
       <h3>Image Animation12</h3>
       <p>
@@ -86,12 +87,31 @@ const [
       width: 17rem;
     }
     & {
-      .card02,
-      .card03 {
-        /* height: 15rem; */
+      .card02 {
       }
+      .card03 {
+        height: 15rem;
+      }
+
       .card06 {
         height: 20rem;
+      }
+      .card08 {
+        & > * {
+          font-weight: 500;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+        h3 {
+          font-size: 1.3rem;
+        }
+        a {
+          margin-top: 1em;
+          border-radius: 30px;
+          background-color: var(--color1);
+          padding: 10px 30px;
+          font-weight: normal;
+        }
       }
       .card09 {
         height: 25rem;
