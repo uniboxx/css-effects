@@ -29,7 +29,9 @@ const { class: className, duration =".5s",   imagePath, alt, width=300,  height,
 
 const id = Math.random().toString(36).slice(2, 11);
 
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/**/*');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 

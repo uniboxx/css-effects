@@ -2,7 +2,7 @@
 /*
 INFORMATIONS
 set: 
-- image as imagemetadata
+- imagePath as imagemetadata
 - alt as string
 - width and/or height as numbers
 set optionally:
@@ -17,7 +17,7 @@ import { Image } from 'astro:assets';
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -25,13 +25,27 @@ interface Props {
   loading?: 'lazy' | 'eager' | null;
 }
 // prettier-ignore
-const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+console.log('🚀 ~ :29 ~ imagePath:', imagePath);
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+
 const styles = `--duration: ${duration};  `;
 ---
 
-<!-- prettier-ignore -->
 <figure class={className} style={styles} {...attrs}>
-  <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
+  <Image
+    src={images[imagePath]()}
+    alt={alt}
+    loading={loading}
+    width={width}
+    height={height}
+    format={format}
+    {...attrs}
+  />
   <figcaption>
     <slot />
   </figcaption>

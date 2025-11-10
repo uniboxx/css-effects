@@ -3,63 +3,118 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
 import { ImageAnimation01, ImageAnimation02, ImageAnimation03, ImageAnimation04, ImageAnimation05, ImageAnimation06, ImageAnimation07, ImageAnimation08, ImageAnimation09, ImageAnimation10, ImageAnimation11, ImageAnimation12 } from '@/components';
 
-import cat from '@/images/cat.jpg';
+const imagePath = '/src/images/cat.jpg';
 ---
 
 <BaseLayout title="Images">
   <h2>Hover over the image</h2>
   <div class="grid">
-    <ImageAnimation01 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation01
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 01</h3>
       <p>You can write anything here</p>
     </ImageAnimation01>
-    <ImageAnimation02 class="element" image={cat} alt="cat" width={300}>
+    <!--<ImageAnimation02
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 02</h3>
       <p>You can write anything here</p>
     </ImageAnimation02>
-    <ImageAnimation03 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation03
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 03</h3>
       <p>You can write anything here</p>
     </ImageAnimation03>
-    <ImageAnimation04 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation04
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 04</h3>
       <p>You can write anything here</p>
     </ImageAnimation04>
-    <ImageAnimation05 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation05
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 05</h3>
       <p>You can write anything here</p>
     </ImageAnimation05>
-    <ImageAnimation06 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation06
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 06</h3>
       <p>You can write anything here</p>
     </ImageAnimation06>
-    <ImageAnimation07 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation07
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 07</h3>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, illum!</p>
       <a href="">read more</a>
     </ImageAnimation07>
-    <ImageAnimation08 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation08
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 08</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
       </p>
       <a href="">read more</a>
     </ImageAnimation08>
-    <ImageAnimation09 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation09
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 09</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
       </p>
       <a href="">read more</a>
     </ImageAnimation09>
-    <ImageAnimation10 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation10
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 10</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
       </p>
       <a href="">read more</a>
     </ImageAnimation10>
-    <ImageAnimation11 class="element" image={cat} alt="cat" width={300}>
+    <ImageAnimation11
+      class="element"
+      imagePath={imagePath}
+      alt="cat"
+      width={300}
+    >
       <h3>Image Animation 11</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
@@ -68,7 +123,7 @@ import cat from '@/images/cat.jpg';
     </ImageAnimation11>
     <ImageAnimation12
       class="element element12"
-      image={cat}
+      imagePath={imagePath}
       alt="cat"
       width={300}
     >
@@ -77,7 +132,7 @@ import cat from '@/images/cat.jpg';
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, quam.
       </p>
       <a href="">read more</a>
-    </ImageAnimation12>
+    </ImageAnimation12>-->
   </div>
 </BaseLayout>
 

@@ -28,7 +28,9 @@ const { class: classList, duration =".5s", colors='#219bf3', imagePath, alt, wid
 
 const [color1] = colors.split(',');
 const styles = `--duration: ${duration};--color1: ${color1};`;
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/**/*');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
