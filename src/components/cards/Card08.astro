@@ -88,6 +88,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
         transform: translateY(3em);
         opacity: 0;
         transition: var(--duration);
+        pointer-events: none;
       }
     }
 
@@ -102,6 +103,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
       .details > *:last-child {
         transform: translateY(0);
         opacity: 1;
+        pointer-events: all;
       }
     }
   }
