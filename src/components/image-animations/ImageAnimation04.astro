@@ -1,4 +1,7 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
 /*
 INFORMATIONS
 set: 
@@ -11,13 +14,11 @@ set optionally:
 - format as string
 - loading as 'lazy' | 'eager' | null
 */
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -25,13 +26,17 @@ interface Props {
   loading?: 'lazy' | 'eager' | null;
 }
 // prettier-ignore
-const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
 const styles = `--duration: ${duration};`;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <figure id="figure_yi2ks8ke" class={className} style={styles} {...attrs}>
   <Image
-    src={image}
+    src={images[imagePath]()}
     alt={alt}
     loading={loading}
     width={width}

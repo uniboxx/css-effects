@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+
 /*
 INFORMATIONS
 set: 
@@ -11,13 +14,11 @@ set optionally:
 - format as string
 - positionY as string (y value, default center)
 */
-import { Image } from 'astro:assets';
-import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -26,15 +27,19 @@ interface Props {
   positionY?: string;
 }
 // prettier-ignore
-const { class:className, duration='.5s', image, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
+const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
 
-const optImg = await getImage({ src: image, width, height, format });
+const optImg = await getImage({ src: imagePath, width, height, format });
 const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: ${positionY};`;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <!-- prettier-ignore -->
 <figure class={className} {...attrs} style={styles}>
-  <Image  src={image} alt={alt} width={1} height={1} format={format} loading="lazy"
+  <Image  src={images[imagePath]()} alt={alt} width={1} height={1} format={format} loading="lazy"
   />
   <div class="bg-image"></div>
   <div class="bg-image"></div>

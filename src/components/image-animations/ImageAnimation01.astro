@@ -1,4 +1,7 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
 /*
 INFORMATIONS
 set: 
@@ -11,8 +14,6 @@ set optionally:
 - format as string
 - loading as 'lazy' | 'eager' | null
 */
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;

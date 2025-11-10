@@ -1,4 +1,7 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
 /*
 INFORMATIONS
 set: 
@@ -12,13 +15,11 @@ set optionally:
 - loading as 'lazy' | 'eager' | null
 - colors as string (hoverBgColor)
 */
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath: string;
   alt: string;
   width?: number;
   height?: number;
@@ -27,12 +28,16 @@ interface Props {
   hoverBgColor?: string;
 }
 // prettier-ignore
-const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', hoverBgColor='#b28a7088', ...attrs } = Astro.props;
+const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', hoverBgColor='#b28a7088', ...attrs } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <!-- prettier-ignore -->
 <figure class={className}>
-  <Image src={image} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
+  <Image src={images[imagePath]()} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
   <figcaption>
     <slot />
   </figcaption>
