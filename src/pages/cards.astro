@@ -29,7 +29,12 @@ const [
       </p>
       <a href="">Read More</a>
     </Card01>
-    <Card02 class="card card02" imagePath={imagePath02} alt="angel">
+    <Card02
+      class="card card02"
+      imagePath={imagePath02}
+      alt="angel"
+      cardHeight="15rem"
+    >
       <h3>Card02</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eos.
@@ -127,9 +132,8 @@ const [
   .card01 {
     border-radius: 10px;
   }
-  .card02,
-  .card03 {
-    height: 15rem;
+  .card02 {
+    align-self: start;
   }
 
   .card06 {
