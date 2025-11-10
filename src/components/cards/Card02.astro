@@ -41,7 +41,7 @@ if (!images[imagePath])
 <article class={className} {...attrs}>
   <figure>
     <Image
-      src={import(imagePath)}
+      src={images[imagePath]()}
       alt={alt}
       width={width}
       height={height}
