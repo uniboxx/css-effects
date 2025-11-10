@@ -189,16 +189,3 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     --color: transparent;
   }
 </style>
-
-<script>
-  const links = document.querySelectorAll('.link')! as NodeListOf<
-    HTMLAnchorElement | HTMLButtonElement
-  >;
-
-  links.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (import.meta.env.DEV) console.log(link?.classList);
-    });
-  });
-</script>

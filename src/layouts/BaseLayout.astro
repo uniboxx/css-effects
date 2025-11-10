@@ -127,6 +127,17 @@ const { title } = Astro.props;
 </style>
 
 <script>
+  const links = document.querySelectorAll('main a')! as NodeListOf<
+    HTMLAnchorElement | HTMLButtonElement
+  >;
+
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (import.meta.env.DEV) console.log(link?.classList);
+    });
+  });
+
   const isDevMode = import.meta.env.DEV;
   if (isDevMode) {
     const mode = 'development';
