@@ -6,15 +6,17 @@ set
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- color as string (color of border)
+- width and/or height as numbers
+- format as string
+- loading as 'lazy' | 'eager' | null
 */
 
 import { Image } from 'astro:assets';
 
 interface Props {
+  imagePath: string;
   class?: string;
   duration?: string;
-  imagePath: string;
   width?: number;
   height?: number;
   format?: string;
