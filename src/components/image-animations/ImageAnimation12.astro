@@ -29,12 +29,17 @@ interface Props {
 // prettier-ignore
 const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
 
-const optImg = await getImage({ src: imagePath, width, height, format });
-const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: ${positionY};`;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
 );
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+const optImg = await getImage({
+  src: images[imagePath](),
+  width,
+  height,
+  format,
+});
+const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: ${positionY};`;
 ---
 
 <!-- prettier-ignore -->
