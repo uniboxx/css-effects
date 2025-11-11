@@ -22,13 +22,30 @@ interface Props {
 // prettier-ignore
 const { class: classList, title, imagePath, width=1920, height, position='center', format='webp', loading='lazy', ...attrs } = Astro.props;
 
+// position
+const regex =
+  /(?<x>(left|right|center|top|bottom)\s?[\d\.]*(px|%)?)\s?(?<y>(top|bottom|center)?\s?[\d\.]*(px|%)?)?/;
+const result = position.match(regex)!;
+const x = result.groups?.x?.trim();
+const y = result.groups?.y?.trim();
+let positionX, positionY;
+
+if (!y && (x?.includes('top') || x?.includes('bottom'))) {
+  positionX = 'center';
+  positionY = x || 'center';
+} else {
+  positionX = result?.groups?.x?.trim() || 'center';
+  positionY = result?.groups?.y?.trim() || 'center';
+}
+const finalPosition = `${positionX} ${positionY}`;
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
 );
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 // prettier-ignore
 const optImage= await getImage({src: images[imagePath](), width, height, format, loading});
-const style = `--url: url(${optImage.src});--position: ${position}`;
+const style = `--url: url(${optImage.src});--position: ${finalPosition};`;
 ---
 
 <section
@@ -37,7 +54,7 @@ const style = `--url: url(${optImage.src});--position: ${position}`;
   {...attrs}
 >
   <div class="content">
-    <h3>{title}</h3>
+    <h3 data-title={title}>{title}</h3>
     <slot />
   </div>
 </section>
@@ -69,9 +86,9 @@ const style = `--url: url(${optImage.src});--position: ${position}`;
         line-height: 1em;
         text-transform: uppercase;
         &.notFirefox {
-          background-position: center bottom 10%;
           background-clip: text;
           background-attachment: fixed;
+          background-position-y: bottom;
           width: fit-content;
           height: unset;
           color: transparent;
