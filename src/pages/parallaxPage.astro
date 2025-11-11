@@ -1,22 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getImage } from 'astro:assets';
-import giza from '@/images/giza.jpg';
-import paris from '@/images/paris.jpg';
-import dubai from '@/images/dubai.jpg';
-import newYork from '@/images/new-york.jpg';
-
-const gizaOpt = await getImage({ src: giza, width: 1920, height: 1080 });
-const parisOpt = await getImage({ src: paris, width: 1920, height: 1080 });
-const dubaiOpt = await getImage({ src: dubai, width: 1920, height: 1080 });
-const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
+import { Parallax } from '@/components';
 ---
 
 <BaseLayout title="Parallax">
-  <h2>(This effect now (2025) does not work on firefox)</h2>
-  <section style={`--url: url(${gizaOpt.src})`}>
-    <div class="content">
-      <h3>Giza</h3>
+  <div id="parallax_container">
+    <h2 id="firefoxWarning">
+      ⚠️ Parallax (right now is 2025) does not work on firefox
+    </h2>
+    <Parallax
+      class="parallax"
+      title="Giza"
+      imagePath="/src/images/giza.jpg"
+      position="center bottom 75%"
+    >
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
         ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
@@ -29,11 +26,9 @@ const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
         accusantium quaerat a. Corporis, quos.
       </p>
       <a href="">Read More</a>
-    </div>
-  </section>
-  <section style={`--url: url(${parisOpt.src})`}>
-    <div class="content">
-      <h3>Paris</h3>
+    </Parallax>
+
+    <Parallax class="parallax" title="Paris" imagePath="/src/images/paris.jpg">
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
         ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
@@ -46,11 +41,14 @@ const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
         accusantium quaerat a. Corporis, quos.
       </p>
       <a href="">Read More</a>
-    </div>
-  </section>
-  <section style={`--url: url(${dubaiOpt.src})`}>
-    <div class="content">
-      <h3>Dubai</h3>
+    </Parallax>
+
+    <Parallax
+      class="parallax"
+      title="Dubai"
+      imagePath="/src/images/dubai.jpg"
+      position="right 20% center"
+    >
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
         ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
@@ -63,11 +61,12 @@ const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
         accusantium quaerat a. Corporis, quos.
       </p>
       <a href="">Read More</a>
-    </div>
-  </section>
-  <section style={`--url: url(${newYorkOpt.src})`}>
-    <div class="content">
-      <h3>New York</h3>
+    </Parallax>
+    <Parallax
+      class="parallax"
+      title="New York"
+      imagePath="/src/images/new-york.jpg"
+    >
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad itaque
         ducimus unde aperiam. Vel dolorem laborum excepturi perferendis
@@ -80,73 +79,36 @@ const newYorkOpt = await getImage({ src: newYork, width: 1920, height: 1080 });
         accusantium quaerat a. Corporis, quos.
       </p>
       <a href="">Read More</a>
-    </div>
-  </section>
+    </Parallax>
+  </div>
 </BaseLayout>
 
 <style>
-  h2 {
-    text-align: center;
-  }
-  section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    min-height: 100svh;
-    text-align: center;
-    .content {
-      width: 100%;
-
-      h3 {
-        margin-bottom: 2rem;
-        background-image: var(--url);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: #ffffff88;
-        font-weight: 900;
-        font-size: 24svw;
-        line-height: 1em;
-        text-transform: uppercase;
-      }
-      p {
-        margin: 0 auto;
-        padding: 0 20px;
-        max-width: 66ch;
-      }
-      a {
-        display: inline-block;
-        margin-top: 20px;
-        border: 2px solid black;
-        padding: 10px 20px;
-        color: black;
-        text-decoration: none;
-        text-transform: capitalize;
-      }
-      &.notFirefox {
-        width: unset;
-        h3 {
-          background-clip: text;
-          background-attachment: fixed;
-          color: transparent;
-        }
+  #parallax_container {
+    h2 {
+      text-align: center;
+    }
+    &.notFirefox {
+      h2 {
+        display: none;
       }
     }
   }
 </style>
 
 <script>
-  const contentEls = document.querySelectorAll('section .content');
-  if (!isFirefox()) {
-    contentEls.forEach((el) => {
-      el.classList.add('notFirefox');
-    });
+  const container = document.getElementById(
+    'parallax_container'
+  ) as HTMLDivElement;
+
+  const userAgent = navigator.userAgent;
+
+  const isFirefox = userAgent.toLowerCase().includes('firefox');
+  if (!isFirefox) {
+    container.classList.add('notFirefox');
   }
-  function agentHas(keyword: string) {
-    return navigator.userAgent.toLowerCase().search(keyword.toLowerCase()) > -1;
-  }
-  function isFirefox() {
-    return agentHas('Firefox') || agentHas('FxiOS') || agentHas('Focus');
+  if (import.meta.env.DEV) {
+    console.log('🚀 ~ :93 ~ userAgent:', userAgent);
+    console.log('🚀 ~ :94 ~ isFirefox:', isFirefox);
   }
 </script>

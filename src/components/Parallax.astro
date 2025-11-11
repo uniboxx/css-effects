@@ -1,0 +1,105 @@
+---
+import { getImage } from 'astro:assets';
+
+/*
+INFORMATIONS:
+set
+- imagePath as string
+set optionally
+- class as string
+*/
+
+interface Props {
+  imagePath: string;
+  title: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  position?: string;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
+}
+// prettier-ignore
+const { class: classList, title, imagePath, width=1920, height, position='center', format='webp', loading='lazy', ...attrs } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+// prettier-ignore
+const optImage= await getImage({src: images[imagePath](), width, height, format, loading});
+const style = `--url: url(${optImage.src});--position: ${position}`;
+---
+
+<section
+  class:list={['parallax_component', classList]}
+  style={style}
+  {...attrs}
+>
+  <div class="content">
+    <h3>{title}</h3>
+    <slot />
+  </div>
+</section>
+
+<style>
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    min-height: 100svh;
+    text-align: center;
+    .content {
+      width: 100%;
+
+      h3 {
+        margin: 0 auto 2rem;
+        background-image: var(--url);
+        background-position: var(--position);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        color: #ffffff88;
+        font-weight: 900;
+        font-size: 24svw;
+        line-height: 1em;
+        text-transform: uppercase;
+        &.notFirefox {
+          background-clip: text;
+          background-attachment: fixed;
+          width: fit-content;
+          color: transparent;
+          @media screen and (min-width: 40rem) {
+            background-position: center bottom 30%;
+          }
+        }
+      }
+      p {
+        margin: 0 auto;
+        padding: 0 20px;
+        max-width: 66ch;
+      }
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        border: 2px solid black;
+        padding: 10px 20px;
+        color: black;
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+    }
+  }
+</style>
+
+<script>
+  const h3 = document.querySelectorAll('.parallax_component h3')!;
+
+  const userAgent = navigator.userAgent;
+  const isFirefox = userAgent.toLowerCase().includes('firefox');
+  if (!isFirefox) {
+    h3.forEach((h) => h.classList.add('notFirefox'));
+  }
+</script>

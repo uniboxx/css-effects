@@ -39,9 +39,10 @@ const { title } = Astro.props;
           >Effects</a
         >
         <a
-          href="/parallax"
-          class:list={[{ active: Astro.url.pathname.startsWith('/parallax') }]}
-          >Parallax</a
+          href="/parallaxPage"
+          class:list={[
+            { active: Astro.url.pathname.startsWith('/parallaxPage') },
+          ]}>Parallax</a
         >
         <a
           href="/keyframes"

@@ -63,6 +63,7 @@ export { default as RotatedTxtBorder } from './effects/RotatedTxtBorder.astro';
 export { default as CloseOpen } from './effects/CloseOpen.astro';
 export { default as BlurFocus } from './effects/BlurFocus.astro';
 export { default as CardStack } from './effects/CardStack.astro';
+export { default as Parallax } from './Parallax.astro';
 export { default as Animation01 } from './animations/Animation01.astro';
 export { default as Animation02 } from './animations/Animation02.astro';
 export { default as Animation03 } from './animations/Animation03.astro';
