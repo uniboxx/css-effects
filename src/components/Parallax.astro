@@ -54,25 +54,28 @@ const style = `--url: url(${optImage.src});--position: ${position}`;
       width: 100%;
 
       h3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin: 0 auto 2rem;
         background-image: var(--url);
         background-position: var(--position);
         background-size: cover;
         background-repeat: no-repeat;
-        width: 100%;
-        height: 100%;
+        height: 2em;
         color: #ffffff88;
         font-weight: 900;
         font-size: 24svw;
         line-height: 1em;
         text-transform: uppercase;
         &.notFirefox {
+          background-position: center bottom 10%;
           background-clip: text;
           background-attachment: fixed;
           width: fit-content;
+          height: unset;
           color: transparent;
           @media screen and (min-width: 40rem) {
-            background-position: center bottom 30%;
           }
         }
       }
