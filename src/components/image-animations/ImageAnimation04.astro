@@ -26,6 +26,7 @@ interface Props {
 }
 // prettier-ignore
 const { class:className, duration='.5s', image, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+const styles = `--duration: ${duration};`;
 ---
 
 <figure id="figure_yi2ks8ke" class={className} {...attrs}>
@@ -42,7 +43,7 @@ const { class:className, duration='.5s', image, alt, width, height, format = 'we
   </figcaption>
 </figure>
 
-<style define:vars={{ duration }}>
+<style>
   figure {
     position: relative;
     overflow: clip;
