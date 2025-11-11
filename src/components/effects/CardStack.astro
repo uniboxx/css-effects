@@ -1,21 +1,41 @@
 ---
+/*
+INFORMATIONS:
+set
+- imagePath as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- width and/or height as numbers
+- format as string
+- loading as 'lazy' | 'eager' | null
+*/
+
 interface Props {
-  duration: string;
-  delay: string;
+  class?: string;
+  duration?: string;
   width: string;
   height: string;
   cards: {
     title: string;
     description: string;
   }[];
-  bgColor: string;
-  circleColor: string;
+  circleColor?: string;
 }
-const { duration, delay, width, height, cards, bgColor, circleColor } =
-  Astro.props;
+const {
+  class: classList,
+  duration = '.5s',
+  width,
+  height,
+  cards,
+  circleColor = '#ffc312',
+  ...attrs
+} = Astro.props;
+
+const style = `--duration: ${duration};--width: ${width};--height: ${height};--circleColor: ${circleColor};`;
 ---
 
-<div class="container">
+<div class:list={['container', classList]} style={style} {...attrs}>
   <div class="cardStack">
     {
       cards.map((card, idx) => (
@@ -29,54 +49,57 @@ const { duration, delay, width, height, cards, bgColor, circleColor } =
     }
   </div>
 </div>
+<div class="fallback">
+  <p>⛔️ This component is available only in 640px or bigger screen</p>
+</div>
 
-<style define:vars={{ duration, delay, width, height, bgColor, circleColor }}>
-  figure {
-    display: flex;
+<style>
+  .container {
+    --circleSize: min(var(--width), var(--height));
+    display: none;
     position: relative;
     justify-content: center;
     align-items: center;
-    /* z-index: -3; */
-    background-color: var(--bgColor);
-    width: 100%;
-    min-height: 30rem;
+    margin: 0 auto;
+    background-color: #833471;
+    width: var(--width);
+    height: var(--height);
     &,
     &::before {
       transition: var(--duration);
     }
     &::before {
       position: absolute;
-      top: 0;
-      left: 0;
-      clip-path: circle(12.5rem at center);
+      clip-path: circle(calc(var(--circleSize) / 2) at center);
+      inset: 0;
       background-color: var(--circleColor);
-      width: 100%;
-      height: 100%;
       content: '';
     }
     .cardStack {
       position: relative;
       z-index: 10;
       border-radius: 50%;
-      width: var(--width);
-      height: var(--height);
+      width: var(--circleSize);
+      height: var(--circleSize);
 
       .card {
+        --cardWidth: calc(((var(--width) - 8rem) / 3));
         display: flex;
         position: absolute;
-        top: calc(50% - 200px);
+        top: 50%;
         left: 50%;
         justify-content: center;
         align-items: center;
-        transform: translateX(-50%) translateY(calc(50px * var(--i)))
-          rotate(40deg) skew(-20deg, -10deg) scale(0.6);
+        transform: translateX(-50%)
+          translateY(calc(-50% + var(--height) / 8 * var(--i))) rotate(40deg)
+          skew(-20deg, -10deg) scale(0.6);
         z-index: calc(var(--i) * -1);
         transition: var(--duration);
         box-shadow: 25px 20px 100px #00000033;
         border-radius: 10px;
         background-color: white;
-        width: 300px;
-        height: 400px;
+        width: var(--cardWidth);
+        height: calc(var(height) * 0.75);
         &:nth-of-type(2) {
           opacity: 0.8;
         }
@@ -84,16 +107,22 @@ const { duration, delay, width, height, cards, bgColor, circleColor } =
           opacity: 0.6;
         }
         .content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
           opacity: 0;
           transition: var(--duration);
-          padding: 1.5rem;
+          padding: 1em;
         }
       }
       &:hover {
-        border-radius: 0;
-        width: 50rem;
         .card {
-          transform: translateX(calc(-50% + calc(320px * var(--i))));
+          transform: translateX(
+              calc(-50% + calc((var(--cardWidth) + 2rem) * var(--i)))
+            )
+            translateY(-50%);
           opacity: 1;
           z-index: 1;
           .content {
@@ -102,6 +131,24 @@ const { duration, delay, width, height, cards, bgColor, circleColor } =
           }
         }
       }
+    }
+  }
+  .fallback {
+    margin: 0 auto;
+    border: 2px solid #333;
+    border-radius: 5px;
+    width: 15rem;
+    p {
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+  }
+  @media screen and (min-width: 40rem) {
+    .container {
+      display: flex;
+    }
+    .fallback {
+      display: none;
     }
   }
 </style>

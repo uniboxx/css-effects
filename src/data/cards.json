@@ -2,16 +2,16 @@
   {
     "id": 1,
     "title": "Card 1",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dolore, cupiditate iusto aperiam saepe asperiores modi provident illum suscipit laboriosam enim architecto adipisci ex dolorem necessitatibus quos ipsa. Explicabo, modi."
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   },
   {
     "id": 2,
     "title": "Card 2",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dolore, cupiditate iusto aperiam saepe asperiores modi provident illum suscipit laboriosam enim architecto adipisci ex dolorem necessitatibus quos ipsa. Explicabo, modi."
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   },
   {
     "id": 3,
     "title": "Card 3",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dolore, cupiditate iusto aperiam saepe asperiores modi provident illum suscipit laboriosam enim architecto adipisci ex dolorem necessitatibus quos ipsa. Explicabo, modi."
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 ]

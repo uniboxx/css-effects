@@ -22,13 +22,10 @@ import cards from '@/data/cards.json';
   </div>
 
   <CardStack
-    duration="0.5s"
-    delay="0.5s"
-    width="25rem"
-    height="25rem"
+    class="effect cardstack"
+    width="30rem"
+    height="15rem"
     cards={cards}
-    bgColor="#833471"
-    circleColor="#ffc312"
   />
 </BaseLayout>
 
@@ -58,17 +55,6 @@ import cards from '@/data/cards.json';
   .effect {
     margin: 0 auto;
 
-    &.darkPurple {
-      transition: 0.5s;
-      background-color: #833471;
-      height: 20rem;
-    }
-    &.noflex {
-      display: block;
-    }
-    &.transparent {
-      background-color: transparent;
-    }
     &.smokytxt,
     &.filltxt {
       font-size: 2rem;
@@ -88,6 +74,8 @@ import cards from '@/data/cards.json';
     &.blurfocus {
       width: 15rem;
       height: 7.5rem;
+    }
+    &.cardstack {
     }
   }
 </style>
