@@ -18,7 +18,7 @@ const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 ---
 
-<a class={className}>
+<a class={classList}>
   {
     Array.from({ length: 4 }).map((_, idx) => {
       const delay = `${(quantity / 2) * idx}${unit}`;

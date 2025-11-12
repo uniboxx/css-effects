@@ -34,7 +34,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
-<article class={className} {...attrs}>
+<article class={classList} {...attrs}>
   <figure>
     <Image
       src={images[imagePath]()}

@@ -6,7 +6,7 @@ interface Props {
 const { class: classList, duration = '.5s', ...rest } = Astro.props;
 ---
 
-<div id="container05" class={className} {...rest}>
+<div id="container05" class={classList} {...rest}>
   <slot />
 </div>
 

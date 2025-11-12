@@ -28,7 +28,7 @@ interface Props {
   hoverBgColor?: string;
 }
 // prettier-ignore
-const { class:className, duration='.25s', imagePath, alt, width, height, format = 'webp', loading='lazy', hoverBgColor='#2d343688', ...attrs } = Astro.props;
+const { class:classList, duration='.25s', imagePath, alt, width, height, format = 'webp', loading='lazy', hoverBgColor='#2d343688', ...attrs } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
 );
@@ -36,7 +36,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <!-- prettier-ignore -->
-<figure class={className}>
+<figure class={classList}>
   <Image src={images[imagePath]()} alt={alt} loading={loading} width={width} height={height} format={format} {...attrs}/>
   <figcaption>
     <slot />

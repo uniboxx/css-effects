@@ -18,7 +18,7 @@ const { class: classList, duration ='.5s', colors = '#013d4a, #fafafa', text, ..
 const [bgColor, color] = colors.split(',');
 ---
 
-<article class={className} {...attrs}>
+<article class={classList} {...attrs}>
   <div class="content"><slot /></div><span>{text}</span>
 </article>
 

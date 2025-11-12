@@ -26,7 +26,7 @@ const durationUnit = durationResult.groups?.unit!;
   {
     Array.from({ length: 3 }).map((_, idx) => {
       const delay = `${(durationQuantity * 0.3333 * idx).toFixed(2)}${durationUnit}`;
-      return <span class={className} style={`--delay: ${delay}`} {...attrs} />;
+      return <span class={classList} style={`--delay: ${delay}`} {...attrs} />;
     })
   }
 </div>

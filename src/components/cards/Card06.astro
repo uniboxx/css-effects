@@ -36,7 +36,7 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
 <!-- prettier-ignore -->
-<article id={id} class={className} {...attrs}>
+<article id={id} class={classList} {...attrs}>
   <figure>
     <Image src={images[imagePath]()} alt={alt} width={width} height={height} format={format} loading={loading}
     />

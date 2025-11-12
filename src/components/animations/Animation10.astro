@@ -11,7 +11,7 @@ interface Props {
 const { text, class: classList, duration = '15s', ...attrs } = Astro.props;
 ---
 
-<h3 class={className} style=`--url: url(${optBg.src})` {...attrs}>{text}</h3>
+<h3 class={classList} style=`--url: url(${optBg.src})` {...attrs}>{text}</h3>
 
 <style define:vars={{ duration }}>
   h3 {

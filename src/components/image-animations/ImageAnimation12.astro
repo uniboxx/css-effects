@@ -27,7 +27,7 @@ interface Props {
   positionY?: string;
 }
 // prettier-ignore
-const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
+const { class:classList, duration='.5s', imagePath, alt, width, height, format = 'webp',loading='lazy', positionY='center', ...attrs } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
@@ -40,7 +40,7 @@ const styles = `--url: url(${optImg.src});--duration: ${duration};--positionY: $
 ---
 
 <!-- prettier-ignore -->
-<figure class={className} {...attrs} style={styles}>
+<figure class={classList} {...attrs} style={styles}>
   <Image  src={images[imagePath]()} alt={alt} width={1} height={1} format={format} loading="lazy"
   />
   <div class="bg-image"></div>

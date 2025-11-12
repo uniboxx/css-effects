@@ -10,7 +10,7 @@ interface Props {
 const { class: classList, duration = '15s' } = Astro.props;
 ---
 
-<div id="container05" style={`--url: url(${optBg.src})`} class={className}>
+<div id="container05" style={`--url: url(${optBg.src})`} class={classList}>
   <slot />
 </div>
 

@@ -26,7 +26,7 @@ interface Props {
   loading?: 'lazy' | 'eager' | null;
 }
 // prettier-ignore
-const { class:className, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
+const { class:classList, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
 const styles = `--duration: ${duration};`;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
@@ -34,7 +34,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 ---
 
-<figure id="figure_yi2ks8ke" class={className} style={styles} {...attrs}>
+<figure id="figure_yi2ks8ke" class={classList} style={styles} {...attrs}>
   <Image
     src={images[imagePath]()}
     alt={alt}

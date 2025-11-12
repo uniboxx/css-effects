@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<ul data-style="none" class={className} {...attrs}>
+<ul data-style="none" class={classList} {...attrs}>
   {
     Array.from({ length: 5 }, (_, index) => index + 1).map(() => {
       const delay = `${(Math.floor(Math.random() * number * 15) / 100).toFixed(2)}s`;

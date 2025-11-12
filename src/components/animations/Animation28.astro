@@ -19,7 +19,7 @@ const {
 } = Astro.props;
 ---
 
-<div id="container28" class={className}>
+<div id="container28" class={classList}>
   {
     Array.from({ length: lines }).map((_, idx) => {
       const delay = idx === 0 ? '0s' : `${0.1 * (idx + 1)}s`;

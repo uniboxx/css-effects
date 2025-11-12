@@ -40,16 +40,20 @@ const firstText = varTexts.split(',')[0];
 </div>
 
 <style define:vars={{ varColor }}>
-  h3 {
+  .container {
+    background: #ea2027;
+    padding: 1em;
     width: fit-content;
-  }
-  span:last-of-type {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    color: var(--varColor);
     font-size: 1em;
-    &.visible {
-      opacity: 1;
+    h3 {
+      span:last-of-type {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        color: var(--varColor);
+        &.visible {
+          opacity: 1;
+        }
+      }
     }
   }
 </style>

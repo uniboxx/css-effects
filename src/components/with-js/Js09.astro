@@ -13,7 +13,7 @@ const { class: classList, ...props } = Astro.props;
 const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
 ---
 
-<section id="container09" class={className} {...props}>
+<section id="container09" class={classList} {...props}>
   <div class="scene">
     <div class="sun"></div>
     <div class="bg" style={`--url: url(${optBg.src})`}>

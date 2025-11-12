@@ -17,7 +17,7 @@ const { text, class: classList, duration = '3s', ...attrs } = Astro.props;
 const style = `--duration: ${duration};`;
 ---
 
-<h3 class={className} style={style} {...attrs}>{text}</h3>
+<h3 class={classList} style={style} {...attrs}>{text}</h3>
 
 <style>
   h3 {

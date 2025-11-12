@@ -18,7 +18,7 @@ const { class: classList, duration ='.5s', colors = '#ff56ac, #fafafa', borderHe
 const [hoverBgColor, hoverColor] = colors.split(',');
 ---
 
-<article class={className} {...attrs}><slot /></article>
+<article class={classList} {...attrs}><slot /></article>
 
 <style define:vars={{ duration, hoverBgColor, hoverColor, borderHeight }}>
   article {
