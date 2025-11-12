@@ -5,10 +5,10 @@ interface Props {
   size?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '1s',
   size = '20px',
-  ...rest
+  ...attrs
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = size.match(regex)!;
@@ -17,7 +17,7 @@ const unit = result.groups?.unit!;
 const containerSize = `${quantity * 2}${unit}`;
 ---
 
-<div id="container20" class={className} {...rest}>
+<div id="container20" class={className} {...attrs}>
   <span></span><span></span><span></span><span></span>
 </div>
 

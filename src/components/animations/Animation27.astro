@@ -6,15 +6,15 @@ interface Props {
   color?: string;
 }
 const {
-  class: className,
+  class: classList,
   size = '90px',
   duration = '1s',
   color = '#fff',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<div id="container27" class={className} {...rest}>
+<div id="container27" class={className} {...attrs}>
   {
     Array.from({ length: 9 }).map((_, idx) => {
       let delay = '0s';

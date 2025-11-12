@@ -7,16 +7,16 @@ interface Props {
   href: string;
 }
 const {
-  class: className,
+  class: classList,
   color = 'red',
   duration = '.5s',
   text,
   href = '#',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<a href={href} class={className} {...rest}>{text}</a>
+<a href={href} class={className} {...attrs}>{text}</a>
 
 <style define:vars={{ duration, color }}>
   a {

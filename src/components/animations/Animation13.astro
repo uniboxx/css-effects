@@ -12,17 +12,17 @@ interface Props {
 }
 
 const {
-  class: className,
+  class: classList,
   iconName,
   duration = '.5s',
   color = '#f44336',
   hoverColor = '#fff',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
 <div id="container13">
-  <Icon name={iconName} class={className} {...rest} />
+  <Icon name={iconName} class={className} {...attrs} />
   <span></span><span></span>
 </div>
 

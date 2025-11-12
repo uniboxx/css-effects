@@ -7,7 +7,7 @@ interface Props {
   class?: string;
   duration?: string;
 }
-const { class: className, duration = '15s' } = Astro.props;
+const { class: classList, duration = '15s' } = Astro.props;
 ---
 
 <div id="container05" style={`--url: url(${optBg.src})`} class={className}>

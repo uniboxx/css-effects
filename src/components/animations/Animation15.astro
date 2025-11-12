@@ -9,10 +9,10 @@ interface Props {
   color?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '1.5s',
   color = '#00aeff',
-  ...rest
+  ...attrs
 } = Astro.props;
 const optWave = await getImage({ src: wave, format: 'webp' });
 let { width, height } = optWave.attributes;
@@ -20,7 +20,7 @@ width += 'px';
 height += 'px';
 ---
 
-<a class={className} {...rest}
+<a class={className} {...attrs}
   >Animation 15
   <div class="wave" style={`--url: url(${optWave.src})`}></div>
 </a>

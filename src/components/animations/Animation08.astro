@@ -8,9 +8,9 @@ interface Props {
 const {
   text,
   duration = `${(text.length / 5).toFixed(1)}s`,
-  class: className,
+  class: classList,
   delay = '0.1s',
-  ...rest
+  ...attrs
 } = Astro.props;
 const arrayTxt = text.split('');
 const regex = /(?<delayTime>[\d\.]+)(?<delayUnit>(s|ms)$)/;
@@ -19,7 +19,7 @@ const delayTime = +result.groups?.delayTime!;
 const delayUnit = result.groups?.delayUnit;
 ---
 
-<ul data-style="none" class={className} {...rest}>
+<ul data-style="none" class={className} {...attrs}>
   {
     arrayTxt.map((letter, index) => (
       <li style={`--letDelay: ${(delayTime * index).toFixed(2) + delayUnit}`}>

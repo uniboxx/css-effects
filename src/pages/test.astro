@@ -1,5 +1,5 @@
 ---
-import { CardStack } from '@/components';
+import { Animation04 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -10,25 +10,18 @@ const imageBlur = '/src/images/effect-blur-bg.jpg';
 const cardImages = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/cards/*.{jpg,png}'
 );
-const [
-  imagePath02,
-  imagePath03,
-  imagePath05,
-  imagePath06,
-  imagePath07,
-  imagePath08,
-  imagePath09,
+// prettier-ignore
+const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePath08, imagePath09,
 ] = Object.keys(cardImages);
 ---
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <CardStack
-      class="effect cardstack"
-      width="30rem"
-      height="15rem"
-      cards={cards}
-    />
+    <div class="animation animation04">
+      <Animation04>
+        <span>I love Css</span>
+      </Animation04>
+    </div>
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -78,7 +71,8 @@ const [
     .link,
     .image,
     & > .card,
-    .effect {
+    .effect,
+    & > .animation {
       margin: 2rem auto;
     }
     .link {
@@ -140,6 +134,24 @@ const [
         background-color: #9b59b6;
         font-size: 3rem;
         font-family: 'Just Another Hand', serif;
+      }
+    }
+    .animation {
+      width: fit-content;
+      &.animation01 {
+        background: #26de81;
+        color: #fff;
+        font-size: 2em;
+      }
+      &.animation02 {
+        background: #26de81;
+        padding: 0.5rem 0.7rem;
+      }
+      &.animation03 {
+        width: 20rem;
+      }
+      &.animation04 {
+        background: orangered;
       }
     }
 

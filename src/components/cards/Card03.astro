@@ -23,7 +23,7 @@ interface Props {
   gradients?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s",  imagePath, alt, width=400,  height, format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
+const { class: classList, duration =".5s",  imagePath, alt, width=400,  height, format='webp', loading="lazy", gradients='#d41e31, #491f8f', ...attrs } = Astro.props;
 
 const [gradient1, gradient2] = gradients.split(',');
 

@@ -1,87 +1,336 @@
 ---
+// prettier-ignore
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const bg12 = '/src/images/animation12/bg.jpg';
+const img1 = '/src/images/animation17/img-1.jpg';
+const img2 = '/src/images/animation17/img-2.jpg';
+const img3 = '/src/images/animation17/img-3.jpg';
+const img4 = '/src/images/animation17/img-4.jpg';
 ---
 
-<BaseLayout title="Keyframes">
-  <div id="moving">moving</div>
-  <div id="moving2">moving2</div>
-  <div id="moving3">moving3</div>
-  <div id="moving4">moving4</div>
-  <div id="moving5">moving5</div>
+<BaseLayout title="Animations">
+  <div class="grid">
+    <div class="animation01">
+      <Animation01 text="Anim 01" />
+    </div>
+    <div class="animation02"><Animation02 /></div>
+    <!-- <Animation03 class="animation03" /> -->
+    <div class="animation animation04">
+      <Animation04>
+        <span>I love Css</span>
+      </Animation04>
+    </div>
+    <!-- <div class="animation">
+      <Animation05 class="animation05">
+        <h3>Content</h3>
+      </Animation05>
+    </div>
+    <div class="animation black">
+      <Animation06 class="animation06" href="" />
+    </div>
+    <div class="animation black">
+      <Animation07 class="animation07" href="" />
+    </div>
+    <div class="animation black">
+      <Animation08 class="animation08" text="LIGHTING" />
+    </div>
+    <div class="animation black">
+      <Animation09 class="animation09" />
+    </div>
+    <div class="animation blue">
+      <Animation10 class="animation10" text="ANIMATION 10" />
+    </div>
+    <div class="animation black">
+      <Animation11 class="animation11" color="#fff" />
+    </div>
+    <div class="animation">
+      <Animation12 class="animation12" imagePath={bg12} />
+    </div>
+    <div class="animation white">
+      <Animation13 class="animation13" iconName="mdi:heart" />
+    </div>
+    <div class="animation x2cols white">
+      <Animation14 class="animation14" text="ANIMATION 14" />
+    </div>
+    <div class="animation black">
+      <Animation15 class="animation15" />
+    </div>
+    <div class="animation black">
+      <Animation16 class="animation16" />
+    </div>
+    <div class="animation">
+      <Animation17 class="animation17">
+        <h3>Animation 17</h3>
+      </Animation17>
+    </div>
+    <div class="animation x2x2cells black">
+      <Animation18
+        class="animation18"
+        images={[
+          { imagePath: img1, alt: 'boat' },
+          { imagePath: img2, alt: 'sunset' },
+          { imagePath: img3, alt: 'mountain' },
+          { imagePath: img4, alt: 'alpinist' },
+        ]}
+      />
+    </div>
+
+    <div class="animation x2x2cells black">
+      <Animation19 class="animation19" />
+    </div>
+    <div class="animation black">
+      <Animation20 class="animation20" />
+    </div>
+    <div class="animation lightOrange">
+      <Animation21 class="animation21" />
+    </div>
+    <div class="animation blue no-flex">
+      <Animation22 class="animation22" text="Animation 22" />
+    </div>
+    <div class="animation white">
+      <Animation23 class="animation23" text="An23" />
+    </div>
+    <div class="animation black">
+      <Animation24 class="animation24" />
+    </div>
+    <div class="animation black">
+      <Animation25 class="animation25" />
+    </div>
+    <div class="animation blue">
+      <Animation26 class="animation26" />
+    </div>
+    <div class="animation blue">
+      <Animation27 class="animation27" />
+    </div>
+    <div class="animation black">
+      <Animation28 class="animation28" />
+    </div>
+    <div class="animation black">
+      <Animation29 class="animation29">
+        <h3>Animation 29</h3>
+      </Animation29>
+    </div>
+    <div class="animation black">
+      <Animation30 class="animation30" />
+    </div>
+    <div class="animation white">
+      <Animation31 class="animation31" text="Animation 31" href="" />
+    </div>
+    <div class="animation blue">
+      <Animation32 class="animation32">
+        <h3>Animation 32</h3>
+      </Animation32>
+    </div>
+    <div class="animation red">
+      <Animation33 class="animation33" text="Animation 33" />
+    </div>
+    <div class="animation black">
+      <Animation34 class="animation34" text="An34" />
+    </div>
+    <div class="animation navy">
+      <Animation35 class="animation35" />
+    </div>
+    <div class="animation white">
+      <Animation36 class="animation36" text="Animation 36" href="" />
+    </div>
+    <div class="animation navy">
+      <Animation37 class="animation37" text="Animation 37" />
+    </div>
+    <div class="animation navy">
+      <Animation38 class="animation38" />
+    </div>
+    <div class="animation x2rows">
+      <Animation39 class="animation39" />
+    </div>
+    <div class="animation black x2rows">
+      <Animation40 class="animation40" />
+    </div>
+    <div class="animation black x2rows">
+      <Animation41 class="animation41" />
+    </div>
+
+    <div class="animation white x2rows">
+      <Animation42 class="animation42" text="Anim42" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation43 class="animation43" text="ANIMATION 43" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation44 class="animation44" text="AN44" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation45 class="animation45" />
+    </div>
+    <div class="animation navy x2rows">
+      <Animation46 class="animation46" />
+    </div> -->
+  </div>
 </BaseLayout>
 
 <style>
-  div {
-    --width: 150px;
-    display: flex;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
     justify-content: center;
     align-items: center;
-    width: var(--width);
-    height: var(--width);
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
-    &:not(last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-  #moving {
-    /* backwards con delay fa partire l'animazione dalla prima fase,
-    forwards la fa rimanere nell'ultima fase,
-    both le usa entrambe */
-    animation: moving 3s 3s;
-    animation-fill-mode: both;
-    background-color: red;
-  }
-  #moving2 {
-    animation: moving2 3s;
-    background-color: dodgerblue;
-  }
-  #moving3 {
-    animation: moving 3s;
-    animation-timing-function: ease;
-    animation-iteration-count: 1;
-    animation-direction: reverse; /*default is normal */
-    background-color: cyan;
-  }
-  #moving4 {
-    animation: moving 3s;
-    animation-timing-function: ease;
-    animation-iteration-count: 2;
-    animation-direction: alternate; /*default is normal / reverse / alternate / alternate-reverse */
-    background-color: orangered;
-  }
-  #moving5 {
-    animation: moving1 3s 1s 2 alternate;
-    background-color: darkslategray;
-  }
+    justify-items: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    padding: 10px;
+    .animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5rem;
 
-  @keyframes moving {
-    from {
-      transform: translateX(400px);
+      &.red {
+        background-color: #9a0e0e;
+      }
+
+      &.lightOrange {
+        background-color: #ee5253;
+      }
+      &.black {
+        background-color: #333;
+        color: #fff;
+      }
+      &.blue {
+        background-color: #273c75;
+      }
+      &.gray {
+        background-color: #00000066;
+      }
+      &.white {
+        background-color: #fff;
+      }
+      &.navy {
+        background-color: #001d30;
+        color: #fff;
+      }
+      &.x2cols {
+        grid-column: span 2;
+      }
+      &.bordered {
+        border: 1px solid #333;
+      }
+      &.x2rows {
+        height: 200px;
+      }
+      &.x2x2cells {
+        grid-column: span 2;
+        height: 10rem;
+      }
+      &.no-flex {
+        display: block;
+      }
     }
-    to {
-      transform: translateX(calc(100svw - var(--width)));
+    .animation01 {
+      background: #26de81;
+      color: #fff;
+      font-size: 2em;
     }
-  }
-  @keyframes moving1 {
-    from {
-      transform: translateX(0);
+    .animation02 {
+      background: #26de81;
+      padding: 0.5rem 0.7rem;
     }
-    to {
-      transform: translateX(calc(100svw - var(--width)));
+
+    .animation04 {
+      background: #ea2027;
+      padding: 0.5rem 0.7rem;
+      color: #fff;
+      font-size: 1rem;
+      white-space: nowrap;
     }
-  }
-  @keyframes moving2 {
-    0% {
-      transform: translateX(0);
+    .animation05 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.3rem;
     }
-    /* la percentuale regola la durata della fase */
-    30% {
-      transform: translateX(calc(100svw - var(--width)));
+    .animation08 {
+      font-size: 1.5rem;
     }
-    100% {
-      transform: translateX(calc(100svw - var(--width))) translateY(150px);
+    .animation09 {
+      color: red;
+      font-size: 3rem;
+    }
+    .animation10 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .animation11 {
+      width: 10rem;
+    }
+    .animation12 {
+      width: 240px;
+      height: 90px;
+    }
+    .animation13 {
+      font-size: 2rem;
+    }
+    .animation14 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .animation15 {
+      font-size: 1.3rem;
+    }
+    .animation16 {
+      font-size: 3rem;
+    }
+    .animation17 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-size: 1.5rem;
+    }
+    .animation18 {
+      width: 400px;
+      height: 200px;
+    }
+
+    .animation22 {
+      font-size: 1.3rem;
+    }
+    .animation23 {
+      font-size: 1.3rem;
+    }
+    .animation29 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 240px;
+      height: 90px;
+      color: #fff;
+      font-size: 1.1rem;
+      h3 {
+        border: solid white;
+        border-width: 3px 0 3px 0;
+      }
+    }
+    .animation31 {
+      font-size: 1.3rem;
+    }
+    .animation32 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .animation36 {
+      font-size: 1.3rem;
+    }
+    .animation42 {
+      font-size: 0.8rem;
+    }
+    .animation44 {
+      color: white;
     }
   }
 </style>

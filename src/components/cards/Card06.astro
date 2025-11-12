@@ -25,7 +25,7 @@ interface Props {
   format?: string;
 }
 // prettier-ignore
-const { class: className, duration =".5s",   imagePath, alt, width=300,  height, loading="lazy", format="webp",  ...attrs } = Astro.props;
+const { class: classList, duration =".5s",   imagePath, alt, width=300,  height, loading="lazy", format="webp",  ...attrs } = Astro.props;
 
 const id = Math.random().toString(36).slice(2, 11);
 

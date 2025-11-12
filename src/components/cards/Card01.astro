@@ -13,7 +13,7 @@ interface Props {
   borderHeight?: string;
 }
 // prettier-ignore
-const { class: className, duration ='.5s', colors = '#ff56ac, #fafafa', borderHeight='5px', ...attrs } = Astro.props;
+const { class: classList, duration ='.5s', colors = '#ff56ac, #fafafa', borderHeight='5px', ...attrs } = Astro.props;
 
 const [hoverBgColor, hoverColor] = colors.split(',');
 ---

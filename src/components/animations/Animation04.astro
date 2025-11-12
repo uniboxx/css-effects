@@ -1,19 +1,27 @@
 ---
 // to add styles to the variable span element add them to the ".class span" selector
+/*
+INFORMATIONS
+set
+- varTexts as string with texts separated by commas
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- varColor as string
+*/
+
 interface Props {
-  fixedText?: string;
+  class?: string;
+  duration?: string;
   varTexts?: string;
   varColor?: string;
-  duration?: string;
-  class?: string;
 }
 const {
-  fixedText = 'I love Css',
   varTexts = 'TRANSITIONS, ANIMATIONS, TRANSFORMS',
-  varColor = '#181464',
-  class: className,
+  varColor = '#ff0',
+  class: classList,
   duration = '4s',
-  ...rest
+  ...attrs
 } = Astro.props;
 
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
@@ -24,13 +32,18 @@ const fixDuration = unit === 's' ? quantity * 1000 : quantity;
 const firstText = varTexts.split(',')[0];
 ---
 
-<h3 class={className} {...rest}>
-  {fixedText}
-  <span data-texts={varTexts} data-duration={fixDuration}>{firstText}</span>
-</h3>
+<div class:list={['container', classList]} {...attrs}>
+  <h3 id="animation04_unibox">
+    <slot />
+    <span data-texts={varTexts} data-duration={fixDuration}>{firstText}</span>
+  </h3>
+</div>
 
 <style define:vars={{ varColor }}>
-  span {
+  h3 {
+    width: fit-content;
+  }
+  span:last-of-type {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     color: var(--varColor);
@@ -42,7 +55,10 @@ const firstText = varTexts.split(',')[0];
 </style>
 
 <script>
-  const span = document.querySelector('span') as HTMLSpanElement;
+  const h3 = document.getElementById(
+    'animation04_unibox'
+  )! as HTMLHeadingElement;
+  const span = h3.querySelector('span:last-of-type') as HTMLSpanElement;
   let index = 0;
   const texts = span.dataset.texts?.split(',')!;
   const duration = +span.dataset.duration!;

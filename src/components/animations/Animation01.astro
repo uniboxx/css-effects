@@ -1,25 +1,28 @@
 ---
+/*
+INFORMATIONS
+set: 
+- text as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
+
 interface Props {
   text: string;
-  duration?: string;
   class?: string;
-  color?: string;
+  duration?: string;
 }
-const {
-  text,
-  class: className,
-  color = '#fff',
-  duration = '3s',
-  ...rest
-} = Astro.props;
+const { text, class: classList, duration = '3s', ...attrs } = Astro.props;
+const style = `--duration: ${duration};`;
 ---
 
-<h3 class={className} {...rest}>{text}</h3>
+<h3 class={className} style={style} {...attrs}>{text}</h3>
 
-<style define:vars={{ duration, color }}>
+<style>
   h3 {
     animation: float var(--duration) linear infinite alternate;
-    color: var(--color);
+    padding: 0.5em 0.7em;
     line-height: 1;
     font-family: arial;
     letter-spacing: 5px;
@@ -31,6 +34,7 @@ const {
       0 calc(1em / 48 * 4) 0 #efefef,
       0 0.8rem calc(1em / 48 * 5) #0000001a;
   }
+
   @keyframes float {
     from {
       transform: rotate(5deg);

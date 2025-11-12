@@ -3,27 +3,45 @@ import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
-  images: { image: ImageMetadata; alt: string }[];
+  images: { imagePath: string; alt: string }[];
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
   imageTime?: string;
   duration?: string;
   transitionDuration?: string;
 }
 const {
-  class: className,
-  images,
+  class: classList,
+  images: imagesData,
+  width = 800,
+  height,
+  format = 'webp',
+  loading = 'lazy',
   duration = '3s',
   transitionDuration = '2s',
-  ...rest
+  ...attrs
 } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+imagesData.forEach((imgData) => {
+  if (!images[imgData.imagePath])
+    throw new Error(`${imgData.imagePath} does not exist`);
+});
 ---
 
-<div id="slider18" class={className} data-duration={duration} {...rest}>
+<div id="slider18" class={className} data-duration={duration} {...attrs}>
   {
-    images.map((img, idx) => (
+    imagesData.map((imgData, idx) => (
       <Image
         class:list={[{ visible: idx === 0 }]}
-        src={img.image}
-        alt={img.alt}
+        src={images[imgData.imagePath]()}
+        alt={imgData.alt}
+        width={width}
+        height={height}
+        format={format}
         loading={idx === 0 ? 'eager' : 'lazy'}
       />
     ))
@@ -34,10 +52,12 @@ const {
   #slider18 {
     position: relative;
     img {
+      display: block;
       position: absolute;
       opacity: 0;
       transition: var(--transitionDuration) ease-in-out;
       width: auto;
+      max-width: 100%;
       height: auto;
       object-fit: cover;
       &.visible {

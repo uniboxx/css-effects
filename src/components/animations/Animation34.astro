@@ -8,13 +8,13 @@ interface Props {
   ringColor?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '3s',
   text,
   size = '90px',
   number = 3,
   ringColor = '#09f',
-  ...rest
+  ...attrs
 } = Astro.props;
 
 function randomRad() {
@@ -28,7 +28,7 @@ function randomRad() {
 }
 ---
 
-<div id="container34" class={className} {...rest}>
+<div id="container34" class={className} {...attrs}>
   <h3>{text}</h3>
   {
     Array.from({ length: number }).map((_, idx) => {

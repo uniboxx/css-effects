@@ -8,16 +8,16 @@ interface Props {
   duration?: string;
 }
 const {
-  class: className,
+  class: classList,
   iconName = 'mdi:whatsapp',
   color = '#58ea00',
   duration = '1.5s',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
 <div id="container16">
-  <Icon name={iconName} class={className} {...rest} />
+  <Icon name={iconName} class={className} {...attrs} />
 </div>
 
 <style define:vars={{ color, duration }}>

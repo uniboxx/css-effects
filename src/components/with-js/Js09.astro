@@ -8,7 +8,7 @@ import { getImage } from 'astro:assets';
 interface Props {
   class?: string;
 }
-const { class: className, ...props } = Astro.props;
+const { class: classList, ...props } = Astro.props;
 
 const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
 ---

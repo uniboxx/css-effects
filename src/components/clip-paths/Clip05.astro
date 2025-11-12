@@ -3,7 +3,7 @@ interface Props {
   class: string;
   duration?: string;
 }
-const { class: className, duration = '.5s', ...rest } = Astro.props;
+const { class: classList, duration = '.5s', ...rest } = Astro.props;
 ---
 
 <div id="container05" class={className} {...rest}>

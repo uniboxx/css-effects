@@ -6,11 +6,11 @@ interface Props {
   class?: string;
   duration?: string;
 }
-const { class: className, duration = '1.5s', ...rest } = Astro.props;
+const { class: classList, duration = '1.5s', ...attrs } = Astro.props;
 ---
 
 <div id="container09">
-  <Icon class={className} name="mdi:heart" {...rest} />
+  <Icon class={className} name="mdi:heart" {...attrs} />
 </div>
 
 <style define:vars={{ duration }}>

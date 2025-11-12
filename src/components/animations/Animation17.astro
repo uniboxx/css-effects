@@ -5,14 +5,14 @@ interface Props {
   transitionDuration?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '3s',
   transitionDuration = '2s',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<div id="container17" class={className} data-duration={duration} {...rest}>
+<div id="container17" class={className} data-duration={duration} {...attrs}>
   <slot />
 </div>
 

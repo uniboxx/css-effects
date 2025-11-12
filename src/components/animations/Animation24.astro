@@ -7,16 +7,16 @@ interface Props {
   color?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '2s',
   width = '180px',
   height = '3px',
   color = '#fff',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<div id="line24" class={className} {...rest}></div>
+<div id="line24" class={className} {...attrs}></div>
 
 <style define:vars={{ duration, width, height, color }}>
   #line24 {

@@ -6,7 +6,7 @@ interface Props {
   bg: ImageMetadata;
   position?: string;
 }
-let { class: className, bg, position = 'center', ...props } = Astro.props;
+let { class: classList, bg, position = 'center', ...props } = Astro.props;
 
 const optBg = await getImage({ src: bg, format: 'webp' });
 ---

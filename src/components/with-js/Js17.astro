@@ -9,7 +9,7 @@ interface Props {
   colors?: string;
 }
 // prettier-ignore
-const { class: className, duration='.5s', size='4em', iconNames, colors='#c22c15, #fff, #0f296d, #fff, #f87966', ...props } = Astro.props;
+const { class: classList, duration='.5s', size='4em', iconNames, colors='#c22c15, #fff, #0f296d, #fff, #f87966', ...props } = Astro.props;
 
 const [bgColor, dotColor, bgIcon, colorIcon, colorHoverIcon] =
   colors.split(',');

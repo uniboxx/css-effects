@@ -8,10 +8,10 @@ interface Props {
   class?: string;
   duration?: string;
 }
-const { text, class: className, duration = '15s', ...rest } = Astro.props;
+const { text, class: classList, duration = '15s', ...attrs } = Astro.props;
 ---
 
-<h3 class={className} style=`--url: url(${optBg.src})` {...rest}>{text}</h3>
+<h3 class={className} style=`--url: url(${optBg.src})` {...attrs}>{text}</h3>
 
 <style define:vars={{ duration }}>
   h3 {

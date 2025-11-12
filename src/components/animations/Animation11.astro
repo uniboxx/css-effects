@@ -7,16 +7,16 @@ interface Props {
   number?: number;
 }
 const {
-  class: className,
+  class: classList,
   duration = '.8s',
   color = '#fff',
   ballSize = '1rem',
   number = 5,
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<ul data-style="none" class={className} {...rest}>
+<ul data-style="none" class={className} {...attrs}>
   {
     Array.from({ length: 5 }, (_, index) => index + 1).map(() => {
       const delay = `${(Math.floor(Math.random() * number * 15) / 100).toFixed(2)}s`;

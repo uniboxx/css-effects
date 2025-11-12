@@ -13,7 +13,7 @@ interface Props {
     format?: string;
   };
 }
-let { class: className, duration = '.5s', mediaData, ...props } = Astro.props;
+let { class: classList, duration = '.5s', mediaData, ...props } = Astro.props;
 const { videos, images, alts, width, height, format } = mediaData;
 const videoUrls = Object.keys(videos).map((key) => {
   return key.replace(/\/public(.+)/, '$1');

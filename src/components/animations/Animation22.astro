@@ -6,17 +6,17 @@ interface Props {
   colors?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '5s',
   text,
   colors = '#fff, #f6b93b',
-  ...rest
+  ...attrs
 } = Astro.props;
 
 const [color1, color2] = colors.split(',');
 ---
 
-<div id="container22" class={className} {...rest}>
+<div id="container22" class={className} {...attrs}>
   <h3>&nbsp;{text}&nbsp;<span>&nbsp;{text}&nbsp;</span></h3>
 </div>
 

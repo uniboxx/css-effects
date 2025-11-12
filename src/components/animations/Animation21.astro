@@ -6,11 +6,11 @@ interface Props {
   color?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '2s',
   size = '20px',
   color = '#ff0',
-  ...rest
+  ...attrs
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const sizeResult = size.match(regex)!;
@@ -26,7 +26,7 @@ const durationUnit = durationResult.groups?.unit!;
   {
     Array.from({ length: 3 }).map((_, idx) => {
       const delay = `${(durationQuantity * 0.3333 * idx).toFixed(2)}${durationUnit}`;
-      return <span class={className} style={`--delay: ${delay}`} {...rest} />;
+      return <span class={className} style={`--delay: ${delay}`} {...attrs} />;
     })
   }
 </div>

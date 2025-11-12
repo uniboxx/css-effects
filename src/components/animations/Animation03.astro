@@ -1,77 +1,99 @@
 ---
 import { getImage, Image } from 'astro:assets';
-import bgImage from '@/images/animation03/bg.jpg';
-import car from '@/images/animation03/car.png';
-import motobike from '@/images/animation03/motobike.png';
+import bg from '@/images/animation03/bg.webp';
+import car from '@/images/animation03/car.webp';
+import motobike from '@/images/animation03/motobike.webp';
 
-// please use px unit for size of the container
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
+
 interface Props {
   duration?: string;
   class?: string;
-  size?: string;
 }
-const {
-  class: className,
-  duration = '15s',
-  size = '180px',
-  ...rest
-} = Astro.props;
-const optBg = await getImage({ src: bgImage, alt: 'bg', format: 'webp' });
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = size.match(regex)!;
-const quantity = +result.groups?.quantity!;
-const carWidth = Math.floor((quantity / 18) * 5);
-const carHeight = Math.floor(carWidth / 2);
-const motoSize = carHeight;
+const { class: classList, duration = '5s', ...attrs } = Astro.props;
+const optBg = await getImage({
+  src: bg,
+  alt: 'background',
+  format: 'webp',
+  loading: 'lazy',
+});
+const style = `--url: url(${optBg.src});--duration: ${duration};`;
 ---
 
-<div class="container03" style={`--url: url(${optBg.src})`} {...rest}>
+<div
+  id="container03alsdkfj"
+  class:list={['container', classList]}
+  style={style}
+  {...attrs}
+>
+  <Image id="bg" src={bg} alt="bg" width={10} priority />
+  <Image class="car" src={car} alt="car" format="webp" loading="lazy" />
   <Image
-    src={car}
-    alt="car"
-    priority
-    width={carWidth}
-    height={carHeight}
-    class="car"
-  />
-  <Image
+    class="motobike"
     src={motobike}
     alt="motobike"
-    priority
-    width={motoSize}
-    height={motoSize}
-    class="motobike"
+    format="webp"
+    loading="lazy"
   />
 </div>
 
-<style define:vars={{ duration, size }}>
-  .container03 {
+<style>
+  .container {
+    --car-width: 20%;
     position: relative;
     animation: driving03 var(--duration) linear infinite;
     background: var(--url);
-    background-position: bottom left;
     background-size: cover;
-    width: var(--size);
-    height: calc(var(--size) / 2);
+    background-position-x: var(--width);
+    background-position-y: bottom;
+    width: 15rem;
+
+    #bg {
+      position: static;
+      opacity: 0;
+      width: 100%;
+      height: auto;
+    }
     img {
-      position: absolute;
+      display: block;
+      max-width: 100%;
+      &:not(#bg) {
+        position: absolute;
+      }
     }
     .car {
-      bottom: 0;
+      bottom: 1%;
       left: 25%;
+      width: var(--car-width);
+      height: auto;
     }
     .motobike {
-      bottom: 6%;
+      bottom: 7%;
       left: 60%;
+      width: calc(var(--car-width) / 2);
+      height: auto;
     }
   }
 
   @keyframes driving03 {
     from {
-      background-position: bottom left;
+      background-position-x: var(--width);
     }
     to {
-      background-position: bottom right;
+      background-position-x: 0;
     }
   }
 </style>
+
+<script>
+  const container = document.getElementById('container03alsdkfj')!;
+
+  const width = getComputedStyle(container).width;
+
+  container.style.cssText += `--width: ${width};`;
+</script>

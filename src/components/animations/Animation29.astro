@@ -7,12 +7,12 @@ interface Props {
   mediumSize?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '4s',
   number = 10,
   boxColor = '#00f2f2',
   mediumSize = '20px',
-  ...rest
+  ...attrs
 } = Astro.props;
 const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = mediumSize.match(regex)!;
@@ -20,7 +20,7 @@ const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 ---
 
-<div id="container29" class={className} {...rest}>
+<div id="container29" class={className} {...attrs}>
   {
     Array.from({ length: number }).map((_, idx) => {
       const random = Math.round((Math.random() * 0.6 + 0.7) * 100) / 100;

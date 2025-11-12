@@ -2,7 +2,7 @@
 interface Props {
   class?: string;
 }
-const { class: className, ...props } = Astro.props;
+const { class: classList, ...props } = Astro.props;
 ---
 
 <div class={className} {...props}>

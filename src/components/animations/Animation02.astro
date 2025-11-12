@@ -1,31 +1,37 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- size as string
+*/
+
 interface Props {
-  text?: string;
-  duration?: string;
   class?: string;
-  color?: string;
+  duration?: string;
   size?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '2s',
-  color = '#fff',
   size = '3rem',
-  ...rest
+  ...attrs
 } = Astro.props;
 ---
 
-<div class:list={['loading01', className]} {...rest}></div>
+<div class:list={['loading02', className]} {...attrs}></div>
 
-<style define:vars={{ duration, color, size }}>
-  .loading01 {
+<style define:vars={{ duration, size }}>
+  .loading02 {
     perspective: calc(var(--size) * 8);
     animation: loading02 var(--duration) linear infinite;
     border-radius: calc(var(--size) / 10);
-    background-color: var(--color);
+    background-color: #fff;
     width: var(--size);
     height: var(--size);
   }
+
   @keyframes loading02 {
     0% {
       transform: rotateX(0deg) rotateY(0deg);

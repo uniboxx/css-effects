@@ -9,14 +9,14 @@ const {
   text,
   colors = '#f44336, blue',
   duration = '3s',
-  class: className,
-  ...rest
+  class: classList,
+  ...attrs
 } = Astro.props;
 
 const [color1, color2] = colors.split(',');
 ---
 
-<ul data-style="none" class={className} {...rest}>
+<ul data-style="none" class={className} {...attrs}>
   {
     text
       .split('')

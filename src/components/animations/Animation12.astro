@@ -3,13 +3,18 @@ import { getImage } from 'astro:assets';
 import rain from '@/images/animation12/rain.png';
 
 interface Props {
-  bg: ImageMetadata;
+  imagePath: string;
   class?: string;
   duration?: string;
 }
-const { class: className, bg, duration = '5s', ...rest } = Astro.props;
+const { class: classList, imagePath, duration = '5s', ...attrs } = Astro.props;
 
-const optBg = await getImage({ src: bg, format: 'webp' });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+
+const optBg = await getImage({ src: images[imagePath](), format: 'webp' });
 const optRain = await getImage({
   src: rain,
   format: 'webp',
@@ -20,7 +25,7 @@ const optRain = await getImage({
   id="container12"
   class={className}
   style={`--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src})`}
-  {...rest}
+  {...attrs}
 >
   <div class="rain"></div>
 </div>

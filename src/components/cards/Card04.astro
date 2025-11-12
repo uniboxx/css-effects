@@ -13,7 +13,7 @@ interface Props {
   text: string;
 }
 // prettier-ignore
-const { class: className, duration ='.5s', colors = '#013d4a, #fafafa', text, ...attrs } = Astro.props;
+const { class: classList, duration ='.5s', colors = '#013d4a, #fafafa', text, ...attrs } = Astro.props;
 
 const [bgColor, color] = colors.split(',');
 ---

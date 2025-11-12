@@ -6,16 +6,16 @@ interface Props {
   colors?: string;
 }
 const {
-  class: className,
+  class: classList,
   duration = '2s',
   size = '80px',
   colors = '#001d30, #51eeee',
-  ...rest
+  ...attrs
 } = Astro.props;
 const [innerColor, outerColor] = colors.split(',');
 ---
 
-<div id="container35" class={className} {...rest}>
+<div id="container35" class={className} {...attrs}>
   <div class="ring"></div>
 </div>
 
