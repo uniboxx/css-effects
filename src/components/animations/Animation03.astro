@@ -48,6 +48,7 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
     position: relative;
     animation: driving03 var(--duration) linear infinite;
     background: var(--url);
+    /* if background-size is set, background-position will not work with percentages or literals values */
     background-size: cover;
     background-position-x: var(--width);
     background-position-y: bottom;

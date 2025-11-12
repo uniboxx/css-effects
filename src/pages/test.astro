@@ -1,5 +1,5 @@
 ---
-import { Animation04 } from '@/components';
+import { Animation06 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -17,11 +17,8 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <div class="animation animation04">
-      <Animation04>
-        <span>I love Css</span>
-      </Animation04>
-    </div>
+    <Animation06 class="animation animation06" href="#" />
+
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -137,12 +134,12 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
       }
     }
     .animation {
-      width: fit-content;
-      &.animation01 {
-        background: #26de81;
-        color: #fff;
-        font-size: 2em;
-      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: fit-content;
+      min-height: 5rem;
+
       &.animation02 {
         background: #26de81;
         padding: 0.5rem 0.7rem;

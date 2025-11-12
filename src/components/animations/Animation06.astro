@@ -1,36 +1,53 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- colors as string ("hoverColor")
+- href as string
+*/
+
 interface Props {
-  duration?: string;
   class?: string;
+  duration?: string;
   colors?: string;
   href: string;
 }
 const {
   class: classList,
   duration = '0.3s',
-  colors = '#fff, #f44336',
+  colors = '#f44336',
   href,
   ...attrs
 } = Astro.props;
-const [color1, color2] = colors.split(',');
+const [hoverColor] = colors.split(',');
+const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<a href={href} class={classList} {...attrs}>Hover Me</a>
+<a class={classList} href={href} style={style} {...attrs}>Hover Me</a>
 
-<style define:vars={{ duration, color1, color2 }}>
+<style>
   a {
+    display: inline-block;
     transition: 0.3s;
     cursor: pointer;
-    border: 3px solid var(--color1);
-    padding: 10px;
-    color: var(--color1);
+    border: 3px solid #fff;
+    background-color: #333;
+    padding: 0.5em 0.7em;
+    width: 15rem;
+    width: fit-content;
+    color: #fff;
     font-size: 2rem;
+    line-height: 1;
+    text-decoration: none;
     &:hover {
       animation: shake var(--duration) linear;
-      border: 3px solid var(--color2);
-      color: var(--color2);
+      border: 3px solid var(--hoverColor);
+      color: var(--hoverColor);
     }
   }
+
   @keyframes shake {
     33% {
       transform: rotate(10deg);

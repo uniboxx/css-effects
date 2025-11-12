@@ -1,25 +1,37 @@
 ---
 import { getImage } from 'astro:assets';
 import bg from '@/images/animation05/bg.png';
-const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
+
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
 
 interface Props {
   class?: string;
   duration?: string;
 }
 const { class: classList, duration = '15s' } = Astro.props;
+
+// prettier-ignore
+const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp', loading: 'lazy' });
+
+const style = `--url: url(${optBg.src});--duration: ${duration};`;
 ---
 
-<div id="container05" style={`--url: url(${optBg.src})`} class={classList}>
+<div class:list={['container', classList]} style={style}>
   <slot />
 </div>
 
-<style define:vars={{ duration }}>
-  #container05 {
+<style>
+  .container {
     animation: scroll var(--duration) linear infinite;
     background: var(--url);
-    width: 100%;
-    height: 100%;
+    background-position-y: 0%;
+    width: 15rem;
+    color: #fff;
   }
 
   @keyframes scroll {
@@ -27,7 +39,7 @@ const { class: classList, duration = '15s' } = Astro.props;
       background-position-y: bottom;
     }
     to {
-      background-position-y: 10px;
+      background-position-y: top;
     }
   }
 </style>

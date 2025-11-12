@@ -1,5 +1,4 @@
 ---
-// to add styles to the variable span element add them to the ".class span" selector
 /*
 INFORMATIONS
 set
@@ -29,21 +28,23 @@ const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit?.toLowerCase();
 const fixDuration = unit === 's' ? quantity * 1000 : quantity;
-const firstText = varTexts.split(',')[0];
+const text1 = varTexts.split(',')[0];
+const style = `--varColor: ${varColor};`;
 ---
 
-<div class:list={['container', classList]} {...attrs}>
+<div class:list={['container', classList]} style={style} {...attrs}>
   <h3 id="animation04_unibox">
     <slot />
-    <span data-texts={varTexts} data-duration={fixDuration}>{firstText}</span>
+    <span data-texts={varTexts} data-duration={fixDuration}>{text1}</span>
   </h3>
 </div>
 
-<style define:vars={{ varColor }}>
+<style>
   .container {
     background: #ea2027;
     padding: 1em;
     width: fit-content;
+    color: #fff;
     font-size: 1em;
     h3 {
       span:last-of-type {
@@ -62,15 +63,16 @@ const firstText = varTexts.split(',')[0];
   const h3 = document.getElementById(
     'animation04_unibox'
   )! as HTMLHeadingElement;
-  const span = h3.querySelector('span:last-of-type') as HTMLSpanElement;
+  const varSpan = h3.querySelector('span:last-of-type') as HTMLSpanElement;
+
   let index = 0;
-  const texts = span.dataset.texts?.split(',')!;
-  const duration = +span.dataset.duration!;
+  const texts = varSpan.dataset.texts?.split(',')!;
+  const duration = +varSpan.dataset.duration!;
 
   setInterval(() => {
-    span.textContent = texts[index];
-    span.classList.add('visible');
+    varSpan.textContent = texts[index];
+    varSpan.classList.add('visible');
     index = (index + 1) % texts?.length;
-    setTimeout(() => span.classList.remove('visible'), duration);
+    setTimeout(() => varSpan.classList.remove('visible'), duration);
   }, duration + 500);
 </script>
