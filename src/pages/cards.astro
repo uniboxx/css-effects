@@ -72,7 +72,7 @@ const [
     >
       <h3>John Doe <br /><span>Founder</span></h3>
     </Card06>
-    <Card07 imagePath={imagePath07} alt="card07">
+    <Card07 class="card card07" imagePath={imagePath07} alt="card07">
       <h3>Card07</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
@@ -119,6 +119,12 @@ const [
     h3,
     a {
       align-self: start;
+    }
+    a {
+      display: inline-block;
+      cursor: pointer;
+      color: inherit;
+      text-decoration: none;
     }
   }
   .card01 {

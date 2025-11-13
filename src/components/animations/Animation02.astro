@@ -21,22 +21,16 @@ const {
 const style = `--duration: ${duration};--size: ${size};`;
 ---
 
-<div class:list={['container', classList]} style={style} {...attrs}>
-  <div class="loading02"></div>
-</div>
+<div class:list={['loading02', classList]} style={style} {...attrs}></div>
 
 <style>
-  .container {
-    background: #26de81;
-    width: calc(var(--size) * 3);
-    .loading02 {
-      perspective: calc(var(--size) * 8);
-      animation: loading02 var(--duration) linear infinite;
-      border-radius: calc(var(--size) / 10);
-      background-color: #fff;
-      width: var(--size);
-      height: var(--size);
-    }
+  .loading02 {
+    perspective: calc(var(--size) * 20);
+    animation: loading02 var(--duration) linear infinite;
+    border-radius: calc(var(--size) / 10);
+    background-color: #fff;
+    width: var(--size);
+    height: var(--size);
   }
 
   @keyframes loading02 {

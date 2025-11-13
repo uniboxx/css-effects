@@ -16,37 +16,31 @@ const { class: classList, duration = '3s', ...attrs } = Astro.props;
 const style = `--duration: ${duration};`;
 ---
 
-<div class:list={['container', classList]} style={style} {...attrs}>
-  <h3><slot /></h3>
+<h3 class={classList} style={style} {...attrs}><slot /></h3>
 
-  <style>
-    .container {
-      background: #26de81;
-      padding: 0.5em 0.7em;
-      color: #fff;
-      font-size: 2em;
-      h3 {
-        animation: float var(--duration) linear infinite alternate;
-        width: fit-content;
-        line-height: 1;
-        font-family: arial;
-        letter-spacing: 0.1em;
-        text-shadow:
-          0 calc(1em / 48 * 1) 0 #efefef,
-          0 calc(1em / 48 * 2) 0 #efefef,
-          0 calc(1em / 48 * 3) 0 #efefef,
-          0 calc(1em / 48 * 4) 0 #efefef,
-          0 0.8rem calc(1em / 48 * 5) #0000001a;
-      }
-    }
+<style>
+  h3 {
+    animation: float01 var(--duration) linear infinite alternate;
+    width: fit-content;
+    color: #fff;
+    font-size: 2em;
+    line-height: 1;
+    font-family: arial;
+    letter-spacing: 0.1em;
+    text-shadow:
+      0 calc(1em / 48 * 1) 0 #efefef,
+      0 calc(1em / 48 * 2) 0 #efefef,
+      0 calc(1em / 48 * 3) 0 #efefef,
+      0 calc(1em / 48 * 4) 0 #efefef,
+      0 0.8rem calc(1em / 48 * 5) #0000001a;
+  }
 
-    @keyframes float {
-      from {
-        transform: rotate(5deg);
-      }
-      to {
-        transform: rotate(-5deg);
-      }
+  @keyframes float01 {
+    from {
+      transform: rotate(5deg);
     }
-  </style>
-</div>
+    to {
+      transform: rotate(-5deg);
+    }
+  }
+</style>

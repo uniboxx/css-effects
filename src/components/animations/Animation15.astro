@@ -1,7 +1,16 @@
 ---
 // use the image in the below url
-import wave from '@/images/wave.png';
+import wave from '/src/images/wave.png';
 import { getImage } from 'astro:assets';
+
+/*
+INFORMATIONS
+set optionally:
+- text as string
+- class as string
+- duration as string 'value and s | ms'
+- colors as string ("<color1>, <color2>") for gradient
+*/
 
 interface Props {
   class?: string;
@@ -15,25 +24,33 @@ const {
   ...attrs
 } = Astro.props;
 const optWave = await getImage({ src: wave, format: 'webp' });
+// console.log('🚀 ~ :27 ~ optWave:', optWave);
 let { width, height } = optWave.attributes;
 width += 'px';
 height += 'px';
+
+const style = `--duration: ${duration};--color: ${color};--width: ${width};--height: ${height};`;
 ---
 
-<a class={classList} {...attrs}
-  >Animation 15
+<a class={classList} style={style} {...attrs}
+  ><slot />
   <div class="wave" style={`--url: url(${optWave.src})`}></div>
 </a>
 
-<style define:vars={{ color, duration, width, height }}>
+<style>
   a {
+    display: inline-block;
     position: relative;
     z-index: 0;
     transition: var(--duration);
     border: 0.125em solid var(--color);
-    padding: 0.5em 1em;
-    overflow: hidden;
+    padding: 0.5rem 2rem;
+    width: 15rem;
+    overflow: clip;
     color: var(--color);
+    font-size: 1.8rem;
+    line-height: 1;
+    text-align: center;
     .wave {
       position: absolute;
       top: calc(100% + var(--height));
@@ -49,9 +66,8 @@ height += 'px';
         top: calc(var(--height) * -1);
         left: 0;
         background: var(--url);
-        background-position-x: calc(var(--width) * -1);
         width: 100%;
-        height: var(--height);
+        height: 100%;
         content: '';
       }
     }
@@ -67,10 +83,10 @@ height += 'px';
   }
   @keyframes wavy15 {
     from {
-      background-position-x: calc(var(--width) * -1);
+      background-position-x: left;
     }
     to {
-      background-position-x: left;
+      background-position-x: right;
     }
   }
 </style>

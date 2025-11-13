@@ -1,33 +1,46 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- colors as string ("hoverColor")
+- href as string
+*/
+
 interface Props {
-  duration?: string;
   class?: string;
+  duration?: string;
   colors?: string;
   href: string;
 }
 const {
   class: classList,
   duration = '0.5s',
-  colors = '#fff, #f44336',
+  colors = '#f44336',
   href,
   ...attrs
 } = Astro.props;
-const [color1, color2] = colors.split(',');
+const [hoverColor] = colors.split(',');
+const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<a class={classList} {...attrs}>Hover Me</a>
+<a class={classList} style={style} {...attrs}><slot /></a>
 
-<style define:vars={{ duration, color1, color2 }}>
+<style>
   a {
     position: relative;
     z-index: 0;
     transition: 0.3s;
     cursor: pointer;
-    border: 2px solid var(--color1);
-    padding: 20px;
+    border: 2px solid #fff;
+    background: #222;
+    padding: 0.5em 0.7em;
+    width: fit-content;
     overflow: hidden;
-    color: var(--color1);
+    color: #fff;
     font-size: 1.5rem;
+    line-height: 1;
     &::before {
       position: absolute;
       top: 0;
@@ -36,7 +49,7 @@ const [color1, color2] = colors.split(',');
       z-index: -1;
       animation: moving07 1.2s linear infinite;
       transition: var(--duration);
-      background: var(--color2);
+      background: var(--hoverColor);
       width: 33%;
       height: 100%;
       content: '';

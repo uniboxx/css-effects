@@ -1,5 +1,5 @@
 ---
-import { Animation06 } from '@/components';
+import { Animation15 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -10,6 +10,7 @@ const imageBlur = '/src/images/effect-blur-bg.jpg';
 const cardImages = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/cards/*.{jpg,png}'
 );
+const bg12 = '/src/images/animation12/bg.jpg';
 // prettier-ignore
 const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePath08, imagePath09,
 ] = Object.keys(cardImages);
@@ -17,7 +18,9 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Animation06 class="animation animation06" href="#" />
+    <div class="animation animation15">
+      <Animation15>Animation 15 <small>Hover me</small> </Animation15>
+    </div>
 
     <!-- <Card09
       class="card card09"
@@ -137,18 +140,62 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
       display: flex;
       justify-content: center;
       align-items: center;
-      min-width: fit-content;
-      min-height: 5rem;
+      width: fit-content;
 
+      &.animation01,
       &.animation02 {
         background: #26de81;
+        padding: 0.5em 0.7em;
+      }
+      &.animation01,
+      &.animation02,
+      &.animation04,
+      &.animation05,
+      &.animation08,
+      &.animation09,
+      &.animation14 {
+        height: 5rem;
+      }
+      &.animation02 {
+        width: 10rem;
+      }
+      &.animation08 {
+        background: #222;
+        padding: 0.5em 0.7em;
+        width: 15rem;
+      }
+      &.animation09 {
+        background: #222;
+        width: 10rem;
+      }
+      &.animation10 {
+        background: #273c75;
+        padding: 1rem 1.5rem;
+      }
+      &.animation11 {
+        background: #222;
+        padding: 0.5rem 1rem;
+        width: 12rem;
+      }
+
+      &.animation12 {
+        filter: brightness(1.5);
+        width: 15rem;
+      }
+      &.animation13 {
+        gap: 1rem;
+        background: #fff;
         padding: 0.5rem 0.7rem;
+        width: 12rem;
       }
-      &.animation03 {
-        width: 20rem;
+      &.animation14 {
+        background: #fff;
       }
-      &.animation04 {
-        background: orangered;
+      &.animation15 {
+        background: #222;
+        small {
+          font-size: 1rem;
+        }
       }
     }
 

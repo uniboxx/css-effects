@@ -1,41 +1,50 @@
 ---
+/*
+INFORMATIONS
+set 
+- text as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- delay as string
+*/
+
 interface Props {
   text: string;
-  duration?: string;
   class?: string;
+  duration?: string;
   delay?: string;
 }
 const {
   text,
-  duration = `${(text.length / 5).toFixed(1)}s`,
   class: classList,
+  duration = `${(text.length * 0.2).toFixed(1)}s`,
   delay = '0.1s',
   ...attrs
 } = Astro.props;
-const arrayTxt = text.split('');
-const regex = /(?<delayTime>[\d\.]+)(?<delayUnit>(s|ms)$)/;
-const result = delay.match(regex)!;
-const delayTime = +result.groups?.delayTime!;
-const delayUnit = result.groups?.delayUnit;
+
+const style = `--duration: ${duration};--delay: ${delay};`;
 ---
 
-<ul data-style="none" class={classList} {...attrs}>
+<ul data-style="none" class={classList} style={style} {...attrs}>
   {
-    arrayTxt.map((letter, index) => (
-      <li style={`--letDelay: ${(delayTime * index).toFixed(2) + delayUnit}`}>
-        {letter}
-      </li>
-    ))
+    text
+      .split('')
+      .map((letter, idx) => (
+        <li style={`--letterDelay: calc(var(--delay) * ${idx})`}>{letter}</li>
+      ))
   }
 </ul>
 
-<style define:vars={{ duration }}>
+<style>
   ul {
     display: flex;
     gap: 5px;
+    width: fit-content;
+    font-size: 1.5rem;
     li {
       animation: lighting08 var(--duration) linear infinite;
-      animation-delay: var(--letDelay);
+      animation-delay: var(--letterDelay);
       color: #484848;
     }
   }

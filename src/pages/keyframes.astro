@@ -12,45 +12,38 @@ const img4 = '/src/images/animation17/img-4.jpg';
 
 <BaseLayout title="Animations">
   <div class="grid">
-    <Animation01 class="animation animation01"> Anim 01 </Animation01>
-    <Animation02 class="animation" />
-    <!-- <Animation03 class="animation animation03" /> -->
+    <div class="animation animation01">
+      <Animation01> Anim 01 </Animation01>
+    </div>
+    <div class="animation animation02"><Animation02 class="animation" /></div>
+    <Animation03 class="animation animation03" />
     <Animation04 class="animation animation04">
       <span>I love Css</span>
     </Animation04>
     <Animation05 class="animation animation05">
       <h3>Content</h3>
     </Animation05>
-    <Animation06 class="animation animation06" href="#" />
-
-    <!-- <div class="animation black">
-      <Animation07 class="animation07" href="" />
+    <Animation06 class="animation animation06" href="#">Hover Me </Animation06>
+    <Animation07 class="animation animation07" href="#">Hover Me </Animation07>
+    <div class="animation animation08"><Animation08 text="LIGHTING" /></div>
+    <div class="animation animation09"><Animation09 /></div>
+    <div class="animation animation10">
+      <Animation10> ANIM 10 </Animation10>
     </div>
-    <div class="animation black">
-      <Animation08 class="animation08" text="LIGHTING" />
+    <div class="animation animation11"><Animation11 /></div>
+    <Animation12 class="animation animation12" imagePath={bg12} />
+    <div class="animation animation13">
+      Hov<br />er
+      <Animation13 />
+      Me
     </div>
-    <div class="animation black">
-      <Animation09 class="animation09" />
+    <div class="animation animation14">
+      <Animation14 text="ANIMATION 14" />
     </div>
-    <div class="animation blue">
-      <Animation10 class="animation10" text="ANIMATION 10" />
+    <div class="animation animation15">
+      <Animation15>Animation 15 <small>Hover me</small> </Animation15>
     </div>
-    <div class="animation black">
-      <Animation11 class="animation11" color="#fff" />
-    </div>
-    <div class="animation">
-      <Animation12 class="animation12" imagePath={bg12} />
-    </div>
-    <div class="animation white">
-      <Animation13 class="animation13" iconName="mdi:heart" />
-    </div>
-    <div class="animation x2cols white">
-      <Animation14 class="animation14" text="ANIMATION 14" />
-    </div>
-    <div class="animation black">
-      <Animation15 class="animation15" />
-    </div>
-    <div class="animation black">
+    <!--<div class="animation black">
       <Animation16 class="animation16" />
     </div>
     <div class="animation">
@@ -172,11 +165,11 @@ const img4 = '/src/images/animation17/img-4.jpg';
     gap: 2rem;
     margin: 1rem 0;
     padding: 10px;
+
     .animation {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 5rem;
 
       &.red {
         background-color: #9a0e0e;
@@ -218,102 +211,118 @@ const img4 = '/src/images/animation17/img-4.jpg';
       &.no-flex {
         display: block;
       }
-    }
-
-    .animation04 {
-      white-space: nowrap;
-    }
-    .animation05 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-size: 1.3rem;
-    }
-    .animation06 {
-      min-height: unset;
-    }
-    .animation08 {
-      font-size: 1.5rem;
-    }
-    .animation09 {
-      color: red;
-      font-size: 3rem;
-    }
-    .animation10 {
-      font-weight: 700;
-      font-size: 2rem;
-    }
-    .animation11 {
-      width: 10rem;
-    }
-    .animation12 {
-      width: 240px;
-      height: 90px;
-    }
-    .animation13 {
-      font-size: 2rem;
-    }
-    .animation14 {
-      font-weight: 700;
-      font-size: 2rem;
-    }
-    .animation15 {
-      font-size: 1.3rem;
-    }
-    .animation16 {
-      font-size: 3rem;
-    }
-    .animation17 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      font-size: 1.5rem;
-    }
-    .animation18 {
-      width: 400px;
-      height: 200px;
-    }
-
-    .animation22 {
-      font-size: 1.3rem;
-    }
-    .animation23 {
-      font-size: 1.3rem;
-    }
-    .animation29 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 240px;
-      height: 90px;
-      color: #fff;
-      font-size: 1.1rem;
-      h3 {
-        border: solid white;
-        border-width: 3px 0 3px 0;
+      &.animation01,
+      &.animation02 {
+        background: #26de81;
+        padding: 0.5em 0.7em;
       }
-    }
-    .animation31 {
-      font-size: 1.3rem;
-    }
-    .animation32 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-size: 1.1rem;
-    }
-    .animation36 {
-      font-size: 1.3rem;
-    }
-    .animation42 {
-      font-size: 0.8rem;
-    }
-    .animation44 {
-      color: white;
+      &.animation01,
+      &.animation02,
+      &.animation04,
+      &.animation05,
+      &.animation08,
+      &.animation09,
+      &.animation14 {
+        height: 5rem;
+      }
+      &.animation02 {
+        width: 10rem;
+      }
+      &.animation04 {
+        white-space: nowrap;
+      }
+      &.animation08 {
+        background: #222;
+        padding: 0.5em 0.7em;
+        width: 15rem;
+      }
+      &.animation09 {
+        background: #222;
+        width: 10rem;
+      }
+      &.animation10 {
+        background: #273c75;
+        padding: 1rem 1.5rem;
+      }
+      &.animation11 {
+        background: #222;
+        padding: 0.5rem 1rem;
+        width: 12rem;
+      }
+
+      &.animation12 {
+        filter: brightness(1.5);
+      }
+      &.animation13 {
+        gap: 1rem;
+        background: #fff;
+        padding: 0.5rem 0.7rem;
+        width: 12rem;
+      }
+      &.animation14 {
+        background: #fff;
+        padding: 1rem;
+      }
+      &.animation15 {
+        background: #222;
+        small {
+          font-size: 1rem;
+        }
+      }
+      &.animation16 {
+        font-size: 3rem;
+      }
+      &.animation17 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 1.5rem;
+      }
+      &.animation18 {
+        width: 400px;
+        height: 200px;
+      }
+
+      &.animation22 {
+        font-size: 1.3rem;
+      }
+      &.animation23 {
+        font-size: 1.3rem;
+      }
+      &.animation29 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 240px;
+        height: 90px;
+        color: #fff;
+        font-size: 1.1rem;
+        h3 {
+          border: solid white;
+          border-width: 3px 0 3px 0;
+        }
+      }
+      &.animation31 {
+        font-size: 1.3rem;
+      }
+      &.animation32 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 1.1rem;
+      }
+      &.animation36 {
+        font-size: 1.3rem;
+      }
+      &.animation42 {
+        font-size: 0.8rem;
+      }
+      &.animation44 {
+        color: white;
+      }
     }
   }
 </style>

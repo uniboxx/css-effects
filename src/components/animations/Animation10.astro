@@ -1,26 +1,50 @@
 ---
-import bg from '@/images/animation10/bg.jpg';
 import { getImage } from 'astro:assets';
 
-const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp' });
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- imagePath as string
+*/
+
 interface Props {
-  text: string;
   class?: string;
   duration?: string;
+  imagePath?: string;
 }
-const { text, class: classList, duration = '15s', ...attrs } = Astro.props;
+// prettier-ignore
+const { class: classList, duration = '15s', imagePath='/src/images/animation10/bg.jpg', ...attrs } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+
+const optBg = await getImage({
+  src: images[imagePath](),
+  alt: '',
+  format: 'webp',
+});
+const style = `--duration: ${duration};--url: url(${optBg.src})`;
 ---
 
-<h3 class={classList} style=`--url: url(${optBg.src})` {...attrs}>{text}</h3>
+<h3 class={classList} style={style} {...attrs}><slot /></h3>
 
-<style define:vars={{ duration }}>
+<style>
   h3 {
     animation: moving10 var(--duration) linear infinite;
     background: var(--url);
     background-clip: text;
+    width: fit-content;
     color: transparent;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
     text-align: center;
   }
+
   @keyframes moving10 {
     from {
       background-position: right bottom;

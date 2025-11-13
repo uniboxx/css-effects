@@ -1,46 +1,55 @@
 ---
+/*
+INFORMATIONS
+USE FONT-SIZE TO SET THE BALLS'S SIZE
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- ballNumber as number
+*/
+
 interface Props {
   class?: string;
-  color?: string;
   duration?: string;
-  ballSize?: string;
-  number?: number;
+  ballNumber?: number;
 }
-const {
-  class: classList,
-  duration = '.8s',
-  color = '#fff',
-  ballSize = '1rem',
-  number = 5,
-  ...attrs
-} = Astro.props;
+// prettier-ignore
+const { class: classList, duration = '1s', ballNumber = 5, ...attrs } = Astro.props;
+
+const style = `--duration: ${duration};`;
 ---
 
-<ul data-style="none" class={classList} {...attrs}>
-  {
-    Array.from({ length: 5 }, (_, index) => index + 1).map(() => {
-      const delay = `${(Math.floor(Math.random() * number * 15) / 100).toFixed(2)}s`;
-      return <li style={`--delay: ${delay}`} />;
-    })
-  }
-</ul>
+<div class:list={['container', classList]} style={style} {...attrs}>
+  <ul data-style="none">
+    {
+      Array.from({ length: ballNumber }).map(() => {
+        const delay = `${(Math.floor(Math.random() * ballNumber * 20) / 100).toFixed(2)}s`;
+        return <li style={`--delay: ${delay}`} />;
+      })
+    }
+  </ul>
+</div>
 
-<style define:vars={{ duration, color, ballSize }}>
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: calc(var(--ballSize) / 2);
-    border-bottom: calc(var(--ballSize) / 4) solid var(--color);
-    min-height: calc(var(--ballSize) * 4.25);
-    color: var(--color);
-    li {
-      animation: jumping11 var(--duration) linear infinite;
-      animation-delay: var(--delay);
-      border-radius: 50%;
-      background-color: var(--color);
-      width: var(--ballSize);
-      height: var(--ballSize);
+<style>
+  .container {
+    width: fit-content;
+    color: #fff;
+    font-size: 1rem;
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      gap: 0.5em;
+      border-bottom: 0.25em solid currentColor;
+      min-height: 4.5em;
+      li {
+        animation: jumping11 var(--duration) linear infinite;
+        animation-delay: var(--delay);
+        border-radius: 50%;
+        background-color: currentColor;
+        width: 1em;
+        height: 1em;
+      }
     }
   }
   @keyframes jumping11 {

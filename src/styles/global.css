@@ -23,9 +23,9 @@ select {
   font: inherit;
 }
 
-button {
+/* button {
   cursor: pointer;
-}
+} */
 ul,
 ol {
   &[data-style='none'] {
@@ -47,12 +47,12 @@ p {
   overflow-wrap: break-word;
 }
 
-a {
+/* a {
   display: inline-block;
   cursor: pointer;
-  color: inherit;
   text-decoration: none;
-}
+  color: inherit;
+} */
 
 /* img,
 picture,

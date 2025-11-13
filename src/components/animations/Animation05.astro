@@ -1,27 +1,38 @@
 ---
 import { getImage } from 'astro:assets';
-import bg from '@/images/animation05/bg.png';
 
 /*
 INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
+- imagePath as string
 */
 
 interface Props {
   class?: string;
   duration?: string;
+  imagePath?: string;
 }
-const { class: classList, duration = '15s' } = Astro.props;
+const {
+  class: classList,
+  duration = '15s',
+  imagePath = '/src/images/animation05/bg.png',
+  ...attrs
+} = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
 // prettier-ignore
-const optBg = await getImage({ src: bg, alt: 'bg', format: 'webp', loading: 'lazy' });
+const optBg = await getImage({ src: images[imagePath](), alt: '', format: 'webp', loading: 'lazy' });
 
 const style = `--url: url(${optBg.src});--duration: ${duration};`;
 ---
 
-<div class:list={['container', classList]} style={style}>
+<div class:list={['container', classList]} style={style} {...attrs}>
   <slot />
 </div>
 
@@ -32,6 +43,7 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
     background-position-y: 0%;
     width: 15rem;
     color: #fff;
+    font-size: 1.3rem;
   }
 
   @keyframes scroll {

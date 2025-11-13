@@ -1,6 +1,15 @@
 ---
-import { getImage } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import rain from '@/images/animation12/rain.png';
+
+/*
+INFORMATIONS
+set
+- imagePath as string
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
 
 interface Props {
   imagePath: string;
@@ -14,41 +23,57 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 );
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
-const optBg = await getImage({ src: images[imagePath](), format: 'webp' });
+const optBg = await getImage({
+  src: images[imagePath](),
+  format: 'webp',
+  loading: 'lazy',
+});
 const optRain = await getImage({
   src: rain,
   format: 'webp',
+  loading: 'lazy',
 });
+const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--duration: ${duration}`;
 ---
 
-<div
-  id="container12"
-  class={classList}
-  style={`--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src})`}
-  {...attrs}
->
+<div class:list={['container12', classList]} style={style} {...attrs}>
+  <Image
+    id="invisible"
+    src={images[imagePath]()}
+    alt=""
+    width={10}
+    format="webp"
+    loading="eager"
+  />
   <div class="rain"></div>
 </div>
 
-<style define:vars={{ duration }}>
-  #container12 {
+<style>
+  .container12 {
+    position: relative;
     background: var(--bgUrl) center / cover;
-    .rain {
-      animation: rain12 var(--duration) linear infinite;
-      background: var(--rainUrl);
-      background-size: cover;
+    width: 15rem;
+    #invisible {
+      opacity: 0;
+      width: 100%;
       height: 100%;
     }
+    .rain {
+      position: absolute;
+      animation: rain12 var(--duration) linear infinite;
+      inset: 0;
+      background: var(--rainUrl);
+      background-size: cover;
+    }
   }
-  /* with background-size: cover, background-position does not accept values in % 
-     if necessary adjust -70px with a different value
+  /* if background-size is set, background-position does not accept values in % 
   */
   @keyframes rain12 {
-    0% {
-      background-position: -70px bottom;
+    from {
+      background-position: -4em bottom;
     }
-    100% {
-      background-position: left top;
+    to {
+      background-position: 0 top;
     }
   }
 </style>

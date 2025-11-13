@@ -1,4 +1,13 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- text as string
+- class as string
+- duration as string 'value and s | ms'
+- colors as string ("<color1>, <color2>") for gradient
+*/
+
 interface Props {
   text: string;
   colors?: string;
@@ -14,9 +23,10 @@ const {
 } = Astro.props;
 
 const [color1, color2] = colors.split(',');
+const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<ul data-style="none" class={classList} {...attrs}>
+<ul data-style="none" class={classList} style={style} {...attrs}>
   {
     text
       .split('')
@@ -24,9 +34,12 @@ const [color1, color2] = colors.split(',');
   }
 </ul>
 
-<style define:vars={{ color1, color2, duration }}>
+<style>
   ul {
     display: flex;
+    max-width: 100svw;
+    font-weight: 700;
+    font-size: 2rem;
   }
   li {
     opacity: 0;

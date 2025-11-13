@@ -2,38 +2,46 @@
 // need to install astro-icon and @iconify-json/mdi
 import { Icon } from 'astro-icon/components';
 
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+*/
+
 interface Props {
   class?: string;
   duration?: string;
 }
 const { class: classList, duration = '1.5s', ...attrs } = Astro.props;
+const style = `--duration: ${duration}; `;
 ---
 
-<div id="container09">
-  <Icon class={classList} name="mdi:heart" {...attrs} />
-</div>
+<Icon name="mdi:heart" class={classList} style={style} {...attrs} />
 
-<style define:vars={{ duration }}>
-  #container09 {
-    [data-icon='mdi:heart'] {
-      animation: heartbeat09 var(--duration) infinite;
-    }
+<style>
+  [data-icon='mdi:heart'] {
+    display: inline-block; /* to make animation working */
+    animation: heartbeat09 var(--duration) infinite;
+    color: #f00;
+    font-size: 3rem;
   }
+
   @keyframes heartbeat09 {
     0% {
-      transform: scale(1);
+      scale: 1;
     }
     14% {
-      transform: scale(1.2);
+      scale: 1.2;
     }
     28% {
-      transform: scale(1.1);
+      scale: 1.1;
     }
     42% {
-      transform: scale(1.3);
+      scale: 1.3;
     }
     70% {
-      transform: scale(1);
+      scale: 1;
     }
   }
 </style>

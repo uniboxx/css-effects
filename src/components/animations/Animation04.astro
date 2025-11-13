@@ -32,28 +32,28 @@ const text1 = varTexts.split(',')[0];
 const style = `--varColor: ${varColor};`;
 ---
 
-<div class:list={['container', classList]} style={style} {...attrs}>
-  <h3 id="animation04_unibox">
-    <slot />
-    <span data-texts={varTexts} data-duration={fixDuration}>{text1}</span>
-  </h3>
-</div>
+<h3 id="animation04_unibox" class={classList} style={style} {...attrs}>
+  <slot />
+  <span data-texts={varTexts} data-duration={fixDuration}>{text1}</span>
+</h3>
 
 <style>
-  .container {
+  h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
     background: #ea2027;
     padding: 1em;
     width: fit-content;
     color: #fff;
     font-size: 1em;
-    h3 {
-      span:last-of-type {
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        color: var(--varColor);
-        &.visible {
-          opacity: 1;
-        }
+    span:last-of-type {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      color: var(--varColor);
+      &.visible {
+        opacity: 1;
       }
     }
   }
