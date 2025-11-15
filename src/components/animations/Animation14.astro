@@ -1,4 +1,8 @@
 ---
+// use the image in the below url
+import wave from '/src/images/wave.png';
+import { getImage } from 'astro:assets';
+
 /*
 INFORMATIONS
 set optionally:
@@ -9,64 +13,80 @@ set optionally:
 */
 
 interface Props {
-  text: string;
-  colors?: string;
-  duration?: string;
   class?: string;
+  duration?: string;
+  color?: string;
 }
 const {
-  text,
-  colors = '#f44336, blue',
-  duration = '3s',
   class: classList,
+  duration = '1.5s',
+  color = '#00aeff',
   ...attrs
 } = Astro.props;
+const optWave = await getImage({ src: wave, format: 'webp' });
+// console.log('🚀 ~ :27 ~ optWave:', optWave);
+let { width, height } = optWave.attributes;
+width += 'px';
+height += 'px';
 
-const [color1, color2] = colors.split(',');
-const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
+const style = `--duration: ${duration};--color: ${color};--width: ${width};--height: ${height};`;
 ---
 
-<ul data-style="none" class={classList} style={style} {...attrs}>
-  {
-    text
-      .split('')
-      .map((letter, idx) => <li style={`--delay: ${idx * 0.2}s`}>{letter}</li>)
-  }
-</ul>
+<a class={classList} style={style} {...attrs}
+  ><slot />
+  <div class="wave" style={`--url: url(${optWave.src})`}></div>
+</a>
 
 <style>
-  ul {
-    display: flex;
-    max-width: 100svw;
-    font-weight: 700;
-    font-size: 2rem;
-  }
-  li {
-    opacity: 0;
-    animation: anim14 var(--duration) linear infinite;
-    animation-delay: var(--delay);
-    letter-spacing: 0.5em;
-  }
-  @keyframes anim14 {
-    0% {
-      transform: translateX(-0.6em);
-      opacity: 0;
-      color: var(--color1);
-      letter-spacing: 0.5em;
-    }
-    10% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 1;
-      letter-spacing: -0.5em;
-    }
+  a {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    transition: var(--duration);
+    border: 0.125em solid var(--color);
+    padding: 0.5rem 2rem;
+    width: 15rem;
+    overflow: clip;
+    color: var(--color);
+    font-size: 1.8rem;
+    line-height: 1;
+    text-align: center;
+    .wave {
+      position: absolute;
+      top: calc(100% + var(--height));
+      left: 0;
+      z-index: -1;
+      transition: var(--duration);
+      background-color: var(--color);
+      width: 100%;
+      height: 100%;
 
-    100% {
-      transform: translateX(0.6em);
-      opacity: 0;
-      color: var(--color2);
-      letter-spacing: 0.5em;
+      &::before {
+        position: absolute;
+        top: calc(var(--height) * -1);
+        left: 0;
+        background: var(--url);
+        width: 100%;
+        height: 100%;
+        content: '';
+      }
+    }
+    &:hover {
+      color: white;
+      .wave {
+        top: 0;
+        &::before {
+          animation: wavy15 var(--duration) linear infinite;
+        }
+      }
+    }
+  }
+  @keyframes wavy15 {
+    from {
+      background-position-x: left;
+    }
+    to {
+      background-position-x: right;
     }
   }
 </style>

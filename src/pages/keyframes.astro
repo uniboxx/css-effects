@@ -1,70 +1,63 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const bg12 = '/src/images/animation12/bg.jpg';
+const bg11 = '/src/images/animation11/bg.jpg';
 ---
 
 <BaseLayout title="Animations">
   <div class="grid">
-    <div class="animation animation01">
+    <div class="element element01">
       <Animation01> Anim 01 </Animation01>
     </div>
-    <div class="animation animation02"><Animation02 class="animation" /></div>
-    <Animation03 class="animation animation03" />
-    <Animation04 class="animation animation04">
-      <span>I love Css</span>
-    </Animation04>
-    <Animation05 class="animation animation05">
+    <div class="element element02"><Animation02 /></div>
+    <Animation03 class="animation03" />
+    <Animation04 class="animation04">
       <h3>Content</h3>
-    </Animation05>
-    <Animation06 class="animation animation06" href="#">Hover Me </Animation06>
-    <Animation07 class="animation animation07" href="#">Hover Me </Animation07>
-    <div class="animation animation08"><Animation08 text="LIGHTING" /></div>
-    <div class="animation animation09"><Animation09 /></div>
-    <div class="animation animation10">
-      <Animation10> ANIM 10 </Animation10>
+    </Animation04>
+    <Animation05 class="animation05" href="#">Hover Me </Animation05>
+    <Animation06 class="animation06" href="#">Hover Me </Animation06>
+    <div class="element element07"><Animation07 text="LIGHTING" /></div>
+    <div class="element element08"><Animation08 /></div>
+    <div class="element element09">
+      <Animation09> ANIM 09 </Animation09>
     </div>
-    <div class="animation animation11"><Animation11 /></div>
-    <Animation12 class="animation animation12" imagePath={bg12} />
-    <div class="animation animation13">
+    <div class="element element10"><Animation10 /></div>
+    <Animation11 class="animation11" imagePath={bg11} />
+    <div class="element element12">
       Hov<br />er
-      <Animation13 />
+      <Animation12 />
       Me
     </div>
-    <div class="animation animation14">
-      <Animation14 text="ANIMATION 14" />
+    <div class="element element13">
+      <Animation13 text="ANIMATION 13" />
     </div>
-    <div class="animation animation15">
-      <Animation15>Animation 15 <small>Hover me</small> </Animation15>
+    <div class="element element14">
+      <Animation14>Animation 14<br /><small>Hover me</small> </Animation14>
     </div>
-    <div class="animation animation16">
+    <div class="element element15">
+      <Animation15 />
+    </div>
+    <div class="element element16">
       <Animation16 />
     </div>
-    <div class="animation animation17">
-      <Animation17> Animation 17 </Animation17>
+    <div class="element element17">
+      <Animation17 />
     </div>
-
-    <!--<div class="animation x2x2cells black">
-      <Animation19 class="animation19" />
+    <div class="element element18">
+      <Animation18 />
     </div>
-    <div class="animation black">
-      <Animation20 class="animation20" />
+    <div class="element element19">
+      <Animation19 text="Animation 19" />
     </div>
-    <div class="animation lightOrange">
-      <Animation21 class="animation21" />
+    <div class="element element20">
+      <Animation20 text="An20" />
     </div>
-    <div class="animation blue no-flex">
-      <Animation22 class="animation22" text="Animation 22" />
+    <div class="element element21">
+      <Animation21 />
     </div>
-    <div class="animation white">
-      <Animation23 class="animation23" text="An23" />
-    </div>
-    <div class="animation black">
-      <Animation24 class="animation24" />
-    </div>
-    <div class="animation black">
+    <!--<div class="animation black">
       <Animation25 class="animation25" />
     </div>
     <div class="animation blue">
@@ -148,157 +141,174 @@ const bg12 = '/src/images/animation12/bg.jpg';
     gap: 2rem;
     margin: 1rem 0;
     padding: 10px;
+    overflow: clip;
 
-    .animation {
+    .element {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .red {
+      background-color: #9a0e0e;
+    }
 
-      &.red {
-        background-color: #9a0e0e;
-      }
+    .lightOrange {
+      background-color: #ee5253;
+    }
+    .black {
+      background-color: #333;
+      color: #fff;
+    }
+    .blue {
+      background-color: #273c75;
+    }
+    .gray {
+      background-color: #00000066;
+    }
+    .white {
+      background-color: #fff;
+    }
+    .navy {
+      background-color: #001d30;
+      color: #fff;
+    }
+    .x2cols {
+      grid-column: span 2;
+    }
+    .bordered {
+      border: 1px solid #333;
+    }
+    .x2rows {
+      height: 200px;
+    }
+    .x2x2cells {
+      grid-column: span 2;
+      height: 10rem;
+    }
+    .no-flex {
+      display: block;
+    }
+    .element01,
+    .element02 {
+      background: #26de81;
+      padding: 0.5em 0.7em;
+    }
+    .element01,
+    .element02,
+    .element04,
+    .element05,
+    .element07,
+    .element08,
+    .element13,
+    .element15,
+    .element17,
+    .element18 {
+      height: 5rem;
+    }
+    .element02 {
+      width: 10rem;
+    }
+    .animation04 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .element07 {
+      background: #222;
+      padding: 0.5em 0.7em;
+      width: 15rem;
+    }
+    .element08 {
+      background: #222;
+      width: 10rem;
+    }
+    .element09 {
+      background: #273c75;
+      padding: 1rem 1.5rem;
+    }
+    .element10 {
+      background: #222;
+      padding: 0.5rem 1rem;
+      width: 12rem;
+    }
 
-      &.lightOrange {
-        background-color: #ee5253;
+    .element11 {
+      filter: brightness(1.5);
+    }
+    .element12 {
+      gap: 1rem;
+      background: #fff;
+      padding: 0.5rem 0.7rem;
+      width: 12rem;
+    }
+    .element13 {
+      background: #fff;
+      padding: 1rem;
+    }
+    .element14 {
+      background: #222;
+      small {
+        font-size: 1rem;
       }
-      &.black {
-        background-color: #333;
-        color: #fff;
-      }
-      &.blue {
-        background-color: #273c75;
-      }
-      &.gray {
-        background-color: #00000066;
-      }
-      &.white {
-        background-color: #fff;
-      }
-      &.navy {
-        background-color: #001d30;
-        color: #fff;
-      }
-      &.x2cols {
-        grid-column: span 2;
-      }
-      &.bordered {
-        border: 1px solid #333;
-      }
-      &.x2rows {
-        height: 200px;
-      }
-      &.x2x2cells {
-        grid-column: span 2;
-        height: 10rem;
-      }
-      &.no-flex {
-        display: block;
-      }
-      &.animation01,
-      &.animation02 {
-        background: #26de81;
-        padding: 0.5em 0.7em;
-      }
-      &.animation01,
-      &.animation02,
-      &.animation04,
-      &.animation05,
-      &.animation08,
-      &.animation09,
-      &.animation14,
-      &.animation16 {
-        height: 5rem;
-      }
-      &.animation02 {
-        width: 10rem;
-      }
-      &.animation04 {
-        white-space: nowrap;
-      }
-      &.animation08 {
-        background: #222;
-        padding: 0.5em 0.7em;
-        width: 15rem;
-      }
-      &.animation09 {
-        background: #222;
-        width: 10rem;
-      }
-      &.animation10 {
-        background: #273c75;
-        padding: 1rem 1.5rem;
-      }
-      &.animation11 {
-        background: #222;
-        padding: 0.5rem 1rem;
-        width: 12rem;
-      }
+    }
+    .element15 {
+      background: #222;
+      width: 10rem;
+    }
+    .element16 {
+      background: #222;
+      padding: 1rem;
+      width: 15rem;
+    }
+    .element17,
+    .element18 {
+      background: #222;
+      width: 10rem;
+    }
 
-      &.animation12 {
-        filter: brightness(1.5);
+    .element19 {
+      background: #273c75;
+      padding: 2rem;
+    }
+    .element20 {
+      background: #fff;
+      padding: 1rem 2rem;
+    }
+    .element21 {
+      background: #222;
+      padding: 2rem;
+    }
+    .element29 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 240px;
+      height: 90px;
+      color: #fff;
+      font-size: 1.1rem;
+      h3 {
+        border: solid white;
+        border-width: 3px 0 3px 0;
       }
-      &.animation13 {
-        gap: 1rem;
-        background: #fff;
-        padding: 0.5rem 0.7rem;
-        width: 12rem;
-      }
-      &.animation14 {
-        background: #fff;
-        padding: 1rem;
-      }
-      &.animation15 {
-        background: #222;
-        small {
-          font-size: 1rem;
-        }
-      }
-      &.animation16 {
-        background: #222;
-        width: 10rem;
-      }
-      &.animation17 {
-        font-size: 1.5rem;
-      }
-
-      &.animation22 {
-        font-size: 1.3rem;
-      }
-      &.animation23 {
-        font-size: 1.3rem;
-      }
-      &.animation29 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 240px;
-        height: 90px;
-        color: #fff;
-        font-size: 1.1rem;
-        h3 {
-          border: solid white;
-          border-width: 3px 0 3px 0;
-        }
-      }
-      &.animation31 {
-        font-size: 1.3rem;
-      }
-      &.animation32 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        font-size: 1.1rem;
-      }
-      &.animation36 {
-        font-size: 1.3rem;
-      }
-      &.animation42 {
-        font-size: 0.8rem;
-      }
-      &.animation44 {
-        color: white;
-      }
+    }
+    .element31 {
+      font-size: 1.3rem;
+    }
+    .element32 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .element36 {
+      font-size: 1.3rem;
+    }
+    .element42 {
+      font-size: 0.8rem;
+    }
+    .element44 {
+      color: white;
     }
   }
 </style>

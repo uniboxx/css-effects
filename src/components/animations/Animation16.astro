@@ -1,73 +1,90 @@
 ---
-import { Icon } from 'astro-icon/components';
-
 /*
 INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- iconName as string
-- size as string
-- color as string 
+- size as string (size of ball)
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  iconName?: string;
   size?: string;
-  color?: string;
 }
 const {
   class: classList,
-  duration = '1.5s',
-  iconName = 'mdi:whatsapp',
-  size = '4rem',
-  color = '#58ea00',
+  duration = '2s',
+  size = '2.5rem',
   ...attrs
 } = Astro.props;
-const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
+const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size: ${size}`;
 ---
 
 <div class:list={['container16', classList]} style={style} {...attrs}>
-  <Icon name={iconName} />
+  {Array.from({ length: 5 }).map(() => <span />)}
 </div>
 
 <style>
   .container16 {
     display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    color: var(--color);
-    &::before,
-    &::after {
-      position: absolute;
-      animation: pulsing16 var(--duration) linear infinite;
-      inset: 0;
-      border: 0.1em solid var(--color);
-      border-radius: 50%;
-      content: '';
-    }
-    &::after {
-      animation-delay: calc(var(--duration) / 3);
-    }
-    svg {
-      font-size: var(--size);
+    border-top: calc(var(--size) / 5) solid currentColor;
+    color: #fff;
+
+    span {
+      display: block;
+      position: relative;
+      transform-origin: top;
+      margin: 0 calc(var(--size) * 0.463);
+      background-color: currentColor;
+      width: calc(var(--size) / 17);
+      height: calc(var(--size) * 3);
+      &:first-of-type {
+        animation: anim16Left var(--duration) infinite ease-in-out;
+      }
+      &:last-of-type {
+        animation: anim16Right var(--duration) infinite ease-in-out;
+        animation-delay: var(--delay);
+      }
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background-color: currentColor;
+        width: var(--size);
+        height: var(--size);
+        content: '';
+      }
     }
   }
-  @keyframes pulsing16 {
+  @keyframes anim16Left {
     0% {
-      transform: scale(0.8);
-      opacity: 0;
+      transform: rotate(0deg);
     }
-    50% {
-      transform: scale(1);
-      opacity: 1;
+    25% {
+      transform: rotate(45deg);
+    }
+    55% {
+      transform: rotate(0deg);
     }
     100% {
-      transform: scale(1.3);
-      opacity: 0;
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes anim16Right {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-45deg);
+    }
+    55% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 </style>

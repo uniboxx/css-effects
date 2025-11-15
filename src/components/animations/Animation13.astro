@@ -1,104 +1,72 @@
 ---
-// need to install astro-icon and @iconify-json/mdi
-// to set the size add font-size in the component class
-import { Icon } from 'astro-icon/components';
-
 /*
 INFORMATIONS
 set optionally:
+- text as string
 - class as string
 - duration as string 'value and s | ms'
-- iconName as string
-- hoverColor as string 
+- colors as string ("<color1>, <color2>") for gradient
 */
 
 interface Props {
-  class?: string;
+  text: string;
+  colors?: string;
   duration?: string;
-  iconName?: string;
-  hoverColor?: string;
+  class?: string;
 }
-
 const {
+  text,
+  colors = '#f44336, blue',
+  duration = '3s',
   class: classList,
-  iconName = 'mdi:heart',
-  duration = '.5s',
-  hoverColor = '#fff',
   ...attrs
 } = Astro.props;
 
-const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
+const [color1, color2] = colors.split(',');
+const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<div class:list={['container13', classList]} style={style} {...attrs}>
-  <Icon name={iconName} />
-  <span></span><span></span>
-</div>
+<ul data-style="none" class={classList} style={style} {...attrs}>
+  {
+    text
+      .split('')
+      .map((letter, idx) => <li style={`--delay: ${idx * 0.2}s`}>{letter}</li>)
+  }
+</ul>
 
 <style>
-  .container13 {
+  ul {
     display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #f44336;
-    border-radius: 50%;
-    width: 4.5rem;
-    height: 4.5rem;
-    color: #f44336;
-    font-size: 2.5rem;
-
-    svg {
-      position: relative;
-      z-index: 10;
-      transition: var(--duration);
-      color: inherit;
-      font: inherit;
-    }
-
-    span {
-      position: absolute;
-      border-radius: 50%;
-      &:nth-of-type(1) {
-        --size: 80%;
-        top: calc((100 - var(--size)) / 2);
-        left: calc((100 - var(--size)) / 2);
-        opacity: 0;
-        z-index: 5;
-        transition: var(--duration);
-        background-color: currentColor;
-        width: var(--size);
-        height: var(--size);
-      }
-      &:nth-of-type(2) {
-        --size: 92%;
-        top: calc((100 - var(--size)) / 2);
-        left: calc((100 - var(--size)) / 2);
-        opacity: 0;
-        transition: var(--duration) linear infinite;
-        border: 0.05em dashed currentColor;
-        width: var(--size);
-        height: var(--size);
-      }
-    }
-    &:hover {
-      svg {
-        color: var(--hoverColor);
-      }
-      span {
-        &:nth-of-type(1) {
-          opacity: 1;
-        }
-        &:nth-of-type(2) {
-          opacity: 1;
-          animation: rotating13 10s linear infinite;
-        }
-      }
-    }
+    max-width: 100svw;
+    font-weight: 700;
+    font-size: 2rem;
   }
-  @keyframes rotating13 {
-    to {
-      transform: rotate(360deg);
+  li {
+    opacity: 0;
+    animation: anim14 var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    letter-spacing: 0.5em;
+  }
+  @keyframes anim14 {
+    0% {
+      transform: translateX(-0.6em);
+      opacity: 0;
+      color: var(--color1);
+      letter-spacing: 0.5em;
+    }
+    10% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
+      letter-spacing: -0.5em;
+    }
+
+    100% {
+      transform: translateX(0.6em);
+      opacity: 0;
+      color: var(--color2);
+      letter-spacing: 0.5em;
     }
   }
 </style>

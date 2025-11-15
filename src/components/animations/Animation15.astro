@@ -1,92 +1,73 @@
 ---
-// use the image in the below url
-import wave from '/src/images/wave.png';
-import { getImage } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 /*
 INFORMATIONS
 set optionally:
-- text as string
 - class as string
 - duration as string 'value and s | ms'
-- colors as string ("<color1>, <color2>") for gradient
+- iconName as string
+- size as string
+- color as string 
 */
 
 interface Props {
   class?: string;
   duration?: string;
+  iconName?: string;
+  size?: string;
   color?: string;
 }
 const {
   class: classList,
   duration = '1.5s',
-  color = '#00aeff',
+  iconName = 'mdi:whatsapp',
+  size = '4rem',
+  color = '#58ea00',
   ...attrs
 } = Astro.props;
-const optWave = await getImage({ src: wave, format: 'webp' });
-// console.log('🚀 ~ :27 ~ optWave:', optWave);
-let { width, height } = optWave.attributes;
-width += 'px';
-height += 'px';
-
-const style = `--duration: ${duration};--color: ${color};--width: ${width};--height: ${height};`;
+const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
 ---
 
-<a class={classList} style={style} {...attrs}
-  ><slot />
-  <div class="wave" style={`--url: url(${optWave.src})`}></div>
-</a>
+<div class:list={['container16', classList]} style={style} {...attrs}>
+  <Icon name={iconName} />
+</div>
 
 <style>
-  a {
-    display: inline-block;
+  .container16 {
+    display: flex;
     position: relative;
-    z-index: 0;
-    transition: var(--duration);
-    border: 0.125em solid var(--color);
-    padding: 0.5rem 2rem;
-    width: 15rem;
-    overflow: clip;
+    justify-content: center;
+    align-items: center;
     color: var(--color);
-    font-size: 1.8rem;
-    line-height: 1;
-    text-align: center;
-    .wave {
+    &::before,
+    &::after {
       position: absolute;
-      top: calc(100% + var(--height));
-      left: 0;
-      z-index: -1;
-      transition: var(--duration);
-      background-color: var(--color);
-      width: 100%;
-      height: 100%;
-
-      &::before {
-        position: absolute;
-        top: calc(var(--height) * -1);
-        left: 0;
-        background: var(--url);
-        width: 100%;
-        height: 100%;
-        content: '';
-      }
+      animation: pulsing16 var(--duration) linear infinite;
+      inset: 0;
+      border: 0.1em solid var(--color);
+      border-radius: 50%;
+      content: '';
     }
-    &:hover {
-      color: white;
-      .wave {
-        top: 0;
-        &::before {
-          animation: wavy15 var(--duration) linear infinite;
-        }
-      }
+    &::after {
+      animation-delay: calc(var(--duration) / 3);
+    }
+    svg {
+      font-size: var(--size);
     }
   }
-  @keyframes wavy15 {
-    from {
-      background-position-x: left;
+  @keyframes pulsing16 {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
     }
-    to {
-      background-position-x: right;
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.3);
+      opacity: 0;
     }
   }
 </style>

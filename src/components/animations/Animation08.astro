@@ -1,67 +1,47 @@
 ---
+// need to install astro-icon and @iconify-json/mdi
+import { Icon } from 'astro-icon/components';
+
 /*
 INFORMATIONS
-set 
-- text as string
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- delay as string
 */
 
 interface Props {
-  text: string;
   class?: string;
   duration?: string;
-  delay?: string;
 }
-const {
-  text,
-  class: classList,
-  duration = `${(text.length * 0.2).toFixed(1)}s`,
-  delay = '0.1s',
-  ...attrs
-} = Astro.props;
-
-const style = `--duration: ${duration};--delay: ${delay};`;
+const { class: classList, duration = '1.5s', ...attrs } = Astro.props;
+const style = `--duration: ${duration}; `;
 ---
 
-<ul data-style="none" class={classList} style={style} {...attrs}>
-  {
-    text
-      .split('')
-      .map((letter, idx) => (
-        <li style={`--letterDelay: calc(var(--delay) * ${idx})`}>{letter}</li>
-      ))
-  }
-</ul>
+<Icon name="mdi:heart" class={classList} style={style} {...attrs} />
 
 <style>
-  ul {
-    display: flex;
-    gap: 5px;
-    width: fit-content;
-    font-size: 1.5rem;
-    li {
-      animation: lighting08 var(--duration) linear infinite;
-      animation-delay: var(--letterDelay);
-      color: #484848;
-    }
+  [data-icon='mdi:heart'] {
+    display: inline-block; /* to make animation working */
+    animation: heartbeat09 var(--duration) infinite;
+    color: #f00;
+    font-size: 3rem;
   }
-  @keyframes lighting08 {
+
+  @keyframes heartbeat09 {
     0% {
-      color: #484848;
-      text-shadow: none;
+      scale: 1;
     }
-    90% {
-      color: #484848;
-      text-shadow: none;
+    14% {
+      scale: 1.2;
     }
-    100% {
-      color: #fff900;
-      text-shadow:
-        0 0 0.0875em #fff900,
-        0 0 0.625em #ff6c00;
+    28% {
+      scale: 1.1;
+    }
+    42% {
+      scale: 1.3;
+    }
+    70% {
+      scale: 1;
     }
   }
 </style>

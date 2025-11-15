@@ -1,75 +1,59 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- text as string
+- colors as string ("<color1>, <color2>")
+*/
+
 interface Props {
   class?: string;
   duration?: string;
+  text: string;
+  colors?: string;
 }
-const { class: classList, duration = '2s', ...attrs } = Astro.props;
+const {
+  class: classList,
+  duration = '2.5s',
+  text,
+  colors = '#fff, #f6b93b',
+  ...attrs
+} = Astro.props;
+
+const [color1, color2] = colors.split(',');
+const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<div id="container19" class={classList} {...attrs}>
-  <span></span><span></span><span></span><span></span><span></span>
-</div>
+<h3 class:list={['text19_unibox', classList]} style={style} {...attrs}>
+  &nbsp;{text}&nbsp;<span>&nbsp;{text}&nbsp;</span>
+</h3>
 
-<style define:vars={{ duration }}>
-  #container19 {
-    --delay: calc(var(--duration) / 2);
-    display: flex;
-    border-top: 10px solid #fff;
-    max-width: 100svw;
+<style>
+  .text19_unibox {
+    position: relative;
+    color: var(--color1);
+    font-size: 1.6rem;
     span {
       display: block;
-      position: relative;
-      transform-origin: top;
-      margin: 0 29px;
-      background-color: white;
-      width: 3px;
-      height: 150px;
-      &:first-of-type {
-        animation: anim19Left var(--duration) infinite ease-in-out;
-      }
-      &:last-of-type {
-        animation: anim19Right var(--duration) infinite ease-in-out;
-        animation-delay: var(--delay);
-      }
-      &::before {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transform: translateX(-50%);
-        border-radius: 50%;
-        background-color: #fff;
-        width: 60px;
-        height: 60px;
-        content: '';
-      }
+      position: absolute;
+      animation: anim19 var(--duration) linear infinite alternate;
+      inset: 0;
+      border-right: 0.2em solid var(--color2);
+      overflow: clip;
+      color: var(--color2);
+      white-space: nowrap;
     }
   }
-  @keyframes anim19Left {
+
+  @keyframes anim19 {
     0% {
-      transform: rotate(0deg);
+      width: 0;
     }
-    25% {
-      transform: rotate(45deg);
-    }
-    55% {
-      transform: rotate(0deg);
-    }
+
     100% {
-      transform: rotate(0deg);
-    }
-  }
-  @keyframes anim19Right {
-    0% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(-45deg);
-    }
-    55% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(0deg);
+      width: 100%;
     }
   }
 </style>

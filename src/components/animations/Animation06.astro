@@ -16,7 +16,7 @@ interface Props {
 }
 const {
   class: classList,
-  duration = '0.3s',
+  duration = '0.5s',
   colors = '#f44336',
   href,
   ...attrs
@@ -25,37 +25,50 @@ const [hoverColor] = colors.split(',');
 const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<a class={classList} href={href} style={style} {...attrs}><slot /></a>
+<a class={classList} style={style} {...attrs}><slot /></a>
 
 <style>
   a {
-    display: inline-block;
+    position: relative;
+    z-index: 0;
     transition: 0.3s;
     cursor: pointer;
-    border: 3px solid #fff;
-    background-color: #333;
+    border: 2px solid #fff;
+    background: #222;
     padding: 0.5em 0.7em;
     width: fit-content;
+    overflow: hidden;
     color: #fff;
     font-size: 1.5rem;
     line-height: 1;
-    text-decoration: none;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: skewX(-15deg);
+      z-index: -1;
+      animation: moving07 1.2s linear infinite;
+      transition: var(--duration);
+      background: var(--hoverColor);
+      width: 33%;
+      height: 100%;
+      content: '';
+    }
     &:hover {
-      animation: shake var(--duration) linear;
-      border: 3px solid var(--hoverColor);
-      color: var(--hoverColor);
+      &::before {
+        left: 0;
+        transform: skewX(0);
+        animation: none;
+        width: 100%;
+      }
     }
   }
-
-  @keyframes shake {
-    33% {
-      transform: rotate(10deg);
+  @keyframes moving07 {
+    from {
+      left: -40%;
     }
-    66% {
-      transform: rotate(-10deg);
-    }
-    100% {
-      transform: rotate(10deg);
+    to {
+      left: 100%;
     }
   }
 </style>

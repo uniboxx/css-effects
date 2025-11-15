@@ -1,74 +1,67 @@
 ---
 /*
 INFORMATIONS
+set 
+- text as string
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- colors as string ("hoverColor")
-- href as string
+- delay as string
 */
 
 interface Props {
+  text: string;
   class?: string;
   duration?: string;
-  colors?: string;
-  href: string;
+  delay?: string;
 }
 const {
+  text,
   class: classList,
-  duration = '0.5s',
-  colors = '#f44336',
-  href,
+  duration = `${(text.length * 0.2).toFixed(1)}s`,
+  delay = '0.1s',
   ...attrs
 } = Astro.props;
-const [hoverColor] = colors.split(',');
-const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
+
+const style = `--duration: ${duration};--delay: ${delay};`;
 ---
 
-<a class={classList} style={style} {...attrs}><slot /></a>
+<ul data-style="none" class={classList} style={style} {...attrs}>
+  {
+    text
+      .split('')
+      .map((letter, idx) => (
+        <li style={`--letterDelay: calc(var(--delay) * ${idx})`}>{letter}</li>
+      ))
+  }
+</ul>
 
 <style>
-  a {
-    position: relative;
-    z-index: 0;
-    transition: 0.3s;
-    cursor: pointer;
-    border: 2px solid #fff;
-    background: #222;
-    padding: 0.5em 0.7em;
+  ul {
+    display: flex;
+    gap: 5px;
     width: fit-content;
-    overflow: hidden;
-    color: #fff;
     font-size: 1.5rem;
-    line-height: 1;
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: skewX(-15deg);
-      z-index: -1;
-      animation: moving07 1.2s linear infinite;
-      transition: var(--duration);
-      background: var(--hoverColor);
-      width: 33%;
-      height: 100%;
-      content: '';
-    }
-    &:hover {
-      &::before {
-        left: 0;
-        transform: skewX(0);
-        animation: none;
-        width: 100%;
-      }
+    li {
+      animation: lighting08 var(--duration) linear infinite;
+      animation-delay: var(--letterDelay);
+      color: #484848;
     }
   }
-  @keyframes moving07 {
-    from {
-      left: -40%;
+  @keyframes lighting08 {
+    0% {
+      color: #484848;
+      text-shadow: none;
     }
-    to {
-      left: 100%;
+    90% {
+      color: #484848;
+      text-shadow: none;
+    }
+    100% {
+      color: #fff900;
+      text-shadow:
+        0 0 0.0875em #fff900,
+        0 0 0.625em #ff6c00;
     }
   }
 </style>

@@ -1,74 +1,59 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- width as string
+- height as string
+- color as string ("<color>")
+*/
+
 interface Props {
   class?: string;
   duration?: string;
-  size?: string;
+  width?: string;
+  height?: string;
   color?: string;
 }
 const {
   class: classList,
   duration = '2s',
-  size = '20px',
-  color = '#ff0',
+  width = '9rem',
+  height = '3px',
+  color = '#fff',
   ...attrs
 } = Astro.props;
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const sizeResult = size.match(regex)!;
-const sizeQuantity = +sizeResult.groups?.quantity!;
-const sizeUnit = sizeResult.groups?.unit!;
-const containerSize = `${+sizeQuantity * 2.5}${sizeUnit}`;
-const durationResult = duration.match(regex)!;
-const durationQuantity = +durationResult.groups?.quantity!;
-const durationUnit = durationResult.groups?.unit!;
+const style = `--duration: ${duration};--width: ${width};--height: ${height};--color: ${color};`;
 ---
 
-<div id="container21">
-  {
-    Array.from({ length: 3 }).map((_, idx) => {
-      const delay = `${(durationQuantity * 0.3333 * idx).toFixed(2)}${durationUnit}`;
-      return <span class={classList} style={`--delay: ${delay}`} {...attrs} />;
-    })
-  }
-</div>
+<div class:list={['line21', classList]} style={style} {...attrs}></div>
 
-<style define:vars={{ duration, size, containerSize, color }}>
-  #container21 {
-    position: relative;
-    width: var(--containerSize);
-    height: var(--containerSize);
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      animation: anim21 var(--duration) infinite linear;
-      animation-delay: var(--delay);
-      border-radius: 0.2em;
-      background-color: var(--color);
-      width: var(--size);
-      height: var(--size);
-    }
+<style>
+  .line21 {
+    animation: anim21 var(--duration) infinite linear alternate;
+    background-color: var(--color);
+    width: var(--width);
+    height: var(--height);
   }
 
   @keyframes anim21 {
-    12.5%,
-    25% {
-      top: 0;
-      left: 60%;
+    0% {
+      transform: scaleX(0);
+      transform-origin: left;
     }
-    37.5%,
-    50% {
-      top: 60%;
-      left: 60%;
+
+    47.5% {
+      transform: scaleX(1);
+      transform-origin: left;
     }
-    62.5%,
-    75% {
-      top: 60%;
-      left: 0;
+    52.5% {
+      transform: scaleX(1);
+      transform-origin: right;
     }
-    87.5%,
     100% {
-      top: 0;
-      left: 0;
+      transform: scaleX(0);
+      transform-origin: right;
     }
   }
 </style>

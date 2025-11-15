@@ -1,0 +1,78 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- size as string (size of square)
+- color as string ("<color>")
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  size?: string;
+  color?: string;
+}
+const {
+  class: classList,
+  duration = '2s',
+  size = '20px',
+  color = '#ff0',
+  ...attrs
+} = Astro.props;
+
+const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
+---
+
+<div class:list={['container18', classList]} style={style} {...attrs}>
+  {
+    Array.from({ length: 3 }).map((_, idx) => (
+      <span style={`--delay: calc(var(--duration)*0.3333 * ${idx})`} />
+    ))
+  }
+</div>
+
+<style>
+  .container18 {
+    --containerSize: calc(var(--size) * 2.5);
+    position: relative !important;
+    background: #ee5253;
+    width: var(--containerSize) !important;
+    height: var(--containerSize) !important;
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: anim18 var(--duration) infinite linear;
+      animation-delay: var(--delay);
+      border-radius: calc(var(--size) * 0.1);
+      background-color: var(--color);
+      width: var(--size);
+      height: var(--size);
+    }
+  }
+
+  @keyframes anim18 {
+    12.5%,
+    25% {
+      top: 0;
+      left: 60%;
+    }
+    37.5%,
+    50% {
+      top: 60%;
+      left: 60%;
+    }
+    62.5%,
+    75% {
+      top: 60%;
+      left: 0;
+    }
+    87.5%,
+    100% {
+      top: 0;
+      left: 0;
+    }
+  }
+</style>

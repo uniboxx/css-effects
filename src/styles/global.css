@@ -16,23 +16,23 @@ html {
 body {
   font-family: sans-serif;
 }
-input,
+/* input,
 button,
 textarea,
 select {
   font: inherit;
 }
 
-/* button {
+button {
   cursor: pointer;
-} */
+}
 ul,
 ol {
   &[data-style='none'] {
     list-style-type: none;
   }
 }
-p,
+
 h1,
 h2,
 h3,
@@ -47,14 +47,14 @@ p {
   overflow-wrap: break-word;
 }
 
-/* a {
+a {
   display: inline-block;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-} */
+}
 
-/* img,
+img,
 picture,
 video,
 canvas,

@@ -1,79 +1,104 @@
 ---
-import { getImage, Image } from 'astro:assets';
-import rain from '@/images/animation12/rain.png';
+// need to install astro-icon and @iconify-json/mdi
+// to set the size add font-size in the component class
+import { Icon } from 'astro-icon/components';
 
 /*
 INFORMATIONS
-set
-- imagePath as string
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
+- iconName as string
+- hoverColor as string 
 */
 
 interface Props {
-  imagePath: string;
   class?: string;
   duration?: string;
+  iconName?: string;
+  hoverColor?: string;
 }
-const { class: classList, imagePath, duration = '5s', ...attrs } = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
-);
-if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+const {
+  class: classList,
+  iconName = 'mdi:heart',
+  duration = '.5s',
+  hoverColor = '#fff',
+  ...attrs
+} = Astro.props;
 
-const optBg = await getImage({
-  src: images[imagePath](),
-  format: 'webp',
-  loading: 'lazy',
-});
-const optRain = await getImage({
-  src: rain,
-  format: 'webp',
-  loading: 'lazy',
-});
-const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--duration: ${duration}`;
+const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<div class:list={['container12', classList]} style={style} {...attrs}>
-  <Image
-    id="invisible"
-    src={images[imagePath]()}
-    alt=""
-    width={10}
-    format="webp"
-    loading="eager"
-  />
-  <div class="rain"></div>
+<div class:list={['container13', classList]} style={style} {...attrs}>
+  <Icon name={iconName} />
+  <span></span><span></span>
 </div>
 
 <style>
-  .container12 {
+  .container13 {
+    display: flex;
     position: relative;
-    background: var(--bgUrl) center / cover;
-    width: 15rem;
-    #invisible {
-      opacity: 0;
-      width: 100%;
-      height: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #f44336;
+    border-radius: 50%;
+    width: 4.5rem;
+    height: 4.5rem;
+    color: #f44336;
+    font-size: 2.5rem;
+
+    svg {
+      position: relative;
+      z-index: 10;
+      transition: var(--duration);
+      color: inherit;
+      font: inherit;
     }
-    .rain {
+
+    span {
       position: absolute;
-      animation: rain12 var(--duration) linear infinite;
-      inset: 0;
-      background: var(--rainUrl);
-      background-size: cover;
+      border-radius: 50%;
+      &:nth-of-type(1) {
+        --size: 80%;
+        top: calc((100 - var(--size)) / 2);
+        left: calc((100 - var(--size)) / 2);
+        opacity: 0;
+        z-index: 5;
+        transition: var(--duration);
+        background-color: currentColor;
+        width: var(--size);
+        height: var(--size);
+      }
+      &:nth-of-type(2) {
+        --size: 92%;
+        top: calc((100 - var(--size)) / 2);
+        left: calc((100 - var(--size)) / 2);
+        opacity: 0;
+        transition: var(--duration) linear infinite;
+        border: 0.05em dashed currentColor;
+        width: var(--size);
+        height: var(--size);
+      }
+    }
+    &:hover {
+      svg {
+        color: var(--hoverColor);
+      }
+      span {
+        &:nth-of-type(1) {
+          opacity: 1;
+        }
+        &:nth-of-type(2) {
+          opacity: 1;
+          animation: rotating13 10s linear infinite;
+        }
+      }
     }
   }
-  /* if background-size is set, background-position does not accept values in % 
-  */
-  @keyframes rain12 {
-    from {
-      background-position: -4em bottom;
-    }
+  @keyframes rotating13 {
     to {
-      background-position: 0 top;
+      transform: rotate(360deg);
     }
   }
 </style>

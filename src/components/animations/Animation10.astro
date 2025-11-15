@@ -1,56 +1,66 @@
 ---
-import { getImage } from 'astro:assets';
-
 /*
 INFORMATIONS
+USE FONT-SIZE TO SET THE BALLS'S SIZE
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- imagePath as string
+- ballNumber as number
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  imagePath?: string;
+  ballNumber?: number;
 }
 // prettier-ignore
-const { class: classList, duration = '15s', imagePath='/src/images/animation10/bg.jpg', ...attrs } = Astro.props;
+const { class: classList, duration = '1s', ballNumber = 5, ...attrs } = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
-);
-if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
-
-const optBg = await getImage({
-  src: images[imagePath](),
-  alt: '',
-  format: 'webp',
-});
-const style = `--duration: ${duration};--url: url(${optBg.src})`;
+const style = `--duration: ${duration};`;
 ---
 
-<h3 class={classList} style={style} {...attrs}><slot /></h3>
+<div class:list={['container', classList]} style={style} {...attrs}>
+  <ul data-style="none">
+    {
+      Array.from({ length: ballNumber }).map(() => {
+        const delay = `${(Math.floor(Math.random() * ballNumber * 20) / 100).toFixed(2)}s`;
+        return <li style={`--delay: ${delay}`} />;
+      })
+    }
+  </ul>
+</div>
 
 <style>
-  h3 {
-    animation: moving10 var(--duration) linear infinite;
-    background: var(--url);
-    background-clip: text;
+  .container {
     width: fit-content;
-    color: transparent;
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 1;
-    text-align: center;
-  }
-
-  @keyframes moving10 {
-    from {
-      background-position: right bottom;
+    color: #fff;
+    font-size: 1rem;
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      gap: 0.5em;
+      border-bottom: 0.25em solid currentColor;
+      min-height: 4.5em;
+      li {
+        animation: jumping11 var(--duration) linear infinite;
+        animation-delay: var(--delay);
+        border-radius: 50%;
+        background-color: currentColor;
+        width: 1em;
+        height: 1em;
+      }
     }
-    to {
-      background-position: left top;
+  }
+  @keyframes jumping11 {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-300%);
+    }
+    100% {
+      transform: translateY(0);
     }
   }
 </style>

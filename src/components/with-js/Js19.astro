@@ -1,109 +1,68 @@
 ---
-import { Image } from 'astro:assets';
-
 /*
 INFORMATIONS
 set optionally:
 - class as string
-- images as array of objects with imagePath as string and alt as string
-- width and/or height as numbers
-- format as string
-- loading as 'lazy' | 'eager' | null
-- timeToKeep as string 'value and s | ms'
-- transitionDuration as string 'value and s | ms'
+- duration as string 'value and s | ms'
 */
 
 interface Props {
   class?: string;
-  images: { imagePath: string; alt: string }[];
-  width?: number;
-  height?: number;
-  format?: string;
-  loading?: 'lazy' | 'eager' | null;
-  timeToKeep?: string;
-  transitionDuration?: string;
+  duration?: string;
 }
-const {
-  class: classList,
-  images: imagesData,
-  width = 800,
-  height,
-  format = 'webp',
-  loading = 'lazy',
-  timeToKeep = '4s',
-  transitionDuration = '2s',
-  ...attrs
-} = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
-);
-imagesData.forEach((imgData) => {
-  if (!images[imgData.imagePath])
-    throw new Error(`${imgData.imagePath} does not exist`);
-});
-
-const style = `--timeToKeep: ${timeToKeep};--transitionDuration: ${transitionDuration};`;
+const { class: classList, duration = '3s', ...attrs } = Astro.props;
+const style = `--duration: ${duration};`;
 ---
 
 <div
-  id="slider19_unibox"
-  class:list={['slider19', classList]}
+  id="container17_unibox"
+  class:list={['container17', classList]}
   style={style}
-  data-duration={timeToKeep}
+  data-duration={duration}
   {...attrs}
 >
-  {
-    imagesData.map((imgData, idx) => {
-      // prettier-ignore
-      return <Image class:list={[{ visible: idx === 0 }]} src={images[imgData.imagePath]()} alt={imgData.alt} width={width} height={height} format={format} loading={idx === 0 ? 'eager' : 'lazy'} />
-    })
-  }
+  <h3><slot /></h3>
 </div>
 
 <style>
-  .slider19 {
-    position: relative;
+  .container17 {
+    transition: calc(var(--duration) / 1.5);
+    padding: 1em;
     width: 15rem;
-    height: 7.5rem;
-    img {
-      display: block;
-      position: absolute;
-      opacity: 0;
-      transition: var(--transitionDuration) ease-in-out;
-      inset: 0;
-      border-radius: inherit;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      &.visible {
-        opacity: 1;
-      }
-    }
+    text-align: center;
   }
 </style>
 
 <script>
-  const slider = document.getElementById('slider19_unibox') as HTMLDivElement;
-  const imgs = slider.querySelectorAll('img') as NodeListOf<HTMLImageElement>;
-  const length = imgs.length;
-  const duration = slider.dataset.duration!;
-  const regex = /(?<time>[\d\.]+)(?<unit>(s|ms)$)/;
+  const container = document.getElementById(
+    'container17_unibox'
+  ) as HTMLDivElement;
+  const duration = container.dataset.duration!;
+  const regex = /(?<time>[\d\.]+)(?<unit>s|ms)/;
   const result = duration.match(regex)!;
-  const time = +result.groups?.time!;
+  let time = +result.groups?.time!;
   const unit = result.groups?.unit!;
-  let timeToKeep = time;
   if (unit === 's') {
-    timeToKeep = time * 1000;
+    time *= 1000;
   }
-
-  function switcher() {
-    let index = 0;
-    setInterval(() => {
-      imgs[index].classList.remove('visible');
-      index = (index + 1) % length;
-      imgs[index].classList.add('visible');
-    }, timeToKeep);
+  function hslGen() {
+    const h = Math.floor(Math.random() * 361);
+    const s = parseFloat(
+      (Math.trunc(Math.random() * (100 * 10 + 1)) / 10).toFixed(1)
+    );
+    const l = parseFloat(
+      (Math.trunc(Math.random() * (100 * 10 + 1)) / 10).toFixed(1)
+    );
+    return {
+      bg: `hsl(${h} ${s}% ${l}%)`,
+      color: `hsl(${(h + 170) % 360} ${s}% ${Math.round((100 - l) * 10) / 10}%)`,
+    };
   }
-
-  switcher();
+  function changeBg() {
+    const colors = hslGen();
+    container.style.backgroundColor = colors.bg;
+    container.style.color = colors.color;
+  }
+  setInterval(changeBg, time);
+  changeBg();
 </script>

@@ -1,57 +1,61 @@
 ---
-import { getImage } from 'astro:assets';
-
 /*
 INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- imagePath as string
+- colors as string ("hoverColor")
+- href as string
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  imagePath?: string;
+  colors?: string;
+  href: string;
 }
 const {
   class: classList,
-  duration = '15s',
-  imagePath = '/src/images/animation05/bg.png',
+  duration = '0.3s',
+  colors = '#f44336',
+  href,
   ...attrs
 } = Astro.props;
-
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
-);
-if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
-
-// prettier-ignore
-const optBg = await getImage({ src: images[imagePath](), alt: '', format: 'webp', loading: 'lazy' });
-
-const style = `--url: url(${optBg.src});--duration: ${duration};`;
+const [hoverColor] = colors.split(',');
+const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<div class:list={['container', classList]} style={style} {...attrs}>
-  <slot />
-</div>
+<a class={classList} href={href} style={style} {...attrs}><slot /></a>
 
 <style>
-  .container {
-    animation: scroll var(--duration) linear infinite;
-    background: var(--url);
-    background-position-y: 0%;
-    width: 15rem;
+  a {
+    display: inline-block;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 3px solid #fff;
+    background-color: #333;
+    padding: 0.5em 0.7em;
+    width: fit-content;
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-decoration: none;
+    &:hover {
+      animation: shake var(--duration) linear;
+      border: 3px solid var(--hoverColor);
+      color: var(--hoverColor);
+    }
   }
 
-  @keyframes scroll {
-    from {
-      background-position-y: bottom;
+  @keyframes shake {
+    33% {
+      transform: rotate(10deg);
     }
-    to {
-      background-position-y: top;
+    66% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(10deg);
     }
   }
 </style>

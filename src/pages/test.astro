@@ -1,5 +1,5 @@
 ---
-import { Animation16 } from '@/components';
+import { Animation19 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -18,8 +18,8 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <div class="animation animation16">
-      <Animation16 />
+    <div class="animation animation19">
+      <Animation19 class="anim19" text="Animation 19" />
     </div>
 
     <!-- <Card09
@@ -151,56 +151,68 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
       &.animation02,
       &.animation04,
       &.animation05,
+      &.animation07,
       &.animation08,
-      &.animation09,
-      &.animation14,
-      &.animation16 {
+      &.animation13,
+      &.animation15 {
         height: 5rem;
       }
       &.animation02 {
         width: 10rem;
       }
-      &.animation08 {
+      &.animation07 {
         background: #222;
         padding: 0.5em 0.7em;
         width: 15rem;
       }
-      &.animation09 {
+      &.animation08 {
         background: #222;
         width: 10rem;
       }
-      &.animation10 {
+      &.animation09 {
         background: #273c75;
         padding: 1rem 1.5rem;
       }
-      &.animation11 {
+      &.animation10 {
         background: #222;
         padding: 0.5rem 1rem;
         width: 12rem;
       }
 
-      &.animation12 {
+      &.animation11 {
         filter: brightness(1.5);
         width: 15rem;
       }
-      &.animation13 {
+      &.animation12 {
         gap: 1rem;
         background: #fff;
         padding: 0.5rem 0.7rem;
         width: 12rem;
       }
-      &.animation14 {
+      &.animation13 {
         background: #fff;
       }
-      &.animation15 {
+      &.animation14 {
         background: #222;
         small {
           font-size: 1rem;
         }
       }
-      &.animation16 {
+      &.animation15 {
         background: #222;
         width: 10rem;
+      }
+      &.animation16 {
+        background: #222;
+        padding: 1rem;
+        width: 15rem;
+      }
+      &.animation19 {
+        background: #273c75;
+        padding: 2rem;
+      }
+      .anim19 {
+        font-size: 1.6rem;
       }
     }
 
