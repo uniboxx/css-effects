@@ -30,7 +30,7 @@ const {
   color = '#fff',
   ...attrs
 } = Astro.props;
-const style = `--duration: ${duration};--width: ${width};--height: ${height};--origin: ${origin};--color: ${color};`;
+const style = `--duration: ${duration};--width: ${width};--height: ${height};--origin: ${origin};--color: ${color};--lines: ${lines};`;
 ---
 
 <div class:list={['container22', classList]} style={style} {...attrs}>
@@ -49,6 +49,7 @@ const style = `--duration: ${duration};--width: ${width};--height: ${height};--o
     justify-content: center;
     gap: calc(var(--width) / 2);
     background: #222;
+    width: calc(var(--width) * var(--lines) * 1.5);
     .line22 {
       transform-origin: var(--origin);
       animation: anim22 var(--duration) linear infinite alternate;

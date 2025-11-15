@@ -16,8 +16,8 @@ interface Props {
 }
 const {
   class: classList,
-  duration = '2.5s',
   text,
+  duration = `${(text.length * 2) / 10}s`,
   colors = '#fff, #f6b93b',
   ...attrs
 } = Astro.props;
@@ -33,6 +33,8 @@ const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`
 <style>
   .text19_unibox {
     position: relative;
+    background: #273c75;
+    width: fit-content;
     color: var(--color1);
     font-size: 1.6rem;
     span {

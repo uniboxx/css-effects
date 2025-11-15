@@ -30,19 +30,20 @@ const {
 const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
-<div class:list={['container13', classList]} style={style} {...attrs}>
+<div class:list={['container12', classList]} style={style} {...attrs}>
   <Icon name={iconName} />
   <span></span><span></span>
 </div>
 
 <style>
-  .container13 {
+  .container12 {
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
     border: 2px solid #f44336;
     border-radius: 50%;
+    background: #fff;
     width: 4.5rem;
     height: 4.5rem;
     color: #f44336;
@@ -91,12 +92,12 @@ const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
         }
         &:nth-of-type(2) {
           opacity: 1;
-          animation: rotating13 10s linear infinite;
+          animation: rotating12 10s linear infinite;
         }
       }
     }
   }
-  @keyframes rotating13 {
+  @keyframes rotating12 {
     to {
       transform: rotate(360deg);
     }

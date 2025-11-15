@@ -29,33 +29,41 @@ const {
 const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
 ---
 
-<div class:list={['container16', classList]} style={style} {...attrs}>
-  <Icon name={iconName} />
+<div class:list={['container15', classList]} style={style} {...attrs}>
+  <div class="ringing"><Icon name={iconName} /></div>
 </div>
 
 <style>
-  .container16 {
+  .container15 {
     display: flex;
-    position: relative;
     justify-content: center;
     align-items: center;
-    color: var(--color);
-    &::before,
-    &::after {
-      position: absolute;
-      animation: pulsing16 var(--duration) linear infinite;
-      inset: 0;
-      border: 0.1em solid var(--color);
-      border-radius: 50%;
-      content: '';
-    }
-    &::after {
-      animation-delay: calc(var(--duration) / 3);
-    }
-    svg {
-      font-size: var(--size);
+    background: #222;
+    width: calc(var(--size) * 1.3);
+    height: calc(var(--size) * 1.3);
+    .ringing {
+      position: relative;
+      width: var(--size);
+      height: var(--size);
+      color: var(--color);
+      &::before,
+      &::after {
+        position: absolute;
+        animation: pulsing16 var(--duration) linear infinite;
+        inset: 0;
+        border: 0.1em solid var(--color);
+        border-radius: 50%;
+        content: '';
+      }
+      &::after {
+        animation-delay: calc(var(--duration) / 3);
+      }
+      svg {
+        font-size: var(--size);
+      }
     }
   }
+
   @keyframes pulsing16 {
     0% {
       transform: scale(0.8);

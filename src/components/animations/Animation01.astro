@@ -1,14 +1,14 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 /*
 INFORMATIONS
-set: 
-- text as string
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
 */
 
-interface Props {
+interface Props extends HTMLAttributes<'div'> {
   class?: string;
   duration?: string;
 }
@@ -16,31 +16,38 @@ const { class: classList, duration = '3s', ...attrs } = Astro.props;
 const style = `--duration: ${duration};`;
 ---
 
-<h3 class={classList} style={style} {...attrs}><slot /></h3>
+<div class:list={['container01', classList]} style={style} {...attrs}>
+  <span><slot /></span>
+</div>
 
 <style>
-  h3 {
-    animation: float01 var(--duration) linear infinite alternate;
+  .container01 {
+    background: #26de81;
+    padding: 1rem 2rem;
     width: fit-content;
     color: #fff;
-    font-size: 2em;
-    line-height: 1;
+    font-size: 2rem;
     font-family: arial;
     letter-spacing: 0.1em;
-    text-shadow:
-      0 calc(1em / 48 * 1) 0 #efefef,
-      0 calc(1em / 48 * 2) 0 #efefef,
-      0 calc(1em / 48 * 3) 0 #efefef,
-      0 calc(1em / 48 * 4) 0 #efefef,
-      0 0.8rem calc(1em / 48 * 5) #0000001a;
+    span {
+      display: inline-block;
+      animation: float01 var(--duration) linear infinite alternate;
+      /* line-height: 1; */
+      text-shadow:
+        0 calc(1em / 48 * 1) 0 #efefef,
+        0 calc(1em / 48 * 2) 0 #efefef,
+        0 calc(1em / 48 * 3) 0 #efefef,
+        0 calc(1em / 48 * 4) 0 #efefef,
+        0 0.8rem calc(1em / 48 * 5) #0000001a;
+    }
   }
 
   @keyframes float01 {
     from {
-      transform: rotate(5deg);
+      rotate: 5deg;
     }
     to {
-      transform: rotate(-5deg);
+      rotate: -5deg;
     }
   }
 </style>

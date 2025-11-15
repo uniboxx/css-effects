@@ -27,14 +27,24 @@ const {
 const style = `--duration: ${duration};--width: ${width};--height: ${height};--color: ${color};`;
 ---
 
-<div class:list={['line21', classList]} style={style} {...attrs}></div>
+<div class:list={['container21', classList]} style={style} {...attrs}>
+  <div class="line21"></div>
+</div>
 
 <style>
-  .line21 {
-    animation: anim21 var(--duration) infinite linear alternate;
-    background-color: var(--color);
-    width: var(--width);
-    height: var(--height);
+  .container21 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    width: calc(var(--width) * 1.5);
+    height: calc(var(--height) * 20);
+    .line21 {
+      animation: anim21 var(--duration) infinite linear alternate;
+      background-color: var(--color);
+      width: var(--width);
+      height: var(--height);
+    }
   }
 
   @keyframes anim21 {

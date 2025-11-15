@@ -6,10 +6,9 @@ import { getImage } from 'astro:assets';
 /*
 INFORMATIONS
 set optionally:
-- text as string
 - class as string
 - duration as string 'value and s | ms'
-- colors as string ("<color1>, <color2>") for gradient
+- color as string ("<color>") 
 */
 
 interface Props {
@@ -44,6 +43,7 @@ const style = `--duration: ${duration};--color: ${color};--width: ${width};--hei
     z-index: 0;
     transition: var(--duration);
     border: 0.125em solid var(--color);
+    background: #222;
     padding: 0.5rem 2rem;
     width: 15rem;
     overflow: clip;

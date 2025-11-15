@@ -1,5 +1,5 @@
 ---
-import { Animation19 } from '@/components';
+import { Animation01 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -18,9 +18,7 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <div class="animation animation19">
-      <Animation19 class="anim19" text="Animation 19" />
-    </div>
+    <Animation01>Anim 01</Animation01>
 
     <!-- <Card09
       class="card card09"
@@ -67,14 +65,10 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <style>
   .wrapper {
-    padding: 0 5px;
-    .link,
-    .image,
-    & > .card,
-    .effect,
-    & > .animation {
+    & > * {
       margin: 2rem auto;
     }
+
     .link {
       font-size: 2rem;
       .hover {
@@ -136,7 +130,7 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
         font-family: 'Just Another Hand', serif;
       }
     }
-    .animation {
+    .element {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -211,9 +205,23 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
         background: #273c75;
         padding: 2rem;
       }
-      .anim19 {
-        font-size: 1.6rem;
-      }
+    }
+    .element20 {
+      background: #fff;
+      padding: 1rem 2rem;
+    }
+    .element21 {
+      background: #222;
+      padding: 2rem;
+    }
+    .element22 {
+      background: #222;
+      padding: 2rem 4rem;
+    }
+    .element23,
+    .element24 {
+      background: #273c75;
+      padding: 1rem 4rem;
     }
 
     @media screen and (min-width: 20rem) {

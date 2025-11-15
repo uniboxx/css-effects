@@ -22,40 +22,49 @@ const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size
 ---
 
 <div class:list={['container16', classList]} style={style} {...attrs}>
-  {Array.from({ length: 5 }).map(() => <span />)}
+  <div class="loading16">
+    {Array.from({ length: 5 }).map(() => <span />)}
+  </div>
 </div>
 
 <style>
   .container16 {
     display: flex;
-    border-top: calc(var(--size) / 5) solid currentColor;
-    color: #fff;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    width: calc(var(--size) * 7);
+    .loading16 {
+      display: flex;
+      border-top: calc(var(--size) / 5) solid currentColor;
+      color: #fff;
 
-    span {
-      display: block;
-      position: relative;
-      transform-origin: top;
-      margin: 0 calc(var(--size) * 0.463);
-      background-color: currentColor;
-      width: calc(var(--size) / 17);
-      height: calc(var(--size) * 3);
-      &:first-of-type {
-        animation: anim16Left var(--duration) infinite ease-in-out;
-      }
-      &:last-of-type {
-        animation: anim16Right var(--duration) infinite ease-in-out;
-        animation-delay: var(--delay);
-      }
-      &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transform: translateX(-50%);
-        border-radius: 50%;
+      span {
+        display: block;
+        position: relative;
+        transform-origin: top;
+        margin: 0 calc(var(--size) * 0.463);
         background-color: currentColor;
-        width: var(--size);
-        height: var(--size);
-        content: '';
+        width: calc(var(--size) / 17);
+        height: calc(var(--size) * 3);
+        &:first-of-type {
+          animation: anim16Left var(--duration) infinite ease-in-out;
+        }
+        &:last-of-type {
+          animation: anim16Right var(--duration) infinite ease-in-out;
+          animation-delay: var(--delay);
+        }
+        &::after {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transform: translateX(-50%);
+          border-radius: 50%;
+          background-color: currentColor;
+          width: var(--size);
+          height: var(--size);
+          content: '';
+        }
       }
     }
   }
