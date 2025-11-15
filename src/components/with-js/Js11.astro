@@ -26,7 +26,7 @@ icons.splice(icons.length / 2, 0, '');
 <section id="container11" class={classList} {...props}>
   <div class="navigation">
     <div class="toggle"></div>
-    <ul data-style="none" class="menu">
+    <ul class="menu">
       {
         icons.map((icon, idx) => {
           return (
@@ -64,6 +64,9 @@ icons.splice(icons.length / 2, 0, '');
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .menu {
+      list-style: none;
     }
     .navigation {
       position: relative;

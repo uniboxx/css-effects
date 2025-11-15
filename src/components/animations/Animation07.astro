@@ -26,7 +26,7 @@ const {
 const style = `--duration: ${duration};--delay: ${delay};`;
 ---
 
-<ul data-style="none" class={classList} style={style} {...attrs}>
+<ul class={classList} style={style} {...attrs}>
   {
     text
       .split('')
@@ -42,6 +42,7 @@ const style = `--duration: ${duration};--delay: ${delay};`;
     gap: 5px;
     width: fit-content;
     font-size: 1.5rem;
+    list-style: none;
     li {
       animation: lighting08 var(--duration) linear infinite;
       animation-delay: var(--letterDelay);

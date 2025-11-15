@@ -26,7 +26,7 @@ const [color1, color2] = colors.split(',');
 const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<ul data-style="none" class={classList} style={style} {...attrs}>
+<ul class={classList} style={style} {...attrs}>
   {
     text
       .split('')
@@ -40,6 +40,7 @@ const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`
     max-width: 100svw;
     font-weight: 700;
     font-size: 2rem;
+    list-style: none;
   }
   li {
     opacity: 0;

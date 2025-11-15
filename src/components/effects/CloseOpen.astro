@@ -15,7 +15,7 @@ const { class: classList, duration = '.5s' } = Astro.props;
 const text = ['clo', 'se'];
 ---
 
-<ul class={classList} data-style="none">
+<ul class={classList}>
   <li>{text[0]}</li>
   <li>
     {text[1].split('').map((el) => <span id={el}>{el}</span>)}
@@ -35,6 +35,7 @@ const text = ['clo', 'se'];
     color: white;
     font-size: 3rem;
     font-family: 'Just Another Hand', cursive;
+    list-style: none;
     li,
     span {
       transition: var(--duration);
