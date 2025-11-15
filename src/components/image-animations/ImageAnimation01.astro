@@ -27,7 +27,7 @@ interface Props {
 }
 // prettier-ignore
 const { class:classList, duration='.5s', imagePath, alt, width, height, format = 'webp', loading='lazy', ...attrs } = Astro.props;
-console.log('🚀 ~ :29 ~ imagePath:', imagePath);
+// console.log('🚀 ~ :29 ~ imagePath:', imagePath);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'

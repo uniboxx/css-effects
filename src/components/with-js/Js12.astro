@@ -61,7 +61,6 @@ const optBg = await getImage({ src: bg, format: 'webp' });
     const skewY = parseFloat(
       ((scroll / containerHeight) * 10 * 1.5).toFixed(2)
     );
-    console.log('🚀 ~ :62 ~ skewY:', skewY);
     if (skewY <= 10) {
       skewed.style.transform = `skewY(${-(10 - skewY)}deg)`;
     }

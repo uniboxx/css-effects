@@ -1,4 +1,16 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- width as string
+- height as string
+- lines as number of lines
+- origin as 'center' | 'bottom' | 'top' transform-origin
+- color as string ("<color>")
+*/
+
 interface Props {
   class?: string;
   duration?: string;
@@ -12,31 +24,34 @@ const {
   class: classList,
   lines = 8,
   duration = `${lines * 0.0875}s`,
-  width = '4px',
-  height = '30px',
+  width = '5px',
+  height = '2rem',
   origin = 'center',
   color = '#fff',
+  ...attrs
 } = Astro.props;
+const style = `--duration: ${duration};--width: ${width};--height: ${height};--origin: ${origin};--color: ${color};`;
 ---
 
-<div id="container25" class={classList}>
+<div class:list={['container22', classList]} style={style} {...attrs}>
   {
     Array.from({ length: lines }).map((_, idx) => {
       const left = `${(100 / lines) * idx}%`;
       const delay = idx > 0 && `${0.2 * idx}s`;
-      return <div class="line25" style={`left: ${left};--delay: ${delay}`} />;
+      return <div class="line22" style={`left: ${left};--delay: ${delay}`} />;
     })
   }
 </div>
 
-<style define:vars={{ duration, width, height, origin, color }}>
-  #container25 {
+<style>
+  .container22 {
     display: flex;
     justify-content: center;
     gap: calc(var(--width) / 2);
-    .line25 {
+    background: #222;
+    .line22 {
       transform-origin: var(--origin);
-      animation: anim25 var(--duration) linear infinite alternate;
+      animation: anim22 var(--duration) linear infinite alternate;
       animation-delay: var(--delay);
       border-radius: 10px;
       background-color: var(--color);
@@ -45,7 +60,7 @@ const {
     }
   }
 
-  @keyframes anim25 {
+  @keyframes anim22 {
     0% {
       transform: scaleY(0);
     }

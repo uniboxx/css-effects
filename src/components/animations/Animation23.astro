@@ -1,52 +1,59 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- size as string
+- color as string ("<color>")
+*/
+
 interface Props {
   class?: string;
   duration?: string;
   size?: string;
   colors?: string;
-  circles?: number;
 }
 const {
   class: classList,
-  colors = '#fff, #ccae62, #218c74, #eb4d4b',
-  circles = colors.split(',').length,
   duration = '1s',
-  size = '80px',
+  size = '4rem',
+  colors = '#fff, #ccae62, #218c74, #eb4d4b',
+  ...attrs
 } = Astro.props;
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = size.match(regex)!;
-const quantity = +result?.groups?.quantity!;
-const unit = result?.groups?.unit;
-const borderSize = `${quantity * 0.025}${unit}`;
+const circlesNumber = colors.split(',').length;
+
+const style = `--duration: ${duration};--size: ${size};`;
 ---
 
-<div id="container26" class={classList}>
+<div class:list={['container23', classList]} style={style} {...attrs}>
   {
-    Array.from({ length: circles }).map((_, idx) => {
+    Array.from({ length: circlesNumber }).map((_, idx) => {
       const circleSize =
         idx === 0
-          ? `${quantity / circles / 2}${unit}`
-          : `${(quantity / circles) * (idx + 1)}${unit}`;
+          ? 'calc(var(--size) / 10)'
+          : `calc(var(--size) / ${circlesNumber} * ${idx + 1})`;
       const color = colors.split(',')[idx];
       return (
         <div
           class="circle"
-          style={`--circleSize: ${circleSize};--color: ${color}`}
+          style={`--circleSize: ${circleSize};--color: ${color};--borderSize: calc(var(--size) / 30);`}
         />
       );
     })
   }
 </div>
 
-<style define:vars={{ duration, size, borderSize }}>
-  #container26 {
+<style>
+  .container23 {
     position: relative;
     width: var(--size);
     height: var(--size);
     .circle {
       position: absolute;
-      top: calc(50% - var(--circleSize) / 2);
-      left: calc(50% - var(--circleSize) / 2);
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
       border: var(--borderSize) solid transparent;
       border-right-color: var(--color);
       border-left-color: var(--color);
@@ -54,7 +61,7 @@ const borderSize = `${quantity * 0.025}${unit}`;
       width: var(--circleSize);
       height: var(--circleSize);
       &:not(:first-of-type) {
-        animation: anim26 3s infinite linear;
+        animation: anim23 3s infinite linear;
         &:nth-of-type(odd) {
           animation-direction: reverse;
         }
@@ -65,9 +72,12 @@ const borderSize = `${quantity * 0.025}${unit}`;
     }
   }
 
-  @keyframes anim26 {
+  @keyframes anim23 {
+    from {
+      rotate: 0;
+    }
     to {
-      transform: rotate(360deg);
+      rotate: 360deg;
     }
   }
 </style>
