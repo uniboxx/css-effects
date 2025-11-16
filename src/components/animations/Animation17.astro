@@ -22,65 +22,76 @@ const {
   ...attrs
 } = Astro.props;
 
-const [color1, color2, color3, color4] = colors.split(',');
+const colorsArray = colors.split(',');
 
-const style = `--duration: ${duration};--size: ${size};--color1: ${color1};--color2: ${color2};--color3: ${color3};--color4: ${color4};`;
+const style = `--duration: ${duration};--size: ${size};`;
 ---
 
 <div class:list={['container17', classList]} style={style} {...attrs}>
-  {Array.from({ length: 4 }).map(() => <span />)}
+  <div class="loading17">
+    {
+      Array.from({ length: 4 }).map((_, idx) => (
+        <span style={`background: ${colorsArray[idx]}`} />
+      ))
+    }
+  </div>
 </div>
 
 <style>
   .container17 {
-    --containerSize: calc(var(--size) * 2);
-    position: relative;
-    transform: rotate(45deg);
-    animation: anim17 var(--duration) infinite linear;
+    --loadingSize: calc(var(--size) * 2);
+    --containerSize: calc(var(--loadingSize) * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222;
     width: var(--containerSize);
     height: var(--containerSize);
-    span {
-      position: absolute;
-      animation: anim17Spans var(--duration) infinite linear;
-      width: var(--size);
-      height: var(--size);
-      &:nth-of-type(1) {
-        top: 0;
-        left: 0;
-        background-color: var(--color1);
-      }
-      &:nth-of-type(2) {
-        top: 0;
-        right: 0;
-        background-color: var(--color2);
-      }
-      &:nth-of-type(3) {
-        right: 0;
-        bottom: 0;
-        background-color: var(--color3);
-      }
-      &:nth-of-type(4) {
-        bottom: 0;
-        left: 0;
-        background-color: var(--color4);
+    .loading17 {
+      position: relative;
+      transform: rotate(45deg);
+      animation: anim17 var(--duration) infinite linear;
+      width: var(--loadingSize);
+      height: var(--loadingSize);
+      span {
+        position: absolute;
+        animation: anim17Spans var(--duration) infinite linear;
+        width: var(--size);
+        height: var(--size);
+        &:nth-of-type(1) {
+          top: 0;
+          left: 0;
+        }
+        &:nth-of-type(2) {
+          top: 0;
+          right: 0;
+        }
+        &:nth-of-type(3) {
+          right: 0;
+          bottom: 0;
+        }
+        &:nth-of-type(4) {
+          bottom: 0;
+          left: 0;
+        }
       }
     }
   }
   @keyframes anim17 {
     0%,
     10% {
-      width: var(--containerSize);
-      height: var(--containerSize);
+      width: var(--loadingSize);
+      height: var(--loadingSize);
     }
 
     50% {
-      width: calc(var(--containerSize) * 1.5);
-      height: calc(var(--containerSize) * 1.5);
+      width: calc(var(--loadingSize) * 1.5);
+      height: calc(var(--loadingSize) * 1.5);
     }
     90%,
     100% {
-      width: var(--containerSize);
-      height: var(--containerSize);
+      width: var(--loadingSize);
+      height: var(--loadingSize);
     }
   }
   @keyframes anim17Spans {

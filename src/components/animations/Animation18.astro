@@ -4,7 +4,7 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- size as string (size of square)
+- size as string (container's with/height)
 - color as string ("<color>")
 */
 
@@ -17,7 +17,7 @@ interface Props {
 const {
   class: classList,
   duration = '2s',
-  size = '20px',
+  size = '3rem',
   color = '#ff0',
   ...attrs
 } = Astro.props;
@@ -25,7 +25,7 @@ const {
 const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
 ---
 
-<div class:list={['container18', classList]} style={style} {...attrs}>
+<div class:list={['loading18', classList]} style={style} {...attrs}>
   {
     Array.from({ length: 3 }).map((_, idx) => (
       <span style={`--delay: calc(var(--duration)*0.3333 * ${idx})`} />
@@ -34,22 +34,21 @@ const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
 </div>
 
 <style>
-  .container18 {
-    --containerSize: calc(var(--size) * 2.5);
+  .loading18 {
     position: relative !important;
     background: #ee5253;
-    width: var(--containerSize) !important;
-    height: var(--containerSize) !important;
+    width: var(--size) !important;
+    height: var(--size) !important;
     span {
+      --spanSize: calc(var(--size) / 2.5);
       position: absolute;
-      top: 0;
-      left: 0;
       animation: anim18 var(--duration) infinite linear;
       animation-delay: var(--delay);
-      border-radius: calc(var(--size) * 0.1);
-      background-color: var(--color);
-      width: var(--size);
-      height: var(--size);
+      inset: 0;
+      border-radius: calc(var(--spanSize) * 0.1);
+      background: var(--color);
+      width: var(--spanSize);
+      height: var(--spanSize);
     }
   }
 

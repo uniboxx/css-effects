@@ -23,12 +23,8 @@ const {
   ...attrs
 } = Astro.props;
 const optWave = await getImage({ src: wave, format: 'webp' });
-// console.log('🚀 ~ :27 ~ optWave:', optWave);
-let { width, height } = optWave.attributes;
-width += 'px';
-height += 'px';
 
-const style = `--duration: ${duration};--color: ${color};--width: ${width};--height: ${height};`;
+const style = `--duration: ${duration};--color: ${color};`;
 ---
 
 <a class={classList} style={style} {...attrs}
@@ -54,7 +50,7 @@ const style = `--duration: ${duration};--color: ${color};--width: ${width};--hei
     white-space: nowrap;
     .wave {
       position: absolute;
-      top: calc(100% + var(--height));
+      top: calc(100% + 22px);
       left: 0;
       z-index: -1;
       transition: var(--duration);
@@ -64,7 +60,7 @@ const style = `--duration: ${duration};--color: ${color};--width: ${width};--hei
 
       &::before {
         position: absolute;
-        top: calc(var(--height) * -1);
+        top: -22px;
         left: 0;
         background: var(--url);
         width: 100%;

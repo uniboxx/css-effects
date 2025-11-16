@@ -9,29 +9,31 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
+- width as number (default 270)
 */
 
 interface Props {
-  duration?: string;
   class?: string;
+  duration?: string;
 }
+// prettier-ignore
 const { class: classList, duration = '5s', ...attrs } = Astro.props;
-const optBg = await getImage({
-  src: bg,
-  alt: 'background',
-  format: 'webp',
-  loading: 'lazy',
+// prettier-ignore
+const optBg = await getImage({ src: bg, alt: 'background', format: 'webp', loading: 'lazy',
 });
+
+const { width: calcWidth, height: calcHeight } = optBg.attributes;
+const ratio = calcWidth / calcHeight;
+
 const style = `--url: url(${optBg.src});--duration: ${duration};`;
 ---
 
 <div
-  id="container03alsdkfj"
+  id="container03_unibox"
   class:list={['container', classList]}
   style={style}
   {...attrs}
 >
-  <Image id="bg" src={bg} alt="bg" width={10} priority />
   <Image class="car" src={car} alt="car" format="webp" loading="lazy" />
   <Image
     class="motobike"
@@ -44,43 +46,36 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
 
 <style>
   .container {
-    --car-width: 20%;
     position: relative;
     animation: driving03 var(--duration) linear infinite;
     background: var(--url);
-    /* if background-size is set, background-position will not work with percentages or literals values */
     background-size: cover;
-    background-position-x: var(--width);
+    background-repeat: repeat-x;
     background-position-y: bottom;
     width: 15rem;
+    max-width: 100%;
+    height: var(--height) !important;
 
-    #bg {
-      position: static;
-      opacity: 0;
-      width: 100%;
-      height: auto;
-    }
     img {
       display: block;
+      position: absolute;
       max-width: 100%;
-      &:not(#bg) {
-        position: absolute;
-      }
     }
     .car {
       bottom: 1%;
       left: 25%;
-      width: var(--car-width);
+      width: 20%;
       height: auto;
     }
     .motobike {
       bottom: 7%;
       left: 60%;
-      width: calc(var(--car-width) / 2);
+      width: 10%;
       height: auto;
     }
   }
 
+  /* if background-size is set, background-position will not work with percentages or literals values */
   @keyframes driving03 {
     from {
       background-position-x: var(--width);
@@ -91,10 +86,15 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
   }
 </style>
 
-<script>
-  const container = document.getElementById('container03alsdkfj')!;
+<script define:vars={{ ratio }}>
+  const container = document.getElementById('container03_unibox');
 
-  const width = getComputedStyle(container).width;
+  calcSizes();
+  window.addEventListener('resize', calcSizes);
 
-  container.style.cssText += `--width: ${width};`;
+  function calcSizes() {
+    const width = getComputedStyle(container).width;
+    const height = `${(parseFloat(width) / parseFloat(ratio)).toFixed(2)}px !important;`;
+    container.style.cssText += `--width: ${width};--height: ${height};`;
+  }
 </script>

@@ -46,6 +46,10 @@ const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
       width: var(--size);
       height: var(--size);
       color: var(--color);
+      svg {
+        font-size: var(--size);
+      }
+
       &::before,
       &::after {
         position: absolute;
@@ -57,9 +61,6 @@ const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
       }
       &::after {
         animation-delay: calc(var(--duration) / 3);
-      }
-      svg {
-        font-size: var(--size);
       }
     }
   }

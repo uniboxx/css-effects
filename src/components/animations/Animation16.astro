@@ -5,20 +5,23 @@ set optionally:
 - class as string
 - duration as string 'value and s | ms'
 - size as string (size of ball)
+- color as string ("<color>")
 */
 
 interface Props {
   class?: string;
   duration?: string;
   size?: string;
+  color?: string;
 }
 const {
   class: classList,
   duration = '2s',
-  size = '2.5rem',
+  size = '2rem',
+  color = '#fff',
   ...attrs
 } = Astro.props;
-const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size: ${size}`;
+const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size: ${size};--color: ${color};`;
 ---
 
 <div class:list={['container16', classList]} style={style} {...attrs}>
@@ -33,18 +36,17 @@ const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size
     justify-content: center;
     align-items: center;
     background: #222;
-    width: calc(var(--size) * 7);
+    width: calc(var(--size) * 9);
     .loading16 {
       display: flex;
-      border-top: calc(var(--size) / 5) solid currentColor;
-      color: #fff;
+      border-top: calc(var(--size) / 5) solid var(--color);
 
       span {
         display: block;
         position: relative;
         transform-origin: top;
         margin: 0 calc(var(--size) * 0.463);
-        background-color: currentColor;
+        background-color: var(--color);
         width: calc(var(--size) / 17);
         height: calc(var(--size) * 3);
         &:first-of-type {
@@ -60,7 +62,7 @@ const style = `--duration: ${duration};--delay: calc(var(--duration) / 2);--size
           left: 0;
           transform: translateX(-50%);
           border-radius: 50%;
-          background-color: currentColor;
+          background-color: var(--color);
           width: var(--size);
           height: var(--size);
           content: '';

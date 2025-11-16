@@ -6,24 +6,21 @@ set
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- delay as string
 */
 
 interface Props {
-  text: string;
+  text?: string;
   class?: string;
   duration?: string;
-  delay?: string;
 }
 const {
-  text,
+  text = 'LIGHTING',
   class: classList,
   duration = `${(text.length * 0.2).toFixed(1)}s`,
-  delay = '0.1s',
   ...attrs
 } = Astro.props;
 
-const style = `--duration: ${duration};--delay: ${delay};`;
+const style = `--duration: ${duration};`;
 ---
 
 <ul class={classList} style={style} {...attrs}>
@@ -31,7 +28,7 @@ const style = `--duration: ${duration};--delay: ${delay};`;
     text
       .split('')
       .map((letter, idx) => (
-        <li style={`--letterDelay: calc(var(--delay) * ${idx})`}>{letter}</li>
+        <li style={`--letterDelay: ${0.1 * idx}s;`}>{letter}</li>
       ))
   }
 </ul>
@@ -39,7 +36,9 @@ const style = `--duration: ${duration};--delay: ${delay};`;
 <style>
   ul {
     display: flex;
-    gap: 5px;
+    gap: 0.2em;
+    background: #222;
+    padding: 0.5em 1em;
     width: fit-content;
     font-size: 1.5rem;
     list-style: none;
@@ -61,8 +60,8 @@ const style = `--duration: ${duration};--delay: ${delay};`;
     100% {
       color: #fff900;
       text-shadow:
-        0 0 0.0875em #fff900,
-        0 0 0.625em #ff6c00;
+        0 0 0.09em #fff900,
+        0 0 0.6em #ff6c00;
     }
   }
 </style>

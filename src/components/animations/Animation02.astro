@@ -1,36 +1,48 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 /*
 INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
 - size as string
+- color as string
 */
 
-interface Props {
+interface Props extends HTMLAttributes<'div'> {
   class?: string;
   duration?: string;
   size?: string;
+  color?: string;
 }
 const {
   class: classList,
   duration = '2s',
   size = '3rem',
+  color = '#fff',
   ...attrs
 } = Astro.props;
-const style = `--duration: ${duration};--size: ${size};`;
+const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
 ---
 
-<div class:list={['loading02', classList]} style={style} {...attrs}></div>
+<div class:list={['container02', classList]} style={style} {...attrs}>
+  <div class="loading02"></div>
+</div>
 
 <style>
-  .loading02 {
-    perspective: calc(var(--size) * 20);
-    animation: loading02 var(--duration) linear infinite;
-    border-radius: calc(var(--size) / 10);
-    background-color: #fff;
-    width: var(--size);
-    height: var(--size);
+  .container02 {
+    background: #26de81;
+    padding: 1rem 2rem;
+    width: fit-content;
+    .loading02 {
+      perspective: calc(var(--size) * 30);
+      animation: loading02 var(--duration) linear infinite;
+      border-radius: calc(var(--size) / 10);
+      background-color: var(--color);
+      width: var(--size);
+      height: var(--size);
+    }
   }
 
   @keyframes loading02 {

@@ -4,24 +4,24 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- colors as string ("hoverColor")
+- hoverColor as string 
 - href as string
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  colors?: string;
+  hoverColor?: string;
   href: string;
 }
 const {
   class: classList,
   duration = '0.3s',
-  colors = '#f44336',
+  hoverColor = '#f44336',
   href,
   ...attrs
 } = Astro.props;
-const [hoverColor] = colors.split(',');
+
 const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
@@ -30,19 +30,17 @@ const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 <style>
   a {
     display: inline-block;
-    transition: 0.3s;
-    cursor: pointer;
-    border: 3px solid #fff;
+    transition: var(--duration);
+    border: 0.12em solid #fff;
     background-color: #333;
     padding: 0.5em 0.7em;
-    width: fit-content;
     color: #fff;
     font-size: 1.5rem;
     line-height: 1;
     text-decoration: none;
     &:hover {
       animation: shake var(--duration) linear;
-      border: 3px solid var(--hoverColor);
+      border-color: var(--hoverColor);
       color: var(--hoverColor);
     }
   }

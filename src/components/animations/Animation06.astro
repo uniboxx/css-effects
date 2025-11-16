@@ -4,24 +4,24 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- colors as string ("hoverColor")
+- hoverColor as string 
 - href as string
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  colors?: string;
+  hoverColor?: string;
   href: string;
 }
 const {
   class: classList,
   duration = '0.5s',
-  colors = '#f44336',
+  hoverColor = '#f44336',
   href,
   ...attrs
 } = Astro.props;
-const [hoverColor] = colors.split(',');
+
 const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 ---
 
@@ -29,28 +29,27 @@ const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
 
 <style>
   a {
+    --band-width: 33%;
+    display: inline-block;
     position: relative;
     z-index: 0;
-    transition: 0.3s;
-    cursor: pointer;
-    border: 2px solid #fff;
+    border: 0.075em solid currentColor;
     background: #222;
-    padding: 0.5em 0.7em;
-    width: fit-content;
-    overflow: hidden;
+    padding: 0.5em 1em;
+    overflow: clip;
     color: #fff;
     font-size: 1.5rem;
     line-height: 1;
     &::before {
       position: absolute;
       top: 0;
-      left: 0;
+      left: calc(var(--band-width) * -1.2);
       transform: skewX(-15deg);
       z-index: -1;
       animation: moving07 1.2s linear infinite;
       transition: var(--duration);
       background: var(--hoverColor);
-      width: 33%;
+      width: var(--band-width);
       height: 100%;
       content: '';
     }
@@ -65,7 +64,7 @@ const style = `--duration: ${duration};--hoverColor: ${hoverColor};`;
   }
   @keyframes moving07 {
     from {
-      left: -40%;
+      left: calc(var(--band-width) * -1.2);
     }
     to {
       left: 100%;

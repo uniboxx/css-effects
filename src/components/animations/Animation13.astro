@@ -2,9 +2,9 @@
 /*
 INFORMATIONS
 set optionally:
-- text as string
 - class as string
 - duration as string 'value and s | ms'
+- text as string
 - colors as string ("<color1>, <color2>") for gradient
 */
 
@@ -38,17 +38,17 @@ const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`
   ul {
     display: flex;
     background: #fff;
+    padding: 2rem 1rem;
     width: fit-content;
-    max-width: 100svw;
     font-weight: 700;
     font-size: 2rem;
     list-style: none;
-  }
-  li {
-    opacity: 0;
-    animation: anim14 var(--duration) linear infinite;
-    animation-delay: var(--delay);
-    letter-spacing: 0.5em;
+    li {
+      opacity: 0;
+      animation: anim14 var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      letter-spacing: 0.5em;
+    }
   }
   @keyframes anim14 {
     0% {

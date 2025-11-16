@@ -2,43 +2,35 @@
 // prettier-ignore
 import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-
-const bg11 = '/src/images/animation11/bg.jpg';
 ---
 
 <BaseLayout title="Animations">
   <div class="grid">
-    <div class="element element01">
-      <Animation01> Anim 01 </Animation01>
-    </div>
-    <div class="element element02"><Animation02 /></div>
+    <Animation01>Anim 01</Animation01>
+    <Animation02 />
     <Animation03 class="animation03" />
-    <Animation04 class="animation04">
+    <Animation04 class="animation animation04">
       <h3>Content</h3>
     </Animation04>
     <Animation05 class="animation05" href="#">Hover Me </Animation05>
     <Animation06 class="animation06" href="#">Hover Me </Animation06>
-    <div class="element element07"><Animation07 text="LIGHTING" /></div>
+    <Animation07 />
     <div class="element element08"><Animation08 /></div>
     <div class="element element09">
       <Animation09> ANIM 09 </Animation09>
     </div>
-    <div class="element element10"><Animation10 /></div>
-    <Animation11 class="animation11" imagePath={bg11} />
+    <Animation10 class="animation animation10" />
+    <Animation11 class="animation11" />
     <div class="element element12">
       Hov<br />er
       <Animation12 />
       Me
     </div>
-    <div class="element element13">
-      <Animation13 text="ANIMATION 13" />
-    </div>
+    <Animation13 class="animation animation13" text="ANIMATION 13" />
     <div class="element element14">
       <Animation14>Animation 14<br /><small>Hover me</small> </Animation14>
     </div>
-    <div class="element element15">
-      <Animation15 />
-    </div>
+    <div class="element element15"><Animation15 /></div>
     <div class="element element16">
       <Animation16 />
     </div>
@@ -134,20 +126,16 @@ const bg11 = '/src/images/animation11/bg.jpg';
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 15rem);
+    grid-template-columns: 1fr;
     justify-content: center;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     gap: 2rem;
     margin: 1rem 0;
-    padding: 10px;
     overflow: clip;
-
-    .element {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    @media screen and (min-width: 40rem) {
+      grid-template-columns: repeat(auto-fill, 20rem);
     }
+
     .red {
       background-color: #9a0e0e;
     }
@@ -188,51 +176,33 @@ const bg11 = '/src/images/animation11/bg.jpg';
     .no-flex {
       display: block;
     }
-    .element01,
-    .element02 {
-      background: #26de81;
-      padding: 1rem 2rem;
-    }
-    .element01,
-    .element02,
-    .element04,
-    .element05,
-    .element07,
-    .element08,
-    .element13,
-    .element15,
-    .element17,
-    .element18 {
-      height: 5rem;
-    }
-    .element02 {
-      width: 10rem;
-    }
-    .animation04 {
+
+    .element,
+    .animation {
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
     }
-    .element07 {
-      background: #222;
-      padding: 0.5em 0.7em;
-      width: 15rem;
+
+    .animation03,
+    .animation11 {
+      width: 100%;
     }
+
     .element08 {
       background: #222;
-      width: 10rem;
+      padding: 1rem 2rem;
     }
     .element09 {
       background: #273c75;
       padding: 1rem 1.5rem;
     }
-    .element10 {
-      background: #222;
-      padding: 0.5rem 1rem;
-      width: 12rem;
+    .animation10 {
+      width: 10rem;
     }
 
-    .element11 {
+    .animation11 {
       filter: brightness(1.5);
     }
     .element12 {
@@ -241,10 +211,11 @@ const bg11 = '/src/images/animation11/bg.jpg';
       padding: 0.5rem 0.7rem;
       width: 12rem;
     }
-    .element13 {
-      background: #fff;
-      padding: 1rem;
+    .animation13,
+    .element16 {
+      width: min(20rem, 100%);
     }
+
     .element14 {
       background: #222;
       small {
@@ -253,17 +224,16 @@ const bg11 = '/src/images/animation11/bg.jpg';
     }
     .element15 {
       background: #222;
-      width: 10rem;
+      padding: 1rem 2rem;
     }
     .element16 {
       background: #222;
-      padding: 1rem;
-      width: 15rem;
+      padding: 1rem 0;
     }
     .element17,
     .element18 {
       background: #222;
-      width: 10rem;
+      padding: 1rem 2rem;
     }
 
     .element19 {

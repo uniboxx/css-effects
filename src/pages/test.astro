@@ -1,5 +1,5 @@
 ---
-import { Animation01 } from '@/components';
+import { Animation18 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -18,8 +18,10 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Animation01>Anim 01</Animation01>
-
+    <!-- <div class="element element14">
+      <Animation14>Anim 14<br /><small>Hover me</small> </Animation14>
+    </div> -->
+    <Animation18 class="animation18" />
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -65,6 +67,7 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <style>
   .wrapper {
+    text-align: center;
     & > * {
       margin: 2rem auto;
     }
@@ -135,77 +138,71 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
       justify-content: center;
       align-items: center;
       width: fit-content;
+    }
+    animation01,
+    animation02 {
+      background: #26de81;
+      padding: 0.5em 0.7em;
+    }
 
-      &.animation01,
-      &.animation02 {
-        background: #26de81;
-        padding: 0.5em 0.7em;
-      }
-      &.animation01,
-      &.animation02,
-      &.animation04,
-      &.animation05,
-      &.animation07,
-      &.animation08,
-      &.animation13,
-      &.animation15 {
-        height: 5rem;
-      }
-      &.animation02 {
-        width: 10rem;
-      }
-      &.animation07 {
-        background: #222;
-        padding: 0.5em 0.7em;
-        width: 15rem;
-      }
-      &.animation08 {
-        background: #222;
-        width: 10rem;
-      }
-      &.animation09 {
-        background: #273c75;
-        padding: 1rem 1.5rem;
-      }
-      &.animation10 {
-        background: #222;
-        padding: 0.5rem 1rem;
-        width: 12rem;
-      }
+    animation02 {
+      width: 10rem;
+    }
+    animation07 {
+      background: #222;
+      padding: 0.5em 0.7em;
+      width: 15rem;
+    }
+    animation08 {
+      background: #222;
+      width: 10rem;
+    }
+    animation09 {
+      background: #273c75;
+      padding: 1rem 1.5rem;
+    }
+    animation10 {
+      background: #222;
+      padding: 0.5rem 1rem;
+      width: 12rem;
+    }
 
-      &.animation11 {
-        filter: brightness(1.5);
-        width: 15rem;
-      }
-      &.animation12 {
-        gap: 1rem;
-        background: #fff;
-        padding: 0.5rem 0.7rem;
-        width: 12rem;
-      }
-      &.animation13 {
-        background: #fff;
-      }
-      &.animation14 {
-        background: #222;
-        small {
-          font-size: 1rem;
-        }
-      }
-      &.animation15 {
-        background: #222;
-        width: 10rem;
-      }
-      &.animation16 {
-        background: #222;
-        padding: 1rem;
-        width: 15rem;
-      }
-      &.animation19 {
-        background: #273c75;
-        padding: 2rem;
+    animation11 {
+      filter: brightness(1.5);
+      width: 15rem;
+    }
+    animation12 {
+      gap: 1rem;
+      background: #fff;
+      padding: 0.5rem 0.7rem;
+      width: 12rem;
+    }
+    animation13 {
+      background: #fff;
+    }
+    animation14 {
+      background: #222;
+      small {
+        font-size: 1rem;
       }
     }
+    animation15 {
+      background: #222;
+      width: 10rem;
+    }
+    animation16 {
+      background: #222;
+      padding: 1rem;
+      width: 15rem;
+    }
+    .animation18 {
+      width: 10rem;
+    }
+    animation19 {
+      background: #273c75;
+      padding: 2rem;
+    }
+
     .element20 {
       background: #fff;
       padding: 1rem 2rem;

@@ -24,16 +24,16 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
 const optBg = await getImage({
   src: images[imagePath](),
-  alt: '',
   format: 'webp',
 });
 const style = `--duration: ${duration};--url: url(${optBg.src})`;
 ---
 
-<h3 class={classList} style={style} {...attrs}><slot /></h3>
+<span class={classList} style={style} {...attrs}><slot /></span>
 
 <style>
-  h3 {
+  span {
+    display: block;
     animation: moving10 var(--duration) linear infinite;
     background: var(--url);
     background-clip: text;
@@ -42,7 +42,6 @@ const style = `--duration: ${duration};--url: url(${optBg.src})`;
     font-weight: 700;
     font-size: 3rem;
     line-height: 1;
-    text-align: center;
   }
 
   @keyframes moving10 {

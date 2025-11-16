@@ -6,7 +6,7 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- imagePath as string
+- imagePath as string (image format: jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico)
 */
 
 interface Props {
@@ -27,7 +27,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
 // prettier-ignore
-const optBg = await getImage({ src: images[imagePath](), alt: '', format: 'webp', loading: 'lazy' });
+const optBg = await getImage({ src: images[imagePath](), format: 'webp', loading: 'lazy' });
 
 const style = `--url: url(${optBg.src});--duration: ${duration};`;
 ---

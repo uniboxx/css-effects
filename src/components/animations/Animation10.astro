@@ -6,17 +6,19 @@ set optionally:
 - class as string
 - duration as string 'value and s | ms'
 - ballNumber as number
+- color as string ("<color>")
 */
 
 interface Props {
   class?: string;
   duration?: string;
   ballNumber?: number;
+  color?: string;
 }
 // prettier-ignore
-const { class: classList, duration = '1s', ballNumber = 5, ...attrs } = Astro.props;
+const { class: classList, duration = '1s', ballNumber = 5, color='#fff', ...attrs } = Astro.props;
 
-const style = `--duration: ${duration};`;
+const style = `--duration: ${duration};--color: ${color};`;
 ---
 
 <div class:list={['container', classList]} style={style} {...attrs}>
@@ -32,22 +34,22 @@ const style = `--duration: ${duration};`;
 
 <style>
   .container {
+    background: #222;
+    padding: 1rem 2rem;
     width: fit-content;
-    color: #fff;
-    font-size: 1rem;
     ul {
       display: flex;
       justify-content: center;
       align-items: end;
       gap: 0.5em;
-      border-bottom: 0.25em solid currentColor;
+      border-bottom: 0.25em solid var(--color);
       min-height: 4.5em;
       list-style: none;
       li {
         animation: jumping11 var(--duration) linear infinite;
         animation-delay: var(--delay);
         border-radius: 50%;
-        background-color: currentColor;
+        background-color: var(--color);
         width: 1em;
         height: 1em;
       }

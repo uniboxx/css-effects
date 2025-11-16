@@ -1,5 +1,5 @@
 ---
-import { getImage, Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import rain from '@/images/animation11/rain.png';
 
 /*
@@ -12,22 +12,22 @@ set optionally:
 */
 
 interface Props {
-  imagePath: string;
   class?: string;
   duration?: string;
+  imagePath?: string;
 }
-const { class: classList, imagePath, duration = '5s', ...attrs } = Astro.props;
+// prettier-ignore
+const { class: classList, imagePath = '/src/images/animation11/bg.jpg', duration = '5s', ...attrs } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
 );
 if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
-
-const optBg = await getImage({
-  src: images[imagePath](),
-  format: 'webp',
-  loading: 'lazy',
+// prettier-ignore
+const optBg = await getImage({ src: images[imagePath](), format: 'webp', loading: 'lazy',
 });
+const { width: calcWidth, height: calcHeight } = optBg.attributes;
+const ratio = calcWidth / calcHeight;
 const optRain = await getImage({
   src: rain,
   format: 'webp',
@@ -36,15 +36,12 @@ const optRain = await getImage({
 const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--duration: ${duration}`;
 ---
 
-<div class:list={['container12', classList]} style={style} {...attrs}>
-  <Image
-    id="invisible"
-    src={images[imagePath]()}
-    alt=""
-    width={10}
-    format="webp"
-    loading="eager"
-  />
+<div
+  id="container11_unibox"
+  class:list={['container12', classList]}
+  style={style}
+  {...attrs}
+>
   <div class="rain"></div>
 </div>
 
@@ -53,11 +50,8 @@ const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--dura
     position: relative;
     background: var(--bgUrl) center / cover;
     width: 15rem;
-    #invisible {
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-    }
+    height: var(--height) !important;
+
     .rain {
       position: absolute;
       animation: rain12 var(--duration) linear infinite;
@@ -77,3 +71,16 @@ const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--dura
     }
   }
 </style>
+
+<script define:vars={{ ratio }}>
+  const container = document.getElementById('container11_unibox');
+
+  calcSizes();
+  window.addEventListener('resize', calcSizes);
+
+  function calcSizes() {
+    const width = getComputedStyle(container).width;
+    const height = `${(parseFloat(width) / parseFloat(ratio)).toFixed(2)}px !important;`;
+    container.style.cssText += `--width: ${width};--height: ${height};`;
+  }
+</script>

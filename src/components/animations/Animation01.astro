@@ -32,7 +32,6 @@ const style = `--duration: ${duration};`;
     span {
       display: inline-block;
       animation: float01 var(--duration) linear infinite alternate;
-      /* line-height: 1; */
       text-shadow:
         0 calc(1em / 48 * 1) 0 #efefef,
         0 calc(1em / 48 * 2) 0 #efefef,
@@ -44,10 +43,10 @@ const style = `--duration: ${duration};`;
 
   @keyframes float01 {
     from {
-      rotate: 5deg;
+      transform: rotate(5deg);
     }
     to {
-      rotate: -5deg;
+      transform: rotate(-5deg);
     }
   }
 </style>
