@@ -1,6 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- images as array of objects with imagePath as string and alt as string
+- width and/or height as numbers
+- format as string
+- loading as 'lazy' | 'eager' | null
+- timeToKeep as string 'value and s | ms'
+- transitionDuration as string 'value and s | ms'
+*/
+
 interface Props {
   class?: string;
   images: { imagePath: string; alt: string }[];
@@ -8,8 +20,7 @@ interface Props {
   height?: number;
   format?: string;
   loading?: 'lazy' | 'eager' | null;
-  imageTime?: string;
-  duration?: string;
+  timeToKeep?: string;
   transitionDuration?: string;
 }
 const {
@@ -19,7 +30,7 @@ const {
   height,
   format = 'webp',
   loading = 'lazy',
-  duration = '3s',
+  timeToKeep = '4s',
   transitionDuration = '2s',
   ...attrs
 } = Astro.props;
@@ -30,35 +41,39 @@ imagesData.forEach((imgData) => {
   if (!images[imgData.imagePath])
     throw new Error(`${imgData.imagePath} does not exist`);
 });
+
+const style = `--timeToKeep: ${timeToKeep};--transitionDuration: ${transitionDuration};`;
 ---
 
-<div id="slider18" class={classList} data-duration={duration} {...attrs}>
+<div
+  id="slider19_unibox"
+  class:list={['slider19', classList]}
+  style={style}
+  data-duration={timeToKeep}
+  {...attrs}
+>
   {
-    imagesData.map((imgData, idx) => (
-      <Image
-        class:list={[{ visible: idx === 0 }]}
-        src={images[imgData.imagePath]()}
-        alt={imgData.alt}
-        width={width}
-        height={height}
-        format={format}
-        loading={idx === 0 ? 'eager' : 'lazy'}
-      />
-    ))
+    imagesData.map((imgData, idx) => {
+      // prettier-ignore
+      return <Image class:list={[{ visible: idx === 0 }]} src={images[imgData.imagePath]()} alt={imgData.alt} width={width} height={height} format={format} loading={idx === 0 ? 'eager' : 'lazy'} />
+    })
   }
 </div>
 
-<style define:vars={{ transitionDuration }}>
-  #slider18 {
+<style>
+  .slider19 {
     position: relative;
+    width: 15rem;
+    height: 7.5rem;
     img {
       display: block;
       position: absolute;
       opacity: 0;
       transition: var(--transitionDuration) ease-in-out;
-      width: auto;
-      max-width: 100%;
-      height: auto;
+      inset: 0;
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       &.visible {
         opacity: 1;
@@ -68,7 +83,7 @@ imagesData.forEach((imgData) => {
 </style>
 
 <script>
-  const slider = document.getElementById('slider18') as HTMLDivElement;
+  const slider = document.getElementById('slider19_unibox') as HTMLDivElement;
   const imgs = slider.querySelectorAll('img') as NodeListOf<HTMLImageElement>;
   const length = imgs.length;
   const duration = slider.dataset.duration!;

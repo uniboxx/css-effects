@@ -1,5 +1,5 @@
 ---
-import { Animation15 } from '@/components';
+import { Animation16 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -18,8 +18,8 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <div class="animation animation15">
-      <Animation15>Animation 15 <small>Hover me</small> </Animation15>
+    <div class="animation animation16">
+      <Animation16 />
     </div>
 
     <!-- <Card09
@@ -153,7 +153,8 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
       &.animation05,
       &.animation08,
       &.animation09,
-      &.animation14 {
+      &.animation14,
+      &.animation16 {
         height: 5rem;
       }
       &.animation02 {
@@ -196,6 +197,10 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
         small {
           font-size: 1rem;
         }
+      }
+      &.animation16 {
+        background: #222;
+        width: 10rem;
       }
     }
 

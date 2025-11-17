@@ -1,13 +1,9 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const bg12 = '/src/images/animation12/bg.jpg';
-const img1 = '/src/images/animation17/img-1.jpg';
-const img2 = '/src/images/animation17/img-2.jpg';
-const img3 = '/src/images/animation17/img-3.jpg';
-const img4 = '/src/images/animation17/img-4.jpg';
 ---
 
 <BaseLayout title="Animations">
@@ -43,27 +39,14 @@ const img4 = '/src/images/animation17/img-4.jpg';
     <div class="animation animation15">
       <Animation15>Animation 15 <small>Hover me</small> </Animation15>
     </div>
-    <!--<div class="animation black">
-      <Animation16 class="animation16" />
+    <div class="animation animation16">
+      <Animation16 />
     </div>
-    <div class="animation">
-      <Animation17 class="animation17">
-        <h3>Animation 17</h3>
-      </Animation17>
-    </div>
-    <div class="animation x2x2cells black">
-      <Animation18
-        class="animation18"
-        images={[
-          { imagePath: img1, alt: 'boat' },
-          { imagePath: img2, alt: 'sunset' },
-          { imagePath: img3, alt: 'mountain' },
-          { imagePath: img4, alt: 'alpinist' },
-        ]}
-      />
+    <div class="animation animation17">
+      <Animation17> Animation 17 </Animation17>
     </div>
 
-    <div class="animation x2x2cells black">
+    <!--<div class="animation x2x2cells black">
       <Animation19 class="animation19" />
     </div>
     <div class="animation black">
@@ -222,7 +205,8 @@ const img4 = '/src/images/animation17/img-4.jpg';
       &.animation05,
       &.animation08,
       &.animation09,
-      &.animation14 {
+      &.animation14,
+      &.animation16 {
         height: 5rem;
       }
       &.animation02 {
@@ -270,19 +254,11 @@ const img4 = '/src/images/animation17/img-4.jpg';
         }
       }
       &.animation16 {
-        font-size: 3rem;
+        background: #222;
+        width: 10rem;
       }
       &.animation17 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
         font-size: 1.5rem;
-      }
-      &.animation18 {
-        width: 400px;
-        height: 200px;
       }
 
       &.animation22 {
