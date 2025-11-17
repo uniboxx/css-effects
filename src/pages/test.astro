@@ -1,5 +1,5 @@
 ---
-import { Animation18 } from '@/components';
+import { Animation30 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -18,10 +18,7 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <!-- <div class="element element14">
-      <Animation14>Anim 14<br /><small>Hover me</small> </Animation14>
-    </div> -->
-    <Animation18 class="animation18" />
+    <Animation30 />
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -69,7 +66,7 @@ const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePa
   .wrapper {
     text-align: center;
     & > * {
-      margin: 2rem auto;
+      margin: 4rem auto;
     }
 
     .link {

@@ -26,15 +26,14 @@ const [color1, color2] = colors.split(',');
 const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<h3 class:list={['text19_unibox', classList]} style={style} {...attrs}>
+<span class:list={['loading19', classList]} style={style} {...attrs}>
   &nbsp;{text}&nbsp;<span>&nbsp;{text}&nbsp;</span>
-</h3>
+</span>
 
 <style>
-  .text19_unibox {
+  .loading19 {
     position: relative;
     background: #273c75;
-    width: fit-content;
     color: var(--color1);
     font-size: 1.6rem;
     span {

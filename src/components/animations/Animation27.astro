@@ -1,0 +1,78 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- color as string
+- hexagonSize as string
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  color?: string;
+  hexagonSize?: string;
+}
+const {
+  class: classList,
+  duration = '2s',
+  color = '#0af',
+  hexagonSize = '2rem',
+  ...attrs
+} = Astro.props;
+const style = `--duration: ${duration};--hexagonSize: ${hexagonSize};--color: ${color};`;
+---
+
+<div class:list={['container27', classList]} style={style} {...attrs}>
+  <div class="hexagon"></div>
+</div>
+
+<style>
+  .container27 {
+    position: relative;
+    top: 9%;
+    animation: anim27 var(--duration) linear infinite alternate;
+    border: 2px solid var(--color);
+    width: calc(var(--hexagonSize) * 6);
+    .hexagon {
+      position: absolute;
+      bottom: calc(var(--hexagonSize) * 0.3333);
+      left: 0;
+      animation: hexagon27 var(--duration) infinite linear alternate;
+      background-color: var(--color);
+      width: var(--hexagonSize);
+      height: calc(var(--hexagonSize) * 0.6);
+      &::before,
+      &::after {
+        position: absolute;
+        inset: 0;
+        background-color: var(--color);
+        content: '';
+      }
+      &::before {
+        transform: rotate(60deg);
+      }
+      &::after {
+        transform: rotate(-60deg);
+      }
+    }
+  }
+  @keyframes hexagon27 {
+    from {
+      left: 0;
+    }
+    to {
+      left: calc(100% / 6 * 5);
+      transform: rotate(720deg);
+    }
+  }
+  @keyframes anim27 {
+    0% {
+      transform: rotate(30deg);
+    }
+    100% {
+      transform: rotate(-30deg);
+    }
+  }
+</style>

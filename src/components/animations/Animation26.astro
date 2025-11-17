@@ -1,0 +1,78 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- number as number of squares
+- mediusSize as string 
+- color: as string (color of squares)
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  number?: number;
+  mediumSize?: string;
+  color?: string;
+}
+const {
+  class: classList,
+  duration = '4s',
+  number = 10,
+  mediumSize = '1rem',
+  color = '#00f2f2',
+  ...attrs
+} = Astro.props;
+
+const style = `--duration: ${duration};--mediumSize: ${mediumSize};--color: ${color};`;
+---
+
+<div class:list={['container26', classList]} style={style} {...attrs}>
+  {
+    Array.from({ length: number }).map((_, idx) => {
+      const random = Math.round((Math.random() * 0.6 + 0.7) * 100) / 100;
+      const randomSize = `calc(var(--mediumSize) * ${random})`;
+      const gap = Math.trunc(100 / (number - 1));
+      const delay = Math.ceil(Math.random() * number * 100) / 100;
+      return (
+        <div
+          class="square"
+          style={`bottom: ${randomSize.replace(/\)$/, ' * -1)')};width: ${randomSize};height: ${randomSize};left: ${gap * idx}%;animation-delay: ${delay}s`}
+        />
+      );
+    })
+  }
+  <span><slot /></span>
+</div>
+
+<style>
+  .container26 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    width: 15rem;
+    height: 5rem;
+    overflow: clip;
+    color: #fff;
+    font-size: 1.5rem;
+    .square {
+      position: absolute;
+      transform: translateX(-50%);
+      animation: anim26 var(--duration) infinite ease-in-out;
+      background-color: var(--color);
+    }
+    .span {
+      z-index: 1;
+    }
+  }
+  @keyframes anim26 {
+    to {
+      bottom: 100%;
+      transform: rotate(180deg);
+      opacity: 0;
+    }
+  }
+</style>

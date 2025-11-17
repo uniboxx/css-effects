@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
@@ -44,7 +44,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <Animation19 text="Animation 19" />
     </div>
     <div class="element element20">
-      <Animation20 text="An20" />
+      <Animation20 text="Anim 20" />
     </div>
     <div class="element element21">
       <Animation21 />
@@ -58,29 +58,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="element element24">
       <Animation24 />
     </div>
+    <div class="element element25">
+      <Animation25 />
+    </div>
+    <Animation26> Animation 26 </Animation26>
+    <div class="element element27">
+      <Animation27 />
+    </div>
+    <div class="element element28">
+      <Animation28 href="#"
+        >Animation 28<br /><small>Hover Me</small></Animation28
+      >
+    </div>
+    <Animation29> Animation 29 </Animation29>
+    <div class="element element30">
+      <Animation30 />
+    </div>
     <!--<div class="element black">
-      <Animation28 class="element28" />
-    </div>
-    <div class="element black">
-      <Animation29 class="element29">
-        <h3>Animation 29</h3>
-      </Animation29>
-    </div>
-    <div class="element black">
-      <Animation30 class="element30" />
-    </div>
-    <div class="element white">
-      <Animation31 class="element31" text="Animation 31" href="" />
-    </div>
-    <div class="element blue">
-      <Animation32 class="element32">
-        <h3>Animation 32</h3>
-      </Animation32>
-    </div>
-    <div class="element red">
-      <Animation33 class="element33" text="Animation 33" />
-    </div>
-    <div class="element black">
       <Animation34 class="element34" text="An34" />
     </div>
     <div class="element navy">
@@ -126,15 +120,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 <style>
   .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     justify-content: center;
     place-items: center;
     gap: 2rem;
     margin: 1rem 0;
     overflow: clip;
-    @media screen and (min-width: 40rem) {
-      grid-template-columns: repeat(auto-fill, 20rem);
-    }
 
     .red {
       background-color: #9a0e0e;
@@ -184,6 +176,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       align-items: center;
       text-align: center;
     }
+    small {
+      font-size: 1rem;
+    }
 
     .animation03,
     .animation11 {
@@ -218,9 +213,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     .element14 {
       background: #222;
-      small {
-        font-size: 1rem;
-      }
     }
     .element15 {
       background: #222;
@@ -246,9 +238,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     }
     .element21 {
       background: #222;
-      padding: 2rem;
+      padding: 1rem;
     }
-    .element22 {
+    .element22,
+    .element25 {
       background: #222;
       padding: 2rem 4rem;
     }
@@ -257,19 +250,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       background: #273c75;
       padding: 1rem 4rem;
     }
-    .element29 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 240px;
-      height: 90px;
-      color: #fff;
-      font-size: 1.1rem;
-      h3 {
-        border: solid white;
-        border-width: 3px 0 3px 0;
-      }
+    .element27 {
+      align-self: end;
+      background: #222;
+      padding: 0 1rem;
+      height: 7rem;
     }
+    .element30 {
+      background: #9a0e0e;
+      padding: 2rem;
+    }
+
     .element31 {
       font-size: 1.3rem;
     }

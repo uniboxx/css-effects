@@ -1,0 +1,77 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- width as string
+- height as string
+- color as string ("<color1>, <color2>, ..." of lines)
+- origin as 'center' | 'bottom' | 'top'
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  width?: string;
+  height?: string;
+  colors?: string;
+  origin?: 'center' | 'bottom' | 'top';
+}
+const {
+  class: classList,
+  colors = '#2eeca8, #eade3d, #55acee, #ec902e, #09b7bf, #ea3d8c',
+  duration = '.9s',
+  width = '4px',
+  height = '2rem',
+  origin = 'center',
+  ...attrs
+} = Astro.props;
+const colorsArray = colors.split(',');
+const lines = colorsArray.length;
+const style = `--duration: ${duration};--width: ${width};--height: ${height};--origin: ${origin};`;
+---
+
+<div class:list={['container28', classList]} style={style} {...attrs}>
+  {
+    Array.from({ length: lines }).map((_, idx) => {
+      // const delay = idx === 0 ? '0s' : `${}s`;
+      return (
+        <div
+          class="line"
+          style={`left: ${(100 / lines) * idx}%;animation-delay: ${0.1 * idx}s;background: ${colorsArray[idx]}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style>
+  .container28 {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--width) / 2);
+    background: #222;
+    width: fit-content;
+    .line {
+      transform-origin: var(--origin);
+      animation: loading28 var(--duration) ease-in-out infinite;
+      border-radius: 10px;
+      width: var(--width);
+      height: var(--height);
+    }
+  }
+
+  @keyframes loading28 {
+    0% {
+      transform: scaleY(0.1);
+    }
+    35% {
+      transform: scaleY(1);
+    }
+    60%,
+    100% {
+      transform: scaleY(0.1);
+    }
+  }
+</style>

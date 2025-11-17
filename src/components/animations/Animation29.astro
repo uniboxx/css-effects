@@ -1,62 +1,85 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- number as number of squares
+- colors as string ("<color1>, <color2>, ...")
+*/
+
 interface Props {
   class?: string;
   duration?: string;
   number?: number;
-  boxColor?: string;
-  mediumSize?: string;
+  colors?: string;
+  maxSize?: string;
 }
 const {
   class: classList,
-  duration = '4s',
+  duration = '8s',
   number = 10,
-  boxColor = '#00f2f2',
-  mediumSize = '20px',
+  colors = '#09f, red, #fff',
+  maxSize = '1.6em',
   ...attrs
 } = Astro.props;
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = mediumSize.match(regex)!;
-const quantity = +result.groups?.quantity!;
-const unit = result.groups?.unit!;
+
+const colorsArray = colors.split(',');
+const colorsLength = colorsArray.length;
+function randNum() {
+  return Math.floor(Math.random() * 90 * 10) / 10;
+}
+function randColorIndex() {
+  return Math.floor(Math.random() * colorsLength);
+}
+function randDelay() {
+  return `calc(${parseFloat(Math.random().toFixed(2))} * var(--duration))`;
+}
+
+const style = `--duration: ${duration};--maxSize: ${maxSize};`;
 ---
 
-<div id="container29" class={classList} {...attrs}>
+<div class:list={['container29', classList]} style={style} {...attrs}>
   {
-    Array.from({ length: number }).map((_, idx) => {
-      const random = Math.round((Math.random() * 0.6 + 0.7) * 100) / 100;
-      const randomSize = `${Math.trunc(quantity * random)}${unit}`;
-      const gap = (quantity * number) / (number + 1);
-      const delay = Math.ceil(Math.random() * number * 100) / 100;
-      return (
-        <div
-          class="square"
-          style={`bottom: -${randomSize};width: ${randomSize};height: ${randomSize};left: ${gap * (idx + 1)}%;animation-delay: ${delay}s`}
-        />
-      );
-    })
+    Array.from({ length: number }).map(() => (
+      <div
+        class="square"
+        style={`top: ${randNum()}%;left: ${randNum()}%;--delay: ${randDelay()};--color: ${colorsArray[randColorIndex()]}`}
+      />
+    ))
   }
   <slot />
 </div>
 
-<style define:vars={{ duration, boxColor }}>
-  #container29 {
+<style>
+  .container29 {
     position: relative;
     z-index: 0;
-
-    overflow: hidden;
+    background: #273c75;
+    padding: 2rem;
+    width: fit-content;
+    overflow: clip;
+    color: #fff;
+    font-size: 1.5rem;
     .square {
       position: absolute;
-      bottom: calc(var(--mediumSize) * -1);
-      transform: translateX(-50%);
+      transform: scale(0);
       z-index: -1;
       animation: anim29 var(--duration) infinite ease-in-out;
-      background-color: var(--boxColor);
+      animation-delay: var(--delay);
+      border: 0.1em solid var(--color);
+      width: var(--maxSize);
+      height: var(--maxSize);
     }
   }
   @keyframes anim29 {
+    0% {
+      transform: rotate(0deg) scale(0);
+      opacity: 1;
+    }
+
     100% {
-      bottom: 100%;
-      transform: rotate(180deg);
+      transform: rotate(960deg) scale(1);
       opacity: 0;
     }
   }

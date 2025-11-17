@@ -1,62 +1,82 @@
 ---
+/*
+INFORMATIONS
+set:
+- href as string
+
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- colors as string ("<hoverColor>, <hoverBgColor>")
+*/
+
 interface Props {
+  href: string;
   class?: string;
   duration?: string;
-  width?: string;
-  height?: string;
   colors?: string;
-  lines?: number;
-  origin?: 'center' | 'bottom' | 'top';
 }
 const {
+  href,
   class: classList,
-  colors = '#2eeca8, #eade3d, #55acee, #ec902e, #09b7bf, #ea3d8c',
-  lines = colors.split(',').length,
-  duration = `${lines * 0.15}s`,
-  width = '4px',
-  height = '30px',
-  origin = 'center',
+  duration = '.5s',
+  colors = '#fff, #f00',
+  ...attrs
 } = Astro.props;
+const [hoverColor, hoverBgColor] = colors.split(',');
+
+const style = `--duration: ${duration};--hoverColor: ${hoverColor};--hoverBgColor: ${hoverBgColor};`;
 ---
 
-<div id="container28" class={classList}>
-  {
-    Array.from({ length: lines }).map((_, idx) => {
-      const delay = idx === 0 ? '0s' : `${0.1 * (idx + 1)}s`;
-      return (
-        <div
-          class="line28"
-          style={`left: ${(100 / lines) * idx}%;animation-delay: ${delay};background-color: ${colors.split(',')[idx]}`}
-        />
-      );
-    })
-  }
-</div>
+<a href={href} class:list={['container28', classList]} style={style} {...attrs}
+  ><slot />
+</a>
 
-<style define:vars={{ duration, width, height, origin }}>
-  #container28 {
-    display: flex;
-    justify-content: center;
-    gap: calc(var(--width) / 2);
-    .line28 {
-      transform-origin: var(--origin);
-      animation: loading28 var(--duration) ease-in-out infinite;
-      border-radius: 10px;
-      width: var(--width);
-      height: var(--height);
+<style>
+  a {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    transition: var(--duration);
+    background: #fff;
+    padding: 0.5em 1em;
+    overflow: clip;
+    color: #222;
+    font: inherit;
+    font-size: 1.5rem;
+    text-decoration: none;
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: -100%;
+      transform: translateY(-50%);
+      z-index: -1;
+      background-color: var(--hoverBgColor);
+      width: 100%;
+      height: 4px;
+      content: '';
+    }
+    &:hover {
+      color: var(--hoverColor);
+      &::before {
+        animation: anim28 var(--duration) linear forwards;
+      }
     }
   }
 
-  @keyframes loading28 {
+  @keyframes anim28 {
     0% {
-      transform: scaleY(0.1);
+      left: -100%;
+      height: 4px;
     }
-    35% {
-      transform: scaleY(1);
+    50% {
+      left: 0;
+      height: 4px;
     }
-    60%,
+
     100% {
-      transform: scaleY(0.1);
+      left: 0;
+      height: 100%;
     }
   }
 </style>
