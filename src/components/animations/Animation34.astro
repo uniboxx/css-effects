@@ -1,77 +1,114 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- text as string
+- color as string ("<color>") 
+*/
+
 interface Props {
   class?: string;
   duration?: string;
-  text: string;
-  size?: string;
-  number?: number;
-  ringColor?: string;
+  text?: string;
+  color?: string;
 }
 const {
   class: classList,
-  duration = '3s',
-  text,
-  size = '90px',
-  number = 3,
-  ringColor = '#09f',
+  text = 'Animation 34',
+  duration = `${text.length / 3}s`,
+  color = '#fff',
   ...attrs
 } = Astro.props;
-
-function randomRad() {
-  let radius = '';
-  for (let i = 1; i <= 8; i++) {
-    const value = `${Math.floor(Math.random() * 31 + 40)}% `;
-    radius += value;
-    if (i === 4) radius += '/ ';
-  }
-  return radius;
-}
+const style = `--duration: ${duration};--color: ${color};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div id="container34" class={classList} {...attrs}>
-  <h3>{text}</h3>
-  {
-    Array.from({ length: number }).map((_, idx) => {
-      const direction = idx % 2 === 0 ? 'normal' : 'reverse';
-      let radius = randomRad();
-      return (
-        <div
-          class="ring"
-          style={`border-radius: ${radius};--direction: ${direction}`}
-        />
-      );
-    })
-  }
+<div id={id} class:list={['container34', classList]} style={style} {...attrs}>
+  <div class="lightbar"></div>
+  <div class="toplayer"></div>
+  <span>{text}</span>
 </div>
 
-<style define:vars={{ duration, size, ringColor }}>
-  #container34 {
-    display: flex;
+<style>
+  .container34 {
+    --shadow: 0 0 0.125em #00b3ff, 0 0 0.25em #00b3ff, 0 0 0.5em #00b3ff,
+      0 0 1em #00b3ff, 0 0 1.5em #00b3ff;
     position: relative;
-    justify-content: center;
-    align-items: center;
-    width: var(--size);
-    height: var(--size);
-    overflow: hidden;
-    h3 {
-      font: inherit;
+    background-color: #001d30;
+    width: fit-content;
+    overflow: clip;
+    span {
+      display: inline-block;
+      padding: 0.5em;
+      color: var(--color);
+      font-size: 1.5rem;
+      text-shadow: var(--shadow);
     }
-    .ring {
-      --ringSize: 80%;
+    .lightbar {
       position: absolute;
-      top: calc((100% - var(--ringSize)) / 2);
-      left: calc((100% - var(--ringSize)) / 2);
-      animation: loading34 var(--duration) infinite linear;
-      animation-direction: var(--direction);
-      border: 0.05em solid var(--ringColor);
-      width: var(--ringSize);
-      height: var(--ringSize);
+      transform: scaleY(0) translateX(0);
+      animation: lightbar34 var(--duration) linear infinite;
+      inset: 0;
+      box-shadow: var(--shadow);
+      border-radius: 0.125em;
+      background: var(--color);
+      width: var(--lightbar-width);
+      height: 100%;
+    }
+    .toplayer {
+      position: absolute;
+      top: -50%;
+      left: calc(var(--lightbar-width) * 1);
+      animation: toplayer34 calc(var(--duration) * 2) linear infinite;
+      background: inherit;
+      width: calc(100% - var(--lightbar-width) * 2);
+      height: 200%;
     }
   }
 
-  @keyframes loading34 {
-    to {
-      transform: rotate(360deg);
+  /* in 90% and 100% put the width of container */
+  @keyframes lightbar34 {
+    0% {
+      transform: scaleY(0) translateX(0);
+    }
+    10% {
+      transform: scaleY(1) translateX(0);
+    }
+    90% {
+      transform: scaleY(1) translateX(var(--lightbar_move_until));
+    }
+    100% {
+      transform: scaleY(0) translateX(var(--lightbar_move_until));
+    }
+  }
+  @keyframes toplayer34 {
+    0%,
+    5% {
+      transform: translateX(0);
+    }
+    45%,
+    50% {
+      transform: translateX(calc(100% + var(--lightbar-width)));
+    }
+    50.0001%,
+    55% {
+      transform: translateX(calc(-100% - var(--lightbar-width)));
+    }
+    95%,
+    100% {
+      transform: translateX(0);
     }
   }
 </style>
+
+<script define:vars={{ id }}>
+  const container34 = document.getElementById(id);
+
+  const container34Width = getComputedStyle(container34).width;
+  container34.style.cssText += `--container34Width: ${container34Width};--lightbar-width: 0.18em;
+    --lightbar_move_until: calc(
+      var(--container34Width) - var(--lightbar-width)
+    );`;
+</script>

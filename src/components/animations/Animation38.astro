@@ -1,70 +1,137 @@
 ---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- size as string
+- colors as string ("small, semiSmall, sphere, semiBig, ") 
+*/
+
 interface Props {
   class?: string;
   duration?: string;
   size?: string;
-  ringColor?: string;
+  colors?: string;
 }
 const {
   class: classList,
-  size = '60px',
-  ringColor = '#00c3ff',
   duration = '2s',
+  size = '12rem',
+  colors = '#f0f, #06c8f0, #fff, #fe4e4e, ',
+  ...attrs
 } = Astro.props;
-const number = 2 / parseFloat(duration);
+const [small, semiSmall, sphere, semiBig] = colors.split(',');
+
+const style = `--duration: ${duration};--size: ${size};--small: ${small};--semiSmall: ${semiSmall};--sphere: ${sphere};--semiBig: ${semiBig};`;
 ---
 
-<div class="loader38" class={classList}>
-  {
-    Array.from({ length: 20 }).map((_, idx) => {
-      return <span style={`--n: ${idx}`} />;
-    })
-  }
+<div class:list={['container38', classList]} style={style} {...attrs}>
+  <div class="semiSmall">
+    <div class="loader">
+      <div class="ball"></div>
+    </div>
+  </div>
 </div>
 
-<style define:vars={{ duration, size, ringColor, number }}>
-  .loader38 {
-    position: relative;
-    border-radius: 50%;
-    width: var(--size);
-    height: var(--size);
+<style>
+  .container38 {
+    --containerSize: calc(var(--size) * 0.9);
+    display: flex;
+    justify-content: center;
+    background: #222;
+    width: var(--containerSize);
+    height: calc(var(--containerSize) * 0.9);
+    overflow: clip;
 
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: rotate(calc(18deg * var(--n)));
-      width: 100%;
-      height: 100%;
-      &::before {
+    .semiSmall {
+      --semiSmallSize: calc(var(--size) / 4);
+      position: relative;
+      top: calc(var(--semiSmallSize) / 4);
+      width: var(--semiSmallSize);
+      height: var(--semiSmallSize);
+
+      .loader {
+        position: relative;
+        animation: semisphere38 var(--duration) linear infinite alternate;
+        width: var(--semiSmallSize);
+        height: var(--semiSmallSize);
+        /* semiSmall */
+        &::before {
+          --radius: calc(var(--size) * 2);
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          border-bottom-right-radius: var(--radius);
+          border-bottom-left-radius: var(--radius);
+          background: var(--semiSmall);
+          width: 100%;
+          height: 50%;
+          content: '';
+        }
+        .ball {
+          --ballSize: calc(var(--semiSmallSize) / 4);
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-100%) translateX(calc(var(--ballSize) * -0.5));
+          animation: ball38 var(--duration) linear infinite alternate;
+          border-radius: 50%;
+          background-color: var(--small);
+          width: var(--ballSize);
+          height: var(--ballSize);
+        }
+      }
+      &::before,
+      &::after {
         position: absolute;
-        top: 0;
-        left: 0;
-        animation: loading38 var(--duration) linear infinite;
-        animation-delay: calc(var(--duration) / 20 * var(--number) * var(--n));
-        box-shadow:
-          0 0 calc(var(--size) / 12) var(--ringColor),
-          0 0 calc(var(--size) / 6) var(--ringColor),
-          0 0 calc(var(--size) / 3) var(--ringColor),
-          0 0 calc(var(--size) / 2) var(--ringColor),
-          0 0 calc(var(--size) / 3 * 2) var(--ringColor),
-          0 0 calc(var(--size) / 3 * 2.5) var(--ringColor);
-        border-radius: 50%;
-        background: var(--ringColor);
-        width: calc(var(--size) / 8);
-        height: calc(var(--size) / 8);
         content: '';
+      }
+      /* sphere */
+      &::before {
+        top: var(--semiSmallSize);
+        left: 0;
+        z-index: 1;
+        animation: sphere38 var(--duration) linear infinite alternate;
+        border-radius: 50%;
+        background: var(--sphere);
+        width: var(--semiSmallSize);
+        height: var(--semiSmallSize);
+      }
+      /* semiBig */
+      &::after {
+        --semiBigSize: var(--size);
+        top: calc(var(--size) / 2);
+        left: -150%;
+        border-radius: 50%;
+        background: var(--semiBig);
+        width: var(--semiBigSize);
+        height: var(--semiBigSize);
       }
     }
   }
-
-  @keyframes loading38 {
-    0% {
-      transform: scale(1);
+  @keyframes ball38 {
+    from {
+      transform: translateY(-100%) translateX(calc(var(--ballSize) * -1));
     }
-    80%,
+    to {
+      transform: translateY(-100%) translateX(var(--semiSmallSize));
+    }
+  }
+  @keyframes semisphere38 {
+    0% {
+      transform: rotate(50deg);
+    }
     100% {
-      transform: scale(0);
+      transform: rotate(-50deg);
+    }
+  }
+  @keyframes sphere38 {
+    from {
+      transform: translateX(calc(var(--semiSmallSize) / 8));
+    }
+    to {
+      transform: translateX(calc(var(--semiSmallSize) / -8));
     }
   }
 </style>

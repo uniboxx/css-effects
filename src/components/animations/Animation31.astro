@@ -1,0 +1,90 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- text as string
+- size as string
+- number as number of circles
+- color as string ("<color>") of ring
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+  size?: string;
+  number?: number;
+  color?: string;
+}
+const {
+  class: classList,
+  duration = '3s',
+  text = 'Anim 31',
+  size = '4.5rem',
+  number = 3,
+  color = '#09f',
+  ...attrs
+} = Astro.props;
+
+function randomRad() {
+  let radius = '';
+  for (let i = 1; i <= 8; i++) {
+    const value = `${Math.floor(Math.random() * 31 + 40)}% `;
+    radius += value;
+    if (i === 4) radius += '/ ';
+  }
+  return radius;
+}
+const style = `--duration: ${duration};--size: ${size};--color: ${color};`;
+---
+
+<div class:list={['container31', classList]} style={style} {...attrs}>
+  <span>{text}</span>
+  {
+    Array.from({ length: number }).map((_, idx) => {
+      const direction = idx % 2 === 0 ? 'normal' : 'reverse';
+      let radius = randomRad();
+      return (
+        <div
+          class="ring"
+          style={`border-radius: ${radius};--direction: ${direction}`}
+        />
+      );
+    })
+  }
+</div>
+
+<style>
+  .container31 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    width: var(--size);
+    height: var(--size);
+    color: #fff;
+    font-size: 0.9rem;
+
+    .ring {
+      --ringSize: 90%;
+      --offset: calc((100% - var(--ringSize)) / 2);
+      position: absolute;
+      top: var(--offset);
+      left: var(--offset);
+      animation: loading31 var(--duration) infinite linear;
+      animation-direction: var(--direction);
+      border: 0.05em solid var(--color);
+      width: var(--ringSize);
+      height: var(--ringSize);
+    }
+  }
+
+  @keyframes loading31 {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- size as string
+- colors as string ("<innerColor>, <outerColor>") 
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  size?: string;
+  colors?: string;
+}
+const {
+  class: classList,
+  duration = '2s',
+  size = '4.5rem',
+  colors = '#001d30, #51eeee',
+  ...attrs
+} = Astro.props;
+const [innerColor, outerColor] = colors.split(',');
+const style = `--duration: ${duration};--size: ${size};--innerColor: ${innerColor};--outerColor: ${outerColor};`;
+---
+
+<div class:list={['container32', classList]} style={style} {...attrs}>
+  <div class="ring"></div>
+</div>
+
+<style>
+  .container32 {
+    position: relative;
+    background-color: var(--innerColor);
+    width: var(--size);
+    height: var(--size);
+    .ring {
+      position: absolute;
+      animation: loading32 var(--duration) infinite linear;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(
+        to top,
+        var(--innerColor) 40%,
+        var(--outerColor) 100%
+      );
+      &::before,
+      &::after {
+        position: absolute;
+        border-radius: 50%;
+        content: '';
+      }
+      /* inner dark circle */
+      &::before {
+        --ringSize: 80%;
+        top: 8.33%;
+        left: 0;
+        background: var(--innerColor);
+        width: var(--ringSize);
+        height: var(--ringSize);
+      }
+      /* small lighter circle */
+      &::after {
+        top: 30%;
+        right: 0;
+        box-shadow:
+          0 0 calc(var(--size) * 0.033 * 5) var(--outerColor),
+          0 0 calc(var(--size) * 0.033 * 10) var(--outerColor),
+          0 0 calc(var(--size) * 0.033 * 15) var(--outerColor);
+        background-color: var(--outerColor);
+        width: 25%;
+        height: 25%;
+      }
+    }
+  }
+
+  @keyframes loading32 {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

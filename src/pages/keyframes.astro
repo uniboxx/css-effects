@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
@@ -74,32 +74,26 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="element element30">
       <Animation30 />
     </div>
-    <!--<div class="element black">
-      <Animation34 class="element34" text="An34" />
+    <div class="element element31">
+      <Animation31 />
     </div>
-    <div class="element navy">
-      <Animation35 class="element35" />
+    <div class="element element32">
+      <Animation32 />
     </div>
-    <div class="element white">
-      <Animation36 class="element36" text="Animation 36" href="" />
+    <div class="element element33">
+      <Animation33 href="#" />
     </div>
-    <div class="element navy">
-      <Animation37 class="element37" text="Animation 37" />
+    <Animation34 />
+    <div class="element element35">
+      <Animation35 />
     </div>
-    <div class="element navy">
-      <Animation38 class="element38" />
-    </div>
-    <div class="element x2rows">
-      <Animation39 class="element39" />
-    </div>
-    <div class="element black x2rows">
-      <Animation40 class="element40" />
-    </div>
-    <div class="element black x2rows">
-      <Animation41 class="element41" />
+    <Animation36 class="animation36" />
+    <div class="element element37"><Animation37 /></div>
+    <div class="element element38">
+      <Animation38 />
     </div>
 
-    <div class="element white x2rows">
+    <!--<div class="element white x2rows">
       <Animation42 class="element42" text="Anim42" />
     </div>
     <div class="element navy x2rows">
@@ -207,7 +201,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       width: 12rem;
     }
     .animation13,
-    .element16 {
+    .element16,
+    .animation36,
+    .element37,
+    .element38 {
       width: min(20rem, 100%);
     }
 
@@ -262,18 +259,29 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     }
 
     .element31 {
-      font-size: 1.3rem;
+      background: #222;
+      padding: 1rem 2rem;
     }
     .element32 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-size: 1.1rem;
+      background: #001d30;
+      padding: 1rem 2rem;
     }
-    .element36 {
-      font-size: 1.3rem;
+    .element33 {
+      padding: 1rem;
     }
+    .element35 {
+      background: #001d30;
+      padding: 1rem 2rem;
+    }
+    .element37 {
+      background: #222;
+      padding-top: 1rem;
+    }
+    .element38 {
+      align-start: end;
+      background: #222;
+    }
+
     .element42 {
       font-size: 0.8rem;
     }
