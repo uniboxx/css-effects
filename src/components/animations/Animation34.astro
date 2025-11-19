@@ -11,13 +11,11 @@ set optionally:
 interface Props {
   class?: string;
   duration?: string;
-  text?: string;
   color?: string;
 }
 const {
   class: classList,
-  text = 'Animation 34',
-  duration = `${text.length / 3}s`,
+  duration = '5s',
   color = '#fff',
   ...attrs
 } = Astro.props;
@@ -26,15 +24,14 @@ const id = Math.random().toString(32).slice(2, 11);
 ---
 
 <div id={id} class:list={['container34', classList]} style={style} {...attrs}>
-  <div class="lightbar"></div>
-  <div class="toplayer"></div>
-  <span>{text}</span>
+  <span><slot /></span>
 </div>
 
 <style>
   .container34 {
     --shadow: 0 0 0.125em #00b3ff, 0 0 0.25em #00b3ff, 0 0 0.5em #00b3ff,
       0 0 1em #00b3ff, 0 0 1.5em #00b3ff;
+    --barWidth: 0.18em;
     position: relative;
     background-color: #001d30;
     width: fit-content;
@@ -46,24 +43,30 @@ const id = Math.random().toString(32).slice(2, 11);
       font-size: 1.5rem;
       text-shadow: var(--shadow);
     }
-    .lightbar {
+    &::before,
+    &::after {
       position: absolute;
-      transform: scaleY(0) translateX(0);
+      inset: 0;
+      content: '';
+    }
+    /* lightbar */
+    &::before {
+      transform: scaleY(0);
       animation: lightbar34 var(--duration) linear infinite;
       inset: 0;
       box-shadow: var(--shadow);
       border-radius: 0.125em;
       background: var(--color);
-      width: var(--lightbar-width);
+      width: var(--barWidth);
       height: 100%;
     }
-    .toplayer {
-      position: absolute;
+    /* toplayer */
+    &::after {
       top: -50%;
-      left: calc(var(--lightbar-width) * 1);
+      left: var(--barWidth);
       animation: toplayer34 calc(var(--duration) * 2) linear infinite;
       background: inherit;
-      width: calc(100% - var(--lightbar-width) * 2);
+      width: calc(100% - var(--barWidth) * 2);
       height: 200%;
     }
   }
@@ -71,16 +74,20 @@ const id = Math.random().toString(32).slice(2, 11);
   /* in 90% and 100% put the width of container */
   @keyframes lightbar34 {
     0% {
-      transform: scaleY(0) translateX(0);
+      left: 0;
+      transform: scaleY(0);
     }
     10% {
-      transform: scaleY(1) translateX(0);
+      left: 0;
+      transform: scaleY(1);
     }
     90% {
-      transform: scaleY(1) translateX(var(--lightbar_move_until));
+      left: calc(100% - var(--barWidth));
+      transform: scaleY(1);
     }
     100% {
-      transform: scaleY(0) translateX(var(--lightbar_move_until));
+      left: calc(100% - var(--barWidth));
+      transform: scaleY(0);
     }
   }
   @keyframes toplayer34 {
@@ -90,11 +97,11 @@ const id = Math.random().toString(32).slice(2, 11);
     }
     45%,
     50% {
-      transform: translateX(calc(100% + var(--lightbar-width)));
+      transform: translateX(calc(100% + var(--barWidth)));
     }
     50.0001%,
     55% {
-      transform: translateX(calc(-100% - var(--lightbar-width)));
+      transform: translateX(calc(-100% - var(--barWidth)));
     }
     95%,
     100% {
@@ -102,13 +109,3 @@ const id = Math.random().toString(32).slice(2, 11);
     }
   }
 </style>
-
-<script define:vars={{ id }}>
-  const container34 = document.getElementById(id);
-
-  const container34Width = getComputedStyle(container34).width;
-  container34.style.cssText += `--container34Width: ${container34Width};--lightbar-width: 0.18em;
-    --lightbar_move_until: calc(
-      var(--container34Width) - var(--lightbar-width)
-    );`;
-</script>

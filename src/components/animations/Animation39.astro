@@ -1,0 +1,104 @@
+---
+/*
+INFORMATIONS
+set optionally:
+- class as string
+- duration as string 'value and s | ms'
+- text as string
+- size as string
+- colors as string ("<fixedDot>, <movingDot>") 
+*/
+
+interface Props {
+  class?: string;
+  duration?: string;
+  text?: string;
+  size?: string;
+  colors?: string;
+}
+const {
+  class: classList,
+  duration = '1s',
+  text = 'Anim 39',
+  size = '8em',
+  colors = '#74baff72, #2980b9',
+  ...attrs
+} = Astro.props;
+const [fixedDot, movingDot] = colors.split(',');
+const style = `--duration: ${duration};--size: ${size};--fixedDot: ${fixedDot};--movingDot: ${movingDot};`;
+---
+
+<div class:list={['container39', classList]} style={style} {...attrs}>
+  <div class="loader">
+    {
+      Array.from({ length: 8 }).map((_, idx) => {
+        return <div class="dot" style={`--n: ${idx}`} />;
+      })
+    }
+  </div>
+  <span>{text}</span>
+</div>
+
+<style>
+  .container39 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    width: var(--size);
+    height: var(--size);
+    color: #222;
+    font-size: 1.5rem;
+    text-align: center;
+    span {
+      display: inline-block;
+    }
+
+    .loader {
+      --loaderSize: calc(var(--size) * 0.45);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: var(--loaderSize);
+      height: var(--loaderSize);
+      .dot {
+        position: absolute;
+        transform: rotate(calc(45deg * var(--n)));
+        inset: 0;
+        &::before {
+          position: absolute;
+          z-index: 1;
+          inset: 0;
+          border-radius: 50%;
+          background-color: var(--fixedDot);
+          width: calc(var(--loaderSize) / 8);
+          height: calc(var(--loaderSize) / 8);
+          content: '';
+        }
+        &:nth-of-type(odd)::before {
+          transform-origin: calc(var(--loaderSize) / 2);
+          animation: loading39 var(--duration) infinite linear;
+          background: var(--movingDot);
+        }
+      }
+    }
+  }
+
+  @keyframes loading39 {
+    0%,
+    25% {
+      transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+      transform: rotate(90deg) scale(1.3);
+    }
+
+    75%,
+    100% {
+      transform: rotate(180deg) scale(1);
+    }
+  }
+</style>

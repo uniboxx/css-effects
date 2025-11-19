@@ -6,21 +6,18 @@ INFORMATIONS
 set optionally:
 - class as string
 - duration as string 'value and s | ms'
-- text as string
 - colors as string ("<innerColor>, <outerColor>") 
 */
 
 interface Props {
   class?: string;
   duration?: string;
-  text?: string;
   colors?: string;
   href: string;
 }
 const {
   class: classList,
   duration = '.2s',
-  text = 'Animation 33',
   colors = '#000, #fff',
   href = '#',
   ...attrs
@@ -33,7 +30,7 @@ const style = `--duration: ${duration};--color: ${color};--hoverColor: ${hoverCo
 ---
 
 <a href={href} class={classList} style={style} {...attrs}
-  >{text}
+  ><slot />
   {
     Array.from({ length: 4 }).map((_, idx) => {
       const delay = `calc(var(--duration) * ${idx})`;

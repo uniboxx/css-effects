@@ -1,6 +1,6 @@
 ---
 // prettier-ignore
-import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation42, Animation43, Animation44, Animation45, Animation46 } from '@/components';
+import { Animation01, Animation02, Animation03, Animation04, Animation05, Animation06, Animation07, Animation08, Animation09, Animation10, Animation11, Animation12, Animation13, Animation14, Animation15, Animation16, Animation17, Animation18, Animation19, Animation20, Animation21, Animation22, Animation23, Animation24, Animation25, Animation26, Animation27, Animation28, Animation29, Animation30, Animation31, Animation32, Animation33, Animation34, Animation35, Animation36, Animation37, Animation38, Animation39, Animation40, Animation41, Animation42, Animation43 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
@@ -81,9 +81,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <Animation32 />
     </div>
     <div class="element element33">
-      <Animation33 href="#" />
+      <Animation33 href="#"
+        >Animation 33 <br /><small>Hover Me</small></Animation33
+      >
     </div>
-    <Animation34 />
+    <Animation34>Animation 34</Animation34>
     <div class="element element35">
       <Animation35 />
     </div>
@@ -92,29 +94,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="element element38">
       <Animation38 />
     </div>
-
-    <!--<div class="element white x2rows">
-      <Animation42 class="element42" text="Anim42" />
+    <Animation39 />
+    <Animation40 href="#" class="animation40"
+      >ANIMATION 40<small>Hover Me</small></Animation40
+    >
+    <div class="element element41">
+      <Animation41 />
     </div>
-    <div class="element navy x2rows">
-      <Animation43 class="element43" text="ANIMATION 43" />
+    <div class="element element42">
+      <Animation42 />
     </div>
-    <div class="element navy x2rows">
-      <Animation44 class="element44" text="AN44" />
-    </div>
-    <div class="element navy x2rows">
-      <Animation45 class="element45" />
-    </div>
-    <div class="element navy x2rows">
-      <Animation46 class="element46" />
-    </div> -->
+    <Animation43 />
   </div>
 </BaseLayout>
 
 <style>
   .grid {
     display: grid;
-    /* grid-template-columns: 1fr; */
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     justify-content: center;
     place-items: center;
@@ -281,12 +277,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       align-start: end;
       background: #222;
     }
+    .animation40 {
+      small {
+        display: block;
+        position: relative;
+      }
+    }
+    .element41 {
+      background: #001d30;
+      padding: 1rem;
+    }
 
     .element42 {
-      font-size: 0.8rem;
-    }
-    .element44 {
-      color: white;
+      background: #001d30;
     }
   }
 </style>

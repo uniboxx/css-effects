@@ -33,28 +33,24 @@ const optRain = await getImage({
   format: 'webp',
   loading: 'lazy',
 });
-const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--duration: ${duration}`;
+const style = `--duration: ${duration};--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});`;
+const id = Math.random().toString(36).slice(2, 11);
 ---
 
-<div
-  id="container11_unibox"
-  class:list={['container12', classList]}
-  style={style}
-  {...attrs}
->
+<div id={id} class:list={['container11', classList]} style={style} {...attrs}>
   <div class="rain"></div>
 </div>
 
 <style>
-  .container12 {
+  .container11 {
     position: relative;
     background: var(--bgUrl) center / cover;
-    width: 15rem;
+    width: 20rem;
     height: var(--height) !important;
 
     .rain {
       position: absolute;
-      animation: rain12 var(--duration) linear infinite;
+      animation: rain11 var(--duration) linear infinite;
       inset: 0;
       background: var(--rainUrl);
       background-size: cover;
@@ -62,7 +58,7 @@ const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--dura
   }
   /* if background-size is set, background-position does not accept values in % 
   */
-  @keyframes rain12 {
+  @keyframes rain11 {
     from {
       background-position: -4em bottom;
     }
@@ -72,15 +68,15 @@ const style = `--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});--dura
   }
 </style>
 
-<script define:vars={{ ratio }}>
-  const container = document.getElementById('container11_unibox');
+<script define:vars={{ id, ratio }}>
+  const container11 = document.getElementById(id);
 
   calcSizes();
   window.addEventListener('resize', calcSizes);
 
   function calcSizes() {
-    const width = getComputedStyle(container).width;
+    const width = getComputedStyle(container11).width;
     const height = `${(parseFloat(width) / parseFloat(ratio)).toFixed(2)}px !important;`;
-    container.style.cssText += `--width: ${width};--height: ${height};`;
+    container11.style.cssText += `--width: ${width};--height: ${height};`;
   }
 </script>
