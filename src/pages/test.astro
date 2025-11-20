@@ -1,5 +1,5 @@
 ---
-import { Animation43 } from '@/components';
+import { Clip04 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -14,11 +14,29 @@ const bg12 = '/src/images/animation12/bg.jpg';
 // prettier-ignore
 const [ imagePath02, imagePath03, imagePath05, imagePath06, imagePath07, imagePath08, imagePath09,
 ] = Object.keys(cardImages);
+const paris = '/src/images/paris.jpg';
+const newYork = '/src/images/new-york.jpg';
+const dubai = '/src/images/dubai.jpg';
+const girl = '/src/images/clip07/2.jpg';
+const image08 = '/src/images/clip08/1.jpg';
 ---
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Animation43 />
+    <Clip04
+      imagesData={[
+        { imagePath: paris, alt: 'paris', position: 'center' },
+        {
+          imagePath: newYork,
+          alt: 'new-york',
+
+          position: '70% center',
+        },
+        { imagePath: dubai, alt: 'dubai', position: '80% center' },
+      ]}
+    >
+      Hover over the images
+    </Clip04>
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}

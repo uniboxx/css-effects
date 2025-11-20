@@ -1,36 +1,53 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as string
+- color as string ('<color>')
+*/
+
 interface Props {
   class?: string;
-  text?: string;
   duration?: string;
+  text?: string;
   color?: string;
 }
 const {
   class: classList,
-  text = 'Clip03',
   duration = '1s',
+  text = 'Clip 03',
   color = '#03a9f4',
-  ...rest
+  ...attrs
 } = Astro.props;
+const style = `--duration: ${duration};--color: ${color};`;
 ---
 
-<div id="wave03" class={classList} {...rest}>
-  <h3>{text}</h3>
-  <h3>{text}</h3>
+<div class:list={['wave03', classList]} style={style} {...attrs}>
+  <span class="placeholder">{text}</span>
+  <span>{text}</span>
+  <span>{text}</span>
 </div>
 
-<style define:vars={{ duration, color }}>
-  #wave03 {
+<style>
+  .wave03 {
     position: relative;
-    width: 100%;
-    height: 100%;
-    h3 {
-      position: absolute;
-      width: 100%;
-      line-height: 2.8em;
+    width: fit-content;
+    font-size: 4rem;
+    span.placeholder {
+      visibility: hidden;
+    }
+    span {
+      display: inline-block;
+      line-height: 1;
       text-align: center;
+      white-space: nowrap;
+    }
+    span:not(.placeholder) {
+      position: absolute;
+      inset: 0;
 
-      &:first-of-type {
+      &:nth-of-type(2) {
         -webkit-text-stroke: 2px var(--color);
         color: transparent;
       }
@@ -40,30 +57,13 @@ const {
       }
     }
   }
+  /* prettier-ignore */
   @keyframes waving03 {
     0% {
-      clip-path: polygon(
-        0% 38%,
-        21% 40%,
-        38% 51%,
-        54% 57%,
-        75% 57%,
-        100% 52%,
-        100% 100%,
-        0% 100%
-      );
+      clip-path: polygon( 0% 38%, 21% 40%, 38% 51%, 54% 57%, 75% 57%, 100% 52%, 100% 100%, 0% 100% );
     }
     100% {
-      clip-path: polygon(
-        0 49%,
-        16% 56%,
-        33% 55%,
-        55% 50%,
-        75% 42%,
-        100% 40%,
-        100% 100%,
-        0% 100%
-      );
+      clip-path: polygon( 0 49%, 16% 56%, 33% 55%, 55% 50%, 75% 42%, 100% 40%, 100% 100%, 0% 100% );
     }
   }
 </style>

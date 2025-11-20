@@ -1,76 +1,72 @@
 ---
-//- visit https://bennettfeely.com/clippy/ to get more shapes or generate your own
-//- available shapes:
-// triangleR, triangleB, triangleL
+/*INFORMATIONS:
+set
+- imagePath as string
+- alt as string
+set optionally
+- class as string
+- width and/or height as number
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+- shape as 'triangleR' | 'triangleB' | 'triangleL' | 'circle' | 'star' (default === no value: triangle to top )
+- visit https://bennettfeely.com/clippy/ to get more shapes or generate your own
+*/
 
 import { getImage } from 'astro:assets';
 
 interface Props {
-  class: string;
-  src: ImageMetadata;
+  imagePath: string;
   alt: string;
+  class?: string;
   width?: number;
   height?: number;
-  shape?: string;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
+  shape?: 'triangleR' | 'triangleB' | 'triangleL' | 'circle' | 'star';
   position?: string;
 }
-const {
-  class: classList,
-  shape,
-  src,
-  width,
-  height,
-  position = 'center',
-  ...rest
-} = Astro.props;
-const optImage = await getImage({
-  src,
-  format: 'webp',
-  width,
-  height,
-});
+// prettier-ignore
+const { class: classList, imagePath, width = 540, height, format = 'webp', loading = 'lazy', position = 'center', shape = 'star', ...attrs } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+// prettier-ignore
+const optImg = await getImage({ src: images[imagePath](), width, height, format, loading });
 let shapeCode = '';
 
 switch (shape) {
   case 'triangleR':
-    shapeCode += 'polygon(0% 0%, 100% 50%, 0% 100%)';
+    shapeCode = 'polygon(0% 0%, 100% 50%, 0% 100%)';
     break;
   case 'triangleB':
-    shapeCode += 'polygon(0% 0%, 100% 0%, 50% 100%)';
+    shapeCode = 'polygon(0% 0%, 100% 0%, 50% 100%)';
     break;
   case 'triangleL':
-    shapeCode += 'polygon(100% 0%, 100% 100%, 0% 50%)';
+    shapeCode = 'polygon(100% 0%, 100% 100%, 0% 50%)';
     break;
   case 'circle':
-    shapeCode += 'circle(50% at 50% 50%)';
+    shapeCode = 'circle(50% at 50% 50%)';
     break;
   case 'star':
-    shapeCode +=
+    shapeCode =
       'polygon(50% 0%, 64% 34%, 98% 35%, 70% 65%, 84% 100%, 50% 80%, 15% 100%, 30% 65%, 0 35%, 36% 34%)';
     break;
   default:
-    shapeCode += 'polygon(50% 0%, 100% 100%, 0% 100%)';
+    shapeCode = 'polygon(50% 0%, 100% 100%, 0% 100%)';
 }
-const [x, y] = position.split(' ');
-const posVar = `${x} ${y}`;
+
+const style = `--url: url(${optImg.src});--position: ${position};--shape: ${shapeCode}`;
 ---
 
-<div
-  id="shape01"
-  class={classList}
-  style={`--url: url(${optImage.src});--position: ${posVar};--shape: ${shapeCode}`}
-  {...rest}
->
-</div>
+<div class:list={['shape01', classList]} style={style} {...attrs}></div>
 
-<style define:vars={{ position }}>
-  #shape01 {
+<style>
+  .shape01 {
     clip-path: var(--shape);
-    background: var(--url);
-    background-position: var(--position);
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
+    background: var(--url) var(--position) / cover no-repeat;
+    width: 15rem;
+    height: 15rem;
   }
 </style>

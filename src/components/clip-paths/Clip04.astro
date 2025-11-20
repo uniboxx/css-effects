@@ -1,48 +1,67 @@
 ---
+/*INFORMATIONS:
+set
+- imagesData as Array of objects as { imagepath, alt, position}
+set optionally
+- class as string
+- duration as string
+- width and/or height as numbers (default width: 800)
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 //- visit https://bennettfeely.com/clippy/ to get more shapes or generate your own
 
-import { getImage } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 
-type Images = {
-  src: ImageMetadata;
+type ImageData = {
+  imagePath: string;
   alt: string;
   position?: string;
-}[];
+};
 
 interface Props {
-  class: string;
-  images: Images;
+  class?: string;
   duration?: string;
+  imagesData: ImageData[];
   width?: number;
   height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
-const {
-  class: classList,
-  images,
-  width,
-  height,
-  duration = '.5s',
-  ...rest
-} = Astro.props;
+// prettier-ignore
+const { class: classList, duration = '.5s', imagesData, width = 800, height, format = 'webp', loading = 'lazy', ...attrs } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+imagesData.forEach((imageData) => {
+  if (!images[imageData.imagePath])
+    throw new Error(`${imageData.imagePath} does not exist`);
+});
 
-async function optImages(images: Images) {
-  const optimizedImages = [];
-  for (let i = 0; i < images.length; i++) {
-    const optimized = await getImage({
-      src: images[i].src,
-      format: 'webp',
-      height,
-    });
-    optimizedImages.push(optimized);
-  }
-  return optimizedImages;
+// prettier-ignore
+async function optImage(image: ImageData) {
+  return await getImage({ src: images[image.imagePath](), width, height, format, loading,
+  });
 }
-const opts = await optImages(images);
+const optImages = await Promise.all(imagesData.map(optImage));
+console.log('🚀 ~ :49 ~ optImages:', optImages);
+
+const style = `--duration: ${duration}`;
 ---
 
-<div id="container04" class={classList} {...rest}>
+<div class:list={['container04', classList]} style={style} {...attrs}>
+  <Image
+    class="placeholder"
+    src={images[imagesData[0].imagePath]()}
+    alt=""
+    width={10}
+    format={format}
+    loading="lazy"
+  />
+
   {
-    images.map((el, idx) => {
+    imagesData.map((imageData, idx) => {
       const clips = [
         '0 0, 100% 0, 120% 100%, 0 100%',
         '0 0, 100% 0, 80% 100%, 20% 100%',
@@ -53,28 +72,42 @@ const opts = await optImages(images);
       const zIndex = idx === 1 ? 1 : 0;
       return (
         <div
-          style={`--url: url(${opts[idx].src});--position: ${el.position};clip-path: polygon(${clips[idx]});left: ${left};width: ${width};z-index: ${zIndex}`}
+          style={`--url: url(${optImages[idx].src});--position: ${imageData.position};clip-path: polygon(${clips[idx]});left: ${left};width: ${width};z-index: ${zIndex}`}
         />
       );
     })
   }
-  <slot />
+  <span><slot /></span>
 </div>
 
-<style define:vars={{ duration }}>
-  #container04 {
+<style>
+  .container04 {
     position: relative;
-    height: 100%;
-    div {
+    width: 100%;
+    color: white;
+    text-align: center;
+
+    .placeholder {
+      visibility: hidden;
+      width: 100%;
+      height: auto;
+    }
+    div:not(.placeholder) {
       position: absolute;
-      background: var(--url) no-repeat;
-      background-position: var(--position);
-      background-size: cover;
-      height: 100%;
-      color: white;
+      cursor: pointer;
+      inset: 0;
+      background: var(--url) var(--position) / cover no-repeat;
       &:hover {
         animation: fulling04 var(--duration) ease-in-out forwards;
       }
+    }
+    span {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: fit-content;
     }
   }
   @keyframes fulling04 {

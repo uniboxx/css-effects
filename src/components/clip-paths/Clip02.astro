@@ -1,43 +1,53 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as string
+- colors as string ('<color1>, <color2>')
+*/
+
 interface Props {
   class?: string;
-  text?: string;
   duration?: string;
+  text?: string;
   colors?: string;
 }
-const {
-  class: classList,
-  text = 'Clip02',
-  duration = '2s',
-  colors = '#ee5253, #0a3d62',
-  ...rest
-} = Astro.props;
+// prettier-ignore
+const { class: classList, duration = '2s', text = 'Clip 02', colors = '#ee5253, #0a3d62', ...attrs } = Astro.props;
 const [color1, color2] = colors.split(',');
+const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 ---
 
-<div id="loader02" class={classList} {...rest}>
+<div class:list={['loader02', classList]} style={style} {...attrs}>
+  <span class="placeholder">{text}</span>
   <span class="top-half">{text}</span>
   <span class="bottom-half">{text}</span>
 </div>
 
-<style define:vars={{ duration, color1, color2 }}>
-  #loader02 {
+<style>
+  .loader02 {
     position: relative;
     box-sizing: content-box;
     border: 0.15em solid var(--color2);
     border-radius: 0.2em;
-    width: 100%;
-    height: 1.25em;
-    overflow: hidden;
-    line-height: 1.25em;
+    width: fit-content;
+    overflow: clip;
+    font-size: 2rem;
+    line-height: 1;
     text-align: center;
     text-transform: uppercase;
     span {
+      display: inline-block;
+      padding: 0.5em 1em;
+      white-space: nowrap;
+    }
+    span.placeholder {
+      visibility: hidden;
+    }
+    span:not(.placeholder) {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       font-weight: 600;
 
       &.top-half {
