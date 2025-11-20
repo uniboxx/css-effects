@@ -1,54 +1,85 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as string
+- colors as string ('<color1>, <color2>')
+*/
+
 interface Props {
-  class: string;
+  class?: string;
   duration?: string;
   textTop?: string;
   textBottom?: string;
-  bgColor?: string;
 }
 const {
   class: classList,
   duration = '.5s',
-  textTop = 'White',
-  textBottom = 'Black',
-  bgColor = '#c8d6e5',
-  ...rest
+  textTop = 'WHITE',
+  textBottom = 'BLACK',
+  ...attrs
 } = Astro.props;
+
+const style = `--duration: ${duration};`;
 ---
 
-<div id="container06" class={classList} {...rest}>
-  <h3>{textTop}</h3>
-  <h3>{textBottom}</h3>
+<div class:list={['container06', classList]} style={style} {...attrs}>
+  <div class="placeholder">
+    {textBottom}
+    <span class="text">{textTop}</span>
+    <span class="text">{textBottom}</span>
+  </div>
+  <small><slot /></small>
 </div>
 
-<style define:vars={{ duration, bgColor }}>
-  #container06 {
+<style>
+  .container06 {
     position: relative;
     transition: var(--duration);
-    background: var(--bgColor);
-    width: 100%;
-    height: 100%;
-    h3 {
+    background: #c8d6e5;
+    padding: 0.3em 0.7em;
+    width: fit-content;
+    font-size: 4rem;
+    font-family: serif;
+    .placeholder {
+      position: relative;
+      background: inherit;
+      color: transparent;
+      line-height: 1;
+      font-family: inherit;
+      .text {
+        display: inline-block;
+        position: absolute;
+        transition: var(--duration);
+        cursor: pointer;
+        inset: 0;
+        background: inherit;
+        line-height: inherit;
+
+        &:nth-of-type(1) {
+          clip-path: polygon(0 0, 100% 0, 0 100%, 0 100%);
+          color: #fff;
+        }
+
+        &:nth-of-type(2) {
+          clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%);
+          color: #000;
+        }
+
+        &:hover {
+          z-index: 1;
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+      }
+    }
+    small {
       position: absolute;
-      top: 50%;
+      top: 2%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      transition: var(--duration);
-      background-color: var(--bgColor);
-      width: 100%;
-      text-align: center;
-      &:first-of-type {
-        clip-path: polygon(0 0, 100% 0, 0 100%, 0 100%);
-        color: #fff;
-      }
-      &:last-of-type {
-        clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%);
-        color: #000;
-      }
-      &:hover {
-        z-index: 1;
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      }
+      transform: translateX(-50%);
+      color: #f0f;
+      font-size: 0.25em;
     }
   }
 </style>

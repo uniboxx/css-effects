@@ -1,5 +1,5 @@
 ---
-import { Clip04 } from '@/components';
+import { Clip06 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -23,20 +23,7 @@ const image08 = '/src/images/clip08/1.jpg';
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Clip04
-      imagesData={[
-        { imagePath: paris, alt: 'paris', position: 'center' },
-        {
-          imagePath: newYork,
-          alt: 'new-york',
-
-          position: '70% center',
-        },
-        { imagePath: dubai, alt: 'dubai', position: '80% center' },
-      ]}
-    >
-      Hover over the images
-    </Clip04>
+    <Clip06>Hover me</Clip06>
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -94,11 +81,7 @@ const image08 = '/src/images/clip08/1.jpg';
         text-transform: none;
       }
     }
-    .image {
-      width: 15rem;
-      height: 15rem;
-      font-size: 1.2rem;
-    }
+
     .card {
       width: 17rem;
       &.card03 {

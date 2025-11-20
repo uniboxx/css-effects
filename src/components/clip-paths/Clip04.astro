@@ -45,7 +45,6 @@ async function optImage(image: ImageData) {
   });
 }
 const optImages = await Promise.all(imagesData.map(optImage));
-console.log('🚀 ~ :49 ~ optImages:', optImages);
 
 const style = `--duration: ${duration}`;
 ---
@@ -72,12 +71,13 @@ const style = `--duration: ${duration}`;
       const zIndex = idx === 1 ? 1 : 0;
       return (
         <div
+          class="image"
           style={`--url: url(${optImages[idx].src});--position: ${imageData.position};clip-path: polygon(${clips[idx]});left: ${left};width: ${width};z-index: ${zIndex}`}
         />
       );
     })
   }
-  <span><slot /></span>
+  <div class="content"><slot /></div>
 </div>
 
 <style>
@@ -86,28 +86,30 @@ const style = `--duration: ${duration}`;
     width: 100%;
     color: white;
     text-align: center;
-
     .placeholder {
       visibility: hidden;
+      z-index: -1;
       width: 100%;
       height: auto;
     }
-    div:not(.placeholder) {
+    div {
       position: absolute;
-      cursor: pointer;
-      inset: 0;
-      background: var(--url) var(--position) / cover no-repeat;
-      &:hover {
-        animation: fulling04 var(--duration) ease-in-out forwards;
+      &.image {
+        cursor: pointer;
+        inset: 0;
+        background: var(--url) var(--position) / cover no-repeat;
+        &:hover {
+          animation: fulling04 var(--duration) ease-in-out forwards;
+        }
       }
-    }
-    span {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      width: fit-content;
+      &.content {
+        top: 10%;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        pointer-events: none;
+        font-size: 3svw;
+      }
     }
   }
   @keyframes fulling04 {

@@ -14,9 +14,7 @@ const image08 = '/src/images/clip08/1.jpg';
   <div class="grid">
     <Clip01 imagePath={paris} alt="Paris" />
     <Clip02 />
-    <div class="element element03">
-      <Clip03 />
-    </div>
+    <Clip03 />
     <Clip04
       imagesData={[
         { imagePath: paris, alt: 'paris', position: 'center' },
@@ -31,23 +29,18 @@ const image08 = '/src/images/clip08/1.jpg';
     >
       <h3>Hover over the images</h3>
     </Clip04>
-    <!-- <div class="element row2 col2">
-      <Clip05 class="element05">
-        <h3 id="hover05">Hover me</h3>
-        <h3>Information</h3>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
-          sequi minima accusamus ad, iure nam quae voluptates voluptatem quis
-          dolor dolores nulla veniam magni ut enim quo soluta? Voluptate,
-          molestias.
-        </p>
-      </Clip05>
-    </div>
-    <div class="element">
-      <Clip06 class="element06" />
-    </div>
-    <div class="element row3">
-      <Clip07 class="element07" image={girl} height={400}>
+    <Clip05>
+      <h3>Information</h3>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
+        sequi minima accusamus ad, iure nam quae voluptates voluptatem quis
+        dolor dolores nulla veniam magni ut enim quo soluta? Voluptate,
+        molestias.
+      </p>
+    </Clip05>
+    <Clip06 class="clip clip06">Hover half texts</Clip06>
+    <!-- <div class="element element07">
+      <Clip07 imagePath={girl}>
         <h3>Title</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
@@ -85,52 +78,18 @@ const image08 = '/src/images/clip08/1.jpg';
       place-items: center;
       gap: 4rem 2rem;
       margin: 2rem 0;
-      @media screen and (min-width: 30rem) {
-        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+      @media screen and (min-width: 40rem) {
+        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
       }
-      .element {
+      .element,
+      .clip {
         text-align: center;
       }
 
-      .element03 {
-        font-size: 2rem;
-        text-transform: uppercase;
+      .clip06 {
+        padding: 0.5em 0.7em 0.3em;
       }
-      .element04 {
-        width: 80%;
-        h3 {
-          position: relative;
-          z-index: 1;
-          padding: 20px 0;
-          pointer-events: none;
-          color: #fff;
-          font-weight: normal;
-          font-size: 1.3rem;
-          text-align: center;
-        }
-      }
-      .element05 {
-        border-radius: 10px;
-        background-color: #c7ecee;
-        padding: 4rem 20px 1rem;
-        font-size: 0.9rem;
-        #hover05 {
-          position: absolute;
-          top: 13%;
-          left: 85%;
-          width: 3rem;
-          height: 2rem;
-          color: #fff;
-          font-weight: normal;
-          font-size: 1rem;
-          text-align: center;
-        }
-      }
-      .element06 {
-        font-size: 3rem;
-        font-family: serif;
-        text-transform: uppercase;
-      }
+
       .element07 {
         font-size: 0.7rem;
         a {
