@@ -5,7 +5,7 @@ interface Props {
   text?: string;
 }
 // prettier-ignore
-const { class: classList, duration='3s', text="Javascript 18 wavy effect", ...props } = Astro.props;
+const { class: classList, duration='3s', text="Javascript 18 wavy effect", ...attrs } = Astro.props;
 
 const textArray = text.split('');
 let index = 0;
@@ -15,7 +15,7 @@ const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 ---
 
-<div id="container18" class={classList} {...props}>
+<div id="container18" class={classList} {...attrs}>
   <h3 id="text">
     {
       textArray.map((letter) => {

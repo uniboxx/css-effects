@@ -9,7 +9,7 @@ interface Props {
   colors?: string;
 }
 // prettier-ignore
-const { class: classList, duration='.5s', size='4em', iconNames, colors='#c22c15, #fff, #0f296d, #fff, #f87966', ...props } = Astro.props;
+const { class: classList, duration='.5s', size='4em', iconNames, colors='#c22c15, #fff, #0f296d, #fff, #f87966', ...attrs } = Astro.props;
 
 const [bgColor, dotColor, bgIcon, colorIcon, colorHoverIcon] =
   colors.split(',');
@@ -19,7 +19,7 @@ const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 ---
 
-<div id="container17" class={classList} {...props}>
+<div id="container17" class={classList} {...attrs}>
   <section class="navigation">
     {
       iconNames.map((icon, idx) => {

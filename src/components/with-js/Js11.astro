@@ -17,13 +17,13 @@ let {
     'mdi:bell-outline',
   ],
   colors = '#ff4886, #fff, #fff, #555',
-  ...props
+  ...attrs
 } = Astro.props;
 const [toggleBgColor, toggleColor, menuBgColor, iconColor] = colors.split(',');
 icons.splice(icons.length / 2, 0, '');
 ---
 
-<section id="container11" class={classList} {...props}>
+<section id="container11" class={classList} {...attrs}>
   <div class="navigation">
     <div class="toggle"></div>
     <ul class="menu">

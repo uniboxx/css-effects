@@ -5,7 +5,7 @@ interface Props {
   class?: string;
   bg: ImageMetadata;
 }
-const { class: classList, bg, ...props } = Astro.props;
+const { class: classList, bg, ...attrs } = Astro.props;
 
 const optImg = await getImage({ src: bg, format: 'webp', height: 400 });
 ---
@@ -13,7 +13,7 @@ const optImg = await getImage({ src: bg, format: 'webp', height: 400 });
 <div
   id="container07"
   class={classList}
-  {...props}
+  {...attrs}
   style={`--url: url(${optImg.src})`}
 >
   <slot />

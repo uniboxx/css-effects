@@ -13,7 +13,7 @@ interface Props {
     format?: string;
   };
 }
-let { class: classList, duration = '.5s', mediaData, ...props } = Astro.props;
+let { class: classList, duration = '.5s', mediaData, ...attrs } = Astro.props;
 const { videos, images, alts, width, height, format } = mediaData;
 const videoUrls = Object.keys(videos).map((key) => {
   return key.replace(/\/public(.+)/, '$1');
@@ -23,7 +23,7 @@ const firstVideoUrl = videoUrls[0];
 const imageUrls = Object.keys(images);
 ---
 
-<section id="container13" class={classList} {...props}>
+<section id="container13" class={classList} {...attrs}>
   <video class="video" autoplay muted loop data-srcs={videoSrcs}>
     <source src={firstVideoUrl} type="video/mp4" />
   </video>

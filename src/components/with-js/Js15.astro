@@ -20,7 +20,7 @@ const {
   height,
   format = 'webp',
   text,
-  ...props
+  ...attrs
 } = Astro.props;
 const optImg = await getImage({ src: image, width, height, format });
 ---
@@ -28,7 +28,7 @@ const optImg = await getImage({ src: image, width, height, format });
 <section
   id="container15"
   class={classList}
-  {...props}
+  {...attrs}
   style={`--url: url(${optImg.src})`}
 >
   <div class="bg">

@@ -13,7 +13,7 @@ interface Props {
   iconNames: string[];
 }
 // prettier-ignore
-const { class: classList, duration='.5s', user, alt, width, height, format = 'webp', iconNames, ...props } = Astro.props;
+const { class: classList, duration='.5s', user, alt, width, height, format = 'webp', iconNames, ...attrs } = Astro.props;
 
 const {
   image,
@@ -22,7 +22,7 @@ const {
 const optImg = await getImage({ src: image, width, height, format });
 ---
 
-<section id="container16" class={classList} {...props}>
+<section id="container16" class={classList} {...attrs}>
   <div class="menu">
     <div class="user">
       <div class="imgBox">

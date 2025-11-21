@@ -12,13 +12,13 @@ const {
   class: classList,
   duration = '1s',
 
-  ...props
+  ...attrs
 } = Astro.props;
 
 const imgHeight = 200;
 ---
 
-<div id="container06" class={classList} {...props}>
+<div id="container06" class={classList} {...attrs}>
   <section class="sec1 show-animate">
     <h3 class="animate">First Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>

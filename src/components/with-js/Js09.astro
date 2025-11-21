@@ -8,12 +8,12 @@ import { getImage } from 'astro:assets';
 interface Props {
   class?: string;
 }
-const { class: classList, ...props } = Astro.props;
+const { class: classList, ...attrs } = Astro.props;
 
 const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
 ---
 
-<section id="container09" class={classList} {...props}>
+<section id="container09" class={classList} {...attrs}>
   <div class="scene">
     <div class="sun"></div>
     <div class="bg" style={`--url: url(${optBg.src})`}>

@@ -12,7 +12,7 @@ interface Props {
   text: string;
   duration?: string; // any unit
 }
-const { class: classList, text, duration = '1s', ...props } = Astro.props;
+const { class: classList, text, duration = '1s', ...attrs } = Astro.props;
 
 const regex = /(?<time>\d+(?:\.\d+)?)(?<unit>s|ms)/;
 const result = duration.match(regex);
@@ -22,7 +22,7 @@ const delay = +(+time / text.length).toFixed(2);
 const textArray = text.split('');
 ---
 
-<ul class={classList} {...props}>
+<ul class={classList} {...attrs}>
   {
     textArray.map((letter, index) => {
       const ownDelay = delay * index;

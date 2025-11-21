@@ -2,10 +2,10 @@
 interface Props {
   class?: string;
 }
-const { class: classList, ...props } = Astro.props;
+const { class: classList, ...attrs } = Astro.props;
 ---
 
-<section id="container08" class={classList} {...props}>
+<section id="container08" class={classList} {...attrs}>
   <slot />
 </section>
 

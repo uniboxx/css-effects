@@ -6,7 +6,7 @@ interface Props {
   bg: ImageMetadata;
   position?: string;
 }
-let { class: classList, bg, position = 'center', ...props } = Astro.props;
+let { class: classList, bg, position = 'center', ...attrs } = Astro.props;
 
 const optBg = await getImage({ src: bg, format: 'webp' });
 ---
@@ -15,7 +15,7 @@ const optBg = await getImage({ src: bg, format: 'webp' });
   id="container12"
   class={classList}
   style={`--url: url(${optBg.src})`}
-  {...props}
+  {...attrs}
 >
   <div class="section">
     <div class="skewed"></div>

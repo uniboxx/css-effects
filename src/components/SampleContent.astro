@@ -2,10 +2,10 @@
 interface Props {
   class?: string;
 }
-const { class: classList, ...props } = Astro.props;
+const { class: classList, ...attrs } = Astro.props;
 ---
 
-<div class={classList} {...props}>
+<div class={classList} {...attrs}>
   <h3>Background Moving On Scroll</h3>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quidem

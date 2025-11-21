@@ -16,7 +16,7 @@ const {
   width,
   height,
   format = 'webp',
-  ...props
+  ...attrs
 } = Astro.props;
 const optImg = await getImage({ src: image, width, height, format });
 const regex = /(?<quantity>[\d\.]+)(?<unit>s|ms)/;
@@ -30,7 +30,7 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
 <section
   id="container14"
   class={classList}
-  {...props}
+  {...attrs}
   data-interval={interval}
   style={`--url: url(${optImg.src})`}
 >

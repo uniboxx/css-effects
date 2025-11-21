@@ -14,13 +14,13 @@ const {
   heading = 'PAUL SMITH',
   text = 'Creative Developer',
   colors = '#192a56, white',
-  ...props
+  ...attrs
 } = Astro.props;
 import image from '@/images/with-js03/img.jpg';
 const [dark, light] = colors.split(',');
 ---
 
-<div id="container03" class={classList} {...props}>
+<div id="container03" class={classList} {...attrs}>
   <div id="card">
     <div class="content">
       <div class="contentBox">

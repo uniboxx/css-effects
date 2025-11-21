@@ -1,26 +1,34 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as string
+- color as string ('<color>')
+- startHue as number
+*/
+
 interface Props {
   class?: string;
   duration?: string;
   text?: string;
-  color?: string;
   startHue?: number;
 }
 const {
   class: classList,
   duration = '.25s',
   text = 'JAVASCRIPT 01',
-  color = '#666',
   startHue = 143,
-  ...props
+  ...attrs
 } = Astro.props;
 let letters = text.split('');
 const lenghtWithoutSpaces = letters.filter((letter) => letter !== ' ').length;
 const hueDeg = Math.ceil(360 / lenghtWithoutSpaces);
 let spanIndex = 0;
+const style = `--duration: ${duration};`;
 ---
 
-<h3 class={classList} {...props}>
+<h3 class={classList} style={style} {...attrs}>
   {
     letters.map((letter, idx) => {
       if (letter === ' ') return letter;
@@ -35,13 +43,18 @@ let spanIndex = 0;
   }
 </h3>
 
-<style define:vars={{ duration, color }}>
+<style>
   h3 {
+    background: #222;
+    width: fit-content;
+    color: #666;
+    font-size: 1.7rem;
+    line-height: 1;
+    text-align: center;
     span {
       display: inline-block;
       transition: var(--duration);
       transition-delay: var(--delay);
-      color: var(--color);
     }
 
     &:hover span {

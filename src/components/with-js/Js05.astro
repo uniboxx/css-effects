@@ -10,13 +10,13 @@ const {
   duration = '1s',
   text = 'JAVASCRIPT 05',
   colors = '#22e7c0, #ffb62e',
-  ...props
+  ...attrs
 } = Astro.props;
 
 const [circle1Color, circle2Color] = colors.split(',');
 ---
 
-<div id="container05" class={classList} {...props}>
+<div id="container05" class={classList} {...attrs}>
   <div class="content">
     <section>
       <h3>{text}<br /><span>scroll me</span></h3>
