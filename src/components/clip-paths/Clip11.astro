@@ -3,7 +3,7 @@
 set optionally
 - class as string
 - duration as string
-- textx as Array of strings as ['<text1>', <text2>', <text3>', <text4>', ]
+- textx as Array of strings as ['<text1>', '<text2>']
 - colors as string ('<color1>, <color2>')
 */
 
@@ -19,22 +19,22 @@ interface Props extends HTMLAttributes<'a'> {
 const {
   class: classList,
   duration = '3s',
-  texts = ['Bye Bye', '2025', 'Happy New Year', '2026'],
+  texts = ['Bye Bye', 'Happy New Year'],
   colors = '#4cb979, #fff',
   ...attrs
 } = Astro.props;
-const [text1, text2, text3, text4] = texts;
+const [text1, text2] = texts;
 const [color1, color2] = colors.split(',');
 const style = `--duration: ${duration};--color1: ${color1};--color2: ${color2};`;
 const id = Math.random().toString(36).slice(2, 11);
 ---
 
-<div class:list={['container11', classList]} style={style} {...attrs}>
+<div id={id} class:list={['container11', classList]} style={style} {...attrs}>
   <div class="box box1">
-    <h3><span>{text1}</span> <span class="year">{text2}</span></h3>
+    <h3><span>{text1}</span> <span class="year now"></span></h3>
   </div>
   <div class="box box2">
-    <h3><span>{text3}</span> <span class="nextYear">{text4}</span></h3>
+    <h3><span>{text2}</span> <span class="year next"></span></h3>
   </div>
 </div>
 
@@ -51,7 +51,7 @@ const id = Math.random().toString(36).slice(2, 11);
       justify-content: center;
       align-items: center;
       inset: 0;
-      span:nth-of-type(2) {
+      span.year {
         font-size: 2em;
         line-height: 1;
       }
@@ -89,8 +89,8 @@ const id = Math.random().toString(36).slice(2, 11);
 
 <script define:vars={{ id }}>
   const container11 = document.getElementById(id);
-  const yearSpan = container11.querySelector('.year');
-  const nextYearSpan = container11.querySelector('.nextYear');
+  const yearSpan = container11.querySelector('.now');
+  const nextYearSpan = container11.querySelector('.next');
 
   const year = new Date().getFullYear();
 
