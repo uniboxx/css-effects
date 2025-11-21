@@ -48,7 +48,11 @@ const img4 = '/src/images/animation17/img-4.jpg';
         </nav>
       </section>
       <section slot="content" class="content">
-        <SampleContent />
+        <h3>Title</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ullam
+          inventore labore vitae cum dolor reprehenderit libero repellat?
+        </p>
       </section>
       <h4 class="absolute">Scroll me</h4>
     </Js02>
@@ -344,16 +348,22 @@ const img4 = '/src/images/animation17/img-4.jpg';
         white-space: nowrap;
       }
     }
+    .clip {
+    }
     .clip02 {
+      position: relative;
       background-color: #f9f9f9;
       color: #fff;
       font-weight: 700;
       font-size: 1.5rem;
-      .absolute {
-        top: 35%;
-        color: #fff;
+      h4.absolute {
+        position: absolute;
+        top: 5%;
+        width: 100%;
+        color: #000;
         font-weight: normal;
-        font-size: 1.2rem;
+        font-size: 0.8rem;
+        text-align: center;
       }
 
       #header {
@@ -362,7 +372,6 @@ const img4 = '/src/images/animation17/img-4.jpg';
         position: absolute;
         top: 0;
         left: 0;
-        flex-wrap: wrap;
         align-items: center;
         gap: 1em;
         z-index: 100;
@@ -389,7 +398,12 @@ const img4 = '/src/images/animation17/img-4.jpg';
         }
       }
       .content {
+        background: #222;
+        padding: 1rem;
         font-size: 1rem;
+        h3 {
+          margin-bottom: 1rem;
+        }
       }
     }
 
