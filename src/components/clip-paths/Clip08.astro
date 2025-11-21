@@ -1,60 +1,94 @@
 ---
+/*INFORMATIONS:
+set
+- imagePath as string (path of the image)
+- alt as string
+set optionally
+- class as string
+- duration as string
+- width and/or height as numbers (default width: 800)
+- format as string
+- loading as 'lazy' or 'eager' or null
+*/
+
 import { Image } from 'astro:assets';
 
 interface Props {
-  class: string;
+  imagePath: string;
+  alt: string;
+  class?: string;
   duration?: string;
-  image: ImageMetadata;
   width?: number;
   height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
 const {
+  imagePath,
+  alt,
   class: classList,
   duration = '.5s',
-  image,
-  width,
+  width = 800,
   height,
-  ...rest
+  format = 'webp',
+  loading = 'lazy',
+  ...attrs
 } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+
+const style = `--duration: ${duration};`;
 ---
 
-<div id="container07" class={classList} {...rest}>
-  <div class="image"><Image src={image} alt="avatar" height={height} /></div>
+<div class:list={['container08', classList]} style={style} {...attrs}>
+  <div class="image">
+    <Image
+      src={images[imagePath]()}
+      alt={alt}
+      width={width}
+      height={height}
+      format={format}
+      loading={loading}
+    />
+  </div>
+  <slot name="hoverMe" />
   <div class="content">
     <slot />
   </div>
 </div>
 
-<style define:vars={{ duration, image }}>
-  #container07 {
+<style>
+  .container08 {
     position: relative;
-    background: #fff;
-    background-color: #000;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    width: 15rem;
+    color: #fff;
     text-align: center;
+
     .image {
-      position: absolute;
+      position: relative;
+      z-index: 1;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       transition: var(--duration);
-      width: 100%;
 
       img {
+        display: block;
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
       }
     }
     .content {
       display: flex;
+      position: absolute;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      padding: 0 5px 10px;
-      height: 100%;
-      color: #fff;
+      gap: 1em;
+      inset: 0;
+      background: #000;
+      padding: 0.5em 0.7em;
     }
 
     &:hover {

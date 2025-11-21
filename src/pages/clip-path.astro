@@ -39,84 +39,87 @@ const image08 = '/src/images/clip08/1.jpg';
       </p>
     </Clip05>
     <Clip06 class="clip clip06">Hover half texts</Clip06>
-    <!-- <div class="element element07">
-      <Clip07 imagePath={girl}>
-        <h3>Title</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          magnam deserunt dolorem qui facere fuga!
-        </p>
-        <a href="">Read More</a>
-      </Clip07>
-    </div>
-    <div class="element row2">
-      <Clip08 class="element08" image={image08} height={400}>
-        <h3>Title</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          magnam deserunt dolorem qui facere fuga!
-        </p>
-        <a href="">Read More</a>
-      </Clip08>
-    </div>
-    <div class="element">
-      <Clip09 class="element09" />
-    </div>
-    <div class="element">
-      <Clip10 class="element10" />
-    </div>
-    <div class="element">
-      <Clip11 class="element11" />
-    </div> -->
+    <Clip07 class="clip clip07" imagePath={girl} alt="girl">
+      <small class="hover-me" slot="hoverMe">Hover Me</small>
+      <h3>Title</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit magnam
+        deserunt dolorem qui facere fuga!
+      </p>
+      <a href="">Read More</a>
+    </Clip07>
+    <Clip08 class="clip clip08" imagePath={image08} alt="image08">
+      <small class="hover-me" slot="hoverMe">Hover Me</small>
+      <h3>Title</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit magnam
+        deserunt dolorem qui facere fuga!
+      </p>
+      <a href="">Read More</a>
+    </Clip08>
+    <Clip09 />
+    <Clip10 />
+    <Clip11 />
   </div>
+</BaseLayout>
 
-  <style>
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-content: center;
-      place-items: center;
-      gap: 4rem 2rem;
-      margin: 2rem 0;
-      @media screen and (min-width: 40rem) {
-        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-      }
-      .element,
-      .clip {
-        text-align: center;
-      }
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    place-items: center;
+    gap: 4rem 2rem;
+    margin: 2rem 0;
+    @media screen and (min-width: 40rem) {
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    }
+    .element,
+    .clip {
+      text-align: center;
+    }
 
-      .clip06 {
-        padding: 0.5em 0.7em 0.3em;
-      }
+    .clip06 {
+      padding: 0.5em 0.7em 0.3em;
+    }
 
-      .element07 {
-        font-size: 0.7rem;
-        a {
-          background-color: #000;
-          padding: 0.25em 0.5em;
-          color: #fff;
-          font: inherit;
-        }
+    .clip07 {
+      .hover-me {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        color: #fff;
+        font-size: 1.2em;
       }
-      .element08 {
-        font-size: 0.8rem;
-        a {
-          border: 1px solid #fff;
-          padding: 0.25em 0.5em;
-          font: inherit;
-        }
-      }
-      .element09 {
-        font-weight: 700;
-        font-size: 2rem;
-      }
-      .element10 {
-        font-size: 2rem;
-      }
-      .element11 {
-        font-size: 0.7rem;
+      a {
+        border-radius: 5px;
+        background-color: #000;
+        padding: 0.5em 1em;
+        color: #fff;
+        font: inherit;
+        text-decoration: none;
       }
     }
-  </style>
-</BaseLayout>
+    .clip08 {
+      .hover-me {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        color: #000;
+        font-size: 1.2em;
+      }
+      a {
+        border: 1px solid currentColor;
+        border-radius: 5px;
+        padding: 0.5em 1em;
+        color: inherit;
+        font: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+</style>
