@@ -1,40 +1,71 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- imagePath as string
+- width and/or height as numbers (default width: 400)
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null
+*/
+
 import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
-  bg: ImageMetadata;
+  imagePath?: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
-const { class: classList, bg, ...attrs } = Astro.props;
+const {
+  class: classList,
+  imagePath = '/src/images/with-js07/bg.jpg',
+  width = 400,
+  height,
+  format = 'webp',
+  loading = 'lazy',
+  ...attrs
+} = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 
-const optImg = await getImage({ src: bg, format: 'webp', height: 400 });
+const optImg = await getImage({
+  src: images[imagePath](),
+  width,
+  height,
+  format,
+  loading,
+});
+const id = Math.random().toString(32).slice(2, 11);
+const style = `--url: url(${optImg.src})`;
 ---
 
-<div
-  id="container07"
-  class={classList}
-  {...attrs}
-  style={`--url: url(${optImg.src})`}
->
+<div id={id} class:list={['container07', classList]} {...attrs} style={style}>
   <slot />
 </div>
 
 <style>
-  #container07 {
+  .container07 {
     position: relative;
     background: var(--url);
     background-size: cover;
     background-position-x: 0;
-    height: 100%;
+    aspect-ratio: 1.5;
+    width: 20rem;
+    height: auto;
     overflow-y: scroll;
   }
 </style>
 
-<script>
-  const container = document.getElementById('container07') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container07 = document.getElementById(id);
 
-  container.addEventListener('scroll', () => {
-    const scroll = container.scrollTop;
-    container.style.backgroundPositionX = `${scroll}px`;
+  container07.addEventListener('scroll', () => {
+    const scroll = container07.scrollTop;
+    container07.style.backgroundPositionX = `${scroll}px`;
   });
 </script>

@@ -1,25 +1,29 @@
 ---
-import img1 from '@/images/with-js06/img1.jpg';
-import img2 from '@/images/with-js06/img2.jpg';
-import img3 from '@/images/with-js06/img3.jpg';
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+*/
+
 import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
 }
-const {
-  class: classList,
-  duration = '1s',
+const { class: classList, duration = '1s', ...attrs } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/with-js06/*.jpg'
+);
 
-  ...attrs
-} = Astro.props;
+const imagePaths = Object.keys(images);
 
-const imgHeight = 200;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div id="container06" class={classList} {...attrs}>
+<div id={id} class:list={['container06', classList]} {...attrs}>
   <section class="sec1 show-animate">
+    <slot />
     <h3 class="animate">First Section</h3>
     <p class="animate">Animation on Scroll HTML, CSS and JavaScript</p>
   </section>
@@ -37,17 +41,28 @@ const imgHeight = 200;
   </section>
   <section class="sec5">
     <div class="images">
-      <Image src={img1} alt="img1" class="animate" height={imgHeight} />
-      <Image src={img2} alt="img2" class="animate" height={imgHeight} />
-      <Image src={img3} alt="img3" class="animate" height={imgHeight} />
+      {
+        imagePaths.map((imagePath, idx) => {
+          return (
+            <Image
+              src={images[imagePath]()}
+              alt={`img${idx + 1}`}
+              class="animate"
+              width={200}
+            />
+          );
+        })
+      }
     </div>
   </section>
 </div>
 
 <style>
-  #container06 {
+  .container06 {
     position: relative;
-    height: 100%;
+    aspect-ratio: 1.5;
+    height: 20rem;
+    height: auto;
     overflow-y: scroll;
 
     section {
@@ -56,7 +71,7 @@ const imgHeight = 200;
       justify-content: center;
       align-items: center;
       height: 100%;
-      overflow: hidden;
+      overflow: clip;
       &.sec1 {
         background-color: #1f242d;
         p {
@@ -126,10 +141,11 @@ const imgHeight = 200;
       }
       h3 {
         color: #fff;
-        font-size: 2em;
+        font-size: 1.5em;
       }
       p {
-        font-size: 1.2em;
+        padding: 0 1em;
+        font-size: 0.8em;
         &.animate {
           transition-delay: 0.2s;
         }
@@ -148,15 +164,13 @@ const imgHeight = 200;
   }
 </style>
 
-<script>
-  const container = document.getElementById('container06') as HTMLDivElement;
-  const sections = container.querySelectorAll(
-    'section'
-  ) as NodeListOf<HTMLDivElement>;
+<script define:vars={{ id }}>
+  const container06 = document.getElementById(id);
+  const sections = container06.querySelectorAll('section');
 
-  container.addEventListener('scroll', () => {
+  container06.addEventListener('scroll', () => {
     sections.forEach((section) => {
-      const scrollDistance = container.scrollTop;
+      const scrollDistance = container06.scrollTop;
       // distance from top of positioned parent element (layout view, not visual view)
       const secDistance = section.offsetTop;
       // console.log('🚀 ~ :181 ~ secDistance:', secDistance);

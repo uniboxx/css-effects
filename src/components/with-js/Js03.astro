@@ -1,163 +1,209 @@
 ---
+/*INFORMATIONS:
+set
+- imagePath as string
+- alt as string
+set optionally
+- class as string
+- duration as string
+- name as string
+- job as string
+- cta as string {call to action}
+- colors as string as ('<bgColor>, <color>')
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null
+*/
+
 import { Image } from 'astro:assets';
 
 interface Props {
+  imagePath?: string;
+  alt?: string;
   class?: string;
   duration?: string;
-  heading?: string;
-  text?: string;
+  name?: string;
+  job?: string;
+  cta?: string;
   colors?: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
 const {
+  imagePath = '/src/images/with-js03/img.jpg',
+  alt = 'person',
   class: classList,
   duration = '.5s',
-  heading = 'PAUL SMITH',
-  text = 'Creative Developer',
-  colors = '#192a56, white',
+  name = 'PAUL SMITH',
+  job = 'Creative Developer',
+  cta = 'HIRE ME',
+  colors = '#fff, #192a56',
+  width = 400,
+  height,
+  format = 'webp',
+  loading = 'lazy',
   ...attrs
 } = Astro.props;
-import image from '@/images/with-js03/img.jpg';
-const [dark, light] = colors.split(',');
+
+const [color, bgColor] = colors.split(',');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
+);
+if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
+const style = `--duration: ${duration};--color: ${color};--bgColor: ${bgColor};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div id="container03" class={classList} {...attrs}>
-  <div id="card">
+<div id={id} class:list={['container03', classList]} style={style} {...attrs}>
+  <div class="card">
     <div class="content">
       <div class="contentBox">
-        <h3>{heading}</h3>
-        <p>{text}</p>
+        <h3>{name}</h3>
+        <p>{job}</p>
         <div class="imgBox">
-          <Image src={image} alt="person" width={200} />
+          <Image
+            src={images[imagePath]()}
+            alt="person"
+            width={width}
+            height={height}
+            format={format}
+            loading={loading}
+          />
         </div>
-        <button>HIRE ME</button>
+        <button>{cta}</button>
       </div>
     </div>
-    <div id="toggle"><span></span></div>
+    <div class="toggle"><span></span></div>
   </div>
 </div>
 
-<style define:vars={{ duration, dark, light }}>
-  #container03 {
+<style>
+  .container03 {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-  #card {
-    position: relative;
-    transition: var(--duration);
-    margin: 1em auto;
-    border-radius: 20px;
-    background-color: var(--dark);
-    width: 12em;
-    height: 3.2em;
-    color: var(--light);
-    text-align: center;
-    .content {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      .contentBox {
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        align-items: center;
-        z-index: 10;
-        padding: 10px;
-        h3 {
-          font-weight: 500;
-          font-size: 1em;
-        }
-        p {
-          font-size: 0.8em;
-        }
-      }
-      .imgBox {
-        position: relative;
-        margin-top: 1em;
-        box-shadow: 0.5em 0.5em 0.5em #0003;
-        border: 5px solid #fff;
-        background-color: var(--light);
-        width: 6em;
-        height: 6em;
-        img {
-          width: auto;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      button {
-        cursor: pointer;
-        margin-top: 5px;
-        outline: none;
-        box-shadow: -10px 10px 10px #0003;
-        border-radius: 20px;
-        background-color: var(--light);
-        padding: 0.5em 1em;
-        color: var(--dark);
-        font-size: 0.7em;
-      }
+    height: 5.5em;
+    &,
+    .card {
+      transition: var(--duration);
     }
 
-    #toggle {
-      --height: 2.2em;
-      position: absolute;
-      bottom: calc(var(--height) * -1);
-      left: 50%;
-      transform: translateX(-50%);
-      cursor: pointer;
-      border-bottom-right-radius: 50%;
-      border-bottom-left-radius: 50%;
-      background-color: var(--dark);
-      width: 3em;
-      height: var(--height);
-      &::before,
-      &::after {
-        --offset: 4px;
+    .card {
+      position: relative;
+      border-radius: 1rem;
+      background-color: var(--bgColor);
+      width: 12em;
+      height: 3.2em;
+      color: var(--color);
+      text-align: center;
+      .content {
         position: absolute;
-        top: -1px;
-        z-index: -1;
-        /* background-color: red; */
-        width: 50%;
-        height: 60%;
-        content: '';
+        inset: 0;
+        overflow: clip;
+        .contentBox {
+          display: flex;
+          position: relative;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+          padding: 0.5em;
+          h3 {
+            font-weight: 500;
+            font-size: 1em;
+          }
+          p {
+            font-size: 0.8em;
+          }
+        }
+        .imgBox {
+          position: relative;
+          margin-top: 1em;
+          box-shadow: 0.5em 0.5em 0.5em #0003;
+          border: 0.25em solid #fff;
+          background-color: var(--color);
+          width: 6em;
+          height: 6em;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        button {
+          cursor: pointer;
+          margin-top: 0.5em;
+          outline: none;
+          box-shadow: -0.5em 0.5em 0.5em #0003;
+          border-radius: 1em;
+          background-color: var(--color);
+          padding: 0.5em 1em;
+          color: var(--bgColor);
+          font-size: 0.7em;
+        }
       }
-      &::before {
-        left: calc(-50% + 1px);
-        box-shadow: 11px -10px 0 var(--offset) var(--dark);
-        border-top-right-radius: 20px;
-      }
-      &::after {
-        left: calc(100% - 1px);
-        box-shadow: -11px -10px 0 var(--offset) var(--dark);
-        border-top-left-radius: 20px;
-      }
-      span {
+
+      .toggle {
+        --height: 2.2em;
         position: absolute;
-        top: 50%;
-        transform: translate(-50%, -70%) rotate(45deg);
-        transition: var(--duration);
-        border: solid var(--light);
-        border-width: 0 3px 3px 0;
-        width: 0.5em;
-        height: 0.5em;
+        bottom: calc(var(--height) * -1);
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        border-bottom-right-radius: 50%;
+        border-bottom-left-radius: 50%;
+        background-color: var(--bgColor);
+        width: 3em;
+        height: var(--height);
+        &::before,
+        &::after {
+          --offset: 0.2em;
+          position: absolute;
+          top: 0;
+          z-index: -1;
+          width: 50%;
+          height: 60%;
+          content: '';
+        }
+        &::before {
+          left: -50%;
+          box-shadow: 0.5em -0.5em 0 var(--offset) var(--bgColor);
+          border-top-right-radius: 1em;
+        }
+        &::after {
+          left: 100%;
+          box-shadow: -0.5em -0.5em 0 var(--offset) var(--bgColor);
+          border-top-left-radius: 1em;
+        }
+        span {
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -70%) rotate(45deg);
+          transition: var(--duration);
+          border: solid var(--color);
+          border-width: 0 0.15em 0.15em 0;
+          width: 0.5em;
+          height: 0.5em;
+        }
       }
     }
     &.active {
-      height: 80%;
-      #toggle span {
+      height: 14.3em;
+      .card {
+        height: 12em;
+      }
+      .toggle span {
         transform: translate(-50%, -70%) rotate(225deg);
       }
     }
   }
 </style>
 
-<script>
-  const card = document.getElementById('card')!;
-  const toggle = document.getElementById('toggle');
+<script define:vars={{ id }}>
+  const container03 = document.getElementById(id);
+  const toggle = container03.querySelector('.toggle');
   toggle?.addEventListener('click', () => {
-    card.classList.toggle('active');
+    container03.classList.toggle('active');
   });
 </script>

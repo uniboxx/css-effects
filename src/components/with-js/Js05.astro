@@ -1,72 +1,71 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- text as string
+- colors as string as ('<circle1Color>, <circle2Color>')
+*/
+
 interface Props {
   class?: string;
-  duration?: string;
   text?: string;
   colors?: string;
 }
 const {
   class: classList,
-  duration = '1s',
   text = 'JAVASCRIPT 05',
   colors = '#22e7c0, #ffb62e',
   ...attrs
 } = Astro.props;
 
 const [circle1Color, circle2Color] = colors.split(',');
+const id = Math.random().toString(32).slice(2, 11);
+const style = `--circle1Color: ${circle1Color};--circle2Color: ${circle2Color};`;
 ---
 
-<div id="container05" class={classList} {...attrs}>
+<div id={id} class:list={['container05', classList]} style={style} {...attrs}>
   <div class="content">
     <section>
-      <h3>{text}<br /><span>scroll me</span></h3>
+      <h3>{text}<br /><slot /></h3>
       <div class="circle circle1">
-        <h3>{text}<br /><span>scroll me</span></h3>
+        <h3>{text}<br /><slot /></h3>
       </div>
       <div class="circle circle2">
-        <h3>{text}<br /><span>scroll me</span></h3>
+        <h3>{text}<br /><slot /></h3>
       </div>
     </section>
   </div>
 </div>
 
-<style define:vars={{ circle1Color, circle2Color }}>
-  #container05 {
+<style>
+  .container05 {
     position: relative;
-    height: 100%;
+    aspect-ratio: 2;
+    width: 15rem;
+    height: auto;
     overflow-y: scroll;
     .content {
-      min-height: 200%;
-
+      min-height: 300%;
       section {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0;
         background-color: #333;
-        width: 100%;
+        color: #fff;
+        text-align: center;
         h3 {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           width: 100%;
-          color: #fff;
-          font-size: 3em;
-          text-align: center;
-          span {
-            font-size: 0.5em;
-          }
+          font-size: 1.5em;
         }
         .circle1,
         .circle2 {
           position: absolute;
-          width: 100%;
-          height: 100%;
+          inset: 0;
           h3 {
             -webkit-text-stroke: 2px #333;
             color: transparent;
-            span {
-              font-size: 0.5em;
-            }
           }
         }
         .circle1 {
@@ -82,18 +81,16 @@ const [circle1Color, circle2Color] = colors.split(',');
   }
 </style>
 
-<script>
-  const container = document.getElementById('container05') as HTMLDivElement;
-  const section = container.querySelector('section') as HTMLDivElement;
-  const circles = section.querySelectorAll(
-    '.circle'
-  ) as NodeListOf<HTMLDivElement>;
+<script define:vars={{ id }}>
+  const container05 = document.getElementById(id);
+  const section = container05.querySelector('section');
+  const circles = section.querySelectorAll('.circle');
 
-  section.style.height = `${container.clientHeight}px`;
+  section.style.height = `${container05.clientHeight}px`;
 
-  container.addEventListener('scroll', () => {
+  container05.addEventListener('scroll', () => {
     // simulate fixed section
-    const scroll = container.scrollTop;
+    const scroll = container05.scrollTop;
     section.style.top = `${scroll}px`;
 
     // increase circle size

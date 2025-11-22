@@ -4,7 +4,6 @@ set optionally
 - class as string
 - duration as string
 - title as string
-- images as import.meta.glob
 */
 
 import { Image } from 'astro:assets';
@@ -24,7 +23,6 @@ const {
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/with-js02/*.png'
 );
-
 const imagesPath = Object.keys(images);
 
 // prettier-ignore
@@ -60,7 +58,7 @@ const id = Math.random().toString(32).slice(2, 11);
   .container02 {
     position: relative;
     aspect-ratio: 1.8;
-    width: 100%;
+    width: 20rem;
     height: auto;
     /* overflow-x: clip; */
     overflow-y: scroll;

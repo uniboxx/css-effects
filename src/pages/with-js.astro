@@ -3,10 +3,9 @@ import type { ImageMetadata } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 // prettier-ignore
 import { SampleContent, Js01, Js02, Js03, Js04, Js05, Js06, Js07, Js08, Js09, Js10, Js11, Js12, Js13, Js14, Js15, Js16, Js17, Js18, Js19, Js20, Js21 } from '@/components';
-import bg07 from '@/images/with-js07/bg.jpg';
-import paris from '@/images/paris.jpg';
-import image14 from '/src/images/with-js14/bg.jpg';
-import image16 from '/src/images/with-js16/img.jpg';
+const paris = '/src/images/paris.jpg';
+const image14 = '/src/images/with-js14/bg.jpg';
+const image16 = '/src/images/with-js16/img.jpg';
 
 // js13
 const videos13 = import.meta.glob('/public/videos/*.mp4');
@@ -30,11 +29,11 @@ const img4 = '/src/images/animation17/img-4.jpg';
 
 <BaseLayout title="With Js">
   <div class="grid">
-    <div class="element element01">
+    <div class="element">
       <small class="absolute">Hover over text</small>
-      <Js01 />
+      <Js01 class="js js01" />
     </div>
-    <Js02 class="clip clip02">
+    <Js02 class="js js02">
       <section id="header" slot="header">
         <h3>Logo</h3>
         <nav>
@@ -52,31 +51,19 @@ const img4 = '/src/images/animation17/img-4.jpg';
       </section>
       <h4 class="absolute">Scroll me</h4>
     </Js02>
-    <div class="element element03">
-      <Js03 class="" />
-    </div>
-    <!--<div class="element black">
-      <Js04 class="element04" />
-    </div>
-    <div class="element white row2 no-flex">
-      <Js05 class="element05" />
-    </div>
-    <div class="element row2 no-flex">
-      <Js06 class="element06" />
-    </div>
-    <div class="element row2 no-flex">
-      <Js07 class="element07" bg={bg07}>
-        <section>
-          <SampleContent />
-        </section>
-      </Js07>
-    </div>
-    <div class="element row2 no-flex">
-      <Js08 class="element08">
-        <h3>Javascript<br /><span>08</span></h3>
-      </Js08>
-    </div>
-    <div class="element row2 no-flex">
+    <Js03 />
+    <Js04 class="js js04" />
+    <Js05 class="js js05"><span>scroll me</span></Js05>
+    <Js06 class="js js06"><small>Scroll me</small></Js06>
+    <Js07 class="js js07">
+      <section>
+        <SampleContent />
+      </section>
+    </Js07>
+    <Js08 class="js js08">
+      Javascript<br /><span>08</span>
+    </Js08>
+    <!--<div class="element row2 no-flex">
       <Js09 class="element09" />
     </div>
     <div class="element row2 no-flex">
@@ -216,80 +203,6 @@ const img4 = '/src/images/animation17/img-4.jpg';
         text-decoration: none;
       }
 
-      &.element01 {
-        background: #222;
-        padding: 2rem 1rem 1rem;
-      }
-
-      .element03 {
-        background-color: cyan;
-      }
-      .element03 {
-        background-color: #252839;
-      }
-      .element04 {
-        font-size: 2rem;
-      }
-      .element07 {
-        section {
-          margin: 4rem auto;
-          box-shadow: 0 10px 30px #0003;
-          background-color: #fff;
-          padding: 1rem;
-          width: 80%;
-          h3 {
-            margin-bottom: 1rem;
-          }
-        }
-      }
-      .element08 {
-        --navy: #0d172e;
-        display: flex;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        background-color: var(--navy);
-        height: 100%;
-        &::before {
-          --size: calc(var(--min-width) * 2 * 0.3);
-          --spread: calc(var(--min-width) * 2 * 0.01);
-          position: absolute;
-          box-shadow:
-            0 0 0 var(--spread) var(--navy),
-            0 0 0 calc(var(--spread) * 1.3) #fff;
-          border: 20px solid #ff9100;
-          border-radius: 50%;
-          width: var(--size);
-          height: var(--size);
-          content: '';
-        }
-        h3 {
-          position: absolute;
-          transform: skewY(-7deg);
-          z-index: 5;
-          animation: floating08 5s ease-in-out infinite;
-          color: #fff;
-          font-weight: normal;
-          font-size: calc(var(--min-width) * 2 * 0.08);
-          line-height: 2em;
-          text-align: center;
-          text-shadow:
-            1px 1px 0 #ccc,
-            2px 2px 0 #ccc,
-            3px 3px 0 #ccc,
-            4px 4px 0 #0003;
-          span {
-            font-weight: 700;
-            font-size: calc(var(--min-width) * 2 * 0.2);
-            text-shadow:
-              2px 2px 0 #ccc,
-              3px 3px 0 #ccc,
-              4px 4px 0 #ccc,
-              5px 5px 0 #ccc,
-              10px 10px 0 #0003;
-          }
-        }
-      }
       .element10 {
         background: linear-gradient(45deg, #8460ed, #ff1252);
       }
@@ -343,9 +256,18 @@ const img4 = '/src/images/animation17/img-4.jpg';
         white-space: nowrap;
       }
     }
-    .clip {
+    .js {
     }
-    .clip02 {
+    .js02,
+    .js06,
+    .js07,
+    .js08 {
+      width: 100%;
+    }
+    .js01 {
+      padding: 2rem 1rem 1rem;
+    }
+    .js02 {
       position: relative;
       background-color: #f9f9f9;
       color: #fff;
@@ -405,21 +327,40 @@ const img4 = '/src/images/animation17/img-4.jpg';
       }
     }
 
+    .js04 {
+      padding: 2rem 1rem;
+    }
+    .js05 {
+      span {
+        color: #fff8;
+        font-size: 0.5em;
+      }
+    }
+    .js06 {
+      small {
+        color: #fff8;
+        font-size: 0.9rem;
+      }
+    }
+    .js07 {
+      section {
+        margin: 4rem auto;
+        box-shadow: 0 10px 30px #0003;
+        background-color: #fff;
+        padding: 1rem;
+        width: 80%;
+        h3 {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+
     @media screen and (min-width: 40rem) {
       .element {
         &.col2 {
           grid-column: span 2;
         }
       }
-    }
-  }
-  @keyframes floating08 {
-    0%,
-    100% {
-      transform: skewY(-7deg) translateY(-10px);
-    }
-    50% {
-      transform: skewY(-7deg) translateY(10px);
     }
   }
 </style>

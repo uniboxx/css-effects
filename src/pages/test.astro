@@ -1,5 +1,5 @@
 ---
-import { Js02 } from '@/components';
+import { Js04 } from '@/components';
 import { ImageAnimation12 } from '@/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import cards from '@/data/cards.json';
@@ -26,24 +26,7 @@ const images02 = import.meta.glob<{ default: ImageMetadata }>(
 
 <BaseLayout title="test">
   <div class="wrapper">
-    <Js02 class="clip clip02" images={images02}>
-      <section id="header" slot="header">
-        <h3>Logo</h3>
-        <nav>
-          <a href="">Home</a>
-          <a href="">About</a>
-          <a href="">Services</a>
-        </nav>
-      </section>
-      <section slot="content" class="content">
-        <h3>Title</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ullam
-          inventore labore vitae cum dolor reprehenderit libero repellat?
-        </p>
-      </section>
-      <h4 class="absolute">Scroll me</h4>
-    </Js02>
+    <Js04 />
     <!-- <Card09
       class="card card09"
       imagePath={imagePath09}
@@ -103,7 +86,6 @@ const images02 = import.meta.glob<{ default: ImageMetadata }>(
     }
 
     .card {
-      width: 17rem;
       &.card03 {
         height: 15rem;
       }

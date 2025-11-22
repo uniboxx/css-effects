@@ -1,4 +1,11 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as string
+*/
+
 interface Props {
   class?: string;
   duration?: string;
@@ -15,15 +22,9 @@ let letters = text.split('');
 const length = letters.length;
 const hueDeg = Math.ceil(360 / (length + 1));
 
-function randomNum(num: number) {
-  const rand = Math.floor(Math.random() * num);
-  return rand;
+function randomNum(time: string | number) {
+  return `calc(${parseFloat(Math.random().toFixed(2))} * ${time})`;
 }
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = duration.match(regex)!;
-let quantity = +result.groups?.quantity!;
-const unit = result.groups?.unit!;
-quantity = unit === 's' ? quantity * 5000 : quantity * 5;
 ---
 
 <h3 class={classList} {...attrs}>
@@ -32,7 +33,7 @@ quantity = unit === 's' ? quantity * 5000 : quantity * 5;
       if (letter === ' ') return letter;
       return (
         <span
-          style={`--duration: ${randomNum(quantity)}ms;--delay: ${randomNum(length) * 100}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
+          style={`--duration: ${duration};--letterDuration: ${randomNum('var(--duration)')};--delay: ${randomNum(length * 100)}ms;--hue-rotate: hue-rotate(${hueDeg * idx}deg);`}
         >
           {letter}
         </span>
@@ -41,15 +42,18 @@ quantity = unit === 's' ? quantity * 5000 : quantity * 5;
   }
 </h3>
 
-<style define:vars={{}}>
+<style>
   h3 {
     position: relative;
+    background: #222;
+    width: fit-content;
+    font-size: 1.6rem;
 
     span {
       display: inline-block;
       position: relative;
       filter: var(--hue-rotate);
-      animation: changeColor04 var(--duration) linear infinite;
+      animation: changeColor04 var(--letterDuration) linear infinite;
       animation-delay: var(--delay);
     }
   }
