@@ -22,18 +22,11 @@ const { class: classList, duration = '5s', ...attrs } = Astro.props;
 const optBg = await getImage({ src: bg, alt: 'background', format: 'webp', loading: 'lazy',
 });
 
-const { width: calcWidth, height: calcHeight } = optBg.attributes;
-const ratio = calcWidth / calcHeight;
-
 const style = `--url: url(${optBg.src});--duration: ${duration};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div
-  id="container03_unibox"
-  class:list={['container', classList]}
-  style={style}
-  {...attrs}
->
+<div id={id} class:list={['container03', classList]} style={style} {...attrs}>
   <Image class="car" src={car} alt="car" format="webp" loading="lazy" />
   <Image
     class="motobike"
@@ -45,16 +38,16 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
 </div>
 
 <style>
-  .container {
+  .container03 {
     position: relative;
     animation: driving03 var(--duration) linear infinite;
     background: var(--url);
     background-size: cover;
     background-repeat: repeat-x;
     background-position-y: bottom;
-    width: 15rem;
-    max-width: 100%;
-    height: var(--height) !important;
+    aspect-ratio: 1.974;
+    width: 100%;
+    height: auto !important;
 
     img {
       display: block;
@@ -86,15 +79,14 @@ const style = `--url: url(${optBg.src});--duration: ${duration};`;
   }
 </style>
 
-<script define:vars={{ ratio }}>
-  const container = document.getElementById('container03_unibox');
+<script define:vars={{ id }}>
+  const container03 = document.getElementById(id);
 
   calcSizes();
   window.addEventListener('resize', calcSizes);
 
   function calcSizes() {
-    const width = getComputedStyle(container).width;
-    const height = `${(parseFloat(width) / parseFloat(ratio)).toFixed(2)}px !important;`;
-    container.style.cssText += `--width: ${width};--height: ${height};`;
+    const width = getComputedStyle(container03).width;
+    container03.style.cssText += `--width: ${width};`;
   }
 </script>

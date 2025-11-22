@@ -7,10 +7,6 @@ import bg07 from '@/images/with-js07/bg.jpg';
 import paris from '@/images/paris.jpg';
 import image14 from '/src/images/with-js14/bg.jpg';
 import image16 from '/src/images/with-js16/img.jpg';
-// js02
-const images02 = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/images/with-js02/*.png'
-);
 
 // js13
 const videos13 = import.meta.glob('/public/videos/*.mp4');
@@ -38,7 +34,7 @@ const img4 = '/src/images/animation17/img-4.jpg';
       <small class="absolute">Hover over text</small>
       <Js01 />
     </div>
-    <Js02 class="clip clip02" images={images02}>
+    <Js02 class="clip clip02">
       <section id="header" slot="header">
         <h3>Logo</h3>
         <nav>
@@ -50,16 +46,16 @@ const img4 = '/src/images/animation17/img-4.jpg';
       <section slot="content" class="content">
         <h3>Title</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ullam
-          inventore labore vitae cum dolor reprehenderit libero repellat?
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est eligendi
+          qui sapiente minima aliquam sequi quae ipsa maiores odio officiis.
         </p>
       </section>
       <h4 class="absolute">Scroll me</h4>
     </Js02>
-    <!--<div class="element row2">
-      <Js03 class="element03" />
+    <div class="element element03">
+      <Js03 class="" />
     </div>
-    <div class="element black">
+    <!--<div class="element black">
       <Js04 class="element04" />
     </div>
     <div class="element white row2 no-flex">
@@ -400,9 +396,11 @@ const img4 = '/src/images/animation17/img-4.jpg';
       .content {
         background: #222;
         padding: 1rem;
-        font-size: 1rem;
+        color: #ccc;
+        font-size: 0.8rem;
         h3 {
           margin-bottom: 1rem;
+          font-size: 1.2rem;
         }
       }
     }

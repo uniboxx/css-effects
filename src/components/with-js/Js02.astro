@@ -1,19 +1,29 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- title as string
+- images as import.meta.glob
+*/
+
 import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  heading?: string;
-  images: { [key: string]: () => Promise<{ default: ImageMetadata }> };
+  title?: string;
 }
 const {
   class: classList,
   duration = '.25s',
-  heading = 'JAVASCRIPT 02',
-  images,
+  title = 'JAVASCRIPT 02',
   ...attrs
 } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/with-js02/*.png'
+);
 
 const imagesPath = Object.keys(images);
 
@@ -40,7 +50,7 @@ const id = Math.random().toString(32).slice(2, 11);
         );
       })
     }
-    <h3 id="title">{heading}</h3>
+    <h3 id="title">{title}</h3>
   </section>
   <slot name="content" />
   <slot />

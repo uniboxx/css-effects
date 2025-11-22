@@ -26,18 +26,16 @@ if (!images[imagePath]) throw new Error(`${imagePath} does not exist`);
 // prettier-ignore
 const optBg = await getImage({ src: images[imagePath](), format: 'webp', loading: 'lazy',
 });
-const { width: calcWidth, height: calcHeight } = optBg.attributes;
-const ratio = calcWidth / calcHeight;
+
 const optRain = await getImage({
   src: rain,
   format: 'webp',
   loading: 'lazy',
 });
 const style = `--duration: ${duration};--bgUrl: url(${optBg.src}); --rainUrl: url(${optRain.src});`;
-const id = Math.random().toString(36).slice(2, 11);
 ---
 
-<div id={id} class:list={['container11', classList]} style={style} {...attrs}>
+<div class:list={['container11', classList]} style={style} {...attrs}>
   <div class="rain"></div>
 </div>
 
@@ -45,8 +43,9 @@ const id = Math.random().toString(36).slice(2, 11);
   .container11 {
     position: relative;
     background: var(--bgUrl) center / cover;
-    width: 20rem;
-    height: var(--height) !important;
+    aspect-ratio: 1.81;
+    width: 100%;
+    height: auto !important;
 
     .rain {
       position: absolute;
@@ -67,16 +66,3 @@ const id = Math.random().toString(36).slice(2, 11);
     }
   }
 </style>
-
-<script define:vars={{ id, ratio }}>
-  const container11 = document.getElementById(id);
-
-  calcSizes();
-  window.addEventListener('resize', calcSizes);
-
-  function calcSizes() {
-    const width = getComputedStyle(container11).width;
-    const height = `${(parseFloat(width) / parseFloat(ratio)).toFixed(2)}px !important;`;
-    container11.style.cssText += `--width: ${width};--height: ${height};`;
-  }
-</script>
