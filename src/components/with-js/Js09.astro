@@ -1,20 +1,35 @@
 ---
-import { Image } from 'astro:assets';
+/*INFORMATIONS:
+set optionally
+- class as string
+*/
 
-import bg from '@/images/with-js09/bg.png';
+import { Image, getImage } from 'astro:assets';
+
+const bg = '/src/images/with-js09/bg.png';
 import policeCar from '@/images/with-js09/police_car.gif';
-import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
 }
 const { class: classList, ...attrs } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/with-js09/*.{png,gif}'
+);
 
-const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
+const optBg = await getImage({
+  src: images[bg](),
+  width: 800,
+  format: 'webp',
+  loading: 'lazy',
+});
+
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<section id="container09" class={classList} {...attrs}>
+<section id={id} class:list={['container09', classList]} {...attrs}>
   <div class="scene">
+    <slot />
     <div class="sun"></div>
     <div class="bg" style={`--url: url(${optBg.src})`}>
       <Image
@@ -23,6 +38,7 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
         alt="police car"
         width={100}
         format="webp"
+        loading="lazy"
       />
       <Image
         class="car car2"
@@ -30,20 +46,28 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
         alt="police car"
         width={100}
         format="webp"
+        loading="lazy"
       />
     </div>
   </div>
 </section>
 
 <style>
-  #container09 {
-    height: 100%;
+  .container09 {
+    aspect-ratio: 2.1;
+    width: 20rem;
+    height: auto;
     .scene {
       --night-color: #222833;
       position: relative;
       background: linear-gradient(#a6d8ff, #fff, #fff);
       height: 100%;
-      overflow: hidden;
+      overflow: clip;
+      small {
+        padding: 1em 0.5em;
+        color: #0008;
+        font-size: 0.8em;
+      }
       &.night {
         background: var(--night-color);
         .sun {
@@ -61,6 +85,9 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
             pointer-events: none;
             content: '';
           }
+        }
+        small {
+          color: #fff8;
         }
       }
       .sun {
@@ -134,14 +161,20 @@ const optBg = await getImage({ src: bg, format: 'webp', height: 500 });
   }
 </style>
 
-<script>
-  const container = document.getElementById('container09') as HTMLDivElement;
-  const scene = container.querySelector('.scene') as HTMLDivElement;
-  const sun = scene.querySelector('.sun') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container09 = document.getElementById(id);
+  const scene = container09.querySelector('.scene');
+  const sun = scene.querySelector('.sun');
+  const sunMoon = scene.querySelector('.sunMoon');
 
-  container.style.cssText = `--width: ${container.clientWidth}px;`;
+  container09.style.cssText = `--width: ${container09.clientWidth}px;`;
 
   sun.addEventListener('click', () => {
     scene.classList.toggle('night');
+    if (Array.from(scene.classList).includes('night')) {
+      sunMoon.textContent = 'moon';
+    } else {
+      sunMoon.textContent = 'sun';
+    }
   });
 </script>

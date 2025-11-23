@@ -1,75 +1,92 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- imagePath as string
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath?: string;
   position?: string;
-  height?: number;
   width?: number;
+  height?: number;
   format?: string;
+  loading?: 'lazy' | 'eager' | null;
   text?: string;
 }
-const {
-  class: classList,
-  duration = '.2s',
-  image,
-  position = 'center',
+// prettier-ignore
+const { class: classList, duration = '.2s', imagePath = '/src/images/paris.jpg', position = 'center', width, height, format = 'webp',loading='lazy', text, ...attrs } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,png,webp,svg,avif}'
+);
+
+const optImg = await getImage({
+  src: images[imagePath](),
   width,
   height,
-  format = 'webp',
-  text,
-  ...attrs
-} = Astro.props;
-const optImg = await getImage({ src: image, width, height, format });
+  format,
+  loading,
+});
+const ratio =
+  Math.round((optImg.attributes.width / optImg.attributes.height) * 100) / 100;
+
+const style = `--url: url(${optImg.src});--ratio: ${ratio};--position: ${position};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
 <section
-  id="container15"
-  class={classList}
+  id={id}
+  class:list={['container15', classList]}
+  style={style}
   {...attrs}
-  style={`--url: url(${optImg.src})`}
 >
   <div class="bg">
-    <div class="side left"><span>{text}</span></div>
+    <div class="side left">
+      <slot name="scrollme" />
+    </div>
     <div class="side right"></div>
   </div>
   <slot />
 </section>
 
-<style define:vars={{ position }}>
-  #container15 {
+<style>
+  .container15 {
     position: relative;
-    height: 100%;
-    overflow-x: hidden;
+    aspect-ratio: var(--ratio);
+    width: 20rem;
+    height: auto;
+    overflow-x: clip;
     overflow-y: scroll;
     .bg {
       position: absolute;
-      top: 0;
-      left: 0;
       z-index: 100;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       .side {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0;
         background: var(--url);
         background-position: var(--position);
         background-size: cover;
         background-repeat: no-repeat;
         width: 100%;
         height: 100%;
+
         &.left {
-          position: relative;
           /* prettier-ignore */
           clip-path: polygon(0% 0%, 68% 0%, 33% 15%, 68% 24%, 35% 36%, 68% 44%, 35% 54%, 68% 64%, 36% 74%, 68% 85%, 36% 89%, 69% 100%, 0 100%);
           span {
             position: absolute;
             top: 20%;
             left: 35%;
-            color: #fff;
+            color: #fff8;
           }
         }
         &.right {
@@ -81,14 +98,14 @@ const optImg = await getImage({ src: image, width, height, format });
   }
 </style>
 
-<script>
-  const container = document.querySelector('#container15') as HTMLDivElement;
-  const bg = container.querySelector('.bg') as HTMLDivElement;
-  const left = container.querySelector('.left') as HTMLDivElement;
-  const right = container.querySelector('.right') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container15 = document.getElementById(id);
+  const bg = container15.querySelector('.bg');
+  const left = container15.querySelector('.left');
+  const right = container15.querySelector('.right');
 
-  container.addEventListener('scroll', () => {
-    const scroll = container.scrollTop;
+  container15.addEventListener('scroll', () => {
+    const scroll = container15.scrollTop;
     bg.style.top = `${scroll}px`;
     left.style.left = `${-scroll}px`;
     right.style.left = `${scroll}px`;

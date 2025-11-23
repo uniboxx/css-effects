@@ -1,38 +1,65 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- imagePath as string
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  image: ImageMetadata;
+  imagePath: string;
   height?: number;
   width?: number;
   format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
 const {
   class: classList,
   duration = '.2s',
-  image,
-  width,
+  imagePath,
+  width = 800,
   height,
   format = 'webp',
+  loading = 'lazy',
   ...attrs
 } = Astro.props;
-const optImg = await getImage({ src: image, width, height, format });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,png,svg}'
+);
+
+const optImg = await getImage({
+  src: images[imagePath](),
+  width,
+  height,
+  format,
+  loading,
+});
+const ratio =
+  Math.round((optImg.attributes.width / optImg.attributes.height) * 100) / 100;
 const regex = /(?<quantity>[\d\.]+)(?<unit>s|ms)/;
 const result = duration.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
 
 const interval = unit === 's' ? quantity * 1000 : quantity;
+
+const style = `--url: url(${optImg.src});--ratio: ${ratio};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
 <section
-  id="container14"
-  class={classList}
-  {...attrs}
+  id={id}
+  class:list={['container14', classList]}
+  style={style}
   data-interval={interval}
-  style={`--url: url(${optImg.src})`}
+  {...attrs}
 >
   <div class="content">
     {
@@ -45,19 +72,22 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
 </section>
 
 <style>
-  #container14 {
+  .container14 {
     position: relative;
-    height: 100%;
+    aspect-ratio: var(--ratio);
+    width: 20rem;
+    height: auto;
+    overflow: clip;
     .content {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      inset: 0;
       &,
       .box {
         position: absolute;
         background: var(--url);
         background-size: cover;
+        background-attachment: fixed;
       }
+
       .box {
         background-attachment: fixed;
       }
@@ -65,17 +95,21 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
   }
 </style>
 
-<script>
-  const container = document.getElementById('container14') as HTMLDivElement;
-  const boxes = container.querySelectorAll(
-    '.box'
-  ) as NodeListOf<HTMLDivElement>;
+<script define:vars={{ id, interval }}>
+  const container14 = document.getElementById(id);
+  const boxes = container14.querySelectorAll('.box');
 
-  const intervalTime = +container.dataset.interval!;
-  const containerWidth = container.clientWidth;
-  const containerHeight = container.clientHeight;
+  let containerWidth, containerHeight;
 
-  function genRand(max: number) {
+  window.addEventListener('resize', () => {
+    containerWidth = getComputedStyle(container14).width.replace('px', '');
+    containerHeight = getComputedStyle(container14).height.replace('px', '');
+  });
+
+  containerWidth = getComputedStyle(container14).width.replace('px', '');
+  containerHeight = getComputedStyle(container14).height.replace('px', '');
+
+  function genRand(max) {
     return parseFloat((Math.random() * max).toFixed(2));
   }
 
@@ -83,14 +117,14 @@ const interval = unit === 's' ? quantity * 1000 : quantity;
     boxes.forEach((box) => {
       const left = genRand(containerWidth);
       const top = genRand(containerHeight);
-      const height = genRand(containerHeight * 0.12);
       const width = genRand(containerWidth * 0.3);
+      const height = genRand(containerHeight * 0.12);
       const bgPosition = genRand(containerHeight * 0.06);
       box.style.left = `${left}px`;
       box.style.top = `${top}px`;
-      box.style.height = `${height}px`;
       box.style.width = `${width}px`;
+      box.style.height = `${height}px`;
       box.style.backgroundPosition = `${bgPosition}px`;
     });
-  }, intervalTime);
+  }, interval);
 </script>

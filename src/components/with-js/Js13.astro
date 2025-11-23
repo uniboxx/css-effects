@@ -1,46 +1,78 @@
 ---
+/*INFORMATIONS:
+videos must to be in the folder /public/videos
+set optionally
+- class as string
+- duration as string
+- videoPaths as array of strings
+- imagesData as array of objects with imagePath as string and alt as string
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  mediaData: {
-    videos: Record<string, () => Promise<unknown>>;
-    images: { [key: string]: () => Promise<{ default: ImageMetadata }> };
-    alts: string[];
-    width?: number;
-    height?: number;
-    format?: string;
-  };
+  videoPaths: string[];
+  imagesData: { imagePath: string; alt: string }[];
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
-let { class: classList, duration = '.5s', mediaData, ...attrs } = Astro.props;
-const { videos, images, alts, width, height, format } = mediaData;
-const videoUrls = Object.keys(videos).map((key) => {
-  return key.replace(/\/public(.+)/, '$1');
-});
-const videoSrcs = videoUrls.join(',');
-const firstVideoUrl = videoUrls[0];
-const imageUrls = Object.keys(images);
+const {
+  class: classList,
+  duration = '.5s',
+  videoPaths,
+  imagesData,
+  width = 400,
+  height,
+  format = 'webp',
+  loading = 'lazy',
+  ...attrs
+} = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,png,svg,avif,webp}'
+);
+
+const imagesNumber = imagesData.length;
+const imageWidth = `${Math.floor(100 / (imagesNumber + 2))}%`;
+const videoSrcs = videoPaths.join(',');
+const firstVideoSrc = videoPaths[0];
+
+const style = `--duration: ${duration};--imageWidth: ${imageWidth};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<section id="container13" class={classList} {...attrs}>
-  <video class="video" autoplay muted loop data-srcs={videoSrcs}>
-    <source src={firstVideoUrl} type="video/mp4" />
+<section
+  id={id}
+  class:list={['container13', classList]}
+  style={style}
+  {...attrs}
+>
+  <video autoplay muted loop data-srcs={videoSrcs}>
+    <source src={firstVideoSrc} type="video/mp4" />
   </video>
   <ul class="navigation">
     {
-      imageUrls.map((imageUrl, idx) => {
+      imagesData.map((imageData) => {
         // prettier-ignore
-        return (<li><Image src={images[imageUrl]()} alt={alts[idx]} width={width} height={height} format={format} /></li>);
+        return (<li><Image src={images[imageData.imagePath]()} alt={imageData.alt} width={width} height={height} format={format} loading={loading} /></li>);
       })
     }
   </ul>
 </section>
 
-<style define:vars={{ duration }}>
-  #container13 {
+<style>
+  .container13 {
     position: relative;
-    height: 100%;
+    aspect-ratio: 1.776;
+    width: 20rem;
+    height: auto;
     video {
       position: absolute;
       top: 0;
@@ -59,46 +91,41 @@ const imageUrls = Object.keys(images);
       gap: 0.5rem;
       transform: translateX(-50%);
       z-index: 100;
+      width: 100%;
       list-style: none;
       li {
         opacity: 0.7;
+        transition: var(--duration);
         cursor: pointer;
         background-color: #fff;
         padding: 1px;
+        width: var(--imageWidth);
 
         img {
-          width: var(--img-width);
+          display: block;
+          width: 100%;
           height: auto;
         }
-        &,
-        & img {
-          transition: var(--duration);
-        }
+
         &:hover {
           opacity: 1;
-          img {
-            width: calc(var(--img-width) / 3 * 5);
-          }
+          width: calc(var(--imageWidth) / 3 * 4);
         }
       }
     }
   }
 </style>
 
-<script>
-  const container = document.getElementById('container13') as HTMLDivElement;
-  const video = container.querySelector('.video') as HTMLVideoElement;
-  const thumbs = container.querySelectorAll(
-    'ul li'
-  ) as NodeListOf<HTMLLIElement>;
+<script define:vars={{ id }}>
+  const container = document.getElementById(id);
+  const video = container.querySelector('video');
+  const thumbs = container.querySelectorAll('ul li');
   const videoSrcs = video.dataset.srcs?.split(',');
 
-  const containerWidth = container.clientWidth;
-  container.style.cssText = `--img-width: ${containerWidth / 10}px`;
   // thumbs linsteners
   thumbs.forEach((thumb, idx) => {
     thumb.addEventListener('click', () => {
-      video.src = videoSrcs?.[idx] || '';
+      video.src = videoSrcs?.[idx];
     });
   });
 </script>

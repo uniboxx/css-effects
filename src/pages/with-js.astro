@@ -8,23 +8,29 @@ const image14 = '/src/images/with-js14/bg.jpg';
 const image16 = '/src/images/with-js16/img.jpg';
 
 // js13
-const videos13 = import.meta.glob('/public/videos/*.mp4');
-
 const images13 = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/with-js13/*.jpg'
 );
+const videos13Paths = [
+  '/videos/video1.mp4',
+  '/videos/video2.mp4',
+  '/videos/video3.mp4',
+  '/videos/video4.mp4',
+];
+const images13Paths = Object.keys(images13);
+const alts13 = ['video1', 'video2', 'video3', 'video4'];
+const imagesData13 = images13Paths.map((imagePath, idx) => ({
+  imagePath,
+  alt: alts13[idx],
+}));
 
-const media13 = {
-  videos: videos13,
-  images: images13,
-  alts: ['video1', 'video2', 'video3', 'video4'],
-  width: 1000,
-  format: 'webp',
-};
-const img1 = '/src/images/animation17/img-1.jpg';
-const img2 = '/src/images/animation17/img-2.jpg';
-const img3 = '/src/images/animation17/img-3.jpg';
-const img4 = '/src/images/animation17/img-4.jpg';
+// js17
+const images17Paths = [
+  '/src/images/animation17/img-1.jpg',
+  '/src/images/animation17/img-2.jpg',
+  '/src/images/animation17/img-3.jpg',
+  '/src/images/animation17/img-4.jpg',
+];
 ---
 
 <BaseLayout title="With Js">
@@ -56,57 +62,37 @@ const img4 = '/src/images/animation17/img-4.jpg';
     <Js05 class="js js05"><span>scroll me</span></Js05>
     <Js06 class="js js06"><small>Scroll me</small></Js06>
     <Js07 class="js js07">
-      <section>
-        <SampleContent />
-      </section>
+      <SampleContent />
     </Js07>
     <Js08 class="js js08">
       Javascript<br /><span>08</span>
     </Js08>
-    <!--<div class="element row2 no-flex">
-      <Js09 class="element09" />
-    </div>
-    <div class="element row2 no-flex">
-      <Js10 class="element10" />
-    </div>
-    <div class="element no-flex">
-      <Js11 class="element11" />
-    </div>
-    <div class="element no-flex row2">
-      <Js12 class="element12" bg={paris} position="center bottom">
-        <div class="x2height">
-          <h3>Javascript 12 <br /><span>scroll me</span></h3>
-        </div>
-      </Js12>
-    </div>
-    <div class="element no-flex row2">
-      <Js13 class="element13" mediaData={media13} />
-    </div>
-    <div class="element no-flex row2">
-      <Js14 class="element14" image={image14} width={1000} />
-    </div>
-    <div class="element no-flex row2">
-      <Js15
-        class="element15"
-        image={paris}
-        position="center bottom"
-        width={1000}
-        text="Scroll me"
-        ;
-      >
-        <SampleContent class="sample" />
-      </Js15>
-    </div>
-
-    <div class="element black">
+    <Js09 class="js js09"
+      ><small>Click on <span class="sunMoon">sun</span></small></Js09
+    >
+    <Js10 />
+    <Js11 class="js js11" />
+    <Js12 class="js js12">
+      <h3>Javascript 12 <br /><small>scroll me</small></h3>
+    </Js12>
+    <Js13
+      class="js js13"
+      videoPaths={videos13Paths}
+      imagesData={imagesData13}
+    />
+    <Js14 class="js js14" imagePath={image14} />
+    <Js15 class="js js15" position="center bottom">
+      <span slot="scrollme">Scroll me</span>
+      <SampleContent class="sample" />
+    </Js15>
+    <div class="element element16">
       <Js16
-        class="element16"
+        class="js js16"
         user={{
-          image: image16,
+          imagePath: image16,
+          alt: 'user',
           details: { name: 'Alaa Gomaa', job: 'Web Developer' },
         }}
-        alt="user"
-        width={100}
         iconNames={[
           'ion:heart-outline',
           'ion:person-outline',
@@ -114,8 +100,7 @@ const img4 = '/src/images/animation17/img-4.jpg';
         ]}
       />
     </div>
-
-    <div class="element row2 no-flex">
+    <!--<div class="element row2 no-flex">
       <Js17
         class="element17"
         iconNames={[
@@ -151,216 +136,216 @@ const img4 = '/src/images/animation17/img-4.jpg';
       <span>I love Css</span>
     </Js21>-->
   </div>
-</BaseLayout>
 
-<style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 20rem));
-    justify-content: center;
-    place-items: center;
-    gap: 2rem;
-    margin: 3rem 0;
-    .element {
-      display: flex;
-      position: relative;
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 20rem));
       justify-content: center;
-      align-items: center;
-      small {
-        color: #fff8;
-        font-size: 0.8em;
-      }
+      place-items: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      /* overflow-x: clip; */
+      .element {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        small {
+          color: #fff8;
+          font-size: 0.8em;
+        }
 
-      .absolute {
-        position: absolute;
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-      }
-      &.no-flex {
-        display: block;
-      }
-      &.row2 {
-        height: calc(var(--height) * 2);
-      }
-      &.row3 {
-        height: calc(var(--height) * 3);
-      }
+        .absolute {
+          position: absolute;
+          top: 10%;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1000;
+        }
+        &.no-flex {
+          display: block;
+        }
+        &.row2 {
+          height: calc(var(--height) * 2);
+        }
+        &.row3 {
+          height: calc(var(--height) * 3);
+        }
 
-      &.black {
-        background-color: #222;
-        color: #fafafa;
-      }
-      &.white {
-        background-color: #fff;
-        color: #000;
-      }
-      .x2height {
-        height: 200%;
-      }
-      a {
-        text-decoration: none;
-      }
-
-      .element10 {
-        background: linear-gradient(45deg, #8460ed, #ff1252);
-      }
-      .element11 {
-        background-color: #20415c;
-      }
-      .element12 {
-        background-color: #fff;
+        &.black {
+          background-color: #222;
+          color: #fafafa;
+        }
+        &.white {
+          background-color: #fff;
+          color: #000;
+        }
         .x2height {
-          padding: 1em;
-          h3 {
-            background-clip: text;
-            -webkit-text-stroke: 1px #fff;
-            color: transparent;
-            font-size: 2em;
-            span {
-              color: #fff;
-              font-weight: 100;
-              font-size: 0.5em;
-            }
+          height: 200%;
+        }
+        a {
+          text-decoration: none;
+        }
+
+        .js15 {
+          .sample {
+            position: relative;
+            padding: 400px 2rem 2rem;
           }
         }
-      }
-      .element15 {
-        .sample {
-          position: relative;
-          padding: 400px 2rem 2rem;
+        .element17 {
+          background: #0f296d;
+        }
+        .element18 {
+          color: #fff;
+          font-weight: 700;
+          font-size: 2rem;
+          letter-spacing: 2px;
+        }
+        &.element19 {
+          font-size: 1.5rem;
+        }
+        &.element20 {
+          border-radius: 5px;
+          @media screen and (min-width: 40rem) {
+            grid-column: span 2;
+            width: 100%;
+            height: 15rem;
+          }
+        }
+        &.element21 {
+          white-space: nowrap;
         }
       }
-      .element17 {
-        background: #0f296d;
+      .js {
       }
-      .element18 {
+      .js02,
+      .js05,
+      .js06,
+      .js07,
+      .js08,
+      .js09,
+      .js11,
+      .js12,
+      .js13,
+      .js14,
+      .js15 {
+        width: 100%;
+      }
+      .js01 {
+        padding: 2rem 1rem 1rem;
+      }
+      .js02 {
+        position: relative;
+        background-color: #f9f9f9;
         color: #fff;
         font-weight: 700;
-        font-size: 2rem;
-        letter-spacing: 2px;
-      }
-      &.element19 {
         font-size: 1.5rem;
-      }
-      &.element20 {
-        border-radius: 5px;
-        @media screen and (min-width: 40rem) {
-          grid-column: span 2;
+
+        h4.absolute {
+          position: absolute;
+          top: 5%;
           width: 100%;
-          height: 15rem;
-        }
-      }
-      &.element21 {
-        white-space: nowrap;
-      }
-    }
-    .js {
-    }
-    .js02,
-    .js06,
-    .js07,
-    .js08 {
-      width: 100%;
-    }
-    .js01 {
-      padding: 2rem 1rem 1rem;
-    }
-    .js02 {
-      position: relative;
-      background-color: #f9f9f9;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.5rem;
-
-      h4.absolute {
-        position: absolute;
-        top: 5%;
-        width: 100%;
-        color: #0008;
-        font-weight: normal;
-        font-size: 1rem;
-        text-align: center;
-      }
-
-      #header {
-        --color: #359381;
-        display: flex;
-        position: absolute;
-        top: 0;
-        left: 0;
-        align-items: center;
-        gap: 1em;
-        z-index: 100;
-        padding: 1.5em;
-        font-size: 0.8rem;
-        h3 {
-          color: var(--color);
-          font-size: 1.2rem;
+          color: #0008;
+          font-weight: normal;
+          font-size: 1rem;
+          text-align: center;
         }
 
-        nav {
-          a {
-            transition: 0.5s;
-            border-radius: 20px;
-            padding: 0.25em 0.4em;
+        #header {
+          --color: #359381;
+          display: flex;
+          position: absolute;
+          top: 0;
+          left: 0;
+          align-items: center;
+          gap: 1em;
+          z-index: 100;
+          padding: 1.5em;
+          font-size: 0.8rem;
+          h3 {
             color: var(--color);
-            font-weight: 500;
-            text-decoration: none;
-            &:hover {
-              background-color: var(--color);
-              color: #fff;
+            font-size: 1.2rem;
+          }
+
+          nav {
+            a {
+              transition: 0.5s;
+              border-radius: 20px;
+              padding: 0.25em 0.4em;
+              color: var(--color);
+              font-weight: 500;
+              text-decoration: none;
+              &:hover {
+                background-color: var(--color);
+                color: #fff;
+              }
             }
           }
         }
-      }
-      .content {
-        background: #222;
-        padding: 1rem;
-        color: #ccc;
-        font-size: 0.8rem;
-        h3 {
-          margin-bottom: 1rem;
-          font-size: 1.2rem;
+        .content {
+          background: #222;
+          padding: 1rem;
+          color: #ccc;
+          font-size: 0.8rem;
+          h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+          }
         }
       }
-    }
 
-    .js04 {
-      padding: 2rem 1rem;
-    }
-    .js05 {
-      span {
-        color: #fff8;
-        font-size: 0.5em;
+      .js04 {
+        padding: 2rem 1rem;
       }
-    }
-    .js06 {
-      small {
-        color: #fff8;
-        font-size: 0.9rem;
+      .js05 {
+        span {
+          color: #fff8;
+          font-size: 0.5em;
+        }
       }
-    }
-    .js07 {
-      section {
-        margin: 4rem auto;
-        box-shadow: 0 10px 30px #0003;
+      .js06 {
+        small {
+          color: #fff8;
+          font-size: 0.9rem;
+        }
+      }
+      .js11 {
+        background: #20415c;
+        padding: 2rem 0 1rem;
+        max-width: 18rem;
+      }
+      .js12 {
         background-color: #fff;
-        padding: 1rem;
-        width: 80%;
         h3 {
-          margin-bottom: 1rem;
+          background-clip: text;
+          padding: 10px;
+          -webkit-text-stroke: 1px #fff;
+          color: transparent;
+          font-size: 1.5em;
+          small {
+            -webkit-text-stroke: 0px;
+            color: #fff8;
+            font-weight: 400;
+            font-size: 0.7em;
+          }
         }
       }
-    }
+      .js15 {
+        .sample {
+          position: relative;
+          padding: 15rem 2rem 2rem;
+        }
+      }
 
-    @media screen and (min-width: 40rem) {
-      .element {
-        &.col2 {
-          grid-column: span 2;
+      @media screen and (min-width: 40rem) {
+        .element {
+          &.col2 {
+            grid-column: span 2;
+          }
         }
       }
     }
-  }
-</style>
+  </style>
+</BaseLayout>

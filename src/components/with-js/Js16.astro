@@ -1,28 +1,59 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- imagePath as string
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 import { Icon } from 'astro-icon/components';
 import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
   duration?: string;
-  user: { image: ImageMetadata; details: { name: string; job: string } };
-  alt: string;
+  user: {
+    imagePath: string;
+    alt: string;
+    details: { name: string; job: string };
+  };
   width?: number;
   height?: number;
   format?: string;
+  loading?: 'lazy' | 'eager' | null;
   iconNames: string[];
 }
 // prettier-ignore
-const { class: classList, duration='.5s', user, alt, width, height, format = 'webp', iconNames, ...attrs } = Astro.props;
+const { class: classList, duration='.5s', user, width=100, height, format = 'webp', loading = 'lazy', iconNames, ...attrs } = Astro.props;
 
 const {
-  image,
+  imagePath,
+  alt,
   details: { name, job },
 } = user;
-const optImg = await getImage({ src: image, width, height, format });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,png,webp,svg,avif}'
+);
+const optImg = await getImage({
+  src: images[imagePath](),
+  width,
+  height,
+  format,
+});
+
+const style = `--duration: ${duration};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<section id="container16" class={classList} {...attrs}>
+<section
+  id={id}
+  class:list={['container16', classList]}
+  style={style}
+  {...attrs}
+>
   <div class="menu">
     <div class="user">
       <div class="imgBox">
@@ -44,36 +75,38 @@ const optImg = await getImage({ src: image, width, height, format });
   </div>
 </section>
 
-<style define:vars={{ duration }}>
-  #container16 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+<style>
+  .container16 {
+    background: #222;
+    text-align: center;
+
+    &,
+    .menu,
+    .user,
+    .details,
+    .navigation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .menu {
+      flex-wrap: wrap;
       gap: 0.3em;
-      &,
-      .user,
-      .details,
-      span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
       .user {
-        gap: 0.5em;
+        gap: 0.4em;
         border-radius: 0.5em;
         background: #fff;
         padding: 0.5em;
         height: 4em;
         color: black;
         .imgBox {
+          --size: 2.6em;
           border-radius: 0.3em;
-          width: 3em;
-          height: 3em;
-          overflow: hidden;
+          width: var(--size);
+          height: var(--size);
+          overflow: clip;
           img {
+            display: block;
             width: 100%;
             height: 100%;
           }
@@ -82,21 +115,19 @@ const optImg = await getImage({ src: image, width, height, format });
           flex-direction: column;
           h3 {
             font-weight: 600;
+            font-size: 0.8em;
           }
           p {
             color: #0009;
             font-weight: 500;
-            font-size: 0.8em;
+            font-size: 0.6em;
           }
         }
       }
     }
     .navigation {
       --size: 0.3em;
-      display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       gap: var(--size);
       transition: var(--duration);
       cursor: pointer;
@@ -105,24 +136,29 @@ const optImg = await getImage({ src: image, width, height, format });
       width: 2.5em;
       height: 4em;
       span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 50%;
         background: #000;
         width: var(--size);
         height: var(--size);
+        pointer-events: none;
         a {
           transition: var(--duration);
+          color: #fff;
           font-size: 0em;
         }
       }
 
       &.active {
-        --size: 2.5em;
+        --size: 2em;
         flex-direction: row;
-        gap: calc(var(--size) / 3);
-        width: 10em;
+        gap: calc(var(--size) / 4);
+        width: 8em;
         span {
           a {
-            font-size: 1.25em;
+            font-size: 0.9em;
           }
           &:hover {
             background: #273c75;
@@ -133,11 +169,25 @@ const optImg = await getImage({ src: image, width, height, format });
   }
 </style>
 
-<script>
-  const container = document.getElementById('container16') as HTMLDivElement;
-  const navigation = container.querySelector('.navigation') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container16 = document.getElementById(id);
+  const navigation = container16.querySelector('.navigation');
+  const spans = navigation.querySelectorAll('span');
 
-  navigation.addEventListener('click', () => {
-    navigation.classList.toggle('active');
+  const spansArray = Array.from(spans);
+  console.log('🚀 ~ :176 ~ spansArray:', spansArray);
+
+  navigation.addEventListener('click', (e) => {
+    const target = e.target;
+    console.log('🚀 ~ :180 ~ target:', target);
+
+    if (!navigation.classList.contains('active')) {
+      navigation.classList.toggle('active');
+    } else if (
+      !Array.from(spans).includes(target) &&
+      navigation.classList.contains('active')
+    ) {
+      navigation.classList.toggle('active');
+    }
   });
 </script>

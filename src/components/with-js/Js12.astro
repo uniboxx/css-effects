@@ -1,42 +1,72 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- imagePath as string
+- width and/or height as numbers
+- format as string (default: 'webp')
+- loading as 'lazy' | 'eager' | null (default: 'lazy')
+*/
+
 import { getImage } from 'astro:assets';
 
 interface Props {
   class?: string;
-  bg: ImageMetadata;
+  imagePath?: string;
   position?: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  loading?: 'lazy' | 'eager' | null;
 }
-let { class: classList, bg, position = 'center', ...attrs } = Astro.props;
+let {
+  class: classList,
+  imagePath = '/src/images/paris.jpg',
+  position = 'center bottom',
+  width = 800,
+  height,
+  format = 'webp',
+  loading = 'lazy',
+  ...attrs
+} = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/**/*.{jpg,png,svg}'
+);
 
-const optBg = await getImage({ src: bg, format: 'webp' });
+const optBg = await getImage({
+  src: images[imagePath](),
+  width,
+  height,
+  format: 'webp',
+  loading,
+});
+const ratio =
+  Math.round((optBg.attributes.width / optBg.attributes.height) * 100) / 100;
+
+const style = `--url: url(${optBg.src});--position: ${position};--ratio: ${ratio};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<section
-  id="container12"
-  class={classList}
-  style={`--url: url(${optBg.src})`}
-  {...attrs}
->
-  <div class="section">
+<div id={id} class:list={['container12', classList]} style={style} {...attrs}>
+  <div class="div">
     <div class="skewed"></div>
     <slot />
   </div>
-</section>
+</div>
 
-<style define:vars={{ position }}>
-  #container12 {
+<style>
+  .container12 {
     position: relative;
-    height: 100%;
+    aspect-ratio: var(--ratio);
+    width: 20rem;
+    height: auto;
     overflow-y: scroll;
 
-    .section {
+    .div {
       position: absolute;
-      background: var(--url);
-      background-position: center bottom;
-      background-size: cover;
-      background-repeat: no-repeat;
-      width: 100%;
-      height: 100%;
+      inset: 0;
+      background: var(--url) var(--position) / cover no-repeat;
       .skewed {
         position: absolute;
         bottom: -100%;
@@ -51,13 +81,13 @@ const optBg = await getImage({ src: bg, format: 'webp' });
   }
 </style>
 
-<script>
-  const container = document.getElementById('container12') as HTMLDivElement;
-  const skewed = container.querySelector('.skewed') as HTMLDivElement;
-  const containerHeight = container.clientHeight;
+<script define:vars={{ id }}>
+  const container12 = document.getElementById(id);
+  const skewed = container12.querySelector('.skewed');
+  const containerHeight = container12.clientHeight;
 
-  container.addEventListener('scroll', () => {
-    const scroll = container.scrollTop;
+  container12.addEventListener('scroll', () => {
+    const scroll = container12.scrollTop;
     const skewY = parseFloat(
       ((scroll / containerHeight) * 10 * 1.5).toFixed(2)
     );

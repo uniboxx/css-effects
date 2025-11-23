@@ -1,4 +1,11 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- icons as array of strings (icon names)
+*/
+
 import { Icon } from 'astro-icon/components';
 
 interface Props {
@@ -19,9 +26,17 @@ const {
   ],
   ...attrs
 } = Astro.props;
+
+const style = `--duration: ${duration};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<section id="container10" class={classList} {...attrs}>
+<section
+  id={id}
+  class:list={['container10', classList]}
+  style={style}
+  {...attrs}
+>
   <div class="toggle">
     <Icon name="ion:add-outline" />
   </div>
@@ -30,7 +45,7 @@ const {
       icons.map((icon, idx) => {
         return (
           <li style={`--n: ${idx}`}>
-            <a href="">
+            <a href="#">
               <Icon name={icon} />
             </a>
           </li>
@@ -40,11 +55,13 @@ const {
   </ul>
 </section>
 
-<style define:vars={{ duration }}>
-  #container10 {
+<style>
+  .container10 {
     position: relative;
-    width: 100%;
-    height: 100%;
+    background: linear-gradient(45deg, #8460ed, #ff1252);
+    width: 12rem;
+    height: 12rem;
+    overflow: clip;
     .menu {
       list-style: none;
     }
@@ -73,7 +90,7 @@ const {
         transform: rotate(45deg);
       }
       .menu li a {
-        top: 10%;
+        top: 13%;
       }
     }
     .menu {
@@ -107,11 +124,11 @@ const {
   }
 </style>
 
-<script>
-  const container = document.getElementById('container10') as HTMLDivElement;
-  const toggle = container.querySelector('.toggle') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container10 = document.getElementById(id);
+  const toggle = container10.querySelector('.toggle');
 
   toggle.addEventListener('click', () => {
-    container.classList.toggle('active');
+    container10.classList.toggle('active');
   });
 </script>

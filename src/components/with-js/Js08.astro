@@ -1,4 +1,9 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+*/
+
 interface Props {
   class?: string;
 }
@@ -19,6 +24,7 @@ const id = Math.random().toString(32).slice(2, 11);
     aspect-ratio: 1.5;
     width: 20rem;
     height: auto;
+    overflow-x: clip;
     font-size: 2rem;
     i {
       position: absolute;
@@ -55,7 +61,7 @@ const id = Math.random().toString(32).slice(2, 11);
         animation: floating08 5s ease-in-out infinite;
         color: #fff;
         font-weight: normal;
-        font-size: 1em;
+        font-size: 1.5em;
         line-height: 1;
         text-align: center;
         text-shadow:
@@ -65,7 +71,7 @@ const id = Math.random().toString(32).slice(2, 11);
           4px 4px 0 #0003;
         span {
           font-weight: 700;
-          font-size: 1em;
+          font-size: 0.8em;
           text-shadow:
             2px 2px 0 #ccc,
             3px 3px 0 #ccc,
