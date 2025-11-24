@@ -77,7 +77,7 @@ const id = Math.random().toString(32).slice(2, 11);
 
 <style>
   .container16 {
-    background: #222;
+    width: min(20rem, 100%);
     text-align: center;
 
     &,
@@ -144,6 +144,9 @@ const id = Math.random().toString(32).slice(2, 11);
         width: var(--size);
         height: var(--size);
         a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           transition: var(--duration);
           color: #fff;
           font-size: 0em;
@@ -172,16 +175,15 @@ const id = Math.random().toString(32).slice(2, 11);
   const container16 = document.getElementById(id);
   const navigation = container16.querySelector('.navigation');
   const icons = navigation.querySelectorAll('.icon');
-  console.log('🚀 ~ :176 ~ icons:', icons);
 
-  navigation.addEventListener('click', (e) => {
-    const target = e.target;
+  navigation.addEventListener('click', () => {
     if (!navigation.classList.contains('active')) {
       navigation.classList.add('active');
-    } else {
-      if (!Array.from(icons).some((icon) => icon.contains(target))) {
-        navigation.classList.remove('active');
-      }
+    }
+  });
+  window.addEventListener('click', (e) => {
+    if (!navigation.contains(e.target)) {
+      navigation.classList.remove('active');
     }
   });
 </script>

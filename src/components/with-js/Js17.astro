@@ -1,4 +1,13 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- size as string
+- iconNames as array of strings
+- colors as string ('<bgColor>, <dotColor>, <bgIcon>, <colorIcon>, <colorHoverIcon>, ')
+*/
+
 import { Icon } from 'astro-icon/components';
 
 interface Props {
@@ -17,9 +26,12 @@ const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
 const result = size.match(regex)!;
 const quantity = +result.groups?.quantity!;
 const unit = result.groups?.unit!;
+
+const style = `--duration: ${duration};--size: ${size};--bgColor: ${bgColor};--dotColor: ${dotColor};--bgIcon: ${bgIcon};--colorIcon: ${colorIcon};--colorHoverIcon: ${colorHoverIcon};`;
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div id="container17" class={classList} {...attrs}>
+<div id={id} class:list={['container17', classList]} style={style} {...attrs}>
   <section class="navigation">
     {
       iconNames.map((icon, idx) => {
@@ -35,22 +47,11 @@ const unit = result.groups?.unit!;
 </div>
 
 <!-- prettier-ignore -->
-<style
-  define:vars={{
-    duration,
-    size,
-    bgColor,
-    dotColor,
-    bgIcon,
-    colorIcon,
-    colorHoverIcon,
-  }}
->
-  #container17 {
+<style>
+  .container17 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     .navigation {
       display: flex;
       position: relative;
@@ -77,8 +78,11 @@ const unit = result.groups?.unit!;
         width: calc(var(--size) / 10);
         height: calc(var(--size) / 10);
         a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           transition: var(--duration);
-          color: #fff;
+          color: var(--colorIcon);
           font-size: 0em;
         }
       }
@@ -91,9 +95,9 @@ const unit = result.groups?.unit!;
           background: var(--bgIcon);
           width: calc(var(--size) * 0.6);
           height: calc(var(--size) * 0.6);
-          color: var(--colorIcon);
           a {
             font-size: 1.35em;
+
             &:hover {
               color: var(--colorHoverIcon);
             }
@@ -104,11 +108,16 @@ const unit = result.groups?.unit!;
   }
 </style>
 
-<script>
-  const container = document.getElementById('container17') as HTMLDivElement;
-  const navigation = container.querySelector('.navigation') as HTMLDivElement;
+<script define:vars={{ id }}>
+  const container17 = document.getElementById(id);
+  const navigation = container17.querySelector('.navigation');
 
   navigation.addEventListener('click', () => {
-    navigation.classList.toggle('active');
+    navigation.classList.add('active');
+  });
+  window.addEventListener('click', (e) => {
+    if (!navigation.contains(e.target)) {
+      navigation.classList.remove('active');
+    }
   });
 </script>

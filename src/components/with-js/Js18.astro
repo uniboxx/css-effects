@@ -1,51 +1,56 @@
 ---
+/*INFORMATIONS:
+set optionally
+- class as string
+- duration as string
+- text as strimg
+*/
+
 interface Props {
   class?: string;
   duration?: string;
   text?: string;
 }
 // prettier-ignore
-const { class: classList, duration='3s', text="Javascript 18 wavy effect", ...attrs } = Astro.props;
+const { class: classList, duration='2.5s', text="Javascript 18", ...attrs } = Astro.props;
 
 const textArray = text.split('');
-let index = 0;
-const regex = /(?<quantity>[\d\.]+)(?<unit>[a-z]+)/;
-const result = duration.match(regex)!;
-const quantity = +result.groups?.quantity!;
-const unit = result.groups?.unit!;
+
+const style = `--duration: ${duration};`;
 ---
 
-<div id="container18" class={classList} {...attrs}>
+<div class:list={['container18', classList]} style={style} {...attrs}>
   <h3 id="text">
     {
-      textArray.map((letter) => {
+      textArray.map((letter, idx) => {
         if (letter === ' ') return letter;
-        return (
-          <span
-            style={`--delay: ${(index++ * quantity) / textArray.length}${unit}`}
-          >
-            {letter}
-          </span>
-        );
+
+        const delay = `calc(var(--duration) * ${Math.round((idx / textArray.length) * 100) / 100} )`;
+
+        return <span style={`--delay: ${delay}`}>{letter}</span>;
       })
     }
   </h3>
 </div>
 
-<!-- prettier-ignore -->
-<style
-  define:vars={{
-    duration,
-  }}
->
-  #container18 {
+<style>
+  .container18 {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    background: #222;
+    padding: 2rem 1rem;
+    width: 20rem;
+    max-width: 100%;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
 
     h3 {
       font: inherit;
+      font-size: 2rem;
       span {
         display: inline-block;
         position: relative;
@@ -62,14 +67,7 @@ const unit = result.groups?.unit!;
       transform: translateY(0px);
     }
     25% {
-      transform: translateY(calc(var(--height) / -3));
+      transform: translateY(-1em);
     }
   }
 </style>
-
-<script>
-  const container = document.getElementById('container18') as HTMLDivElement;
-
-  const containerHeight = container.clientHeight;
-  container.style.cssText = `--height: ${containerHeight}px;`;
-</script>

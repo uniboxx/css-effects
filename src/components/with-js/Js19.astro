@@ -12,11 +12,13 @@ interface Props {
 }
 const { class: classList, duration = '3s', ...attrs } = Astro.props;
 const style = `--duration: ${duration};`;
+
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
 <div
-  id="container17_unibox"
-  class:list={['container17', classList]}
+  id={id}
+  class:list={['container19', classList]}
   style={style}
   data-duration={duration}
   {...attrs}
@@ -25,26 +27,25 @@ const style = `--duration: ${duration};`;
 </div>
 
 <style>
-  .container17 {
+  .container19 {
     transition: calc(var(--duration) / 1.5);
-    padding: 1em;
-    width: 15rem;
+    padding: 2em 1em;
+    width: 20rem;
+    max-width: 100%;
     text-align: center;
+    h3 {
+      font-size: 2rem;
+    }
   }
 </style>
 
-<script>
-  const container = document.getElementById(
-    'container17_unibox'
-  ) as HTMLDivElement;
-  const duration = container.dataset.duration!;
-  const regex = /(?<time>[\d\.]+)(?<unit>s|ms)/;
-  const result = duration.match(regex)!;
-  let time = +result.groups?.time!;
-  const unit = result.groups?.unit!;
-  if (unit === 's') {
-    time *= 1000;
-  }
+<script define:vars={{ id, duration }}>
+  const container = document.getElementById(id);
+
+  const time = duration.match('ms')
+    ? parseFloat(duration)
+    : parseFloat(duration) * 1000;
+
   function hslGen() {
     const h = Math.floor(Math.random() * 361);
     const s = parseFloat(

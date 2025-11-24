@@ -1,80 +1,62 @@
 ---
-import { Image } from 'astro:assets';
-
 /*
 INFORMATIONS
+set
+- varTexts as string with texts separated by commas
 set optionally:
 - class as string
-- images as array of objects with imagePath as string and alt as string
-- width and/or height as numbers
-- format as string
-- loading as 'lazy' | 'eager' | null
+- duration as string 'value and s | ms'
 - timeToKeep as string 'value and s | ms'
-- transitionDuration as string 'value and s | ms'
+- varColor as string
 */
 
 interface Props {
   class?: string;
-  images: { imagePath: string; alt: string }[];
-  width?: number;
-  height?: number;
-  format?: string;
-  loading?: 'lazy' | 'eager' | null;
+  duration?: string;
   timeToKeep?: string;
-  transitionDuration?: string;
+  varTexts?: string;
+  varColor?: string;
 }
 const {
   class: classList,
-  images: imagesData,
-  width = 800,
-  height,
-  format = 'webp',
-  loading = 'lazy',
+  duration = '1s',
   timeToKeep = '4s',
-  transitionDuration = '2s',
+  varTexts = 'TRANSITIONS, ANIMATIONS, TRANSFORMS',
+  varColor = '#ff0',
   ...attrs
 } = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/**/*.{jpg,jpeg,png,webp,avif,svg,gif,eps,raw,bmp,tiff,ico}'
-);
-imagesData.forEach((imgData) => {
-  if (!images[imgData.imagePath])
-    throw new Error(`${imgData.imagePath} does not exist`);
-});
 
-const style = `--timeToKeep: ${timeToKeep};--transitionDuration: ${transitionDuration};`;
+const halfDuration = duration.match('ms')
+  ? parseFloat(duration) / 2
+  : (parseFloat(duration) * 1000) / 2;
+
+const text1 = varTexts.split(',')[0];
+const style = `--halfDuration: ${halfDuration}ms;--varColor: ${varColor};`;
+
+const id = Math.random().toString(32).slice(2, 11);
 ---
 
-<div
-  id="slider19_unibox"
-  class:list={['slider19', classList]}
-  style={style}
-  data-duration={timeToKeep}
-  {...attrs}
->
-  {
-    imagesData.map((imgData, idx) => {
-      // prettier-ignore
-      return <Image class:list={[{ visible: idx === 0 }]} src={images[imgData.imagePath]()} alt={imgData.alt} width={width} height={height} format={format} loading={idx === 0 ? 'eager' : 'lazy'} />
-    })
-  }
-</div>
+<h3 id={id} class={classList} style={style} {...attrs}>
+  <slot />
+  <span class="visible">{text1}</span>
+</h3>
 
 <style>
-  .slider19 {
-    position: relative;
-    width: 15rem;
-    height: 7.5rem;
-    img {
-      display: block;
-      position: absolute;
+  h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
+    background: #ea2027;
+    padding: 1em;
+    width: fit-content;
+    max-width: 100%;
+    color: #fff;
+    font-size: 1.2rem;
+    span:last-of-type {
       opacity: 0;
-      transition: var(--transitionDuration) ease-in-out;
-      inset: 0;
-      border-radius: inherit;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      transition: var(--halfDuration) ease-in-out;
+      color: var(--varColor);
       &.visible {
         opacity: 1;
       }
@@ -82,28 +64,23 @@ const style = `--timeToKeep: ${timeToKeep};--transitionDuration: ${transitionDur
   }
 </style>
 
-<script>
-  const slider = document.getElementById('slider19_unibox') as HTMLDivElement;
-  const imgs = slider.querySelectorAll('img') as NodeListOf<HTMLImageElement>;
-  const length = imgs.length;
-  const duration = slider.dataset.duration!;
-  const regex = /(?<time>[\d\.]+)(?<unit>(s|ms)$)/;
-  const result = duration.match(regex)!;
-  const time = +result.groups?.time!;
-  const unit = result.groups?.unit!;
-  let timeToKeep = time;
-  if (unit === 's') {
-    timeToKeep = time * 1000;
-  }
+<script define:vars={{ id, halfDuration, timeToKeep, varTexts }}>
+  const h3 = document.getElementById(id);
+  const varSpan = h3.querySelector('span:last-of-type');
 
-  function switcher() {
-    let index = 0;
-    setInterval(() => {
-      imgs[index].classList.remove('visible');
-      index = (index + 1) % length;
-      imgs[index].classList.add('visible');
-    }, timeToKeep);
-  }
+  const texts = varTexts.split(',');
 
-  switcher();
+  const interval = timeToKeep.match('ms')
+    ? parseFloat(timeToKeep)
+    : parseFloat(timeToKeep) * 1000 + halfDuration;
+
+  let index = 0;
+  setInterval(() => {
+    varSpan.classList.remove('visible');
+    index = (index + 1) % texts?.length;
+    setTimeout(() => {
+      varSpan.textContent = texts[index];
+      varSpan.classList.add('visible');
+    }, halfDuration);
+  }, interval);
 </script>
